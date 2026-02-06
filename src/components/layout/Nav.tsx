@@ -1,12 +1,14 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Nav() {
   return (
     <nav aria-label="Main navigation" className="fixed top-0 w-full bg-background/80 backdrop-blur-sm z-50 border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="text-primary font-semibold text-lg">
+        <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="text-primary font-semibold text-lg cursor-pointer">
           noobwork
-        </Link>
+        </a>
         <div className="flex items-center gap-6 text-sm text-foreground/70">
           <a href="#about" className="hover:text-primary transition-colors">About</a>
           <a href="#work" className="hover:text-primary transition-colors">Work</a>
