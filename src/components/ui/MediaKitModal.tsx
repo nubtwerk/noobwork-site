@@ -17,12 +17,34 @@ function subscribe() {
 function MediaKitForm() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email) return;
-    // TODO: Wire up to newsletter provider (ConvertKit, Mailchimp, etc.)
-    setSubmitted(true);
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, formId: "media-kit" }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return submitted ? (
@@ -30,22 +52,29 @@ function MediaKitForm() {
       You&apos;re on the list! I&apos;ll notify you when it launches.
     </div>
   ) : (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
-        required
-        className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <button
-        type="submit"
-        className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
-      >
-        Notify Me
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          required
+          disabled={loading}
+          className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors disabled:opacity-50"
+        >
+          {loading ? "Submitting..." : "Notify Me"}
+        </button>
+      </form>
+      {error && (
+        <p className="mt-3 text-sm text-red-600">{error}</p>
+      )}
+    </>
   );
 }
 
