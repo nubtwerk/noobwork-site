@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
-:root {
-  --background: #FAF7F2;
-  --foreground: #3D2E24;
-  --primary: #7C3AED;
+@theme {
+  --color-background: #FAF7F2;
+  --color-foreground: #3D2E24;
+  --color-primary: #7C3AED;
+  --color-primary-hover: #6D28D9;
+  --color-accent: #F59E0B;
+  --color-border: #E8E4DF;
+  --color-surface: #FFFFFF;
 }
 
 html {
@@ -11,7 +15,14 @@ html {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--color-foreground);
+  background: var(--color-background);
   font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
