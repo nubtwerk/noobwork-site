@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const FORMS: Record<string, { formId?: string; apiKey?: string }> = {
-  newsletter: {
-    formId: process.env.KIT_FORM_ID_NEWSLETTER,
-    apiKey: process.env.KIT_API_KEY_NEWSLETTER,
-  },
-  "media-kit": {
-    formId: process.env.KIT_FORM_ID_MEDIA_KIT,
-    apiKey: process.env.KIT_API_KEY_MEDIA_KIT,
-  },
+const FORM_IDS: Record<string, string | undefined> = {
+  newsletter: process.env.KIT_FORM_ID_NEWSLETTER,
+  "media-kit": process.env.KIT_FORM_ID_MEDIA_KIT,
 };
 
 export async function POST(request: NextRequest) {
@@ -25,12 +19,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Email is required" }, { status: 400 });
   }
 
-  if (!formId || !(formId in FORMS)) {
+  if (!formId || !(formId in FORM_IDS)) {
     return NextResponse.json({ error: "Invalid form ID" }, { status: 400 });
   }
 
-  const { formId: kitFormId, apiKey } = FORMS[formId];
-  if (!kitFormId || !apiKey) {
+  const kitFormId = FORM_IDS[formId];
+  if (!kitFormId) {
+    return NextResponse.json(
+      { error: "Subscription is not configured" },
+      { status: 500 }
+    );
+  }
+
+  const apiKey = process.env.KIT_API_KEY;
+  if (!apiKey) {
     return NextResponse.json(
       { error: "Subscription is not configured" },
       { status: 500 }
