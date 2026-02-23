@@ -42,7 +42,7 @@ export default function Newsletter() {
       <div className="max-w-2xl mx-auto text-center">
         <AnimatedSection>
           <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-3xl font-bold text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">
             Stay in the <span className="text-accent">Loop</span>
           </h2>
           <p className="text-foreground/60 mb-8">

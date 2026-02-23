@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 
 export default function Hero() {
@@ -22,12 +23,12 @@ export default function Hero() {
             Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus — combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
           </p>
           <div className="flex gap-4 mb-8">
-            <a href="#work" className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors">
+            <Link href="/#work" className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors">
               View My Work
-            </a>
-            <a href="#connect" className="bg-surface text-foreground px-6 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors">
+            </Link>
+            <Link href="/#connect" className="bg-surface text-foreground px-6 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors">
               Get in Touch
-            </a>
+            </Link>
           </div>
           <div className="flex items-center gap-6 text-sm text-foreground/60">
             <div className="flex items-center gap-2">

@@ -44,7 +44,11 @@ export default function MediaKit() {
                 <AnimatedSection key={stat.label} delay={i * 0.1}>
                   <div className="bg-background rounded-xl p-6 text-center border border-sand">
                     <div className="text-3xl md:text-4xl font-bold text-accent mb-2">
-                      <CountUp target={stat.numericValue!} suffix={stat.suffix} />
+                      {stat.numericValue != null ? (
+                        <CountUp target={stat.numericValue} suffix={stat.suffix} />
+                      ) : (
+                        <span>{stat.value}</span>
+                      )}
                     </div>
                     <p className="text-sm text-foreground/60">{stat.label}</p>
                   </div>
