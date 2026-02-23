@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import SkipToContent from "@/components/layout/SkipToContent";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const newake = localFont({
+  src: "../fonts/NewakeFont-Demo.otf",
+  variable: "--font-newake",
+  weight: "700",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Joachim Haraldsen - Creator, Entrepreneur, Esports Pioneer",
@@ -39,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`${inter.variable} ${newake.variable} scroll-smooth`}>
       <body className={inter.className}>
         <JsonLd />
         <SkipToContent />
