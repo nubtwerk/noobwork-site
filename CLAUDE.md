@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Joachim Haraldsen (noobwork.no). Static site with no backend, API routes, database, or CMS — all content is hardcoded in React components.
+Premium lifestyle creator brand website for Joachim Haraldsen (noobwork.no). Single-page portfolio + Media Kit page. ConvertKit API integration for newsletter/media-kit signups. All content hardcoded in React components and data files.
 
 ## Commands
 
@@ -25,21 +25,31 @@ No test framework is configured.
 
 Single-page portfolio using the Next.js App Router. The entire app lives in `src/app/`:
 
-- `layout.tsx` — Root layout with Inter font, SEO metadata (Open Graph, Twitter Card)
-- `page.tsx` — The full portfolio page (nav, hero, about, work/ventures, connect, footer) as one component
+- `layout.tsx` — Root layout with NEWAKE + Inter fonts, SEO metadata (Open Graph, Twitter Card)
+- `page.tsx` — Main page: Hero, SocialProof, About, ContentPillars, Work, Newsletter, Connect
+- `media-kit/page.tsx` — Dedicated Media Kit page for brand partnerships
 - `globals.css` — Tailwind imports and CSS custom properties for the design system
+- `api/subscribe/route.ts` — ConvertKit newsletter/media-kit subscription endpoint
 
 Path alias: `@/*` maps to `./src/*`
 
 ## Design System
 
-CSS custom properties defined in `globals.css`:
-- `--background: #FAF7F2` (cream)
-- `--foreground: #3D2E24` (dark brown)
-- `--primary: #7C3AED` (purple/violet)
+Based on the **NOOBWORK 2026 Brand Guidelines**.
 
-The site uses a warm color palette with purple accents. Responsive via Tailwind's `md:` and `lg:` breakpoints, mobile-first.
+**Typography:** NEWAKE Bold (headings/display) + Inter (body). NEWAKE loaded as local font from `src/fonts/`.
+
+**Colors** (CSS custom properties in `globals.css`):
+- `--background: #DEC8A8` (beige)
+- `--foreground: #2D1B14` (brown)
+- `--primary: #3F5438` (Tokyo Green)
+- `--accent: #7B4B9E` (Purple Light)
+- `--sand: #C4B49A` (sand/borders)
+
+**Brand tone:** Premium, warm, grounded. No neon, no gamer cliches. Refined aesthetic with subtle gaming heritage nods.
+
+Responsive via Tailwind's `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. No environment variables required.
+Standard Vercel-compatible Next.js setup. Environment variables: `KIT_API_KEY`, `KIT_FORM_ID_NEWSLETTER`, `KIT_FORM_ID_MEDIA_KIT` for ConvertKit integration.
