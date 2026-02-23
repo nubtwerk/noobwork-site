@@ -43,7 +43,7 @@ export default function Newsletter() {
         <AnimatedSection>
           <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
           <h2 className="text-3xl font-bold text-foreground mb-2">
-            Stay in the <span className="text-primary">Loop</span>
+            Stay in the <span className="text-accent">Loop</span>
           </h2>
           <p className="text-foreground/60 mb-8">
             Get occasional updates on new ventures, content, and behind-the-scenes insights.
@@ -62,7 +62,7 @@ export default function Newsletter() {
                 placeholder="your@email.com"
                 required
                 disabled={loading}
-                className="flex-1 px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                className="flex-1 px-4 py-3 rounded-lg border border-sand bg-background text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
               />
               <button
                 type="submit"

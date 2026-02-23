@@ -8,8 +8,8 @@ import { mediaKitStats } from "@/data/stats";
 import { audienceDemographics, contentCategories, partnershipTypes } from "@/data/media-kit";
 
 export const metadata: Metadata = {
-  title: "Media Kit - Joachim Haraldsen (Noobwork)",
-  description: "Partnership opportunities with Joachim Haraldsen. Audience stats, demographics, content categories, and collaboration options.",
+  title: "Media Kit — Noobwork | Joachim Haraldsen",
+  description: "Partner with Noobwork. Audience stats, demographics, content verticals, and collaboration opportunities with Joachim Haraldsen.",
 };
 
 export default function MediaKit() {
@@ -21,8 +21,8 @@ export default function MediaKit() {
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Media <span className="text-primary">Kit</span>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+                Media <span className="text-accent">Kit</span>
               </h1>
               <p className="text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
                 I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
@@ -35,15 +35,15 @@ export default function MediaKit() {
         <section className="py-16 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Audience <span className="text-primary">Overview</span>
               </h2>
             </AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {mediaKitStats.map((stat, i) => (
                 <AnimatedSection key={stat.label} delay={i * 0.1}>
-                  <div className="bg-background rounded-xl p-6 text-center border border-border">
-                    <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                  <div className="bg-background rounded-xl p-6 text-center border border-sand">
+                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">
                       <CountUp target={stat.numericValue!} suffix={stat.suffix} />
                     </div>
                     <p className="text-sm text-foreground/60">{stat.label}</p>
@@ -58,14 +58,14 @@ export default function MediaKit() {
         <section className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Audience <span className="text-primary">Demographics</span>
               </h2>
             </AnimatedSection>
             <div className="grid md:grid-cols-3 gap-6">
               {audienceDemographics.map((item, i) => (
                 <AnimatedSection key={item.label} delay={i * 0.1}>
-                  <div className="bg-surface rounded-xl p-6 text-center border border-border">
+                  <div className="bg-surface rounded-xl p-6 text-center border border-sand">
                     <p className="text-sm text-foreground/50 mb-1">{item.label}</p>
                     <p className="text-2xl font-bold text-foreground mb-1">{item.value}</p>
                     <p className="text-sm text-foreground/60">{item.description}</p>
@@ -80,15 +80,15 @@ export default function MediaKit() {
         <section className="py-16 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Content <span className="text-primary">Categories</span>
               </h2>
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-6">
               {contentCategories.map((cat, i) => (
                 <AnimatedSection key={cat.title} delay={i * 0.1}>
-                  <div className="bg-background rounded-xl p-6 border border-border">
-                    <h3 className="font-semibold text-lg text-foreground mb-2">{cat.title}</h3>
+                  <div className="bg-background rounded-xl p-6 border border-sand">
+                    <h3 className="font-semibold text-lg text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">{cat.title}</h3>
                     <p className="text-foreground/70">{cat.description}</p>
                   </div>
                 </AnimatedSection>
@@ -101,15 +101,15 @@ export default function MediaKit() {
         <section className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Partnership <span className="text-primary">Types</span>
               </h2>
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-6">
               {partnershipTypes.map((type, i) => (
                 <AnimatedSection key={type.title} delay={i * 0.1}>
-                  <div className="bg-surface rounded-xl p-6 border border-border">
-                    <h3 className="font-semibold text-lg text-foreground mb-2">{type.title}</h3>
+                  <div className="bg-surface rounded-xl p-6 border border-sand">
+                    <h3 className="font-semibold text-lg text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">{type.title}</h3>
                     <p className="text-foreground/70">{type.description}</p>
                   </div>
                 </AnimatedSection>
@@ -122,23 +122,22 @@ export default function MediaKit() {
         <section className="py-20 px-6 bg-surface">
           <div className="max-w-2xl mx-auto text-center">
             <AnimatedSection>
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Let&apos;s Work <span className="text-primary">Together</span>
+              <h2 className="text-3xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+                Let&apos;s Work <span className="text-accent">Together</span>
               </h2>
               <p className="text-foreground/60 mb-8">
                 Interested in a partnership? I&apos;d love to hear about your brand and explore how we can create something great together.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                {/* TODO: Add actual media-kit.pdf to public/ when ready */}
-                <a
-                  href="/media-kit.pdf"
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
+                <span
+                  className="bg-primary/40 text-white/60 px-8 py-3 rounded-lg font-medium cursor-not-allowed select-none"
+                  aria-disabled="true"
                 >
-                  Download PDF
-                </a>
+                  PDF Coming Soon
+                </span>
                 <a
                   href="mailto:joachim@noobwork.no"
-                  className="bg-background text-foreground px-8 py-3 rounded-lg font-medium border border-border hover:border-primary transition-colors"
+                  className="bg-background text-foreground px-8 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors"
                 >
                   Get in Touch
                 </a>

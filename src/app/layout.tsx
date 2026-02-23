@@ -14,11 +14,11 @@ const newake = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Joachim Haraldsen - Creator, Entrepreneur, Esports Pioneer",
-  description: "Norwegian creator based in Tokyo. Building at the intersection of gaming, technology, and entertainment. Forbes featured entrepreneur.",
+  title: "Noobwork — Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
+  description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
   openGraph: {
-    title: "Joachim Haraldsen - Creator, Entrepreneur, Esports Pioneer",
-    description: "Norwegian creator based in Tokyo. Building at the intersection of gaming, technology, and entertainment.",
+    title: "Noobwork — Joachim Haraldsen",
+    description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     url: "https://www.noobwork.no",
     siteName: "Noobwork",
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "https://www.noobwork.no/joachim.jpg",
         width: 500,
         height: 600,
-        alt: "Joachim Haraldsen - Creator and Entrepreneur",
+        alt: "Joachim Haraldsen - Noobwork",
       },
     ],
     locale: "en_US",
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Joachim Haraldsen - Creator, Entrepreneur, Esports Pioneer",
-    description: "Norwegian creator based in Tokyo. Building at the intersection of gaming, technology, and entertainment.",
+    title: "Noobwork — Joachim Haraldsen",
+    description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     images: ["https://www.noobwork.no/joachim.jpg"],
   },
 };

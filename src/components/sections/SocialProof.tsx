@@ -4,7 +4,7 @@ const brands = ["Forbes", "Blast.tv", "Heroic", "YouTube", "Nåva Space"];
 
 export default function SocialProof() {
   return (
-    <section className="py-12 px-6 bg-surface border-y border-border">
+    <section className="py-12 px-6 bg-surface border-y border-sand">
       <div className="max-w-6xl mx-auto text-center">
         <AnimatedSection>
           <p className="text-xs uppercase tracking-widest text-foreground/40 mb-6">

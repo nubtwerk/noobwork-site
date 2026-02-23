@@ -1,8 +1,13 @@
+import Logo from "@/components/ui/Logo";
+
 export default function Footer() {
   return (
-    <footer className="py-8 px-6 bg-foreground text-white/60 text-center text-sm">
-      <p>&copy; {new Date().getFullYear()} Joachim Haraldsen. Built with ☕ in Tokyo.</p>
-      <p className="mt-2">🇳🇴 🇯🇵</p>
+    <footer className="py-12 px-6 bg-foreground text-white/60 text-center text-sm">
+      <div className="mb-4">
+        <Logo variant="monogram" className="text-white/40" />
+      </div>
+      <p>&copy; {new Date().getFullYear()} Noobwork. All rights reserved.</p>
+      <p className="mt-1">Built in Tokyo</p>
     </footer>
   );
 }

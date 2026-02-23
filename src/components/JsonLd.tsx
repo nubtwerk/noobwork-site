@@ -6,6 +6,7 @@ export default function JsonLd() {
     alternateName: "Noobwork",
     url: "https://www.noobwork.no",
     image: "https://www.noobwork.no/joachim.jpg",
+    description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
     jobTitle: "Creator & Entrepreneur",
     sameAs: [
       "https://youtube.com/user/Noobworkify",

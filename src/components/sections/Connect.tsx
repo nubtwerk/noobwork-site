@@ -19,7 +19,7 @@ export default function Connect() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="flex items-center gap-2 px-6 py-3 bg-background rounded-lg border border-border hover:border-primary hover:-translate-y-0.5 hover:shadow-md transition-all"
+                className="flex items-center gap-2 px-6 py-3 bg-background rounded-lg border border-sand hover:border-primary hover:-translate-y-0.5 hover:shadow-md transition-all"
               >
                 <SocialIcon iconName={social.iconName} />
                 <span className="text-foreground">{social.name}</span>
