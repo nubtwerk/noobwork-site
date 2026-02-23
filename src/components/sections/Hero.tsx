@@ -13,29 +13,32 @@ export default function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-            Creator &bull; Entrepreneur &bull; Esports Pioneer
+            Tokyo Lifestyle &bull; Personal Development &bull; Gaming Heritage
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Hey, I&apos;m <span className="text-primary">Joachim</span>
+          <h1 className="font-[family-name:var(--font-newake)] text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 uppercase tracking-tight">
+            NOOBWORK.
           </h1>
           <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-            Norwegian creator based in Tokyo. Building at the intersection of gaming, technology, and entertainment. Forbes featured entrepreneur.
+            Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus — combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
           </p>
           <div className="flex gap-4 mb-8">
             <a href="#work" className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors">
               View My Work
             </a>
-            <a href="#connect" className="bg-surface text-foreground px-6 py-3 rounded-lg font-medium border border-border hover:border-primary transition-colors">
+            <a href="#connect" className="bg-surface text-foreground px-6 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors">
               Get in Touch
             </a>
           </div>
           <div className="flex items-center gap-6 text-sm text-foreground/60">
             <div className="flex items-center gap-2">
-              <span className="text-primary">★</span>
-              <span>Forbes Featured</span>
+              <span className="text-accent font-semibold">Forbes</span>
+              <span>Featured</span>
             </div>
             <div>
-              <span className="font-semibold text-foreground">200K+</span> YouTube subscribers
+              <span className="font-semibold text-foreground">200K+</span> subscribers
+            </div>
+            <div>
+              <span className="font-semibold text-foreground">12+</span> years creating
             </div>
           </div>
         </motion.div>

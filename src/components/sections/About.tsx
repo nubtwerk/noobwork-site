@@ -9,20 +9,20 @@ export default function About() {
     <section id="about" className="py-20 px-6 bg-surface">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
-          <SectionHeader title="About" highlight="Me" subtitle="The story so far" />
+          <SectionHeader title="About" highlight="Joachim" subtitle="The story behind the brand" />
         </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-12">
           <AnimatedSection delay={0.1}>
             <div className="space-y-6 text-foreground/80 leading-relaxed">
               <p>
-                I&apos;m a Norwegian content creator and entrepreneur who&apos;s been shaping the gaming and esports landscape for over a decade. In 2013, I pioneered content creation on YouTube in Norway, building <span className="text-primary font-medium">Noobwork</span> — my internet persona — into a community of nearly <span className="font-semibold">200,000 subscribers</span>. In a country of 5 million people, reaching this scale in Norwegian-language gaming content is a remarkable achievement.
+                I&apos;m <span className="text-primary font-medium">Joachim Haraldsen</span> — a Norwegian creator and entrepreneur based in Tokyo. In 2013, I created Noobwork and pioneered gaming content on YouTube in Norway, building a community of nearly <span className="font-semibold">200,000 subscribers</span>.
               </p>
               <p>
-                I founded <span className="text-primary font-medium">Heroic Group</span> from scratch and built it into one of the largest esports organizations in the world. The journey earned me recognition with a <span className="font-semibold">Forbes feature</span>, and I successfully sold the company to pursue new ventures.
+                I founded <span className="text-primary font-medium">Heroic Group</span> from scratch and built it into one of the largest esports organizations in the world, earning a <span className="font-semibold">Forbes feature</span> along the way. After successfully selling the company, I moved to Tokyo to start the next chapter.
               </p>
               <p>
-                Now based in <span className="font-semibold">Tokyo, Japan</span>, I continue to build at the intersection of gaming, technology, and entertainment.
+                Now, after a seven-year hiatus, <span className="text-primary font-medium">Noobwork</span> is back — reimagined as a premium lifestyle brand at the intersection of personal development, <span className="font-semibold">Tokyo lifestyle</span>, and gaming heritage.
               </p>
             </div>
           </AnimatedSection>

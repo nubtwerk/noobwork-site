@@ -1,1 +1,1 @@
-export const interests = ["Gaming", "Esports", "Fitness", "Japanese Culture", "Piano"];
+export const interests = ["Tokyo Lifestyle", "Fitness", "Gaming", "Esports", "Japanese Culture", "Personal Growth", "Piano"];
