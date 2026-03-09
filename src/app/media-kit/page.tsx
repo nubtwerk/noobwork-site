@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -8,7 +8,7 @@ import { mediaKitStats } from "@/data/stats";
 import { audienceDemographics, contentCategories, partnershipTypes } from "@/data/media-kit";
 
 export const metadata: Metadata = {
-  title: "Media Kit — Noobwork | Joachim Haraldsen",
+  title: "Media Kit - Noobwork | Joachim Haraldsen",
   description: "Partner with Noobwork. Audience stats, demographics, content verticals, and collaboration opportunities with Joachim Haraldsen.",
 };
 
@@ -17,7 +17,6 @@ export default function MediaKit() {
     <div className="min-h-screen bg-background">
       <Nav />
       <main id="main-content" className="pt-24">
-        {/* Header */}
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
@@ -31,7 +30,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Audience Stats */}
         <section className="py-16 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
@@ -58,7 +56,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Demographics */}
         <section className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
@@ -80,7 +77,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Content Categories */}
         <section className="py-16 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
@@ -101,7 +97,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Partnership Types */}
         <section className="py-16 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
@@ -122,7 +117,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Download & Contact CTAs */}
         <section className="py-20 px-6 bg-surface">
           <div className="max-w-2xl mx-auto text-center">
             <AnimatedSection>
@@ -130,15 +124,17 @@ export default function MediaKit() {
                 Let&apos;s Work <span className="text-accent">Together</span>
               </h2>
               <p className="text-foreground/60 mb-8">
-                Interested in a partnership? I&apos;d love to hear about your brand and explore how we can create something great together.
+                Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <span
-                  className="bg-primary/40 text-white/60 px-8 py-3 rounded-lg font-medium cursor-not-allowed select-none"
-                  aria-disabled="true"
+                <a
+                  href="https://beacons.ai/noobwork"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
                 >
-                  PDF Coming Soon
-                </span>
+                  Follow on Beacons
+                </a>
                 <a
                   href="mailto:joachim@noobwork.no"
                   className="bg-background text-foreground px-8 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors"
@@ -150,7 +146,6 @@ export default function MediaKit() {
           </div>
         </section>
 
-        {/* Back link */}
         <section className="py-8 px-6 text-center">
           <Link href="/" className="text-primary hover:underline text-sm">
             &larr; Back to home

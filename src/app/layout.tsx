@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import SkipToContent from "@/components/layout/SkipToContent";
@@ -14,10 +14,10 @@ const newake = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Noobwork — Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
+  title: "Noobwork - Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
   description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
   openGraph: {
-    title: "Noobwork — Joachim Haraldsen",
+    title: "Noobwork - Joachim Haraldsen",
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     url: "https://www.noobwork.no",
     siteName: "Noobwork",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Noobwork — Joachim Haraldsen",
+    title: "Noobwork - Joachim Haraldsen",
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     images: ["https://www.noobwork.no/joachim.jpg"],
   },

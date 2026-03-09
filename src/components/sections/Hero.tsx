@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,13 +14,13 @@ export default function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-            Tokyo Lifestyle &bull; Personal Development &bull; Gaming Heritage
+            Tokyo Lifestyle | Personal Development | Gaming Heritage
           </p>
           <h1 className="font-[family-name:var(--font-newake)] text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 uppercase tracking-tight">
             NOOBWORK.
           </h1>
           <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-            Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus — combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
+            Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus - combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
           </p>
           <div className="flex gap-4 mb-8">
             <Link href="/#work" className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors">
