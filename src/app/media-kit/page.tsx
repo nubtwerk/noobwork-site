@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
-import { audienceDemographics, contentCategories, partnershipTypes } from "@/data/media-kit";
+import { audienceDemographics, contentCategories, partnershipProcess, partnershipTypes } from "@/data/media-kit";
 
 export const metadata: Metadata = {
   title: "Media Kit - Noobwork | Joachim Haraldsen",
@@ -24,7 +24,7 @@ export default function MediaKit() {
                 Media <span className="text-accent">Kit</span>
               </h1>
               <p className="text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-                I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
+                Over a decade of building authentic communities in gaming, esports, and entertainment. Let&apos;s build something together.
               </p>
             </AnimatedSection>
           </div>
@@ -114,6 +114,46 @@ export default function MediaKit() {
                 </AnimatedSection>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="py-20 px-6 bg-surface">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-3xl md:text-4xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
+                How It <span className="text-primary">Works</span>
+              </h2>
+            </AnimatedSection>
+            <div className="grid md:grid-cols-4 gap-6">
+              {partnershipProcess.map((item, i) => (
+                <AnimatedSection key={item.step} delay={i * 0.1}>
+                  <div className="text-center">
+                    <span className="text-3xl font-[family-name:var(--font-newake)] text-primary/30 uppercase tracking-tight">{item.step}</span>
+                    <h3 className="font-[family-name:var(--font-newake)] text-lg uppercase tracking-tight text-foreground mt-2 mb-2">{item.title}</h3>
+                    <p className="text-sm text-foreground/60">{item.description}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <AnimatedSection>
+              <h2 className="text-3xl md:text-4xl text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+                Recent <span className="text-primary">Work</span>
+              </h2>
+              <p className="text-foreground/60 mb-8 max-w-xl mx-auto">
+                New partnerships and content launching Q2 2026. Reach out to be among the first collaborators in the next chapter.
+              </p>
+              <a
+                href="mailto:joachim@noobwork.no"
+                className="inline-block bg-primary text-background px-8 py-3 rounded-full font-semibold hover:bg-primary-hover transition-colors"
+              >
+                Discuss a Partnership
+              </a>
+            </AnimatedSection>
           </div>
         </section>
 
