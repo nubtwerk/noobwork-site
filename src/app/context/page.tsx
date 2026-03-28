@@ -252,13 +252,13 @@ export default async function ContextPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/context/llm.txt"
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
+                  className="bg-primary text-background px-8 py-3 rounded-full font-semibold hover:bg-primary-hover transition-colors"
                 >
                   View llm.txt
                 </a>
                 <Link
                   href="/media-kit"
-                  className="bg-background text-foreground px-8 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors"
+                  className="bg-offwhite text-foreground px-8 py-3 rounded-full font-semibold border border-sand hover:border-primary transition-colors"
                 >
                   Media Kit
                 </Link>

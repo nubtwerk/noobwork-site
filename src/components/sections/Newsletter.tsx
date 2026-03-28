@@ -18,7 +18,7 @@ export default function Newsletter() {
               href="https://beacons.ai/noobwork"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
+              className="inline-block bg-primary text-background px-8 py-3 rounded-full font-semibold hover:bg-primary-hover transition-colors"
             >
               Subscribe
             </a>
