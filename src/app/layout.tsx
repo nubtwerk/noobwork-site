@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
 import SkipToContent from "@/components/layout/SkipToContent";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
@@ -51,6 +52,7 @@ export default function RootLayout({
         <JsonLd />
         <SkipToContent />
         {children}
+        <Analytics />
       </body>
     </html>
   );
