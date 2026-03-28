@@ -1,7 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import SocialProof from "@/components/sections/SocialProof";
 import About from "@/components/sections/About";
 import ContentPillars from "@/components/sections/ContentPillars";
 import Work from "@/components/sections/Work";
@@ -14,7 +13,6 @@ export default function Home() {
       <Nav />
       <main id="main-content">
         <Hero />
-        <SocialProof />
         <About />
         <ContentPillars />
         <Work />
