@@ -34,7 +34,7 @@ export default function About() {
           <AnimatedSection delay={0.2}>
             <div className="space-y-6">
               <div className="bg-background rounded-3xl p-8">
-                <h3 className="font-semibold text-foreground mb-4">Current Focus</h3>
+                <h3 className="font-[family-name:var(--font-newake)] text-xl uppercase tracking-tight text-foreground mb-4">Current Focus</h3>
                 <ul className="space-y-1 text-foreground/95 text-[1.05rem] leading-snug">
                   {focusItems.map((item) => (
                     <li key={item.label} className="flex items-center gap-2">
@@ -45,7 +45,7 @@ export default function About() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-4">Interests</h3>
+                <h3 className="font-[family-name:var(--font-newake)] text-xl uppercase tracking-tight text-foreground mb-4">Interests</h3>
                 <div className="flex flex-wrap gap-2">
                   {interests.map((interest) => (
                     <InterestTag key={interest} label={interest} />
