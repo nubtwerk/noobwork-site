@@ -16,6 +16,7 @@ export default function AnimatedSection({ children, delay = 0, className }: Anim
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>
