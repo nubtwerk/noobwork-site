@@ -9,7 +9,12 @@ export default function About() {
     <section id="about" className="py-20 px-6 bg-surface">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
-          <SectionHeader title="About" highlight="Joachim" subtitle="The story behind the brand" />
+          <SectionHeader
+            title="About"
+            highlight="Joachim"
+            subtitle="The story behind the brand"
+            highlightClassName="text-accent"
+          />
         </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -27,19 +32,19 @@ export default function About() {
             </div>
           </AnimatedSection>
           <AnimatedSection delay={0.2}>
-            <div className="space-y-8">
-              <div className="bg-background rounded-xl p-6">
+            <div className="space-y-6">
+              <div className="bg-background rounded-3xl p-8">
                 <h3 className="font-semibold text-foreground mb-4">Current Focus</h3>
-                <ul className="space-y-2 text-foreground/70">
+                <ul className="space-y-1 text-foreground/95 text-[1.05rem] leading-snug">
                   {focusItems.map((item) => (
                     <li key={item.label} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                      <span className="w-1.5 h-1.5 bg-foreground rounded-full"></span>
                       {item.label}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-background rounded-xl p-6">
+              <div>
                 <h3 className="font-semibold text-foreground mb-4">Interests</h3>
                 <div className="flex flex-wrap gap-2">
                   {interests.map((interest) => (

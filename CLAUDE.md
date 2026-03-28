@@ -34,16 +34,21 @@ Path alias: `@/*` maps to `./src/*`.
 
 ## Design System
 
-Based on the **NOOBWORK 2026 Brand Guidelines**.
+Based on the **NOOBWORK 2026 Brand Guidelines**. Full specification in `DESIGN.md` (colors, typography, spacing, component patterns, do's/don'ts). All changes must follow `DESIGN.md`.
 
-**Typography:** NEWAKE Bold (headings/display) + Inter (body). NEWAKE loaded as a local font from `src/fonts/`.
+Figma source: https://www.figma.com/design/a75Y0hDzd5ymqFUeOleJnv/NOOBWORK_Brandbook-2026
+
+**Typography:** NEWAKE (headings/display, uppercase) + Inter (body). NEWAKE loaded as a local font from `src/fonts/`.
 
 **Colors** (CSS custom properties in `globals.css`):
-- `--background: #DEC8A8` (beige)
-- `--foreground: #2D1B14` (brown)
-- `--primary: #3F5438` (Tokyo Green)
-- `--accent: #7B4B9E` (Purple Light)
-- `--sand: #C4B49A` (sand/borders)
+- `--background: #ECD8BF` (beige)
+- `--foreground: #2E1D23` (brown)
+- `--primary: #2C3930` (Tokyo Green)
+- `--primary-hover: #3F4F44` (Light Green)
+- `--accent: #511B5D` (Purple Dark)
+- `--accent-light: #B111D5` (Purple Light)
+- `--sand: #A27B5D` (sand/borders)
+- `--surface: #F8F8F8` (off-white cards/sections)
 
 **Brand tone:** Premium, warm, grounded. No neon, no gamer cliches. Refined aesthetic with subtle gaming heritage nods.
 

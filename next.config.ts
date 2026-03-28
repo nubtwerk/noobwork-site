@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: configDir,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/.well-known/llm.txt",
+        destination: "/context/llm.txt",
+      },
+    ];
+  },
   async headers() {
     return [
       {
