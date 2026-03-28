@@ -15,6 +15,7 @@ const newake = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.noobwork.no"),
   title: "Noobwork - Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
   description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
   openGraph: {
@@ -22,14 +23,6 @@ export const metadata: Metadata = {
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     url: "https://www.noobwork.no",
     siteName: "Noobwork",
-    images: [
-      {
-        url: "https://www.noobwork.no/joachim.jpg",
-        width: 500,
-        height: 600,
-        alt: "Joachim Haraldsen - Noobwork",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -37,7 +30,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Noobwork - Joachim Haraldsen",
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
-    images: ["https://www.noobwork.no/joachim.jpg"],
   },
 };
 
