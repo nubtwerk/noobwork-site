@@ -49,7 +49,7 @@ export default function ContentPillars() {
           </div>
         </div>
       </section>
-      <div className="h-40 bg-gradient-to-b from-primary via-primary/30 to-surface" />
+      <div className="h-48" style={{ background: "linear-gradient(to bottom, #2C3930 0%, #F8F8F8 40%)" }} />
     </>
   );
 }
