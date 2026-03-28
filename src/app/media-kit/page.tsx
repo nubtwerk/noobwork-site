@@ -30,7 +30,7 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6 bg-surface">
+        <section className="py-20 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
               <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
@@ -56,7 +56,7 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6">
+        <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
               <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
@@ -77,7 +77,7 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6 bg-surface">
+        <section className="py-20 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
               <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
@@ -97,7 +97,7 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6">
+        <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
               <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">

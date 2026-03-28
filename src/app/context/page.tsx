@@ -221,7 +221,7 @@ export default async function ContextPage() {
           <section
             key={section.id}
             id={section.id}
-            className={`py-16 px-6 ${i % 2 === 1 ? "bg-surface" : ""}`}
+            className={`py-20 px-6 ${i % 2 === 1 ? "bg-surface" : ""}`}
           >
             <div className="max-w-3xl mx-auto">
               <AnimatedSection delay={0.05}>
