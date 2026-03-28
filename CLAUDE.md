@@ -13,7 +13,10 @@ Premium lifestyle creator brand website for Joachim Haraldsen (noobwork.no). Sin
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-No test framework is configured.
+- `npm test` - Run Vitest test suite
+- `npm run test:watch` - Run Vitest in watch mode
+
+Tests live in `test/`. Uses Vitest + @testing-library/react + jsdom.
 
 ## Tech Stack
 
