@@ -70,19 +70,18 @@ export default function Hero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6">
             <div className="flex flex-col items-center">
-              <Star className="w-5 h-5 text-accent mb-2 fill-current" />
+              <Star className="w-5 h-5 text-accent mb-1 fill-current" />
               <p className="font-[family-name:var(--font-newake)] text-2xl md:text-4xl leading-none uppercase tracking-tight">Forbes</p>
-              <p className="text-base md:text-lg leading-none mt-1 text-foreground/60">Featured</p>
+              <p className="text-xl md:text-2xl leading-none mt-1">Featured</p>
             </div>
             <div className="flex flex-col items-center">
-              <UserRound className="w-5 h-5 text-accent mb-2 fill-current" />
-              <p className="font-[family-name:var(--font-newake)] text-2xl md:text-4xl leading-none uppercase tracking-tight">200K</p>
-              <p className="text-base md:text-lg leading-none mt-1 text-foreground/60">Subscribers</p>
+              <UserRound className="w-5 h-5 text-accent mb-1 fill-current" />
+              <p className="font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight">200K</p>
+              <p className="text-xl md:text-2xl leading-none mt-1">Subscribers</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-5 h-5 mb-2" />
-              <p className="font-[family-name:var(--font-newake)] text-2xl md:text-4xl leading-none uppercase tracking-tight">12+</p>
-              <p className="text-base md:text-lg leading-none mt-1 text-foreground/60">Years creating</p>
+              <p className="font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight mt-5">12+</p>
+              <p className="text-xl md:text-2xl leading-none mt-1">Years creating</p>
             </div>
           </div>
           <p className="text-sm md:text-base text-foreground/50 uppercase tracking-wider mb-6">Featured In & Associated With</p>
