@@ -10,7 +10,7 @@ interface CountUpProps {
   className?: string;
 }
 
-export default function CountUp({ target, suffix = "", duration = 2, className }: CountUpProps) {
+export default function CountUp({ target, suffix = "", duration = 0.6, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   const [display, setDisplay] = useState("0");
