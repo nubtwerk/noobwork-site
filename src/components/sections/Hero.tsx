@@ -59,7 +59,7 @@ export default function Hero() {
               width={500}
               height={600}
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="rounded-3xl shadow-[0_20px_40px_rgba(46,29,35,0.22)] object-cover w-auto h-auto"
+              className="rounded-3xl shadow-[0_20px_40px_rgba(46,29,35,0.22)] object-cover"
               priority
             />
           </motion.div>

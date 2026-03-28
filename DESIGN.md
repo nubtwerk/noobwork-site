@@ -83,9 +83,9 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 ## Component Patterns
 
 ### Buttons
-- Primary CTA: `bg-primary text-white rounded-full px-7 py-3 font-semibold`
+- Primary CTA: `bg-primary text-background rounded-full px-7 py-3 font-semibold`
 - Secondary CTA: `bg-offwhite text-foreground rounded-full px-7 py-3 border border-sand`
-- Form button: `bg-primary text-white rounded-lg px-8 py-3 font-medium`
+- Form button: `bg-primary text-background rounded-lg px-8 py-3 font-medium`
 
 ### Cards
 - Surface cards: `bg-surface rounded-xl p-6 border border-border`
@@ -97,7 +97,7 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - Highlight word defaults to `text-primary`, can be `text-accent` for purple emphasis
 
 ### Interest Tags
-- `bg-accent text-white rounded-full px-3 py-1 text-sm capitalize`
+- `bg-accent text-background rounded-full px-3 py-1 text-sm capitalize`
 
 ### Animations
 - Entry: `initial={{ opacity: 0, y: 20 }}` with `whileInView`
