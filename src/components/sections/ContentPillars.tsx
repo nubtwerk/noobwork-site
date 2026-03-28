@@ -49,7 +49,7 @@ export default function ContentPillars() {
           </div>
         </div>
       </section>
-      <div className="h-24 bg-gradient-to-b from-primary to-surface" />
+      <div className="h-40 bg-gradient-to-b from-primary via-primary/30 to-surface" />
     </>
   );
 }
