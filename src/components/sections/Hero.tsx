@@ -25,7 +25,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="px-6 py-16 bg-background">
+      <div className="px-6 py-16 bg-gradient-to-b from-background to-surface">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

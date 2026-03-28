@@ -5,7 +5,7 @@ import { workItems } from "@/data/work-items";
 
 export default function Work() {
   return (
-    <section id="work" className="py-20 px-6 bg-background">
+    <section id="work" className="py-20 px-6 bg-surface">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <SectionHeader title="Work &" highlight="Ventures" subtitle="Building companies and communities" />

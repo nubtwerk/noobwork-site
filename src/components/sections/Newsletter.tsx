@@ -3,7 +3,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function Newsletter() {
   return (
-    <section className="py-20 px-6 bg-background">
+    <section className="py-20 px-6 bg-surface">
       <div className="max-w-xl mx-auto">
         <AnimatedSection>
           <div className="bg-surface rounded-2xl p-10 text-center shadow-sm">

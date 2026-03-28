@@ -6,7 +6,7 @@ import { interests } from "@/data/interests";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 px-6 bg-surface">
+    <section id="about" className="py-20 px-6 bg-gradient-to-b from-surface to-surface/80">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <SectionHeader

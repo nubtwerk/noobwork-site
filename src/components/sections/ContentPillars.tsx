@@ -26,13 +26,13 @@ const pillars = [
 
 export default function ContentPillars() {
   return (
-    <section className="py-20 px-6 bg-primary">
+    <section className="pt-20 px-6 bg-primary">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
-          <h2 className="font-[family-name:var(--font-newake)] text-3xl md:text-4xl uppercase tracking-tight mb-2 text-background">
+          <h2 className="font-[family-name:var(--font-newake)] text-3xl md:text-4xl uppercase tracking-tight mb-2 text-white">
             Content Pillars
           </h2>
-          <p className="text-background/60 mb-10">What Noobwork is all about</p>
+          <p className="text-white/60 mb-10">What Noobwork is all about</p>
         </AnimatedSection>
 
         <div className="grid md:grid-cols-3 gap-5">
@@ -47,6 +47,7 @@ export default function ContentPillars() {
           ))}
         </div>
       </div>
+      <div className="h-24 bg-gradient-to-b from-primary to-surface" />
     </section>
   );
 }

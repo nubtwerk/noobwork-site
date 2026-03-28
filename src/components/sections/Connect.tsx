@@ -5,7 +5,7 @@ import { socialLinks } from "@/data/social-links";
 
 export default function Connect() {
   return (
-    <section id="connect" className="py-20 px-6 bg-surface">
+    <section id="connect" className="py-20 px-6 bg-gradient-to-b from-surface to-background/30">
       <div className="max-w-6xl mx-auto text-center">
         <AnimatedSection>
           <SectionHeader title="Let&apos;s" highlight="Connect" subtitle="Find me across the internet or reach out directly." center />
