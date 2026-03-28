@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const newake = localFont({
   src: "../fonts/NewakeFont-Demo.otf",
   variable: "--font-newake",
-  weight: "700",
+  weight: "400",
   display: "swap",
 });
 
