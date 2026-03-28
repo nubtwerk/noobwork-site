@@ -15,7 +15,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <h1 className="font-[family-name:var(--font-newake)] text-white text-5xl md:text-7xl lg:text-8xl uppercase tracking-tight">
+            <h1 className="font-[family-name:var(--font-newake)] text-background text-5xl md:text-7xl lg:text-8xl uppercase tracking-tight">
               NOOBWORK.
             </h1>
             <p className="mt-5 text-background text-xs md:text-base font-semibold tracking-wider uppercase">
@@ -59,7 +59,7 @@ export default function Hero() {
               width={500}
               height={600}
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="rounded-3xl shadow-[0_20px_40px_rgba(46,29,35,0.22)] object-cover"
+              className="rounded-3xl shadow-[0_20px_40px_rgba(46,29,35,0.22)] object-cover w-auto h-auto"
               priority
             />
           </motion.div>
