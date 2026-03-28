@@ -33,7 +33,7 @@ export default function MediaKit() {
         <section className="py-20 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Audience <span className="text-primary">Overview</span>
               </h2>
             </AnimatedSection>
@@ -59,7 +59,7 @@ export default function MediaKit() {
         <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Audience <span className="text-primary">Demographics</span>
               </h2>
             </AnimatedSection>
@@ -68,7 +68,7 @@ export default function MediaKit() {
                 <AnimatedSection key={item.label} delay={i * 0.1}>
                   <div className="bg-surface rounded-xl p-6 text-center border border-sand">
                     <p className="text-sm text-foreground/50 mb-1">{item.label}</p>
-                    <p className="text-2xl font-bold text-foreground mb-1">{item.value}</p>
+                    <p className="text-2xl font-[family-name:var(--font-newake)] uppercase tracking-tight text-foreground mb-1">{item.value}</p>
                     <p className="text-sm text-foreground/60">{item.description}</p>
                   </div>
                 </AnimatedSection>
@@ -80,7 +80,7 @@ export default function MediaKit() {
         <section className="py-20 px-6 bg-surface">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Content <span className="text-primary">Categories</span>
               </h2>
             </AnimatedSection>
@@ -100,7 +100,7 @@ export default function MediaKit() {
         <section className="py-20 px-6">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-2xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Partnership <span className="text-primary">Types</span>
               </h2>
             </AnimatedSection>
