@@ -191,7 +191,7 @@ export default async function ContextPage() {
         <section className="py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h1 className="text-4xl md:text-5xl text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 AI <span className="text-accent">Context</span>
               </h1>
               <p className="text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
@@ -225,7 +225,7 @@ export default async function ContextPage() {
           >
             <div className="max-w-3xl mx-auto">
               <AnimatedSection delay={0.05}>
-                <h2 className="text-2xl font-bold text-foreground mb-6 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+                <h2 className="text-2xl text-foreground mb-6 font-[family-name:var(--font-newake)] uppercase tracking-tight">
                   {section.heading.split(" ").slice(0, -1).join(" ")}{" "}
                   <span className="text-primary">
                     {section.heading.split(" ").slice(-1)[0]}
@@ -241,7 +241,7 @@ export default async function ContextPage() {
         <section className="py-20 px-6 bg-surface">
           <div className="max-w-2xl mx-auto text-center">
             <AnimatedSection>
-              <h2 className="text-3xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
+              <h2 className="text-3xl text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
                 Use This <span className="text-accent">Context</span>
               </h2>
               <p className="text-foreground/60 mb-8">
