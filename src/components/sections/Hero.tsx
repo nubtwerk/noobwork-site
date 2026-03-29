@@ -68,19 +68,20 @@ export default function Hero() {
 
       <div className="bg-surface px-6 pt-8 pb-6">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-3 md:gap-4 text-center">
-          <div className="flex flex-col items-center">
-            <Star className="w-5 h-5 text-accent mb-1 fill-current" />
-            <p className="font-[family-name:var(--font-newake)] text-2xl md:text-4xl leading-none uppercase tracking-tight">Forbes</p>
-            <p className="text-xl md:text-2xl leading-none mt-1">Featured</p>
+          <div className="grid justify-items-center grid-rows-[1.25rem_2.5rem_auto] md:grid-rows-[1.25rem_3.25rem_auto]">
+            <Star className="w-5 h-5 text-accent fill-current" />
+            <p className="self-end font-[family-name:var(--font-newake)] text-2xl md:text-4xl leading-none uppercase tracking-tight">Forbes</p>
+            <p className="mt-1 text-xl md:text-2xl leading-none">Featured</p>
           </div>
-          <div className="flex flex-col items-center">
-            <UserRound className="w-5 h-5 text-accent mb-1 fill-current" />
-            <p className="font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight">200K</p>
-            <p className="text-xl md:text-2xl leading-none mt-1">Subscribers</p>
+          <div className="grid justify-items-center grid-rows-[1.25rem_2.5rem_auto] md:grid-rows-[1.25rem_3.25rem_auto]">
+            <UserRound className="w-5 h-5 text-accent fill-current" />
+            <p className="self-end font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight">200K</p>
+            <p className="mt-1 text-xl md:text-2xl leading-none">Subscribers</p>
           </div>
-          <div className="flex flex-col items-center">
-            <p className="font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight mt-5">12+</p>
-            <p className="text-xl md:text-2xl leading-none mt-1">Years creating</p>
+          <div className="grid justify-items-center grid-rows-[1.25rem_2.5rem_auto] md:grid-rows-[1.25rem_3.25rem_auto]">
+            <span aria-hidden="true" className="block h-5 w-5" />
+            <p className="self-end font-[family-name:var(--font-newake)] text-3xl md:text-5xl leading-none uppercase tracking-tight">12+</p>
+            <p className="mt-1 text-xl md:text-2xl leading-none">Years creating</p>
           </div>
         </div>
       </div>
