@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { WorkItem } from "@/types";
 
 interface WorkCardProps {
@@ -40,7 +39,6 @@ export default function WorkCard({ item }: WorkCardProps) {
       </div>
       <div className="work-card__meta">
         {phase ? <span className="work-card__status">{phase}</span> : null}
-        {hasRowLink ? <ArrowUpRight className="work-card__arrow" aria-hidden="true" /> : null}
       </div>
       <p className="work-card__copy">{item.desc}</p>
     </>
@@ -52,7 +50,7 @@ export default function WorkCard({ item }: WorkCardProps) {
         href={item.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="work-card block"
+        className="work-card work-card--linked block"
       >
         {content}
       </a>

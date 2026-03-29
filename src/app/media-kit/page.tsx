@@ -17,12 +17,13 @@ export default function MediaKit() {
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main">
-        <section className="site-section site-section--dark">
+        <section className="site-section site-section--dark media-hero-section">
           <div className="shell-inner">
             <AnimatedSection>
               <div className="media-hero">
-                <h1 className="section-heading__title">
-                  Media <span className="section-heading__highlight">Kit</span>
+                <h1 className="media-title media-title--split">
+                  <span>Media</span>
+                  <span>Kit</span>
                 </h1>
                 <p className="media-copy">
                   I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
@@ -37,7 +38,7 @@ export default function MediaKit() {
             <AnimatedSection>
               <div className="section-heading section-heading--center">
                 <h2 className="section-heading__title">
-                  Audience <span className="section-heading__highlight">Overview</span>
+                  Audience <span className="section-heading__title--primary">Overview</span>
                 </h2>
               </div>
             </AnimatedSection>
@@ -65,7 +66,7 @@ export default function MediaKit() {
             <AnimatedSection>
               <div className="section-heading section-heading--center">
                 <h2 className="section-heading__title">
-                  Audience <span className="section-heading__highlight">Demographics</span>
+                  Audience <span className="section-heading__title--primary">Demographics</span>
                 </h2>
               </div>
             </AnimatedSection>
@@ -88,7 +89,7 @@ export default function MediaKit() {
             <AnimatedSection>
               <div className="section-heading section-heading--center">
                 <h2 className="section-heading__title">
-                  Content <span className="section-heading__highlight">Categories</span>
+                  Content <span className="section-heading__title--primary">Categories</span>
                 </h2>
               </div>
             </AnimatedSection>
@@ -110,7 +111,7 @@ export default function MediaKit() {
             <AnimatedSection>
               <div className="section-heading section-heading--center">
                 <h2 className="section-heading__title">
-                  Partnership <span className="section-heading__highlight">Types</span>
+                  Partnership <span className="section-heading__title--primary">Types</span>
                 </h2>
               </div>
             </AnimatedSection>
@@ -130,9 +131,9 @@ export default function MediaKit() {
         <section className="site-section site-section--surface">
           <div className="shell-inner">
             <AnimatedSection>
-              <div className="newsletter-block">
+              <div className="newsletter-band">
                 <h2 className="newsletter-title">
-                  Let&apos;s Work <span className="section-heading__highlight">Together</span>
+                  Let&apos;s Work <span className="section-heading__title--primary">Together</span>
                 </h2>
                 <p className="newsletter-copy">
                   Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.

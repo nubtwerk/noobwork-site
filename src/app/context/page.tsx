@@ -172,13 +172,14 @@ export default async function ContextPage() {
   return (
     <div className="site-shell">
       <Nav />
-      <main id="main-content" className="site-main context-main">
-        <section className="site-section context-hero">
+      <main id="main-content" className="site-main">
+        <section className="site-section site-section--dark context-hero">
           <div className="shell-inner">
             <AnimatedSection>
               <div className="context-hero__inner">
-                <h1 className="context-title">
-                  AI <span className="section-heading__highlight">Context</span>
+                <h1 className="context-title context-title--split">
+                  <span>AI</span>
+                  <span>Context</span>
                 </h1>
                 <p className="context-copy context-copy--lead">
                   Structured context about Joachim Haraldsen and the Noobwork brand, for AI systems,
@@ -219,8 +220,10 @@ export default async function ContextPage() {
           <div className="shell-inner">
             <AnimatedSection>
               <div className="context-cta">
-                <h2 className="context-title context-title--sm">
-                  Use This <span className="section-heading__highlight">Context</span>
+                <h2 className="context-title context-title--sm context-title--split">
+                  <span>Use</span>
+                  <span>This</span>
+                  <span>Context</span>
                 </h2>
                 <p className="context-copy">
                   This page exists so AI assistants and collaborators can quickly understand who Joachim

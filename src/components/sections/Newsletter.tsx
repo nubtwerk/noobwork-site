@@ -12,10 +12,10 @@ export default function Newsletter() {
               <div>
                 <p className="newsletter-kicker">Newsletter</p>
                 <h2 className="newsletter-title">
-                  Stay in the <span className="section-heading__highlight">Loop</span>
+                  Noobwork Is <span className="section-heading__highlight">Back</span>
                 </h2>
                 <p className="newsletter-copy">
-                  Subscribe through Beacons for updates, new ventures, and behind-the-scenes insights.
+                  I&apos;m documenting the return properly this time: what I&apos;m building, what I&apos;m learning, and what&apos;s changing along the way.
                 </p>
               </div>
             </div>
@@ -25,7 +25,7 @@ export default function Newsletter() {
               rel="noopener noreferrer"
               className="btn btn--primary"
             >
-              Subscribe on Beacons
+              Follow the Return
             </a>
           </div>
         </AnimatedSection>

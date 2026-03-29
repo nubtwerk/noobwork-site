@@ -37,14 +37,14 @@ export default function Hero() {
             >
               <h2 className="hero-panel__eyebrow">NOOBWORK.</h2>
               <p className="hero-panel__copy">
-                Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus, combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
+                Eight years after stepping away from content to build companies, Joachim Haraldsen is back in Tokyo, documenting what comes next.
               </p>
               <div className="hero-actions">
                 <Link href="/#work" className="btn btn--primary">
-                  View My Work
+                  See What I&apos;m Building
                 </Link>
                 <Link href="/#connect" className="btn btn--secondary">
-                  Get in touch
+                  Work Together
                 </Link>
               </div>
             </motion.div>

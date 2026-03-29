@@ -6,22 +6,24 @@ const pillars: Array<{
   desc: string;
   icon: PillarIconKind;
   tone: "green" | "purple" | "sand";
+  compactTitle?: boolean;
 }> = [
   {
     title: "Lifestyle",
-    desc: "Taste, rituals, and perspective, currently shaped through life in Japan.",
+    desc: "Japanese culture and routines, taste, training, and the daily details that shape how I think and live.",
     icon: "lifestyle",
     tone: "green",
   },
   {
     title: "Personal Development",
-    desc: "Focus, discipline, and long-term growth, grounded in real life rather than hype.",
+    desc: "Discipline, mindset, relentless focus, and long-term self-development, grounded in real work, not empty advice.",
     icon: "development",
     tone: "purple",
+    compactTitle: true,
   },
   {
     title: "Gaming Heritage",
-    desc: "The competitive roots behind the brand, now carried forward with more taste and range.",
+    desc: "The competitive background that built Noobwork, and the lessons from gaming that still carry forward.",
     icon: "heritage",
     tone: "sand",
   },
@@ -34,7 +36,7 @@ export default function ContentPillars() {
         <AnimatedSection>
           <div className="section-heading">
             <h2 className="section-heading__title section-heading__title--primary">Content Pillars</h2>
-            <p className="section-heading__subtitle">What Noobwork is all about</p>
+            <p className="section-heading__subtitle">The three themes shaping what I make now</p>
           </div>
         </AnimatedSection>
 
@@ -48,7 +50,9 @@ export default function ContentPillars() {
                   </div>
                 </div>
                 <div className="pillar-card__body">
-                  <h3 className="pillar-card__title">{pillar.title}</h3>
+                  <h3 className={`pillar-card__title${pillar.compactTitle ? " pillar-card__title--compact" : ""}`}>
+                    {pillar.title}
+                  </h3>
                   <p className="pillar-card__copy">{pillar.desc}</p>
                 </div>
               </div>

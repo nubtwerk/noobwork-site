@@ -7,7 +7,7 @@ describe("work-items data", () => {
   });
 
   it("primary linked items have URLs", () => {
-    const named = ["Heroic Group", "Noobwork"];
+    const named = ["Heroic Group", "Noobwork", "DailyBase.ai"];
     for (const name of named) {
       const item = workItems.find((w) => w.name === name);
       expect(item, `${name} should exist`).toBeDefined();
@@ -16,10 +16,10 @@ describe("work-items data", () => {
   });
 
   it("advisory companies have URLs", () => {
-    const advisory = workItems.find((w) => w.name === "Advisory");
+    const advisory = workItems.find((w) => w.name === "Advisory & Angel");
     expect(advisory).toBeDefined();
     expect(advisory?.companies).toBeDefined();
-    expect(advisory?.companies).toHaveLength(2);
+    expect(advisory?.companies).toHaveLength(4);
 
     for (const company of advisory?.companies ?? []) {
       expect(company.url, `${company.name} should have a URL`).toBeTruthy();
@@ -28,8 +28,8 @@ describe("work-items data", () => {
 
   it("non-public ventures do not have URLs", () => {
     const stealth = workItems.filter((w) => w.name.startsWith("Stealth"));
-    const privateItems = [...stealth, ...workItems.filter((w) => w.name === "DailyBase.ai")];
-    expect(privateItems.length).toBeGreaterThanOrEqual(2);
+    const privateItems = [...stealth];
+    expect(privateItems.length).toBeGreaterThanOrEqual(1);
     for (const item of privateItems) {
       expect(item.url).toBeUndefined();
     }

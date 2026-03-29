@@ -21,7 +21,7 @@ export default function CopyContextButton() {
   return (
     <button
       onClick={handleCopy}
-      className="text-sm text-primary hover:underline cursor-pointer"
+      className="context-link context-link--button"
     >
       {copied ? "Copied to clipboard" : "Copy all as markdown"}
     </button>

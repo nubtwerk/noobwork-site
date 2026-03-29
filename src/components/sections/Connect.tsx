@@ -8,7 +8,12 @@ export default function Connect() {
     <section id="connect" className="site-section">
       <div className="shell-inner">
         <AnimatedSection>
-          <SectionHeader title="Let&apos;s" highlight="Connect" subtitle="Find me across the internet or reach out directly." center />
+          <SectionHeader
+            title="Let&apos;s"
+            highlight="Connect"
+            subtitle="Find me across the internet, or reach out directly. If you&apos;re a young founder building something real, I&apos;m always happy to connect."
+            center
+          />
         </AnimatedSection>
 
         <div className="connect-grid">
