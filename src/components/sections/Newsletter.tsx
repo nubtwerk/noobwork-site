@@ -9,7 +9,7 @@ export default function Newsletter() {
           <div className="newsletter-band">
             <div className="newsletter-band__copy">
               <Mail className="newsletter-icon" size={34} aria-hidden="true" />
-              <div>
+              <div className="newsletter-band__text">
                 <p className="newsletter-kicker">Newsletter</p>
                 <h2 className="newsletter-title">
                   Noobwork Is <span className="section-heading__highlight">Back</span>

@@ -823,19 +823,25 @@ body {
 
   .newsletter-band {
     display: grid;
-    gap: 1.4rem;
+    gap: 1.8rem;
     justify-items: center;
     align-items: center;
     width: min(100%, 44rem);
     margin-inline: auto;
-    padding: 0;
+    padding: 0.35rem 0;
   }
 
   .newsletter-band__copy {
     display: grid;
-    gap: 1rem;
+    gap: 1.15rem;
     justify-items: center;
     text-align: center;
+  }
+
+  .newsletter-band__text {
+    display: grid;
+    gap: 0.65rem;
+    justify-items: center;
   }
 
   .newsletter-icon {
