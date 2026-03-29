@@ -11,14 +11,14 @@ export default function SectionHeader({
   highlight,
   subtitle,
   center,
-  highlightClassName = "text-primary",
+  highlightClassName = "section-heading__highlight",
 }: SectionHeaderProps) {
   return (
-    <div className={center ? "text-center" : ""}>
-      <h2 className="font-[family-name:var(--font-newake)] text-3xl md:text-4xl text-foreground mb-2 uppercase tracking-tight">
+    <div className={`section-heading ${center ? "section-heading--center" : ""}`.trim()}>
+      <h2 className="section-heading__title">
         {title} <span className={highlightClassName}>{highlight}</span>
       </h2>
-      <p className="text-foreground/60 mb-12">{subtitle}</p>
+      <p className="section-heading__subtitle">{subtitle}</p>
     </div>
   );
 }

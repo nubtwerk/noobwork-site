@@ -1,54 +1,61 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import PillarIcon, { type PillarIconKind } from "@/components/ui/PillarIcon";
 
-const pillars = [
+const pillars: Array<{
+  title: string;
+  desc: string;
+  icon: PillarIconKind;
+  tone: "green" | "purple" | "sand";
+}> = [
   {
-    title: "Tokyo Lifestyle",
-    desc: "Daily experiences, cultural insights, and the energy of the city — creating relatable connections for our audience.",
-    icon: "🏯",
-    bg: "bg-sand",
-    text: "text-background",
+    title: "Lifestyle",
+    desc: "Taste, rituals, and perspective, currently shaped through life in Japan.",
+    icon: "lifestyle",
+    tone: "green",
   },
   {
     title: "Personal Development",
-    desc: "Guidance on self-improvement, motivation, and building discipline — empowering you to achieve your aspirations.",
-    icon: "🎯",
-    bg: "bg-accent",
-    text: "text-background",
+    desc: "Focus, discipline, and long-term growth, grounded in real life rather than hype.",
+    icon: "development",
+    tone: "purple",
   },
   {
     title: "Gaming Heritage",
-    desc: "Combining gaming roots with lifestyle and personal growth — the foundation that started it all.",
-    icon: "🎮",
-    bg: "bg-brown",
-    text: "text-background",
+    desc: "The competitive roots behind the brand, now carried forward with more taste and range.",
+    icon: "heritage",
+    tone: "sand",
   },
 ];
 
 export default function ContentPillars() {
   return (
-    <>
-      <section className="pt-20 pb-16 px-6 bg-primary">
-        <div className="max-w-6xl mx-auto">
-          <AnimatedSection>
-            <h2 className="font-[family-name:var(--font-newake)] text-3xl md:text-4xl uppercase tracking-tight mb-2 text-background">
-              Content Pillars
-            </h2>
-            <p className="text-background/60 mb-10">What Noobwork is all about</p>
-          </AnimatedSection>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {pillars.map((pillar, i) => (
-              <AnimatedSection key={pillar.title} delay={i * 0.1}>
-                <div className={`${pillar.bg} ${pillar.text} rounded-2xl p-8 min-h-[220px] flex flex-col justify-end shadow-lg`}>
-                  <div className="text-3xl mb-4">{pillar.icon}</div>
-                  <h3 className="font-[family-name:var(--font-newake)] text-xl uppercase tracking-tight mb-2">{pillar.title}</h3>
-                  <p className="text-sm leading-relaxed opacity-90">{pillar.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+    <section className="site-section site-section--surface">
+      <div className="shell-inner">
+        <AnimatedSection>
+          <div className="section-heading">
+            <h2 className="section-heading__title section-heading__title--primary">Content Pillars</h2>
+            <p className="section-heading__subtitle">What Noobwork is all about</p>
           </div>
+        </AnimatedSection>
+
+        <div className="pillar-grid">
+          {pillars.map((pillar, i) => (
+            <AnimatedSection key={pillar.title} delay={i * 0.1}>
+              <div className={`pillar-card pillar-card--${pillar.tone}`}>
+                <div className="pillar-card__top">
+                  <div className="pillar-card__icon" aria-hidden="true">
+                    <PillarIcon kind={pillar.icon} className="pillar-card__icon-mark" />
+                  </div>
+                </div>
+                <div className="pillar-card__body">
+                  <h3 className="pillar-card__title">{pillar.title}</h3>
+                  <p className="pillar-card__copy">{pillar.desc}</p>
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

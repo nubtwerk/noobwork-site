@@ -9,9 +9,9 @@ import Connect from "@/components/sections/Connect";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <Nav />
-      <main id="main-content">
+      <main id="main-content" className="site-main">
         <Hero />
         <About />
         <ContentPillars />

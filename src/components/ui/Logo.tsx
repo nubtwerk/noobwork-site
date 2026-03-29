@@ -6,14 +6,14 @@ interface LogoProps {
 export default function Logo({ variant = "wordmark", className }: LogoProps) {
   if (variant === "wordmark") {
     return (
-      <span className={`font-[family-name:var(--font-newake)] tracking-tight uppercase ${className ?? "text-primary"}`}>
+      <span className={`site-logo site-logo--wordmark ${className ?? ""}`.trim()}>
         NOOBWORK.
       </span>
     );
   }
 
   return (
-    <span className={`font-[family-name:var(--font-newake)] tracking-tight uppercase text-sm ${className ?? "text-primary"}`}>
+    <span className={`site-logo site-logo--monogram ${className ?? ""}`.trim()}>
       NW
     </span>
   );

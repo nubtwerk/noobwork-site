@@ -5,18 +5,23 @@ import { workItems } from "@/data/work-items";
 
 export default function Work() {
   return (
-    <section id="work" className="py-20 px-6 bg-surface">
-      <div className="max-w-6xl mx-auto">
-        <AnimatedSection>
-          <SectionHeader title="Work &" highlight="Ventures" subtitle="Building companies and communities" />
-        </AnimatedSection>
+    <section id="work" className="site-section">
+      <div className="shell-inner">
+        <div className="work-layout">
+          <AnimatedSection className="work-intro">
+            <SectionHeader title="Work &" highlight="Ventures" subtitle="Building companies and communities" />
+            <p className="work-intro__note">
+              A selected mix of founder-led ventures, creator platforms, and advisory roles across media, technology, and culture.
+            </p>
+          </AnimatedSection>
 
-        <div className="space-y-6">
-          {workItems.map((item, i) => (
-            <AnimatedSection key={item.name} delay={i * 0.1}>
-              <WorkCard item={item} />
-            </AnimatedSection>
-          ))}
+          <div className="work-stack">
+            {workItems.map((item, i) => (
+              <AnimatedSection key={item.name} delay={i * 0.08}>
+                <WorkCard item={item} />
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </div>
     </section>

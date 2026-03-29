@@ -3,9 +3,5 @@ interface InterestTagProps {
 }
 
 export default function InterestTag({ label }: InterestTagProps) {
-  return (
-    <span className="px-3 py-1 bg-accent rounded-full text-sm text-background capitalize">
-      {label.toLowerCase()}
-    </span>
-  );
+  return <span className="tag">{label}</span>;
 }

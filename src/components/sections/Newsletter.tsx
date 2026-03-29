@@ -3,24 +3,29 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function Newsletter() {
   return (
-    <section className="py-20 px-6 bg-surface">
-      <div className="max-w-xl mx-auto">
+    <section className="site-section site-section--surface">
+      <div className="shell-inner">
         <AnimatedSection>
-          <div className="bg-surface rounded-2xl p-10 text-center shadow-sm">
-            <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">
-              Stay in the <span className="text-accent">Loop</span>
-            </h2>
-            <p className="text-foreground/60 mb-8">
-              Get occasional updates on new ventures, content, and behind-the-scenes insights.
-            </p>
+          <div className="newsletter-band">
+            <div className="newsletter-band__copy">
+              <Mail className="newsletter-icon" size={34} aria-hidden="true" />
+              <div>
+                <p className="newsletter-kicker">Newsletter</p>
+                <h2 className="newsletter-title">
+                  Stay in the <span className="section-heading__highlight">Loop</span>
+                </h2>
+                <p className="newsletter-copy">
+                  Subscribe through Beacons for updates, new ventures, and behind-the-scenes insights.
+                </p>
+              </div>
+            </div>
             <a
               href="https://beacons.ai/noobwork"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-primary text-background px-8 py-3 rounded-full font-semibold hover:bg-primary-hover transition-colors"
+              className="btn btn--primary"
             >
-              Subscribe
+              Subscribe on Beacons
             </a>
           </div>
         </AnimatedSection>

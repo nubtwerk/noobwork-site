@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+.agents/
+.gstack/
 
 # debug
 npm-debug.log*
@@ -40,4 +42,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.gstack/
+.env*.local

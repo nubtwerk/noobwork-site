@@ -6,35 +6,58 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ item }: WorkCardProps) {
+  const [role, phase] = item.status.split("|").map((value) => value.trim());
+  const hasRowLink = Boolean(item.url);
+
   const content = (
     <>
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="font-[family-name:var(--font-newake)] text-xl uppercase tracking-tight text-foreground">{item.name}</h3>
-        <div className="flex items-center gap-2">
-          <span className="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full">{item.status}</span>
-          {item.url && <ArrowUpRight className="w-4 h-4 text-primary shrink-0" />}
-        </div>
+      <div className="work-card__head">
+        <p className="work-card__role">{role}</p>
+        <h3 className="work-card__title">{item.name}</h3>
+        {item.companies?.length ? (
+          <div className="work-card__companies">
+            {item.companies.map((company) =>
+              company.url ? (
+                <a
+                  key={company.name}
+                  href={company.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="work-card__company-row"
+                >
+                  <span className="work-card__company-marker" aria-hidden="true" />
+                  <span className="work-card__company-text">{company.name}</span>
+                </a>
+              ) : (
+                <span key={company.name} className="work-card__company-row">
+                  <span className="work-card__company-marker" aria-hidden="true" />
+                  <span className="work-card__company-text">{company.name}</span>
+                </span>
+              ),
+            )}
+          </div>
+        ) : null}
       </div>
-      <p className="text-foreground/70">{item.desc}</p>
+      <div className="work-card__meta">
+        {phase ? <span className="work-card__status">{phase}</span> : null}
+        {hasRowLink ? <ArrowUpRight className="work-card__arrow" aria-hidden="true" /> : null}
+      </div>
+      <p className="work-card__copy">{item.desc}</p>
     </>
   );
 
-  if (item.url) {
+  if (hasRowLink) {
     return (
       <a
         href={item.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="block bg-surface rounded-xl p-6 border border-border hover:-translate-y-1 hover:shadow-lg hover:border-primary transition-all"
+        className="work-card block"
       >
         {content}
       </a>
     );
   }
 
-  return (
-    <div className="bg-surface rounded-xl p-6 border border-border">
-      {content}
-    </div>
-  );
+  return <div className="work-card">{content}</div>;
 }
