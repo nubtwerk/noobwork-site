@@ -64,6 +64,13 @@ body {
     background: rgba(177, 17, 213, 0.18);
     color: var(--color-foreground);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    [style*="opacity: 0"] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 }
 
 @layer components {
