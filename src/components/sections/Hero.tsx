@@ -20,7 +20,7 @@ export default function Hero() {
               <span className="site-logo site-logo--wordmark">NOOBWORK.</span>
             </h1>
             <p className="hero-lockup__subtitle">
-              Tokyo Lifestyle / Personal Development / Gaming Heritage
+              Lifestyle / Personal Development / Gaming Heritage
             </p>
           </motion.div>
         </div>

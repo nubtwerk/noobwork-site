@@ -1,23 +1,28 @@
-import { Gamepad2, MapPinned, Sparkles } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import PillarIcon, { type PillarIconKind } from "@/components/ui/PillarIcon";
 
-const pillars = [
+const pillars: Array<{
+  title: string;
+  desc: string;
+  icon: PillarIconKind;
+  tone: "green" | "purple" | "sand";
+}> = [
   {
-    title: "Tokyo Lifestyle",
-    desc: "Daily experiences, cultural insights, and the energy of the city, creating relatable connections for our audience.",
-    icon: MapPinned,
+    title: "Lifestyle",
+    desc: "Taste, rituals, and perspective, currently shaped through life in Japan.",
+    icon: "lifestyle",
     tone: "green",
   },
   {
     title: "Personal Development",
-    desc: "Guidance on self-improvement, motivation, and building discipline, empowering you to achieve your aspirations.",
-    icon: Sparkles,
+    desc: "Focus, discipline, and long-term growth, grounded in real life rather than hype.",
+    icon: "development",
     tone: "purple",
   },
   {
     title: "Gaming Heritage",
-    desc: "Combining gaming roots with lifestyle and personal growth, the foundation that started it all.",
-    icon: Gamepad2,
+    desc: "The competitive roots behind the brand, now carried forward with more taste and range.",
+    icon: "heritage",
     tone: "sand",
   },
 ];
@@ -37,11 +42,15 @@ export default function ContentPillars() {
           {pillars.map((pillar, i) => (
             <AnimatedSection key={pillar.title} delay={i * 0.1}>
               <div className={`pillar-card pillar-card--${pillar.tone}`}>
-                <div className="pillar-card__icon">
-                  <pillar.icon size={18} aria-hidden="true" />
+                <div className="pillar-card__top">
+                  <div className="pillar-card__icon" aria-hidden="true">
+                    <PillarIcon kind={pillar.icon} className="pillar-card__icon-mark" />
+                  </div>
                 </div>
-                <h3 className="pillar-card__title">{pillar.title}</h3>
-                <p className="pillar-card__copy">{pillar.desc}</p>
+                <div className="pillar-card__body">
+                  <h3 className="pillar-card__title">{pillar.title}</h3>
+                  <p className="pillar-card__copy">{pillar.desc}</p>
+                </div>
               </div>
             </AnimatedSection>
           ))}

@@ -6,20 +6,47 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ item }: WorkCardProps) {
+  const [role, phase] = item.status.split("|").map((value) => value.trim());
+  const hasRowLink = Boolean(item.url);
+
   const content = (
     <>
-      <div className="work-card__top">
+      <div className="work-card__head">
+        <p className="work-card__role">{role}</p>
         <h3 className="work-card__title">{item.name}</h3>
-        <div className="flex items-center gap-2">
-          <span className="work-card__status">{item.status}</span>
-          {item.url ? <ArrowUpRight className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" /> : null}
-        </div>
+        {item.companies?.length ? (
+          <div className="work-card__companies">
+            {item.companies.map((company) =>
+              company.url ? (
+                <a
+                  key={company.name}
+                  href={company.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="work-card__company-row"
+                >
+                  <span className="work-card__company-marker" aria-hidden="true" />
+                  <span className="work-card__company-text">{company.name}</span>
+                </a>
+              ) : (
+                <span key={company.name} className="work-card__company-row">
+                  <span className="work-card__company-marker" aria-hidden="true" />
+                  <span className="work-card__company-text">{company.name}</span>
+                </span>
+              ),
+            )}
+          </div>
+        ) : null}
+      </div>
+      <div className="work-card__meta">
+        {phase ? <span className="work-card__status">{phase}</span> : null}
+        {hasRowLink ? <ArrowUpRight className="work-card__arrow" aria-hidden="true" /> : null}
       </div>
       <p className="work-card__copy">{item.desc}</p>
     </>
   );
 
-  if (item.url) {
+  if (hasRowLink) {
     return (
       <a
         href={item.url}
