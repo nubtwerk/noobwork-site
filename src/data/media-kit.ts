@@ -23,6 +23,13 @@ export const contentCategories = [
   },
 ];
 
+export const partnershipProcess = [
+  { step: "01", title: "Inquiry", description: "Reach out with your brand, goals, and timeline." },
+  { step: "02", title: "Brief & Alignment", description: "We align on deliverables, audience fit, and creative direction." },
+  { step: "03", title: "Content Creation", description: "Authentic content produced to your brief with creative input." },
+  { step: "04", title: "Delivery & Reporting", description: "Content goes live with full performance reporting." },
+];
+
 export const partnershipTypes = [
   {
     title: "Sponsored Content",

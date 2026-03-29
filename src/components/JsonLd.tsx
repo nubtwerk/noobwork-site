@@ -14,7 +14,17 @@ export default function JsonLd() {
       "https://instagram.com/noobwork",
       "https://linkedin.com/in/joachim-haraldsen",
     ],
-    knowsAbout: ["Gaming", "Esports", "Content Creation", "Entrepreneurship", "Technology"],
+    knowsAbout: [
+      "Gaming",
+      "Esports",
+      "Content Creation",
+      "Entrepreneurship",
+      "Technology",
+      "Executive Leadership",
+      "Media & Publishing",
+      "Tokyo Lifestyle",
+      "Personal Development",
+    ],
     nationality: {
       "@type": "Country",
       name: "Norway",

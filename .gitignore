@@ -24,6 +24,7 @@
 .DS_Store
 *.pem
 .agents/
+.gstack/
 
 # debug
 npm-debug.log*

@@ -7,12 +7,15 @@
   --color-primary-hover: #3f4f44;
   --color-primary-light: #3f4f44;
   --color-accent: #b111d5;
+  --color-accent-light: #b111d5;
   --color-accent-dark: #511b5d;
   --color-sand: #ecdbbf;
   --color-beige: #a27b5d;
   --color-gray: #d6c6b0;
   --color-border: rgba(46, 29, 35, 0.12);
   --color-surface: #ffffff;
+  --color-offwhite: #f8f8f8;
+  --color-brown: #2e1d23;
   --font-family-display: var(--font-newake), system-ui, sans-serif;
   --font-family-body: var(--font-inter), system-ui, sans-serif;
 }
@@ -792,17 +795,24 @@ body {
   }
 
   .nav-shell__inner {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .nav-links {
-    width: 100%;
-    justify-content: space-between;
-    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   .hero-panel {
     margin-top: 0;
+  }
+}
+
+@layer utilities {
+  .brand-masthead {
+    background-color: #2c3930;
+    background-image:
+      radial-gradient(120% 90% at 50% 0%, rgba(63, 79, 68, 0.45) 0%, rgba(44, 57, 48, 0.2) 55%, rgba(44, 57, 48, 0.45) 100%),
+      repeating-linear-gradient(
+        35deg,
+        rgba(255, 255, 255, 0.03) 0 2px,
+        rgba(255, 255, 255, 0) 2px 10px
+      );
   }
 }

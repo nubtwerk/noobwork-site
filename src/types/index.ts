@@ -8,6 +8,7 @@ export interface WorkItem {
   name: string;
   status: string;
   desc: string;
+  url?: string;
 }
 
 export interface FocusItem {
