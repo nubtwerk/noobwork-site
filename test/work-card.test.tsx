@@ -29,15 +29,15 @@ describe("WorkCard", () => {
     expect(container.querySelector("div")).toBeInTheDocument();
   });
 
-  it("shows arrow icon only for linked cards", () => {
+  it("adds linked-card styling only for linked cards", () => {
     const linked = { name: "Test", status: "Active", desc: "Desc", url: "https://example.com" };
     const unlinked = { name: "Test", status: "Active", desc: "Desc" };
 
     const { container: linkedContainer } = render(<WorkCard item={linked} />);
     const { container: unlinkedContainer } = render(<WorkCard item={unlinked} />);
 
-    expect(linkedContainer.querySelector("svg")).toBeInTheDocument();
-    expect(unlinkedContainer.querySelector("svg")).not.toBeInTheDocument();
+    expect(linkedContainer.querySelector("a.work-card--linked")).toBeInTheDocument();
+    expect(unlinkedContainer.querySelector(".work-card--linked")).not.toBeInTheDocument();
   });
 
   it("displays the work item name and description", () => {

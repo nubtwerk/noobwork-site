@@ -1185,7 +1185,13 @@ body {
   .context-cta {
     width: min(100%, 42rem);
     margin-inline: auto;
+    display: grid;
+    gap: 1rem;
     text-align: center;
+  }
+
+  .context-cta .cta-actions {
+    margin-top: 0.4rem;
   }
 
   .context-back {

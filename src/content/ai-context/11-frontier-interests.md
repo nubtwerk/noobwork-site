@@ -1,27 +1,30 @@
 # Frontier Interests
 
-> Beyond gaming and media — the topics Joachim is actively studying, building around, and looking to go deeper on.
+> This section is less about general curiosity and more about the frontier lens Joachim is building through.
 
-## AI & Compute
+## AI, compute, and infrastructure
 
-Joachim's interest in AI goes well beyond prompt engineering. He's drawn to the full stack: model architectures, training infrastructure, inference optimization, and the economics of compute at scale. He follows developments in frontier models, open-source AI, and the competitive dynamics between labs closely. He builds with AI daily (dailybase.ai, content workflows, code tooling) and thinks about where the technology is heading at a civilisational level — not just what it can do this quarter.
+Joachim's interest in AI goes well beyond tools and prompt usage. He is drawn to the infrastructure layer: models, inference, datacenters, chip supply, training economics, and the competitive dynamics shaping the labs. He pays attention to what actually scales, what gets cheaper, and where the real leverage sits.
 
-Datacenters and compute infrastructure sit at the centre of this. The buildout of AI infrastructure is one of the largest capital allocation events in history, and Joachim pays close attention to how it unfolds — location strategy, energy sourcing, chip supply, and the geopolitics around all of it.
+He is especially interested in the buildout of compute infrastructure as one of the defining capital allocation stories of this era. Not just the software layer, but the physical systems underneath it.
 
-## Energy & Sustainability
+## Energy as the constraint
 
-A natural extension of the compute interest. You can't scale AI without solving energy. Joachim follows green energy closely — solar, hydro, nuclear (including SMRs and fusion progress), hydrogen, and geothermal. He's interested in how energy production connects to data infrastructure, economic development, and the broader challenge of powering civilisation-scale ambition sustainably.
+Energy is inseparable from compute. Joachim follows solar, hydro, nuclear, hydrogen, geothermal, and the wider question of how energy production shapes what can be built.
 
-This isn't performative environmentalism. It's practical: the next generation of infrastructure companies will be defined by their energy strategy. That's where the leverage is.
+This is not an abstract sustainability interest. It is a practical view that the next wave of serious infrastructure companies will be shaped by energy availability, energy cost, and energy strategy.
 
-## Civilisation-Scale Thinking
+## Long-horizon thinking
 
-Joachim is drawn to Kardashev-scale ideas — the trajectory from planetary to stellar energy capture, the long arc of human capability, and the compounding effects of technology on what's possible. This informs how he evaluates opportunities: not just "is this a good business?" but "does this push things forward?"
+Joachim is genuinely interested in Kardashev-scale thinking and other long-horizon questions about civilization, energy capture, and how technology compounds over time. That lens affects how he evaluates opportunities.
 
-He reads widely across physics, economics, and systems thinking. He's more interested in the people building hard things than the people commenting on them.
+He is more interested in people building hard things than people commenting on trends. The question is not just whether something is impressive right now, but whether it matters over a longer arc.
 
-## Communities & Events
+## Where this turns into action
 
-Joachim is actively looking to get more involved in physical communities and events around AI, compute, energy, and deep tech. He values in-person connection and the density of insight you get from being in the room. Conferences, unconferences, builder communities, research meetups — he's looking for the right ones to attend, contribute to, and eventually help shape.
+These interests are not meant to stay theoretical. Joachim wants to spend more time around the right founders, operators, investors, researchers, and events connected to AI, compute, energy, defence, and deep tech.
 
-If you're organising or recommending events in these spaces, that's a strong fit.
+Strong fits include:
+- founder conversations in AI, compute, energy, defence, and infrastructure
+- communities and events with real technical or strategic depth
+- opportunities where long-horizon thinking and operator judgment are actually useful

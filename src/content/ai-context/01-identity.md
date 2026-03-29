@@ -1,7 +1,7 @@
 # Identity
 
-**Joachim Haraldsen** — known online as **Noobwork**.
+**Joachim Haraldsen** - known online as **Noobwork**.
 
-Norwegian entrepreneur, executive leader, and content creator based in Tokyo, Japan. Over 20 years of experience across gaming, esports, media, and entertainment at a global scale.
+Norwegian founder, operator, and content creator currently based in Tokyo, Japan. Over 20 years of experience across gaming, media, entrepreneurship, and entertainment at an international level.
 
-Noobwork is both a personal brand and a premium lifestyle creator platform — rooted in gaming heritage but reaching well beyond it into Tokyo lifestyle, personal growth, fitness, and entrepreneurship.
+Noobwork is Joachim's creator identity and long-term brand, now active again after years spent building companies. It is rooted in gaming heritage, but the current chapter is broader: Japanese culture and routines, personal development, training, entrepreneurship, and the realities of building.
