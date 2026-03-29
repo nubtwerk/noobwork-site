@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -14,41 +14,45 @@ export const metadata: Metadata = {
 
 export default function MediaKit() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <Nav />
-      <main id="main-content" className="pt-24">
-        <section className="py-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
+      <main id="main-content" className="site-main">
+        <section className="site-section site-section--dark">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Media <span className="text-accent">Kit</span>
-              </h1>
-              <p className="text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
-                I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
-              </p>
+              <div className="media-hero">
+                <h1 className="section-heading__title">
+                  Media <span className="section-heading__highlight">Kit</span>
+                </h1>
+                <p className="media-copy">
+                  I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
+                </p>
+              </div>
             </AnimatedSection>
           </div>
         </section>
 
-        <section className="py-16 px-6 bg-surface">
-          <div className="max-w-6xl mx-auto">
+        <section className="site-section site-section--surface">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Audience <span className="text-primary">Overview</span>
-              </h2>
+              <div className="section-heading section-heading--center">
+                <h2 className="section-heading__title">
+                  Audience <span className="section-heading__highlight">Overview</span>
+                </h2>
+              </div>
             </AnimatedSection>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="stat-grid">
               {mediaKitStats.map((stat, i) => (
                 <AnimatedSection key={stat.label} delay={i * 0.1}>
-                  <div className="bg-background rounded-xl p-6 text-center border border-sand">
-                    <div className="text-3xl md:text-4xl font-bold text-accent mb-2">
+                  <div className="stat-card">
+                    <div className="stat-card__value">
                       {stat.numericValue != null ? (
                         <CountUp target={stat.numericValue} suffix={stat.suffix} />
                       ) : (
                         <span>{stat.value}</span>
                       )}
                     </div>
-                    <p className="text-sm text-foreground/60">{stat.label}</p>
+                    <p className="stat-card__label">{stat.label}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -56,20 +60,22 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6">
-          <div className="max-w-6xl mx-auto">
+        <section className="site-section">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Audience <span className="text-primary">Demographics</span>
-              </h2>
+              <div className="section-heading section-heading--center">
+                <h2 className="section-heading__title">
+                  Audience <span className="section-heading__highlight">Demographics</span>
+                </h2>
+              </div>
             </AnimatedSection>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="info-grid info-grid--three">
               {audienceDemographics.map((item, i) => (
                 <AnimatedSection key={item.label} delay={i * 0.1}>
-                  <div className="bg-surface rounded-xl p-6 text-center border border-sand">
-                    <p className="text-sm text-foreground/50 mb-1">{item.label}</p>
-                    <p className="text-2xl font-bold text-foreground mb-1">{item.value}</p>
-                    <p className="text-sm text-foreground/60">{item.description}</p>
+                  <div className="info-card">
+                    <p className="info-card__label">{item.label}</p>
+                    <p className="info-card__value">{item.value}</p>
+                    <p className="info-card__copy">{item.description}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -77,19 +83,21 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6 bg-surface">
-          <div className="max-w-6xl mx-auto">
+        <section className="site-section site-section--surface">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Content <span className="text-primary">Categories</span>
-              </h2>
+              <div className="section-heading section-heading--center">
+                <h2 className="section-heading__title">
+                  Content <span className="section-heading__highlight">Categories</span>
+                </h2>
+              </div>
             </AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="info-grid info-grid--two">
               {contentCategories.map((cat, i) => (
                 <AnimatedSection key={cat.title} delay={i * 0.1}>
-                  <div className="bg-background rounded-xl p-6 border border-sand">
-                    <h3 className="font-semibold text-lg text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">{cat.title}</h3>
-                    <p className="text-foreground/70">{cat.description}</p>
+                  <div className="info-card">
+                    <h3 className="info-card__title">{cat.title}</h3>
+                    <p className="info-card__copy">{cat.description}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -97,19 +105,21 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-16 px-6">
-          <div className="max-w-6xl mx-auto">
+        <section className="site-section">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h2 className="text-2xl font-bold text-foreground mb-8 text-center font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Partnership <span className="text-primary">Types</span>
-              </h2>
+              <div className="section-heading section-heading--center">
+                <h2 className="section-heading__title">
+                  Partnership <span className="section-heading__highlight">Types</span>
+                </h2>
+              </div>
             </AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="info-grid info-grid--two">
               {partnershipTypes.map((type, i) => (
                 <AnimatedSection key={type.title} delay={i * 0.1}>
-                  <div className="bg-surface rounded-xl p-6 border border-sand">
-                    <h3 className="font-semibold text-lg text-foreground mb-2 font-[family-name:var(--font-newake)] uppercase tracking-tight">{type.title}</h3>
-                    <p className="text-foreground/70">{type.description}</p>
+                  <div className="info-card">
+                    <h3 className="info-card__title">{type.title}</h3>
+                    <p className="info-card__copy">{type.description}</p>
                   </div>
                 </AnimatedSection>
               ))}
@@ -117,39 +127,43 @@ export default function MediaKit() {
           </div>
         </section>
 
-        <section className="py-20 px-6 bg-surface">
-          <div className="max-w-2xl mx-auto text-center">
+        <section className="site-section site-section--surface">
+          <div className="shell-inner">
             <AnimatedSection>
-              <h2 className="text-3xl font-bold text-foreground mb-4 font-[family-name:var(--font-newake)] uppercase tracking-tight">
-                Let&apos;s Work <span className="text-accent">Together</span>
-              </h2>
-              <p className="text-foreground/60 mb-8">
-                Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://beacons.ai/noobwork"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors"
-                >
-                  Follow on Beacons
-                </a>
-                <a
-                  href="mailto:joachim@noobwork.no"
-                  className="bg-background text-foreground px-8 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors"
-                >
-                  Get in Touch
-                </a>
+              <div className="newsletter-block">
+                <h2 className="newsletter-title">
+                  Let&apos;s Work <span className="section-heading__highlight">Together</span>
+                </h2>
+                <p className="newsletter-copy">
+                  Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.
+                </p>
+                <div className="cta-actions">
+                  <a
+                    href="https://beacons.ai/noobwork"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--primary"
+                  >
+                    Follow on Beacons
+                  </a>
+                  <a
+                    href="mailto:joachim@noobwork.no"
+                    className="btn btn--secondary"
+                  >
+                    Get in Touch
+                  </a>
+                </div>
               </div>
             </AnimatedSection>
           </div>
         </section>
 
-        <section className="py-8 px-6 text-center">
-          <Link href="/" className="text-primary hover:underline text-sm">
-            &larr; Back to home
-          </Link>
+        <section className="site-section site-section--tight">
+          <div className="shell-inner section-heading--center">
+            <Link href="/" className="back-link">
+              &larr; Back to home
+            </Link>
+          </div>
         </section>
       </main>
       <Footer />

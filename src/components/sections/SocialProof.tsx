@@ -4,18 +4,12 @@ const brands = ["Forbes", "Blast.tv", "Heroic", "YouTube", "Nåva Space"];
 
 export default function SocialProof() {
   return (
-    <section className="py-12 px-6 bg-surface border-y border-sand">
-      <div className="max-w-6xl mx-auto text-center">
+    <section className="site-section site-section--tight">
+      <div className="shell-inner">
         <AnimatedSection>
-          <p className="text-xs uppercase tracking-widest text-foreground/40 mb-6">
-            Featured In &amp; Associated With
-          </p>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            {brands.map((brand) => (
-              <span key={brand} className="text-foreground/30 font-semibold text-lg md:text-xl">
-                {brand}
-              </span>
-            ))}
+          <div className="social-proof">
+            <p className="social-proof__eyebrow">Featured In &amp; Associated With</p>
+            <p className="social-proof__list">{brands.join("   ")}</p>
           </div>
         </AnimatedSection>
       </div>

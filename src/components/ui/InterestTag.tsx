@@ -3,9 +3,5 @@ interface InterestTagProps {
 }
 
 export default function InterestTag({ label }: InterestTagProps) {
-  return (
-    <span className="px-3 py-1 bg-surface rounded-full text-sm text-foreground/70 border border-border">
-      {label}
-    </span>
-  );
+  return <span className="tag">{label}</span>;
 }

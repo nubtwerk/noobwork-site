@@ -1,7 +1,6 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import SocialProof from "@/components/sections/SocialProof";
 import About from "@/components/sections/About";
 import ContentPillars from "@/components/sections/ContentPillars";
 import Work from "@/components/sections/Work";
@@ -10,11 +9,10 @@ import Connect from "@/components/sections/Connect";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="site-shell">
       <Nav />
-      <main id="main-content">
+      <main id="main-content" className="site-main">
         <Hero />
-        <SocialProof />
         <About />
         <ContentPillars />
         <Work />

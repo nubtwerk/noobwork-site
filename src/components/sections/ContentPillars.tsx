@@ -1,41 +1,47 @@
+import { Gamepad2, MapPinned, Sparkles } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 const pillars = [
   {
     title: "Tokyo Lifestyle",
-    desc: "Daily experiences, cultural insights, and the energy of the city — creating relatable connections for our audience.",
-    icon: "🏯",
+    desc: "Daily experiences, cultural insights, and the energy of the city, creating relatable connections for our audience.",
+    icon: MapPinned,
+    tone: "green",
   },
   {
     title: "Personal Development",
-    desc: "Guidance on self-improvement, motivation, and building discipline — empowering you to achieve your aspirations.",
-    icon: "🎯",
+    desc: "Guidance on self-improvement, motivation, and building discipline, empowering you to achieve your aspirations.",
+    icon: Sparkles,
+    tone: "purple",
   },
   {
     title: "Gaming Heritage",
-    desc: "Combining gaming roots with lifestyle and personal growth — the foundation that started it all.",
-    icon: "🎮",
+    desc: "Combining gaming roots with lifestyle and personal growth, the foundation that started it all.",
+    icon: Gamepad2,
+    tone: "sand",
   },
 ];
 
 export default function ContentPillars() {
   return (
-    <section className="py-20 px-6 bg-primary text-white">
-      <div className="max-w-6xl mx-auto">
+    <section className="site-section site-section--surface">
+      <div className="shell-inner">
         <AnimatedSection>
-          <h2 className="font-[family-name:var(--font-newake)] text-3xl md:text-4xl uppercase tracking-tight mb-2">
-            Content Pillars
-          </h2>
-          <p className="text-white/60 mb-12">What Noobwork is all about</p>
+          <div className="section-heading">
+            <h2 className="section-heading__title section-heading__title--primary">Content Pillars</h2>
+            <p className="section-heading__subtitle">What Noobwork is all about</p>
+          </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="pillar-grid">
           {pillars.map((pillar, i) => (
             <AnimatedSection key={pillar.title} delay={i * 0.1}>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:-translate-y-1 transition-transform">
-                <div className="text-3xl mb-4">{pillar.icon}</div>
-                <h3 className="font-semibold text-lg mb-2">{pillar.title}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{pillar.desc}</p>
+              <div className={`pillar-card pillar-card--${pillar.tone}`}>
+                <div className="pillar-card__icon">
+                  <pillar.icon size={18} aria-hidden="true" />
+                </div>
+                <h3 className="pillar-card__title">{pillar.title}</h3>
+                <p className="pillar-card__copy">{pillar.desc}</p>
               </div>
             </AnimatedSection>
           ))}

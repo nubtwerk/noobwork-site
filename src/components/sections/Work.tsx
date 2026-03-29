@@ -5,13 +5,13 @@ import { workItems } from "@/data/work-items";
 
 export default function Work() {
   return (
-    <section id="work" className="py-20 px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
+    <section id="work" className="site-section">
+      <div className="shell-inner">
         <AnimatedSection>
           <SectionHeader title="Work &" highlight="Ventures" subtitle="Building companies and communities" />
         </AnimatedSection>
 
-        <div className="space-y-6">
+        <div className="work-stack">
           {workItems.map((item, i) => (
             <AnimatedSection key={item.name} delay={i * 0.1}>
               <WorkCard item={item} />

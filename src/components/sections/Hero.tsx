@@ -1,66 +1,96 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { Award, Star, UserRound } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="pt-32 pb-20 px-6">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <p className="text-primary text-sm font-medium tracking-wide uppercase mb-4">
-            Tokyo Lifestyle | Personal Development | Gaming Heritage
-          </p>
-          <h1 className="font-[family-name:var(--font-newake)] text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 uppercase tracking-tight">
-            NOOBWORK.
-          </h1>
-          <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-            Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus - combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
-          </p>
-          <div className="flex gap-4 mb-8">
-            <Link href="/#work" className="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-hover transition-colors">
-              View My Work
-            </Link>
-            <Link href="/#connect" className="bg-surface text-foreground px-6 py-3 rounded-lg font-medium border border-sand hover:border-primary transition-colors">
-              Get in Touch
-            </Link>
+    <>
+      <section className="site-section site-section--dark">
+        <div className="shell-inner">
+          <motion.div
+            className="hero-lockup"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+          >
+            <h1 aria-label="Noobwork">
+              <span className="site-logo site-logo--wordmark">NOOBWORK.</span>
+            </h1>
+            <p className="hero-lockup__subtitle">
+              Tokyo Lifestyle / Personal Development / Gaming Heritage
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="site-section site-section--tight">
+        <div className="shell-inner">
+          <div className="hero-panel">
+            <motion.div
+              className="hero-panel__content"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
+            >
+              <h2 className="hero-panel__eyebrow">NOOBWORK.</h2>
+              <p className="hero-panel__copy">
+                Premium lifestyle creator brand founded by Joachim Haraldsen. Returning after a seven-year hiatus, combining gaming heritage with a new focus on growth, Tokyo lifestyle, and personal development.
+              </p>
+              <div className="hero-actions">
+                <Link href="/#work" className="btn btn--primary">
+                  View My Work
+                </Link>
+                <Link href="/#connect" className="btn btn--secondary">
+                  Get in touch
+                </Link>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="hero-panel__media"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            >
+              <Image
+                src="/joachim.jpg"
+                alt="Joachim Haraldsen holding a coffee in Tokyo"
+                width={500}
+                height={600}
+                sizes="(max-width: 768px) 100vw, 28rem"
+                className="hero-panel__image"
+                priority
+              />
+            </motion.div>
+
+            <motion.div
+              className="hero-stats"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.3, ease: "easeOut" }}
+            >
+              <div className="hero-stat">
+                <Star className="hero-stat__icon" size={18} aria-hidden="true" />
+                <div className="hero-stat__value">Forbes</div>
+                <div className="hero-stat__label">Featured</div>
+              </div>
+              <div className="hero-stat">
+                <UserRound className="hero-stat__icon" size={18} aria-hidden="true" />
+                <div className="hero-stat__value">200K</div>
+                <div className="hero-stat__label">Subscribers</div>
+              </div>
+              <div className="hero-stat">
+                <Award className="hero-stat__icon" size={18} aria-hidden="true" />
+                <div className="hero-stat__value">12+</div>
+                <div className="hero-stat__label">Years creating</div>
+              </div>
+            </motion.div>
           </div>
-          <div className="flex items-center gap-6 text-sm text-foreground/60">
-            <div className="flex items-center gap-2">
-              <span className="text-accent font-semibold">Forbes</span>
-              <span>Featured</span>
-            </div>
-            <div>
-              <span className="font-semibold text-foreground">200K+</span> subscribers
-            </div>
-            <div>
-              <span className="font-semibold text-foreground">12+</span> years creating
-            </div>
-          </div>
-        </motion.div>
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl transform rotate-3"></div>
-          <Image
-            src="/joachim.jpg"
-            alt="Joachim Haraldsen"
-            width={500}
-            height={600}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="relative rounded-3xl shadow-xl object-cover"
-            priority
-          />
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

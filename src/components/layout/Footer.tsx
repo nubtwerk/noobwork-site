@@ -2,12 +2,14 @@ import Logo from "@/components/ui/Logo";
 
 export default function Footer() {
   return (
-    <footer className="py-12 px-6 bg-foreground text-white/60 text-center text-sm">
-      <div className="mb-4">
-        <Logo variant="monogram" className="text-white/40" />
+    <footer className="footer-shell">
+      <div className="footer-shell__inner">
+        <div>
+          <Logo variant="monogram" className="site-logo--nav" />
+        </div>
+        <p>&copy; {new Date().getFullYear()} Noobwork. All rights reserved.</p>
+        <p>Built in Tokyo</p>
       </div>
-      <p>&copy; {new Date().getFullYear()} Noobwork. All rights reserved.</p>
-      <p className="mt-1">Built in Tokyo</p>
     </footer>
   );
 }
