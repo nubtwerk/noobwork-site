@@ -1,11 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Logo from "@/components/ui/Logo";
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 200);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const navLinks = [
     { href: "/#about", label: "About" },
     { href: "/#work", label: "Work" },
@@ -14,7 +22,7 @@ export default function Nav() {
   ];
 
   return (
-    <nav aria-label="Main navigation" className="nav-shell">
+    <nav aria-label="Main navigation" className={`nav-shell${scrolled ? " nav-shell--scrolled" : ""}`}>
       <div className="nav-shell__inner">
         <Link
           href="/"
@@ -46,7 +54,7 @@ export default function Nav() {
           type="button"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
-          className="sm:hidden p-2 text-background"
+          className={`sm:hidden p-2 ${scrolled ? "text-foreground" : "text-background"}`}
           onClick={() => setIsMobileMenuOpen((open) => !open)}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

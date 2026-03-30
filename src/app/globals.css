@@ -230,8 +230,31 @@ body {
     inset: 0 0 auto;
     z-index: 50;
     padding: 1rem var(--site-gutter);
-    background: linear-gradient(180deg, rgba(44, 57, 48, 0.8), rgba(44, 57, 48, 0.32));
+    background: rgba(44, 57, 48, 0.85);
     backdrop-filter: blur(14px);
+    transition: background 300ms ease, box-shadow 300ms ease;
+  }
+
+  .nav-shell--scrolled {
+    background: rgba(248, 248, 248, 0.88);
+    box-shadow: 0 1px 8px rgba(46, 29, 35, 0.06);
+  }
+
+  .nav-shell--scrolled .nav-link {
+    color: rgba(46, 29, 35, 0.7);
+  }
+
+  .nav-shell--scrolled .nav-link:hover {
+    color: var(--color-foreground);
+  }
+
+  .nav-shell--scrolled .site-logo--nav-wordmark {
+    color: var(--color-foreground);
+  }
+
+  .nav-shell--scrolled .btn--tertiary {
+    color: var(--color-foreground);
+    border-color: rgba(46, 29, 35, 0.2);
   }
 
   .nav-shell__inner {
