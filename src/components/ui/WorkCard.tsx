@@ -38,7 +38,7 @@ export default function WorkCard({ item }: WorkCardProps) {
         ) : null}
       </div>
       <div className="work-card__meta">
-        {phase ? <span className={`work-card__status ${phase.toLowerCase() === "exited" ? "work-card__status--exited" : ""}`}>{phase}</span> : null}
+        {phase ? <span className="work-card__status">{phase}</span> : null}
       </div>
       <p className="work-card__copy">{item.desc}</p>
     </>

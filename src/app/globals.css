@@ -833,11 +833,6 @@ body {
     color: var(--color-primary);
   }
 
-  .work-card__status--exited {
-    background: rgba(162, 123, 93, 0.12);
-    color: var(--color-beige);
-  }
-
   .work-card__copy {
     margin: 0;
     max-width: 60ch;
