@@ -35,7 +35,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
             >
-              <h2 className="hero-panel__eyebrow">NOOBWORK.</h2>
+              <p className="hero-panel__eyebrow" aria-hidden="true">NOOBWORK.</p>
               <p className="hero-panel__copy">
                 Eight years after stepping away from content to build companies, Joachim Haraldsen is back in Tokyo, documenting what comes next.
               </p>
