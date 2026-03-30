@@ -27,7 +27,7 @@ export default function ContentPillars() {
     <section className="site-section site-section--surface">
       <div className="shell-inner">
         <AnimatedSection>
-          <div className="section-heading">
+          <div className="section-heading section-heading--center">
             <h2 className="section-heading__title section-heading__title--primary">Content Pillars</h2>
             <p className="section-heading__subtitle">The three themes shaping what I make now</p>
           </div>
