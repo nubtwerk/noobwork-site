@@ -11,8 +11,11 @@ export default function WorkCard({ item }: WorkCardProps) {
   const content = (
     <>
       <div className="work-card__head">
-        <p className="work-card__role">{role}</p>
         <h3 className="work-card__title">{item.name}</h3>
+        <div className="work-card__meta-row">
+          <p className="work-card__role">{role}</p>
+          {phase ? <span className="work-card__status">{phase}</span> : null}
+        </div>
         {item.companies?.length ? (
           <div className="work-card__companies">
             {item.companies.map((company) =>
@@ -36,9 +39,6 @@ export default function WorkCard({ item }: WorkCardProps) {
             )}
           </div>
         ) : null}
-      </div>
-      <div className="work-card__meta">
-        {phase ? <span className="work-card__status">{phase}</span> : null}
       </div>
       <p className="work-card__copy">{item.desc}</p>
     </>
