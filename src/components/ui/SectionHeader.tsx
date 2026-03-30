@@ -15,7 +15,7 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`section-heading ${center ? "section-heading--center" : ""}`.trim()}>
-      <h2 className="section-heading__title">
+      <h2 className="section-heading__title" data-shimmer>
         {title} <span className={highlightClassName}>{highlight}</span>
       </h2>
       <p className="section-heading__subtitle">{subtitle}</p>
