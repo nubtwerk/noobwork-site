@@ -74,17 +74,17 @@ export default function Hero() {
             >
               <div className="hero-stat">
                 <Star className="hero-stat__icon" size={18} aria-hidden="true" />
-                <div className="hero-stat__value">Forbes</div>
+                <div className="hero-stat__value" data-parallax>Forbes</div>
                 <div className="hero-stat__label">Featured</div>
               </div>
               <div className="hero-stat">
                 <UserRound className="hero-stat__icon" size={18} aria-hidden="true" />
-                <div className="hero-stat__value">200K</div>
+                <div className="hero-stat__value" data-parallax>200K</div>
                 <div className="hero-stat__label">Subscribers</div>
               </div>
               <div className="hero-stat">
                 <Award className="hero-stat__icon" size={18} aria-hidden="true" />
-                <div className="hero-stat__value">12+</div>
+                <div className="hero-stat__value" data-parallax>12+</div>
                 <div className="hero-stat__label">Years creating</div>
               </div>
             </motion.div>

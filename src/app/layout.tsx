@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import SkipToContent from "@/components/layout/SkipToContent";
+import MouseEffects from "@/components/ui/MouseEffects";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <JsonLd />
         <SkipToContent />
+        <MouseEffects />
         {children}
         <Analytics />
       </body>
