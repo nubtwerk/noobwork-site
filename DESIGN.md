@@ -17,33 +17,34 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 | Tokyo Green | `#2C3930` | `bg-primary` / `text-primary` | Primary actions, nav, hero masthead, CTA buttons |
 | Light Green | `#3F4F44` | `bg-primary-light` / `bg-primary-hover` | Hover states, secondary green surfaces |
 | Brown | `#2E1D23` | `bg-foreground` / `text-foreground` / `bg-brown` | Body text, footer background |
-| Beige | `#ECD8BF` | `bg-background` / `text-background` | Page background, text on dark surfaces |
-| Sand | `#A27B5D` | `bg-sand` / `text-sand` / `border-sand` | Borders, tertiary surfaces, warm accents |
-| Off-white | `#F8F8F8` | `bg-surface` / `bg-offwhite` / `bg-gray` | Card backgrounds, alternate section backgrounds |
-| Purple Dark | `#511B5D` | `bg-accent` / `text-accent` | Accent highlights, interest tags, section title highlights |
-| Purple Light | `#B111D5` | `bg-accent-light` / `text-accent-light` | Sparingly, bright accent moments |
+| Off-white | `#F8F8F8` | `bg-background` / `text-background` / `bg-offwhite` | Page background, text on dark surfaces |
+| Sand | `#ECDBBF` | `bg-sand` / `text-sand` / `border-sand` | Hover text, warm accents, light warm surfaces |
+| Beige | `#A27B5D` | `bg-beige` / `text-beige` | Focus rings, tertiary warm accents |
+| Gray | `#D6C6B0` | `bg-gray` | Muted surfaces, subtle backgrounds |
+| Purple Dark | `#511B5D` | `bg-accent-dark` / `text-accent-dark` | Accent highlights, interest tags, section title highlights |
+| Purple Light | `#B111D5` | `bg-accent` / `text-accent` / `bg-accent-light` | Sparingly, bright accent moments |
 
 ### Color Rules
 
 - Primary CTA buttons use Tokyo Green (`bg-primary`), NOT purple
-- Text on dark backgrounds uses Beige (`text-background`), not white
+- Text on dark backgrounds uses Off-white (`text-background`), not pure white
 - Purple is an accent, not a primary. Use it for highlights, tags, and emphasis words in headings
-- Section backgrounds alternate between Beige (`bg-background`) and Off-white (`bg-surface`)
+- Section backgrounds alternate between Off-white (`bg-background`) and Surface (`bg-surface`)
 - The Content Pillars section uses Tokyo Green (`bg-primary`) as its background
 - Footer uses Brown (`bg-foreground`)
 - Never use pure black (`#000000`) for text. Always use Brown (`#2E1D23`)
-- Never use pure white (`#FFFFFF`) for text. Use Beige (`#ECD8BF`) or Off-white (`#F8F8F8`)
+- Never use pure white (`#FFFFFF`) for text. Use Off-white (`#F8F8F8`) or Sand (`#ECDBBF`)
 
 ### Approved Color Combinations
 
 | Surface | Text | Use case |
 |---------|------|----------|
-| Tokyo Green | Beige | Hero masthead, Content Pillars section |
-| Beige | Brown | Default page sections |
-| Off-white | Brown | Alternate sections (About, Connect) |
-| Brown | Beige | Footer |
-| Purple Dark | Beige | Accent cards, interest tags |
-| Sand | Beige | Warm accent cards |
+| Tokyo Green | Off-white | Hero masthead, Content Pillars section |
+| Off-white | Brown | Default page sections |
+| Surface | Brown | Alternate sections (About, Connect) |
+| Brown | Off-white | Footer |
+| Purple Dark | Off-white | Accent cards, interest tags |
+| Sand | Off-white | Warm accent cards |
 
 ## Typography
 
