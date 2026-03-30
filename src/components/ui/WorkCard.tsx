@@ -11,10 +11,8 @@ export default function WorkCard({ item }: WorkCardProps) {
   const content = (
     <>
       <div className="work-card__head">
-        <div className="work-card__title-row">
-          <h3 className="work-card__title">{item.name}</h3>
-          {phase ? <span className="work-card__status">{phase}</span> : null}
-        </div>
+        <h3 className="work-card__title">{item.name}</h3>
+        {phase ? <span className="work-card__status">{phase}</span> : null}
         <p className="work-card__role">{role}</p>
         {item.companies?.length ? (
           <div className="work-card__companies">

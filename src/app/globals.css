@@ -752,15 +752,11 @@ body {
   }
 
   .work-card__head {
-    display: grid;
-    gap: 0.3rem;
-  }
-
-  .work-card__title-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.2rem 1rem;
   }
 
   .work-card__title {
@@ -773,6 +769,7 @@ body {
 
   .work-card__role {
     margin: 0;
+    width: 100%;
     color: rgba(46, 29, 35, 0.54);
     font-size: 0.7rem;
     font-weight: 700;
