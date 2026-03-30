@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 interface AnimatedSectionProps {
@@ -9,9 +10,15 @@ interface AnimatedSectionProps {
 }
 
 export default function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
@@ -24,7 +31,6 @@ export default function AnimatedSection({ children, delay = 0, className }: Anim
       viewport={{ once: true, margin: "100px" }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
-      suppressHydrationWarning
     >
       {children}
     </motion.div>
