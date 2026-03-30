@@ -316,6 +316,10 @@ body {
     text-align: center;
   }
 
+  .hero-lockup h1 {
+    margin: 0;
+  }
+
   .hero-lockup__subtitle {
     margin: 0;
     color: rgba(236, 219, 191, 0.92);
