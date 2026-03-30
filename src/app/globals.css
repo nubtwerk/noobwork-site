@@ -756,18 +756,19 @@ body {
     gap: 0.3rem;
   }
 
+  .work-card__title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
   .work-card__title {
     margin: 0;
     font-size: 1.3rem;
     line-height: 1.1;
     font-weight: 800;
     color: var(--color-foreground);
-  }
-
-  .work-card__meta-row {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
   }
 
   .work-card__role {
