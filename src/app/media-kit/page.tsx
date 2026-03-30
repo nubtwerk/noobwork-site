@@ -8,8 +8,12 @@ import { mediaKitStats } from "@/data/stats";
 import { contentCategories, partnershipTypes, partnershipProcess } from "@/data/media-kit";
 
 export const metadata: Metadata = {
-  title: "Media Kit - Noobwork | Joachim Haraldsen",
+  title: "Media Kit",
   description: "Partner with Noobwork. Audience stats, demographics, content verticals, and collaboration opportunities with Joachim Haraldsen.",
+  openGraph: {
+    title: "Media Kit — Noobwork",
+    description: "Partner with Noobwork. Audience stats, demographics, and collaboration opportunities.",
+  },
 };
 
 export default function MediaKit() {
