@@ -67,22 +67,22 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              className="hero-stats" data-parallax
+              className="hero-stats"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.3, ease: "easeOut" }}
             >
-              <div className="hero-stat">
+              <div className="hero-stat" data-magnetic>
                 <Star className="hero-stat__icon" size={18} aria-hidden="true" />
                 <div className="hero-stat__value">Forbes</div>
                 <div className="hero-stat__label">Featured</div>
               </div>
-              <div className="hero-stat">
+              <div className="hero-stat" data-magnetic>
                 <UserRound className="hero-stat__icon" size={18} aria-hidden="true" />
                 <div className="hero-stat__value">200K</div>
                 <div className="hero-stat__label">Subscribers</div>
               </div>
-              <div className="hero-stat">
+              <div className="hero-stat" data-magnetic>
                 <Award className="hero-stat__icon" size={18} aria-hidden="true" />
                 <div className="hero-stat__value">12+</div>
                 <div className="hero-stat__label">Years creating</div>
