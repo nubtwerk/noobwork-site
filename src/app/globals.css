@@ -726,7 +726,7 @@ body {
   .work-card::before {
     content: "";
     position: absolute;
-    left: -2.5rem;
+    left: calc(-2.5rem + 0.45rem + 1px - 0.3rem);
     top: 1.85rem;
     width: 0.6rem;
     height: 0.6rem;
