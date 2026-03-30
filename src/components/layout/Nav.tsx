@@ -37,7 +37,7 @@ export default function Nav() {
         >
           <Logo variant="wordmark" className="site-logo--nav-wordmark" />
         </Link>
-        <div className="nav-links hidden sm:flex">
+        <div className="nav-links nav-links--desktop">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="nav-link">
               {link.label}
@@ -54,7 +54,7 @@ export default function Nav() {
           type="button"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
-          className={`sm:hidden p-2 ${scrolled ? "text-foreground" : "text-background"}`}
+          className={`nav-hamburger ${scrolled ? "nav-hamburger--scrolled" : ""}`}
           onClick={() => setIsMobileMenuOpen((open) => !open)}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -74,27 +74,25 @@ export default function Nav() {
         </button>
       </div>
       {isMobileMenuOpen && (
-        <div className="sm:hidden px-6 pb-4">
-          <div className="shell-inner rounded-2xl border border-background/20 bg-primary/95 px-4 py-4 backdrop-blur-sm">
-            <div className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-medium text-background/90"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+        <div className="nav-mobile-dropdown">
+          <div className="nav-mobile-dropdown__panel">
+            {navLinks.map((link) => (
               <Link
-                href="/media-kit"
-                className="text-sm font-medium text-background/90"
+                key={link.href}
+                href={link.href}
+                className="nav-mobile-dropdown__link"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Media Kit
+                {link.label}
               </Link>
-            </div>
+            ))}
+            <Link
+              href="/media-kit"
+              className="nav-mobile-dropdown__link"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Media Kit
+            </Link>
           </div>
         </div>
       )}

@@ -1,24 +1,17 @@
-import { Mail } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function Newsletter() {
   return (
-    <section className="site-section site-section--surface">
+    <section className="site-section">
       <div className="shell-inner">
         <AnimatedSection>
-          <div className="newsletter-band">
-            <div className="newsletter-band__copy">
-              <Mail className="newsletter-icon" size={34} aria-hidden="true" />
-              <div className="newsletter-band__text">
-                <p className="newsletter-kicker">Newsletter</p>
-                <h2 className="newsletter-title">
-                  Noobwork Is <span className="section-heading__highlight">Back</span>
-                </h2>
-                <p className="newsletter-copy">
-                  I&apos;m documenting the return properly this time: what I&apos;m building, what I&apos;m learning, and what&apos;s changing along the way.
-                </p>
-              </div>
-            </div>
+          <div className="newsletter-editorial">
+            <h2 className="newsletter-editorial__title" data-shimmer>
+              Noobwork Is Back
+            </h2>
+            <p className="newsletter-editorial__copy">
+              I&apos;m documenting the return properly this time: what I&apos;m building, what I&apos;m learning, and what&apos;s changing along the way.
+            </p>
             <a
               href="https://beacons.ai/noobwork"
               target="_blank"
