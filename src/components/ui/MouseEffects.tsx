@@ -51,7 +51,7 @@ export default function MouseEffects() {
 
     // Magnetic buttons — auto-discover by class OR data attribute
     function setupMagnetic() {
-      document.querySelectorAll<HTMLElement>("[data-magnetic], .btn").forEach((btn) => {
+      document.querySelectorAll<HTMLElement>("[data-magnetic], .btn, .connect-chip").forEach((btn) => {
         btn.addEventListener("mousemove", handleMagneticMove);
         btn.addEventListener("mouseleave", handleMagneticLeave);
       });
@@ -96,7 +96,7 @@ export default function MouseEffects() {
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
       if (rafId) cancelAnimationFrame(rafId);
-      document.querySelectorAll<HTMLElement>("[data-magnetic], .btn").forEach((btn) => {
+      document.querySelectorAll<HTMLElement>("[data-magnetic], .btn, .connect-chip").forEach((btn) => {
         btn.removeEventListener("mousemove", handleMagneticMove);
         btn.removeEventListener("mouseleave", handleMagneticLeave);
       });
