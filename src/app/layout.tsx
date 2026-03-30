@@ -17,10 +17,16 @@ const newake = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.noobwork.no"),
-  title: "Noobwork - Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
+  title: {
+    default: "Noobwork — Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
+    template: "%s | Noobwork",
+  },
   description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
+  keywords: ["Noobwork", "Joachim Haraldsen", "gaming", "esports", "Tokyo", "lifestyle", "personal development", "content creator", "YouTube"],
+  authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
+  creator: "Joachim Haraldsen",
   openGraph: {
-    title: "Noobwork - Joachim Haraldsen",
+    title: "Noobwork — Joachim Haraldsen",
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
     url: "https://www.noobwork.no",
     siteName: "Noobwork",
@@ -29,8 +35,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Noobwork - Joachim Haraldsen",
+    title: "Noobwork — Joachim Haraldsen",
     description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
+    creator: "@noobwork",
+  },
+  other: {
+    "theme-color": "#2C3930",
   },
 };
 
