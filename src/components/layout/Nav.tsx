@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Logo from "@/components/ui/Logo";
+import { NAV_SCROLL_THRESHOLD } from "@/lib/constants";
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 200);
+    const onScroll = () => setScrolled(window.scrollY > NAV_SCROLL_THRESHOLD);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -35,7 +36,7 @@ export default function Nav() {
           className="nav-brand"
           aria-label="Noobwork home"
         >
-          <Logo variant="wordmark" className="site-logo--nav-wordmark" />
+          <Logo variant="wordmark" className="nav-logo" />
         </Link>
         <div className="nav-links nav-links--desktop">
           {navLinks.map((link) => (

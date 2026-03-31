@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Award, Star, UserRound } from "lucide-react";
+import Logo from "@/components/ui/Logo";
 
 export default function Hero() {
   return (
@@ -17,7 +18,7 @@ export default function Hero() {
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
             <h1 aria-label="Noobwork">
-              <span className="site-logo site-logo--wordmark">NOOBWORK.</span>
+              <Logo variant="wordmark" className="hero-lockup__logo" />
             </h1>
             <p className="hero-lockup__subtitle">
               Lifestyle / Personal Development / Gaming Heritage
@@ -35,7 +36,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
             >
-              <p className="hero-panel__eyebrow" aria-hidden="true">NOOBWORK.</p>
+              <div className="hero-panel__eyebrow" aria-hidden="true">
+                <Logo variant="wordmark" className="hero-panel__eyebrow-logo" />
+              </div>
               <p className="hero-panel__copy">
                 Eight years after stepping away from content to build companies, Joachim Haraldsen is back in Tokyo, documenting what comes next.
               </p>

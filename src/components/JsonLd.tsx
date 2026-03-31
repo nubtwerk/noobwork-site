@@ -1,3 +1,5 @@
+import { socialLinks } from "@/data/social-links";
+
 export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
@@ -8,12 +10,9 @@ export default function JsonLd() {
     image: "https://www.noobwork.no/joachim.jpg",
     description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
     jobTitle: "Creator & Entrepreneur",
-    sameAs: [
-      "https://youtube.com/user/Noobworkify",
-      "https://twitter.com/noobwork",
-      "https://instagram.com/noobwork",
-      "https://linkedin.com/in/joachim-haraldsen",
-    ],
+    sameAs: socialLinks
+      .filter((link) => link.url.startsWith("http"))
+      .map((link) => link.url),
     knowsAbout: [
       "Gaming",
       "Esports",

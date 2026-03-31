@@ -187,6 +187,38 @@ body:hover .mouse-spotlight { opacity: 1; }
       );
   }
 
+  /* 404 page */
+  .not-found-section {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+  }
+
+  .not-found-content {
+    text-align: center;
+  }
+
+  .not-found-code {
+    font-family: var(--font-family-display);
+    font-size: clamp(5rem, 15vw, 10rem);
+    line-height: 0.9;
+    color: var(--color-sand);
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .not-found-message {
+    margin-top: 1rem;
+    color: rgba(236, 219, 191, 0.7);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .not-found-cta {
+    margin-top: 2rem;
+    display: inline-flex;
+  }
+
   .section-heading {
     margin-bottom: clamp(2rem, 3vw, 3rem);
   }
@@ -284,7 +316,7 @@ body:hover .mouse-spotlight { opacity: 1; }
     color: var(--color-foreground);
   }
 
-  .nav-shell--scrolled .site-logo--nav-wordmark {
+  .nav-shell--scrolled .nav-logo {
     color: var(--color-foreground);
   }
 
@@ -395,10 +427,10 @@ body:hover .mouse-spotlight { opacity: 1; }
     text-transform: uppercase;
   }
 
-  .site-logo--wordmark {
-    color: currentColor;
-    font-size: clamp(2.2rem, 7vw, 5.4rem);
-    line-height: 0.9;
+  .hero-lockup__logo {
+    width: clamp(14rem, 50vw, 36rem);
+    height: auto;
+    color: var(--color-sand);
   }
 
   .site-logo--nav {
@@ -407,11 +439,10 @@ body:hover .mouse-spotlight { opacity: 1; }
     line-height: 1;
   }
 
-  .site-logo--nav-wordmark {
-    color: rgba(248, 248, 248, 0.88);
-    font-size: clamp(1.7rem, 2.4vw, 2.35rem);
-    line-height: 0.9;
-    text-shadow: 0 2px 12px rgba(46, 29, 35, 0.16);
+  .nav-logo {
+    width: clamp(7rem, 10vw, 9rem);
+    height: auto;
+    color: var(--color-surface);
   }
 
   .site-logo--monogram {
@@ -461,11 +492,12 @@ body:hover .mouse-spotlight { opacity: 1; }
 
   .hero-panel__eyebrow {
     margin: 0;
-    font-family: var(--font-family-display);
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
+  }
+
+  .hero-panel__eyebrow-logo {
+    width: clamp(10rem, 22vw, 16rem);
+    height: auto;
+    color: var(--color-primary);
   }
 
   .hero-panel__copy {

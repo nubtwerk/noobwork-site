@@ -11,7 +11,8 @@ export interface WorkCompany {
 
 export interface WorkItem {
   name: string;
-  status: string;
+  role: string;
+  phase?: string;
   desc: string;
   url?: string;
   companies?: WorkCompany[];
