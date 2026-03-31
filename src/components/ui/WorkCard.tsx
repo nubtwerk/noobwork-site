@@ -5,7 +5,7 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ item }: WorkCardProps) {
-  const [role, phase] = item.status.split("|").map((value) => value.trim());
+  const { role, phase } = item;
   const hasRowLink = Boolean(item.url);
 
   const content = (

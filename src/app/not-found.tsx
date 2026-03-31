@@ -7,19 +7,13 @@ export default function NotFound() {
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main">
-        <section className="site-section site-section--dark" style={{ minHeight: "60vh", display: "grid", placeItems: "center" }}>
-          <div className="shell-inner" style={{ textAlign: "center" }}>
-            <p style={{ fontFamily: "var(--font-family-display)", fontSize: "clamp(5rem, 15vw, 10rem)", lineHeight: 0.9, color: "var(--color-sand)", letterSpacing: "-0.04em", textTransform: "uppercase" }}>
-              404
-            </p>
-            <p style={{ marginTop: "1rem", color: "rgba(236, 219, 191, 0.7)", fontSize: "1.1rem", lineHeight: 1.6 }}>
+        <section className="site-section site-section--dark not-found-section">
+          <div className="shell-inner not-found-content">
+            <p className="not-found-code">404</p>
+            <p className="not-found-message">
               This page doesn&apos;t exist. Maybe it never did.
             </p>
-            <Link
-              href="/"
-              className="btn btn--primary"
-              style={{ marginTop: "2rem", display: "inline-flex" }}
-            >
+            <Link href="/" className="btn btn--primary not-found-cta">
               Back to Noobwork
             </Link>
           </div>

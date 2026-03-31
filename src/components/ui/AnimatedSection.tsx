@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { ANIMATION_VIEWPORT_MARGIN } from "@/lib/constants";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -28,7 +29,7 @@ export default function AnimatedSection({ children, delay = 0, className }: Anim
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "200px 0px 200px 0px" }}
+      viewport={{ once: true, margin: ANIMATION_VIEWPORT_MARGIN }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
     >

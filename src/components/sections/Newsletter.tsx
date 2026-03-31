@@ -1,4 +1,5 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import { BEACONS_URL } from "@/data/external-links";
 
 export default function Newsletter() {
   return (
@@ -13,7 +14,7 @@ export default function Newsletter() {
               I&apos;m documenting the return properly this time: what I&apos;m building, what I&apos;m learning, and what&apos;s changing along the way.
             </p>
             <a
-              href="https://beacons.ai/noobwork"
+              href={BEACONS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--primary"

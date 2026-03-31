@@ -6,6 +6,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
 import { contentCategories, partnershipTypes, partnershipProcess } from "@/data/media-kit";
+import { BEACONS_URL } from "@/data/external-links";
 
 export const metadata: Metadata = {
   title: "Media Kit",
@@ -171,7 +172,7 @@ export default function MediaKit() {
                 Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.
               </p>
               <div className="cta-actions">
-                <a href="https://beacons.ai/noobwork" target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+                <a href={BEACONS_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
                   Follow on Beacons
                 </a>
                 <a href="mailto:joachim@noobwork.no" className="btn btn--secondary">

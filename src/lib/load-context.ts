@@ -16,12 +16,21 @@ export interface ContextSection {
 /** Load a single context markdown file. */
 async function loadFile(entry: ContextFileEntry): Promise<ContextSection> {
   const filePath = path.join(CONTENT_DIR, entry.file);
-  const raw = await fs.readFile(filePath, "utf-8");
-  return {
-    id: entry.id,
-    heading: entry.heading,
-    markdown: raw.trim(),
-  };
+  try {
+    const raw = await fs.readFile(filePath, "utf-8");
+    return {
+      id: entry.id,
+      heading: entry.heading,
+      markdown: raw.trim(),
+    };
+  } catch (error) {
+    console.error(`Failed to load context file: ${entry.file}`, error);
+    return {
+      id: entry.id,
+      heading: entry.heading,
+      markdown: `*Content unavailable for ${entry.heading}.*`,
+    };
+  }
 }
 
 /** Load all context sections in manifest order. */
