@@ -6,7 +6,8 @@ describe("WorkCard", () => {
   it("renders as a link when url is provided", () => {
     const item = {
       name: "Heroic Group",
-      status: "Founder | Sold",
+      role: "Founder",
+      phase: "Sold",
       desc: "An esports org.",
       url: "https://heroic.gg",
     };
@@ -21,7 +22,8 @@ describe("WorkCard", () => {
   it("renders as a div when no url is provided", () => {
     const item = {
       name: "Stealth Startup",
-      status: "Founder | Current",
+      role: "Founder",
+      phase: "Current",
       desc: "Coming soon.",
     };
     const { container } = render(<WorkCard item={item} />);
@@ -30,8 +32,8 @@ describe("WorkCard", () => {
   });
 
   it("adds linked-card styling only for linked cards", () => {
-    const linked = { name: "Test", status: "Active", desc: "Desc", url: "https://example.com" };
-    const unlinked = { name: "Test", status: "Active", desc: "Desc" };
+    const linked = { name: "Test", role: "Active", desc: "Desc", url: "https://example.com" };
+    const unlinked = { name: "Test", role: "Active", desc: "Desc" };
 
     const { container: linkedContainer } = render(<WorkCard item={linked} />);
     const { container: unlinkedContainer } = render(<WorkCard item={unlinked} />);
@@ -41,7 +43,7 @@ describe("WorkCard", () => {
   });
 
   it("displays the work item name and description", () => {
-    const item = { name: "Blast.tv", status: "Advisor", desc: "Esports tournaments." };
+    const item = { name: "Blast.tv", role: "Advisor", desc: "Esports tournaments." };
     render(<WorkCard item={item} />);
     expect(screen.getByText("Blast.tv")).toBeInTheDocument();
     expect(screen.getByText("Esports tournaments.")).toBeInTheDocument();

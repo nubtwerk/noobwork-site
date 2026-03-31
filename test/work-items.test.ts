@@ -35,10 +35,10 @@ describe("work-items data", () => {
     }
   });
 
-  it("all items have name, status, and desc", () => {
+  it("all items have name, role, and desc", () => {
     for (const item of workItems) {
       expect(item.name).toBeTruthy();
-      expect(item.status).toBeTruthy();
+      expect(item.role).toBeTruthy();
       expect(item.desc).toBeTruthy();
     }
   });
