@@ -21,10 +21,10 @@ describe("WorkCard", () => {
 
   it("renders as a div when no url is provided", () => {
     const item = {
-      name: "Stealth Startup",
-      role: "Founder",
+      name: "Advisory & Angel",
+      role: "Advisor & Angel",
       phase: "Current",
-      desc: "Coming soon.",
+      desc: "Selective advisory work.",
     };
     const { container } = render(<WorkCard item={item} />);
     expect(container.querySelector("a")).not.toBeInTheDocument();

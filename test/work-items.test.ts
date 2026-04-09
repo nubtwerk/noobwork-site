@@ -7,7 +7,7 @@ describe("work-items data", () => {
   });
 
   it("primary linked items have URLs", () => {
-    const named = ["Heroic Group", "Noobwork", "DailyBase.ai"];
+    const named = ["Heroic Group", "Noobwork", "DailyBase.ai", "Enkelt.ai"];
     for (const name of named) {
       const item = workItems.find((w) => w.name === name);
       expect(item, `${name} should exist`).toBeDefined();
@@ -26,13 +26,10 @@ describe("work-items data", () => {
     }
   });
 
-  it("non-public ventures do not have URLs", () => {
-    const stealth = workItems.filter((w) => w.name.startsWith("Stealth"));
-    const privateItems = [...stealth];
-    expect(privateItems.length).toBeGreaterThanOrEqual(1);
-    for (const item of privateItems) {
-      expect(item.url).toBeUndefined();
-    }
+  it("advisory does not have a direct URL", () => {
+    const advisory = workItems.find((w) => w.name === "Advisory & Angel");
+    expect(advisory).toBeDefined();
+    expect(advisory!.url).toBeUndefined();
   });
 
   it("all items have name, role, and desc", () => {

@@ -12,6 +12,12 @@
 **Goal:** Make structured eating easier to follow through better planning, clearer macro control, ingredient swaps, and grocery flow.
 **Why it matters:** It reflects Joachim as a founder-builder, not just an advisor or operator.
 
+## Enkelt.ai
+**Status:** Active
+**What:** An esports operations platform built to replace spreadsheets, Discord DMs, and disconnected workflows with one system for scrims, roster availability, contracts, scouting, and scheduling.
+**Goal:** Simplify team operations for esports organisations that need structure without adding more tool sprawl.
+**Why it matters:** It sits close to Joachim's long history in esports and operator-heavy systems, turning that experience into software instead of just advice.
+
 ## Advisory and angel investing
 **Status:** Active - selective
 **What:** A selective mix of advisory work and occasional angel investing across gaming, media, space, and frontier technology.

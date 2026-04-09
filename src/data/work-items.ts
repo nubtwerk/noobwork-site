@@ -16,6 +16,13 @@ export const workItems: WorkItem[] = [
     url: "https://dailybase.ai/",
   },
   {
+    name: "Enkelt.ai",
+    role: "Builder",
+    phase: "Current",
+    desc: "An esports operations platform designed to replace the mess of spreadsheets, Discord DMs, and disconnected tools with one system for scrims, roster availability, contracts, scouting, and scheduling.",
+    url: "https://enkelt.ai/",
+  },
+  {
     name: "Advisory & Angel",
     role: "Advisor & Angel",
     phase: "Current",
@@ -45,11 +52,5 @@ export const workItems: WorkItem[] = [
     phase: "Exited",
     desc: "The company I founded and helped scale into one of the world's leading esports organisations, reaching $10 million in top-line revenue with a 10% profit margin, growing to a headcount of 50, and ending in a successful sale.",
     url: "https://heroic.gg",
-  },
-  {
-    name: "Stealth Startup",
-    role: "Founder",
-    phase: "Current",
-    desc: "A new venture taking shape behind the scenes. Still private for now, but being built with real intent rather than announced early.",
   },
 ];
