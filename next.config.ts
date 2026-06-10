@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: configDir,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {

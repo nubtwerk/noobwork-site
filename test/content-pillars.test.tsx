@@ -18,7 +18,7 @@ beforeEach(() => {
 describe("ContentPillars", () => {
   it("renders all three pillar titles", () => {
     render(<ContentPillars />);
-    expect(screen.getByText("Lifestyle")).toBeInTheDocument();
+    expect(screen.getByText("Fitness & Wellness")).toBeInTheDocument();
     expect(screen.getByText("Personal Development")).toBeInTheDocument();
     expect(screen.getByText("Gaming Heritage")).toBeInTheDocument();
   });

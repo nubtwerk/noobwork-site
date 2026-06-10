@@ -2,33 +2,26 @@
 
 ## Noobwork
 **Status:** Active - flagship project
-**What:** Joachim's return as a content creator. YouTube, Instagram, and other channels built around Japanese culture and routines, personal development, training, gaming heritage, entrepreneurship, and the realities of building.
+**What:** Joachim's return as a content creator. YouTube, Instagram, and other channels built around fitness and training, nutrition, personal development, life in Seoul, gaming heritage, and the realities of building.
 **Goal:** Reestablish Noobwork as a serious creator brand with a broader canvas than before, without losing the original identity that made it work.
-**Why it matters:** This is the core brand and creative identity. Everything else radiates from here.
+**Why it matters:** This is the core brand and creative identity, and the distribution engine for everything else.
+
+## Team Haraldsen
+**Status:** Active - growing
+**What:** Joachim's health, fitness, and wellness brand. A paid coaching community with real coaching and real accountability, built around training, nutrition, and feeling good, with zero guilt and zero diet-shaming.
+**Goal:** Become the human front door to a larger personalized wellness ecosystem.
+**Why it matters:** It turns the fitness chapter from content into a real business with real members and real outcomes.
 
 ## DailyBase.ai
 **Status:** Active - early-stage product
-**What:** A macro-focused planning app Joachim is building hands-on.
+**What:** A macro-focused nutrition planning app Joachim is building hands-on. iOS-first.
 **Goal:** Make structured eating easier to follow through better planning, clearer macro control, ingredient swaps, and grocery flow.
-**Why it matters:** It reflects Joachim as a founder-builder, not just an advisor or operator.
-
-## Enkelt.ai
-**Status:** Active
-**What:** An esports operations platform built to replace spreadsheets, Discord DMs, and disconnected workflows with one system for scrims, roster availability, contracts, scouting, and scheduling.
-**Goal:** Simplify team operations for esports organisations that need structure without adding more tool sprawl.
-**Why it matters:** It sits close to Joachim's long history in esports and operator-heavy systems, turning that experience into software instead of just advice.
+**Why it matters:** It is the first product surface of an AI-native platform for personalized wellness, and it reflects Joachim as a founder-builder, not just an operator.
 
 ## Advisory and angel investing
-**Status:** Active - selective
-**What:** A selective mix of advisory work and occasional angel investing across gaming, media, space, and frontier technology.
-**Goal:** Stay close to strong founders, high-leverage problems, and businesses where Joachim's operating experience can actually change outcomes.
-**Why it matters:** This is the part of Joachim's work built around judgment, pattern recognition, and helping the right people at the right stage without turning into full-time overhead.
-
-### Current examples
-- **Blast.tv** - Executive advisory in gaming and competitive entertainment at global scale.
-- **Nåva Space** - Advisory role in space technology and long-horizon frontier building.
-- **Eldorado** - Supporting a local Norwegian gaming startup focused on creating an excellent gaming location that is safe, structured, and well-maintained for young people.
-- **Stendr** - Defence tech company.
+**Status:** Background - selective
+**What:** Occasional advisory work and early-stage backing where Joachim's operating experience is genuinely useful. Past and ongoing relationships span gaming, media, space, and frontier technology, including Blast.tv and Nåva Space.
+**Why it matters:** Judgment and pattern recognition from two decades of operating, kept deliberately low-overhead so the focus stays on content and the wellness platform.
 
 ## Heroic Group AS
 **Status:** Exited - sold

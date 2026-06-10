@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ANIMATION_VIEWPORT_MARGIN } from "@/lib/constants";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -11,15 +11,7 @@ interface AnimatedSectionProps {
 }
 
 export default function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;

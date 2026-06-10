@@ -1,20 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useSpotlight } from "@/hooks/useSpotlight";
 import { useParallaxAndShimmer } from "@/hooks/useParallaxAndShimmer";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { useTilt } from "@/hooks/useTilt";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function MouseEffects() {
   const spotlightRef = useRef<HTMLDivElement>(null);
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    setEnabled(!reducedMotion && !coarsePointer);
-  }, []);
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const coarsePointer = useMediaQuery("(pointer: coarse)");
+  const enabled = !reducedMotion && !coarsePointer;
 
   useSpotlight(enabled ? spotlightRef : { current: null });
   useParallaxAndShimmer(enabled);

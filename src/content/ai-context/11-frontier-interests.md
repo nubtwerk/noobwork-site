@@ -22,7 +22,7 @@ He is more interested in people building hard things than people commenting on t
 
 ## Where this turns into action
 
-These interests are not meant to stay theoretical. Joachim wants to spend more time around the right founders, operators, investors, researchers, and events connected to AI, compute, energy, defence, and deep tech.
+The most direct expression of this lens today is the AI-native wellness platform Joachim is building, with DailyBase as the first product surface. Beyond his own products, he wants to spend time around the right founders, operators, investors, researchers, and events connected to AI, compute, energy, and deep tech.
 
 Strong fits include:
 - founder conversations in AI, compute, energy, defence, and infrastructure

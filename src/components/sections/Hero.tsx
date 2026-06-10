@@ -21,7 +21,7 @@ export default function Hero() {
               <Logo variant="wordmark" className="hero-lockup__logo" />
             </h1>
             <p className="hero-lockup__subtitle">
-              Lifestyle / Personal Development / Gaming Heritage
+              Fitness / Personal Development / Gaming Heritage
             </p>
           </motion.div>
         </div>
@@ -40,7 +40,7 @@ export default function Hero() {
                 <Logo variant="wordmark" className="hero-panel__eyebrow-logo" />
               </div>
               <p className="hero-panel__copy">
-                Eight years after stepping away from content to build companies, Joachim Haraldsen is back in Tokyo, documenting what comes next.
+                After years away building companies, Joachim Haraldsen is back to creating, documenting the fitness grind and the next chapter from Seoul.
               </p>
               <div className="hero-actions">
                 <Link href="/#work" className="btn btn--primary">
@@ -60,7 +60,7 @@ export default function Hero() {
             >
               <Image
                 src="/joachim.jpg"
-                alt="Joachim Haraldsen holding a coffee in Tokyo"
+                alt="Joachim Haraldsen holding a coffee"
                 width={500}
                 height={600}
                 sizes="(max-width: 768px) 100vw, 28rem"
@@ -84,12 +84,12 @@ export default function Hero() {
               </div>
               <div className="hero-stat" data-magnetic>
                 <UserRound className="hero-stat__icon" size={18} aria-hidden="true" />
-                <div className="hero-stat__value">200K</div>
+                <div className="hero-stat__value">195K+</div>
                 <div className="hero-stat__label">Subscribers</div>
               </div>
               <div className="hero-stat" data-magnetic>
                 <Award className="hero-stat__icon" size={18} aria-hidden="true" />
-                <div className="hero-stat__value">12+</div>
+                <div className="hero-stat__value">13+</div>
                 <div className="hero-stat__label">Years creating</div>
               </div>
             </motion.div>

@@ -4,21 +4,20 @@
 
 ## High-signal opportunities
 
-- **Executive or senior advisory roles** where Joachim's operator background can materially improve decisions, especially across gaming, media, AI infrastructure, datacenters, space, defence, and adjacent frontier industries
+- **Brand partnerships and sponsorships** with premium brands that fit the Noobwork aesthetic, especially across fitness, health, nutrition, lifestyle, tech, travel, and culture
 - **Founder conversations** where the company is serious, the problem is real, and Joachim's judgment or experience could be genuinely useful
-- **Selective angel investing opportunities** where there is a strong founder, a credible wedge, and a clear reason Joachim should be involved early
-- **AI, compute, energy, defence, and infrastructure companies** where he can contribute more than brand value, especially in strategy, positioning, or operator-level perspective
-- **Board seats or advisory positions** at growth-stage companies where the role carries actual decision-making weight
-- **Strategic partnerships** with premium brands that fit the Noobwork aesthetic, especially across lifestyle, tech, fitness, travel, and culture
-- **Speaking engagements** where the topic is substantive: gaming business, entrepreneurship, creator strategy, AI products, infrastructure, or building across cultures
+- **Health, fitness, and wellness collaborations** that respect the zero-guilt, zero diet-shaming foundation of his brands
+- **Speaking engagements** where the topic is substantive: fitness and creator strategy, entrepreneurship, gaming business, AI products, or building across cultures
+- **Selective angel opportunities** where there is a strong founder, a credible wedge, and a clear reason Joachim should be involved early
+- **AI and product conversations** connected to personalized wellness, consumer health, or the infrastructure behind them
 
 ## What makes an opportunity compelling
 
 - It respects Joachim's seniority, track record, and range
-- It has global relevance or a strong Asia / Middle East angle
+- It has global relevance or a strong Nordic / Asia angle
 - It is clear why Joachim is a fit specifically, not just generally impressive
 - It involves real work, real decisions, or real leverage
-- It is remote-first, Tokyo-compatible, or travel-friendly
+- It is remote-first, Seoul-compatible, or travel-friendly
 - It is written with enough context that the opportunity can be evaluated quickly
 
 ## What is less compelling

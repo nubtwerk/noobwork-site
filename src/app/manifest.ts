@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Noobwork — Joachim Haraldsen",
+    name: "Noobwork | Joachim Haraldsen",
     short_name: "Noobwork",
-    description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
+    description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",
     start_url: "/",
     display: "standalone",
     background_color: "#F8F8F8",

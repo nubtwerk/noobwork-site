@@ -18,16 +18,16 @@ const newake = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.noobwork.no"),
   title: {
-    default: "Noobwork — Joachim Haraldsen | Tokyo Lifestyle, Personal Development, Gaming Heritage",
+    default: "Noobwork | Joachim Haraldsen: Fitness, Personal Development, Gaming Heritage",
     template: "%s | Noobwork",
   },
-  description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
-  keywords: ["Noobwork", "Joachim Haraldsen", "gaming", "esports", "Tokyo", "lifestyle", "personal development", "content creator", "YouTube"],
+  description: "Premium fitness and lifestyle creator brand by Joachim Haraldsen. Training, nutrition, personal development, and gaming heritage, documented from Seoul. Built on Norway's largest gaming YouTube channel.",
+  keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube", "Team Haraldsen", "DailyBase"],
   authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
   creator: "Joachim Haraldsen",
   openGraph: {
-    title: "Noobwork — Joachim Haraldsen",
-    description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
+    title: "Noobwork | Joachim Haraldsen",
+    description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",
     url: "https://www.noobwork.no",
     siteName: "Noobwork",
     locale: "en_US",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Noobwork — Joachim Haraldsen",
-    description: "Premium lifestyle creator brand. Tokyo lifestyle, personal development, and gaming heritage.",
+    title: "Noobwork | Joachim Haraldsen",
+    description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",
     creator: "@noobwork",
   },
   other: {

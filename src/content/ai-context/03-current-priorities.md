@@ -4,14 +4,14 @@
 
 ## Active projects
 
-- **Noobwork** - The flagship return. Joachim is building the next chapter of Noobwork from Tokyo as a content creator again, with a broader focus on Japanese culture and routines, personal development, training, gaming heritage, and entrepreneurship.
-- **DailyBase.ai** - A macro-focused nutrition planning app Joachim is building hands-on. Focused on meal planning, macro structure, ingredient swaps, and grocery flow in a way that is actually usable day to day.
-- **Advisory and angel investing** - Selective work where operator judgment is genuinely useful, especially across gaming, space, media, and frontier technology.
-- **AI products and tooling** - Ongoing product exploration around AI, workflows, and the infrastructure stack behind what is coming next.
+- **Noobwork** - The flagship return. Joachim is creating daily content from Seoul, built around fitness and training, nutrition, personal development, gaming heritage, and the realities of building.
+- **Team Haraldsen** - Joachim's health and fitness brand and paid coaching community. Real coaching, real accountability, zero guilt, zero diet-shaming.
+- **DailyBase.ai** - A macro-focused nutrition planning app Joachim is building hands-on. Meal planning, macro structure, ingredient swaps, and grocery flow in a way that is actually usable day to day. iOS-first.
+- **AI-native wellness platform** - The long-term play behind it all: software that knows you, plans for you, and removes the guesswork from eating, training, and feeling good. Team Haraldsen and DailyBase are the first surfaces.
 
 ## What Joachim is optimizing for right now
-- Returning to content with quality and consistency, not nostalgia
+- Daily content with quality and consistency, not nostalgia
+- Building the health and fitness ecosystem brick by brick: community first, product second, platform long-term
+- Training hard and documenting it honestly
 - Shipping products and content in parallel
-- Going deeper on AI, compute infrastructure, and energy as a builder, investor-thinker, and student of the space
-- Spending time with the right communities and physical events around AI, deep tech, and energy
-- Keeping advisory work high-leverage and low-overhead
+- Keeping everything else low-overhead so the focus stays on content and the wellness platform

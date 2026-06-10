@@ -2,9 +2,8 @@
 
 ## Best ways to engage
 
-- **Partnerships and brand collaborations** - Via the Media Kit at noobwork.no/media-kit or by email at joachim@noobwork.no.
-- **Advisory and angel conversations** - Especially across gaming, media, AI infrastructure, datacenters, space, defence, and frontier technology.
-- **Speaking and appearances** - Gaming, entrepreneurship, creator economy, AI, and building across cultures.
+- **Partnerships and brand collaborations** - Via the Media Kit at noobwork.no/media-kit or by email at joachim@noobwork.no. Strongest fit: fitness, health, nutrition, lifestyle, tech, and travel brands.
+- **Speaking and appearances** - Fitness and creator strategy, entrepreneurship, gaming business, AI products, and building across cultures.
 - **Founder outreach** - Joachim likes connecting with younger founders, helping where useful, and occasionally investing early when there is real fit.
 - **Content collaborations** - Only when the fit is authentic and the collaboration makes sense for the Noobwork brand.
 

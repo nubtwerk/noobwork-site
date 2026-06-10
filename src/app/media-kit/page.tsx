@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Media Kit",
   description: "Partner with Noobwork. Audience stats, demographics, content verticals, and collaboration opportunities with Joachim Haraldsen.",
   openGraph: {
-    title: "Media Kit — Noobwork",
+    title: "Media Kit | Noobwork",
     description: "Partner with Noobwork. Audience stats, demographics, and collaboration opportunities.",
   },
 };
@@ -32,7 +32,7 @@ export default function MediaKit() {
                   <span>Kit</span>
                 </h1>
                 <p className="media-copy">
-                  I&apos;ve spent over a decade building authentic communities in gaming, esports, and entertainment. Here&apos;s what a partnership with me looks like.
+                  I&apos;ve spent over a decade building authentic communities, first in gaming and esports, now in fitness and lifestyle. Here&apos;s what a partnership with me looks like.
                 </p>
               </div>
             </AnimatedSection>
@@ -42,7 +42,7 @@ export default function MediaKit() {
         {/* Stat Band */}
         <AnimatedSection>
           <div className="mk-stat-band">
-            {mediaKitStats.map((stat, i) => (
+            {mediaKitStats.map((stat) => (
               <div key={stat.label} className="mk-stat" data-magnetic>
                 <div className="mk-stat__value">
                   {stat.numericValue != null ? (
@@ -68,10 +68,10 @@ export default function MediaKit() {
                 <div className="mk-audience-card" data-tilt>
                   <div className="mk-audience-card__label">Core Age Range</div>
                   <div className="mk-age-range">
-                    <div className="mk-age-range__seg" style={{ flex: 1 }}>13–17</div>
-                    <div className="mk-age-range__seg mk-age-range__seg--active" style={{ flex: 2.5 }}>18–34</div>
-                    <div className="mk-age-range__seg" style={{ flex: 1 }}>35–44</div>
-                    <div className="mk-age-range__seg" style={{ flex: 0.5 }}>45+</div>
+                    <div className="mk-age-range__seg" style={{ flex: 1 }}>13-17</div>
+                    <div className="mk-age-range__seg mk-age-range__seg--active" style={{ flex: 3 }}>18-34</div>
+                    <div className="mk-age-range__seg" style={{ flex: 0.6 }}>35-44</div>
+                    <div className="mk-age-range__seg" style={{ flex: 0.4 }}>45+</div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -81,13 +81,13 @@ export default function MediaKit() {
                   <div className="mk-bar-chart">
                     <div className="mk-bar-row">
                       <span className="mk-bar-row__label">Male</span>
-                      <div className="mk-bar-row__track"><div className="mk-bar-row__fill mk-bar-row__fill--primary" style={{ width: "75%" }} /></div>
-                      <span className="mk-bar-row__pct">75%</span>
+                      <div className="mk-bar-row__track"><div className="mk-bar-row__fill mk-bar-row__fill--primary" style={{ width: "96%" }} /></div>
+                      <span className="mk-bar-row__pct">96%</span>
                     </div>
                     <div className="mk-bar-row">
                       <span className="mk-bar-row__label">Female</span>
-                      <div className="mk-bar-row__track"><div className="mk-bar-row__fill mk-bar-row__fill--sand" style={{ width: "25%" }} /></div>
-                      <span className="mk-bar-row__pct">25%</span>
+                      <div className="mk-bar-row__track"><div className="mk-bar-row__fill mk-bar-row__fill--sand" style={{ width: "4%" }} /></div>
+                      <span className="mk-bar-row__pct">4%</span>
                     </div>
                   </div>
                 </div>
@@ -96,10 +96,10 @@ export default function MediaKit() {
                 <div className="mk-audience-card" data-tilt>
                   <div className="mk-audience-card__label">Top Regions</div>
                   <div className="mk-region-list">
-                    {["Norway", "Sweden", "Denmark"].map(r => (
+                    {["Norway", "Sweden"].map(r => (
                       <span key={r} className="mk-region-tag mk-region-tag--primary"><span className="mk-region-tag__dot" />{r}</span>
                     ))}
-                    {["Germany", "UK"].map(r => (
+                    {["United States", "Denmark"].map(r => (
                       <span key={r} className="mk-region-tag"><span className="mk-region-tag__dot" />{r}</span>
                     ))}
                   </div>
