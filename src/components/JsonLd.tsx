@@ -8,6 +8,7 @@ export default function JsonLd() {
     alternateName: "Noobwork",
     url: "https://www.noobwork.no",
     image: "https://www.noobwork.no/joachim.jpg",
+    email: "mailto:joachim@noobwork.no",
     description: "Premium fitness and lifestyle creator brand by Joachim Haraldsen. Training, nutrition, personal development, and gaming heritage, documented from Seoul. Built on Norway's largest gaming YouTube channel.",
     jobTitle: "Creator & Entrepreneur",
     sameAs: socialLinks

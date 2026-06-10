@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube", "Team Haraldsen", "DailyBase"],
   authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
   creator: "Joachim Haraldsen",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Noobwork | Joachim Haraldsen",
     description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",

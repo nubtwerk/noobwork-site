@@ -11,6 +11,9 @@ import { BEACONS_URL } from "@/data/external-links";
 export const metadata: Metadata = {
   title: "Media Kit",
   description: "Partner with Noobwork. Audience stats, demographics, content verticals, and collaboration opportunities with Joachim Haraldsen.",
+  alternates: {
+    canonical: "/media-kit",
+  },
   openGraph: {
     title: "Media Kit | Noobwork",
     description: "Partner with Noobwork. Audience stats, demographics, and collaboration opportunities.",

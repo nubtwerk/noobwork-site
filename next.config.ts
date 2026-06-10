@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
         source: "/.well-known/llm.txt",
         destination: "/context/llm.txt",
       },
+      {
+        source: "/llms.txt",
+        destination: "/context/llm.txt",
+      },
+      {
+        source: "/llms-full.txt",
+        destination: "/context/llm.txt",
+      },
     ];
   },
   async headers() {
