@@ -6,8 +6,8 @@ const pillars: Array<{
   tone: "green" | "purple" | "sand";
 }> = [
   {
-    title: "Lifestyle",
-    desc: "Japanese culture and routines, taste, training, and the daily details that shape how I think and live.",
+    title: "Fitness & Wellness",
+    desc: "Training, nutrition, and the daily routines behind the grind, documented honestly from Seoul.",
     tone: "green",
   },
   {

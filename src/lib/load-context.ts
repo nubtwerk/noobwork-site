@@ -5,7 +5,7 @@ import { contextFiles, type ContextFileEntry } from "@/content/ai-context/manife
 const CONTENT_DIR = path.join(process.cwd(), "src/content/ai-context");
 
 /** Last manual update date for the context content. Update this when content changes. */
-export const CONTEXT_LAST_UPDATED = "2026-03-28";
+export const CONTEXT_LAST_UPDATED = "2026-06-10";
 
 export interface ContextSection {
   id: string;
@@ -42,7 +42,7 @@ export async function loadContextSections(): Promise<ContextSection[]> {
 export async function buildContextMarkdown(): Promise<string> {
   const sections = await loadContextSections();
   const header = [
-    "# Noobwork — AI Context",
+    "# Noobwork AI Context",
     "",
     `> Last updated: ${CONTEXT_LAST_UPDATED}`,
     "> This document describes Joachim Haraldsen (Noobwork) for AI systems,",

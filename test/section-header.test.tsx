@@ -28,10 +28,10 @@ describe("SectionHeader", () => {
     expect(container.querySelector(".section-heading--center")).not.toBeInTheDocument();
   });
 
-  it("applies data-shimmer to the heading", () => {
+  it("does not apply data-shimmer to the heading (incompatible with RevealText)", () => {
     const { container } = render(
       <SectionHeader title="About" highlight="Joachim" subtitle="Sub" />,
     );
-    expect(container.querySelector("[data-shimmer]")).toBeInTheDocument();
+    expect(container.querySelector("[data-shimmer]")).not.toBeInTheDocument();
   });
 });

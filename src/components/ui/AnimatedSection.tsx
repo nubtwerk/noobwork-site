@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ANIMATION_VIEWPORT_MARGIN } from "@/lib/constants";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -11,15 +11,7 @@ interface AnimatedSectionProps {
 }
 
 export default function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
@@ -27,10 +19,10 @@ export default function AnimatedSection({ children, delay = 0, className }: Anim
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 28, filter: "blur(5px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: ANIMATION_VIEWPORT_MARGIN }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}

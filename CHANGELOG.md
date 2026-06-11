@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0.0] - 2026-06-10
+
+### Changed
+- Repositioned the site from Tokyo lifestyle to the Seoul fitness chapter: hero, about, content pillars (Fitness & Wellness first), metadata, structured data, OG image, and all 15 AI-context pages now tell the current story
+- Work & Ventures now features Team Haraldsen and DailyBase alongside Noobwork and Heroic Group; retired Enkelt.ai and the advisory card
+- Corrected every public stat against live channel data: 195K+ subscribers, 150M+ total views, 1,800+ videos, 13+ years creating
+- Media kit audience data now reflects real YouTube Analytics: 96/4 gender split, 18-34 core, Norway/Sweden/US/Denmark top regions
+- All YouTube links use the canonical https://www.youtube.com/@Noobworkify handle
+- Featured video updated to the latest training upload
+
+### Added
+- Site-wide momentum smooth scrolling (Lenis) so the whole site glides instead of stepping
+- Kinetic section headings that reveal word by word, rising out of a mask and unblurring
+- Scroll-linked parallax on the hero portrait, staggered stat entrances, and magnetic CTA buttons
+- Infinite brand marquee (Forbes, YouTube, Heroic, Blast.tv, Team Haraldsen, DailyBase) with edge fade and pause on hover
+- Scroll progress bar under the navigation
+- Click-to-play YouTube facade so visitors no longer download YouTube's player on page load
+- Root /llms.txt and /llms-full.txt endpoints plus canonical URLs on every page for AI and search discoverability
+- Shared useMediaQuery hook (useSyncExternalStore) with tests
+
+All motion respects prefers-reduced-motion and falls back to static layouts.
+
+### Fixed
+- Restored the Inter body font via self-hosted next/font
+- Open Graph image and llm.txt are now statically generated; every route prerenders at build time
+- React lint errors: setState-in-effect in AnimatedSection and MouseEffects, ref-write-during-render in useMousePosition
+- Vitest and ESLint no longer scan stale agent worktrees under .claude/
+
 ## [0.1.0.0] - 2026-03-31
 
 ### Changed

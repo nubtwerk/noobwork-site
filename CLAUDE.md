@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Premium lifestyle creator brand website for Joachim Haraldsen (noobwork.no). Single-page portfolio + Media Kit page. Newsletter and update signups are handled externally through Beacons (`https://beacons.ai/noobwork`). Core content is hardcoded in React components and data files.
+Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the current Seoul fitness chapter: daily content through Noobwork, coaching through Team Haraldsen, and meal planning through DailyBase. Single-page portfolio + Media Kit page. Newsletter and update signups are handled externally through Beacons (`https://beacons.ai/noobwork`). Core content is hardcoded in React components and data files; AI-readable context pages live in `src/content/ai-context/` and are served at `/context` and `/context/llm.txt` (also rewritten from `/llms.txt`, `/llms-full.txt`, and `/.well-known/llm.txt` in `next.config.ts`).
 
 ## Commands
 
@@ -28,8 +28,8 @@ Tests live in `test/`. Uses Vitest + @testing-library/react + jsdom.
 
 Single-page portfolio using the Next.js App Router. The app lives in `src/app/`:
 
-- `layout.tsx` - Root layout with NEWAKE + Inter fonts, SEO metadata (Open Graph, Twitter Card)
-- `page.tsx` - Main page: Hero, SocialProof, About, ContentPillars, Work, Newsletter, Connect
+- `layout.tsx` - Root layout with NEWAKE (local) + Inter (next/font) fonts, SEO metadata (Open Graph, Twitter Card, canonical URLs)
+- `page.tsx` - Main page: Hero, LatestVideo, About, ContentPillars, Work, Newsletter, Connect
 - `media-kit/page.tsx` - Dedicated Media Kit page for brand partnerships
 - `globals.css` - Tailwind imports and CSS custom properties for the design system
 
@@ -41,7 +41,7 @@ Based on the **NOOBWORK 2026 Brand Guidelines**. Full specification in `DESIGN.m
 
 Figma source: https://www.figma.com/design/a75Y0hDzd5ymqFUeOleJnv/NOOBWORK_Brandbook-2026
 
-**Typography:** NEWAKE (headings/display, uppercase) + Inter (body). NEWAKE loaded as a local font from `src/fonts/`.
+**Typography:** NEWAKE (headings/display, uppercase) + Inter (body). NEWAKE loaded as a local font from `src/fonts/`; Inter loaded via `next/font/google` (self-hosted at build time, no runtime Google Fonts request).
 
 **Colors** (CSS custom properties in `globals.css`):
 - `--background: #F8F8F8` (off-white page background)
@@ -79,3 +79,35 @@ Key routing rules:
 - Design system, brand → invoke design-consultation
 - Visual audit, design polish → invoke design-review
 - Architecture review → invoke plan-eng-review
+
+## GBrain Search Guidance (configured by /sync-gbrain)
+<!-- gstack-gbrain-search-guidance:start -->
+
+GBrain is set up and synced on this machine. The agent should prefer gbrain
+over Grep when the question is semantic or when you do not know the exact
+identifier yet.
+
+**This worktree is pinned to a worktree-scoped code source** via the
+`.gbrain-source` file in the repo root (kubectl-style context). Any
+`gbrain code-def`, `code-refs`, `code-callers`, `code-callees`, or `query`
+call from anywhere under this worktree routes to that source by default —
+no `--source` flag needed.
+
+Two indexed corpora available via the `gbrain` CLI:
+- This worktree code (auto-pinned via `.gbrain-source`).
+- `~/.gstack/` curated memory (registered as `gstack-brain-<user>` source).
+
+Prefer gbrain when:
+- "Where is X handled?" / semantic intent, no exact string yet:
+    `gbrain search "<terms>"` or `gbrain query "<question>"`
+- "Where is symbol Y defined?" / symbol-based code questions:
+    `gbrain code-def <symbol>` or `gbrain code-refs <symbol>`
+- "What calls Y?" / "What does Y depend on?":
+    `gbrain code-callers <symbol>` / `gbrain code-callees <symbol>`
+- "What did we decide last time?" / past plans, retros, learnings:
+    `gbrain search "<terms>" --source gstack-brain-<user>`
+
+Grep is still right for known exact strings, regex, multiline patterns, and
+file globs. Run `/sync-gbrain` after meaningful code changes.
+
+<!-- gstack-gbrain-search-guidance:end -->

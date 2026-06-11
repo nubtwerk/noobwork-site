@@ -1,25 +1,25 @@
 export const audienceDemographics = [
   { label: "Primary Age", value: "18-34", description: "Core demographic" },
-  { label: "Gender Split", value: "75/25", description: "Male / Female" },
-  { label: "Top Regions", value: "Nordics, EU", description: "Norway, Sweden, Denmark" },
+  { label: "Gender Split", value: "96/4", description: "Male / Female" },
+  { label: "Top Regions", value: "Nordics", description: "Norway, Sweden, Denmark" },
 ];
 
 export const contentCategories = [
   {
-    title: "Gaming",
-    description: "Let's Plays, reviews, and gaming culture content across PC and console platforms.",
+    title: "Fitness & Training",
+    description: "Push days, pull days, and the honest reality of the grind. Training, nutrition, and routines documented daily.",
   },
   {
-    title: "Esports",
-    description: "Behind-the-scenes, analysis, and insider perspectives from the competitive gaming world.",
+    title: "Lifestyle & Korea",
+    description: "Life in Seoul, Korean culture, travel, and building a life across borders.",
   },
   {
-    title: "Lifestyle & Japan",
-    description: "Life in Tokyo, Japanese culture, travel, and the expat experience.",
+    title: "Personal Development",
+    description: "Discipline, mindset, and long-term self-development, grounded in real work.",
   },
   {
-    title: "Tech & Business",
-    description: "Entrepreneurship insights, tech reviews, and startup culture.",
+    title: "Gaming Heritage",
+    description: "The competitive gaming background that built Noobwork, and the culture that still carries forward.",
   },
 ];
 
@@ -45,6 +45,6 @@ export const partnershipTypes = [
   },
   {
     title: "Consulting",
-    description: "Strategic advisory for gaming, esports, and creator economy ventures.",
+    description: "Strategic advisory for creator economy, fitness, and digital media ventures.",
   },
 ];

@@ -4,11 +4,16 @@ type MouseCallback = ((x: number, y: number) => void) | null;
 
 /** Shared mouse position tracker that batches updates via requestAnimationFrame. */
 export function useMousePosition(onUpdate: MouseCallback) {
-  const callbackRef = useRef(onUpdate);
-  callbackRef.current = onUpdate;
+  const callbackRef = useRef<MouseCallback>(null);
 
   useEffect(() => {
-    if (!callbackRef.current) return;
+    callbackRef.current = onUpdate;
+  }, [onUpdate]);
+
+  const hasCallback = onUpdate !== null;
+
+  useEffect(() => {
+    if (!hasCallback) return;
 
     let rafId: number | null = null;
     let mouseX = 0;
@@ -30,5 +35,5 @@ export function useMousePosition(onUpdate: MouseCallback) {
       document.removeEventListener("mousemove", onMouseMove);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [onUpdate === null]);
+  }, [hasCallback]);
 }

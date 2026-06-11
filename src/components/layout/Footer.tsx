@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p className="footer-copy">&copy; {new Date().getFullYear()} Noobwork. All rights reserved.</p>
-          <p className="footer-copy footer-copy--subtle">Built in Tokyo</p>
+          <p className="footer-copy footer-copy--subtle">Built in Seoul</p>
         </div>
       </div>
     </footer>

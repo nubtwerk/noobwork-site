@@ -5,7 +5,7 @@ Figma file: https://www.figma.com/design/a75Y0hDzd5ymqFUeOleJnv/NOOBWORK_Brandbo
 
 ## Brand Positioning
 
-Premium lifestyle creator brand. Earth tones, simple, grounded, warmth, ambition, Tokyo lifestyle.
+Premium lifestyle creator brand. Earth tones, simple, grounded, warmth, ambition, the Seoul fitness chapter.
 No neon, no gamer cliches, no corporate feel. Refined aesthetic with subtle gaming heritage nods.
 
 ## Color Palette
@@ -108,13 +108,13 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 ## Content Pillars
 
 Three pillars, always in this order:
-1. **Tokyo Lifestyle** - Sand background, city/temple emoji
-2. **Personal Development** - Purple background, target emoji
-3. **Gaming Heritage** - Brown background, gaming emoji
+1. **Fitness & Wellness** - Green background, numbered badge ("01")
+2. **Personal Development** - Purple background, numbered badge ("02")
+3. **Gaming Heritage** - Sand background, numbered badge ("03")
 
 ## Imagery
 
-- Photography style: Natural light, Tokyo urban settings, lifestyle-focused
+- Photography style: Natural light, Seoul urban settings, fitness and lifestyle-focused
 - Profile images: `rounded-3xl` with subtle shadow
 - No stock photos, no overly processed filters
 - Brand imagery should feel warm, authentic, grounded

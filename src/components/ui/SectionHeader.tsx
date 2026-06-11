@@ -1,3 +1,5 @@
+import RevealText from "@/components/ui/RevealText";
+
 interface SectionHeaderProps {
   title: string;
   highlight: string;
@@ -15,8 +17,13 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`section-heading ${center ? "section-heading--center" : ""}`.trim()}>
-      <h2 className="section-heading__title" data-shimmer>
-        {title} <span className={highlightClassName}>{highlight}</span>
+      {/* No data-shimmer here: background-clip text cannot paint through the
+          composited word spans RevealText creates, leaving the text invisible. */}
+      <h2 className="section-heading__title">
+        <RevealText text={title} />{" "}
+        <span className={highlightClassName}>
+          <RevealText text={highlight} delay={0.12} />
+        </span>
       </h2>
       <p className="section-heading__subtitle">{subtitle}</p>
     </div>

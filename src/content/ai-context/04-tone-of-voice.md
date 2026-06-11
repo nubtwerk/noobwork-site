@@ -32,4 +32,4 @@ This section should be treated as writing guidance, not just brand description. 
 - Over-claiming, inflated status language, or made-up certainty.
 - Em dashes. Use commas, periods, or simpler sentence structure instead.
 
-Think Tokyo discipline, Nordic restraint, and operator-level clarity.
+Think Seoul discipline, Nordic restraint, and operator-level clarity.

@@ -9,9 +9,9 @@ export default function Work() {
       <div className="shell-inner">
         <div className="work-layout">
           <AnimatedSection className="work-intro">
-            <SectionHeader title="Work &" highlight="Ventures" subtitle="What I&apos;m building, advising, and backing now" />
+            <SectionHeader title="Work &" highlight="Ventures" subtitle="What I&apos;m building now" />
             <p className="work-intro__note">
-              A focused mix of creator work, companies I&apos;m building, advisory work, and selective early-stage backing across media, AI, technology, and culture.
+              A focused mix of creator work and the companies I&apos;m building across health, fitness, and AI, grounded in a track record from gaming and esports.
             </p>
           </AnimatedSection>
 

@@ -1,5 +1,7 @@
 import { buildContextMarkdown } from "@/lib/load-context";
 
+export const dynamic = "force-static";
+
 export async function GET() {
   const markdown = await buildContextMarkdown();
 

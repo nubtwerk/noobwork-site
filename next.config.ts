@@ -8,10 +8,27 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: configDir,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
         source: "/.well-known/llm.txt",
+        destination: "/context/llm.txt",
+      },
+      {
+        source: "/llms.txt",
+        destination: "/context/llm.txt",
+      },
+      {
+        source: "/llms-full.txt",
         destination: "/context/llm.txt",
       },
     ];

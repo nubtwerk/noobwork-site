@@ -2,12 +2,12 @@ import { describe, it, expect } from "vitest";
 import { workItems } from "@/data/work-items";
 
 describe("work-items data", () => {
-  it("has 5 work items", () => {
-    expect(workItems).toHaveLength(5);
+  it("has 4 work items", () => {
+    expect(workItems).toHaveLength(4);
   });
 
   it("primary linked items have URLs", () => {
-    const named = ["Heroic Group", "Noobwork", "DailyBase.ai", "Enkelt.ai"];
+    const named = ["Noobwork", "Team Haraldsen", "DailyBase.ai", "Heroic Group"];
     for (const name of named) {
       const item = workItems.find((w) => w.name === name);
       expect(item, `${name} should exist`).toBeDefined();
@@ -15,21 +15,9 @@ describe("work-items data", () => {
     }
   });
 
-  it("advisory companies have URLs", () => {
-    const advisory = workItems.find((w) => w.name === "Advisory & Angel");
-    expect(advisory).toBeDefined();
-    expect(advisory?.companies).toBeDefined();
-    expect(advisory?.companies).toHaveLength(4);
-
-    for (const company of advisory?.companies ?? []) {
-      expect(company.url, `${company.name} should have a URL`).toBeTruthy();
-    }
-  });
-
-  it("advisory does not have a direct URL", () => {
-    const advisory = workItems.find((w) => w.name === "Advisory & Angel");
-    expect(advisory).toBeDefined();
-    expect(advisory!.url).toBeUndefined();
+  it("uses the canonical YouTube handle URL", () => {
+    const noobwork = workItems.find((w) => w.name === "Noobwork");
+    expect(noobwork?.url).toBe("https://www.youtube.com/@Noobworkify");
   });
 
   it("all items have name, role, and desc", () => {

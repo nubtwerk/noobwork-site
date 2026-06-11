@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Noobwork - Joachim Haraldsen";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -65,7 +64,7 @@ export default function OGImage() {
               fontWeight: 600,
             }}
           >
-            TOKYO LIFESTYLE  •  PERSONAL DEVELOPMENT  •  GAMING HERITAGE
+            FITNESS  •  PERSONAL DEVELOPMENT  •  GAMING HERITAGE
           </div>
 
           {/* URL */}

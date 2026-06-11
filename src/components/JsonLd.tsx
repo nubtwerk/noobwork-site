@@ -8,21 +8,22 @@ export default function JsonLd() {
     alternateName: "Noobwork",
     url: "https://www.noobwork.no",
     image: "https://www.noobwork.no/joachim.jpg",
-    description: "Premium lifestyle creator brand by Joachim Haraldsen. Tokyo lifestyle, personal development, and gaming heritage. Founded from Norway's largest gaming YouTube channel.",
+    email: "mailto:joachim@noobwork.no",
+    description: "Premium fitness and lifestyle creator brand by Joachim Haraldsen. Training, nutrition, personal development, and gaming heritage, documented from Seoul. Built on Norway's largest gaming YouTube channel.",
     jobTitle: "Creator & Entrepreneur",
     sameAs: socialLinks
       .filter((link) => link.url.startsWith("http"))
       .map((link) => link.url),
     knowsAbout: [
-      "Gaming",
-      "Esports",
+      "Fitness & Training",
+      "Nutrition",
+      "Personal Development",
       "Content Creation",
       "Entrepreneurship",
-      "Technology",
+      "Gaming",
+      "Esports",
       "Executive Leadership",
       "Media & Publishing",
-      "Tokyo Lifestyle",
-      "Personal Development",
     ],
     nationality: {
       "@type": "Country",
@@ -30,7 +31,7 @@ export default function JsonLd() {
     },
     workLocation: {
       "@type": "City",
-      name: "Tokyo",
+      name: "Seoul",
     },
   };
 
