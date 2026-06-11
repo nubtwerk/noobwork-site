@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import SkipToContent from "@/components/layout/SkipToContent";
 import MouseEffects from "@/components/ui/MouseEffects";
+import SmoothScroll from "@/components/ui/SmoothScroll";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
@@ -57,6 +59,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <JsonLd />
         <SkipToContent />
+        <SmoothScroll />
+        <ScrollProgress />
         <MouseEffects />
         {children}
         <Analytics />
