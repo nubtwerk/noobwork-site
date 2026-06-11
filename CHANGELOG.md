@@ -13,9 +13,16 @@ All notable changes to this project will be documented in this file.
 - Featured video updated to the latest training upload
 
 ### Added
+- Site-wide momentum smooth scrolling (Lenis) so the whole site glides instead of stepping
+- Kinetic section headings that reveal word by word, rising out of a mask and unblurring
+- Scroll-linked parallax on the hero portrait, staggered stat entrances, and magnetic CTA buttons
+- Infinite brand marquee (Forbes, YouTube, Heroic, Blast.tv, Team Haraldsen, DailyBase) with edge fade and pause on hover
+- Scroll progress bar under the navigation
 - Click-to-play YouTube facade so visitors no longer download YouTube's player on page load
 - Root /llms.txt and /llms-full.txt endpoints plus canonical URLs on every page for AI and search discoverability
 - Shared useMediaQuery hook (useSyncExternalStore) with tests
+
+All motion respects prefers-reduced-motion and falls back to static layouts.
 
 ### Fixed
 - Restored the Inter body font via self-hosted next/font
