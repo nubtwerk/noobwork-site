@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion, type Variants } from "motion/react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -39,12 +40,17 @@ export default function RevealText({ text, className, delay = 0 }: RevealTextPro
       viewport={{ once: true, margin: "-40px" }}
     >
       {words.map((word, i) => (
-        <span key={i} className="reveal-word__mask" aria-hidden="true">
-          <motion.span className="reveal-word" variants={wordVariants} custom={delay + i * 0.07}>
-            {word}
-          </motion.span>
+        // The separating space must live OUTSIDE the inline-block mask:
+        // trailing whitespace inside an inline-block is trimmed, which
+        // collapses "Creator roots." into "Creatorroots." at poster scale.
+        <Fragment key={i}>
+          <span className="reveal-word__mask" aria-hidden="true">
+            <motion.span className="reveal-word" variants={wordVariants} custom={delay + i * 0.07}>
+              {word}
+            </motion.span>
+          </span>
           {i < words.length - 1 ? " " : null}
-        </span>
+        </Fragment>
       ))}
     </motion.span>
   );

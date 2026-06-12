@@ -1,4 +1,5 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import ParallaxImage from "@/components/ui/ParallaxImage";
 
 const pillars: Array<{
   title: string;
@@ -24,31 +25,44 @@ const pillars: Array<{
 
 export default function ContentPillars() {
   return (
-    <section className="site-section site-section--surface">
+    <section className="site-section pillars">
       <div className="shell-inner">
         <AnimatedSection>
-          <div className="section-heading section-heading--center">
-            <h2 className="section-heading__title section-heading__title--primary" data-shimmer>Content Pillars</h2>
-            <p className="section-heading__subtitle">The three themes shaping what I make now</p>
+          <div className="chapter-head chapter-head--ongreen">
+            <p className="chapter-head__marker">02 / Content Pillars</p>
+            <h2 className="chapter-head__title">What I Make.</h2>
+            <p className="chapter-head__note">The three themes shaping what I make now</p>
           </div>
         </AnimatedSection>
 
-        <div className="pillar-grid">
-          {pillars.map((pillar, i) => (
-            <AnimatedSection key={pillar.title} delay={i * 0.1}>
-              <div className={`pillar-card pillar-card--${pillar.tone}`}>
-                <div className="pillar-card__top">
-                  <span className="pillar-card__number" aria-hidden="true">
+        <div className="pillars-grid">
+          <div className="pillars-list">
+            {pillars.map((pillar, i) => (
+              <AnimatedSection key={pillar.title} delay={i * 0.1}>
+                <div className={`pillar-row pillar-row--${pillar.tone}`}>
+                  <span className="pillar-row__number" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
+                  <div className="pillar-row__body">
+                    <h3 className="pillar-row__title">{pillar.title}</h3>
+                    <p className="pillar-row__copy">{pillar.desc}</p>
+                  </div>
                 </div>
-                <div className="pillar-card__body">
-                  <h3 className="pillar-card__title">{pillar.title}</h3>
-                  <p className="pillar-card__copy">{pillar.desc}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <AnimatedSection delay={0.2} className="pillars-media">
+            <ParallaxImage
+              src="/atmosphere/atmosphere-gym-dawn.jpg"
+              alt="Empty gym at dawn, chalk dust in a shaft of warm light"
+              width={929}
+              height={1161}
+              sizes="(max-width: 1023px) 100vw, 22rem"
+              range={50}
+              caption="The work happens whether the camera is on or not."
+            />
+          </AnimatedSection>
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - Primary CTA buttons use Tokyo Green (`bg-primary`), NOT purple
 - Text on dark backgrounds uses Off-white (`text-background`), not pure white
 - Purple is an accent, not a primary. Use it for highlights, tags, and emphasis words in headings
-- Section backgrounds alternate between Off-white (`bg-background`) and Surface (`bg-surface`)
+- Homepage section backgrounds follow the dark/light chapter rhythm (see the Cinematic Layer section)
 - The Content Pillars section uses Tokyo Green (`bg-primary`) as its background
 - Footer uses Brown (`bg-foreground`)
 - Never use pure black (`#000000`) for text. Always use Brown (`#2E1D23`)
@@ -41,7 +41,7 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 |---------|------|----------|
 | Tokyo Green | Off-white | Hero masthead, Content Pillars section |
 | Off-white | Brown | Default page sections |
-| Surface | Brown | Alternate sections (About, Connect) |
+| Surface | Brown | Light chapters (About, Work) |
 | Brown | Off-white | Footer |
 | Purple Dark | Off-white | Accent cards, interest tags |
 | Sand | Off-white | Warm accent cards |
@@ -58,8 +58,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - All headings (h1, h2, h3 in sections) use Newake, uppercase, `tracking-tight`
 - Body text uses Inter at regular weight
 - Bold emphasis in body text uses `font-semibold` (Inter 600), not Newake
-- Section headers: Newake `text-3xl md:text-4xl uppercase tracking-tight`
-- Hero title: Newake `text-5xl md:text-7xl lg:text-8xl`
+- Section headers: chapter header pattern (`.chapter-head__title`, type scale in the Cinematic Layer section)
+- Hero title: poster hero pattern (`.poster-hero__line`, type scale in the Cinematic Layer section)
 - Card headings: Newake `text-xl uppercase tracking-tight`
 - Never use Newake for body paragraphs or small UI text
 
@@ -72,8 +72,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 
 ## Spacing & Layout
 
-- Max content width: `max-w-6xl` (1152px)
-- Section padding: `py-20 px-6`
+- Max content width: `--site-max-width` (1120px)
+- Section rhythm: `--section-space` / `--section-space-tight` vertical, `--site-gutter` horizontal (clamp-based tokens in `globals.css`)
 - Card padding: `p-6` to `p-8`
 - Card border radius: `rounded-xl` to `rounded-2xl`
 - Image border radius: `rounded-3xl`
@@ -94,8 +94,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - Info cards (Current Focus): `bg-background rounded-3xl p-8`
 
 ### Section Headers
-- Use the `SectionHeader` component with `title`, `highlight` (accent-colored word), and `subtitle`
-- Highlight word defaults to `text-primary`, can be `text-accent` for purple emphasis
+- The `SectionHeader` component is retired (v0.3.0.0). Sections open with a chapter header: a `.chapter-head__marker` eyebrow ("01 / The Story") above a `.chapter-head__title` or `.chapter-head__display` statement
+- Accent words in display statements use the outline stroke variant (`.chapter-head__display-accent`). Type scale and rules live in the Cinematic Layer section
 
 ### Interest Tags
 - `bg-accent text-background rounded-full px-3 py-1 text-sm capitalize`
@@ -107,10 +107,10 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 
 ## Content Pillars
 
-Three pillars, always in this order:
-1. **Fitness & Wellness** - Green background, numbered badge ("01")
-2. **Personal Development** - Purple background, numbered badge ("02")
-3. **Gaming Heritage** - Sand background, numbered badge ("03")
+Three pillars rendered as numbered poster rows ("01" to "03") on the Tokyo Green chapter, always in this order:
+1. **Fitness & Wellness**
+2. **Personal Development**
+3. **Gaming Heritage**
 
 ## Imagery
 
@@ -118,6 +118,37 @@ Three pillars, always in this order:
 - Profile images: `rounded-3xl` with subtle shadow
 - No stock photos, no overly processed filters
 - Brand imagery should feel warm, authentic, grounded
+
+### Atmosphere imagery (AI-generated)
+
+The homepage uses AI-generated atmosphere images in `public/atmosphere/`. Rules:
+
+- **Never AI-generate people.** Atmosphere only: cityscapes, interiors, textures
+- Color grade must match the palette: deep forest green shadows (#2C3930), warm sand light (#ECDBBF), brown midtones (#2E1D23), subtle 35mm film grain, no neon saturation
+- Always dimmed under a brand-colored wash (hero) or framed as an editorial figure with a caption (`ParallaxImage`)
+- Real content (YouTube thumbnails, real photos of Joachim) carries authenticity; AI imagery only carries mood
+
+## Cinematic Layer (homepage)
+
+Introduced in the 2026 redesign. Typography and motion carry the design.
+
+### Poster typography
+- Hero lines (`.poster-hero__line`): Newake `clamp(3.4rem, 13vw, 12rem)`, line-height 0.86
+- Outline variant: transparent fill + `-webkit-text-stroke` in Sand. Used for the second hero line and accent words in display headings (`.chapter-head__display-accent`)
+- Chapter titles (`.chapter-head__title`): Newake `clamp(2.6rem, 6.5vw, 5.4rem)`
+- Display statements (`.chapter-head__display`): Newake `clamp(2.8rem, 8.5vw, 7.4rem)`
+- **Newake's space glyph is very narrow.** All poster-scale classes carry `word-spacing: 0.18em`. Keep this on any new display class
+- Chapter markers (`.chapter-head__marker`): Inter 0.74rem, 700, `letter-spacing: 0.22em`, uppercase ("01 / The Story")
+
+### Dark/light scroll rhythm
+Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), SocialProof (light), ContentReel (Brown), About (light), ContentPillars (Tokyo Green + gym image), Work (light), PartnerCta (Sand), Newsletter + Connect + Footer (Brown finale).
+
+### Motion grammar
+- Scroll choreography: hero lines shear apart on scroll-out, background sinks slower than the page (`useScroll` + `useTransform`), editorial images drift via `ParallaxImage`
+- Entrance: masked line rises (`.poster-hero__line-mask`), word-by-word `RevealText`, `AnimatedSection` blur-up
+- Marquees: `TypeMarquee` (poster Newake band, solid or outline) and `.social-marquee` (brand names)
+- Index rows (work, pillars, connect, reel list): hover slides the row `translateX(8-10px)` and recolors to Sand
+- Every animation has a `prefers-reduced-motion` fallback. Scroll-linked transforms are exempt from the 0.6s duration cap; discrete animations are not (entrance reveals up to 0.9s are the approved exception)
 
 ## Don'ts
 
@@ -128,4 +159,4 @@ Three pillars, always in this order:
 - No backgrounds outside the approved color palette
 - No rounded corners smaller than `rounded-lg` on cards
 - No drop shadows heavier than `shadow-lg`
-- No animations longer than 0.6s
+- No discrete animations longer than 0.6s (entrance reveals up to 0.9s, scroll-linked transforms, and marquees are the approved exceptions, see Cinematic Layer)

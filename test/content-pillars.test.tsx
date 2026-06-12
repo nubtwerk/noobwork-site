@@ -25,7 +25,8 @@ describe("ContentPillars", () => {
 
   it("renders section heading", () => {
     render(<ContentPillars />);
-    expect(screen.getByText("Content Pillars")).toBeInTheDocument();
+    expect(screen.getByText("02 / Content Pillars")).toBeInTheDocument();
+    expect(screen.getByText("What I Make.")).toBeInTheDocument();
   });
 
   it("renders numbered indicators", () => {

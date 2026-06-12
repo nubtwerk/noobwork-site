@@ -1,18 +1,34 @@
-import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import RevealText from "@/components/ui/RevealText";
+import ParallaxImage from "@/components/ui/ParallaxImage";
+import { focusItems } from "@/data/focus-items";
 
 export default function About() {
   return (
-    <section id="about" className="site-section site-section--surface">
+    <section id="about" className="site-section">
       <div className="shell-inner">
         <AnimatedSection>
-          <SectionHeader title="About" highlight="Joachim" subtitle="Why Noobwork is back now" center />
+          <div className="chapter-head">
+            <p className="chapter-head__marker">01 / The Story</p>
+            <h2 className="chapter-head__display" aria-label="Creator roots. Founder scars.">
+              <RevealText text="Creator roots." />
+              <br />
+              <span className="chapter-head__display-accent">
+                <RevealText text="Founder scars." delay={0.2} />
+              </span>
+            </h2>
+          </div>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.1}>
-          <div className="about-copy about-copy--wide">
-            <p className="about-lead">
-              I stopped making content to go build things, an esports org I scaled globally and sold, a role shaping gaming strategy for Saudi Arabia&apos;s biggest city project, and a lot of hard lessons along the way. Now I&apos;m back. Living in Seoul, training every day, building in health and fitness, and finally documenting the whole thing.
+        <div className="story-grid">
+          <AnimatedSection delay={0.1} className="story-copy">
+            <p className="story-lead">
+              I stopped making content to go build things, an esports org I
+              scaled globally and sold, a role shaping gaming strategy for Saudi
+              Arabia&apos;s biggest city project, and a lot of hard lessons
+              along the way. Now I&apos;m back. Living in Seoul, training every
+              day, building in health and fitness, and finally documenting the
+              whole thing.
             </p>
             <p>
               I&apos;m <span className="about-emphasis">Joachim Haraldsen</span>, a Norwegian founder, creator, and operator based in Seoul. I built <span className="about-emphasis">Noobwork</span> into one of Norway&apos;s biggest gaming channels, growing it to nearly <span className="about-emphasis">200,000 subscribers</span> before the creator economy had fully taken shape.
@@ -29,8 +45,34 @@ export default function About() {
             <p>
               Noobwork is where those threads now meet, creator roots, founder scars, the fitness grind, personal growth, and the discipline of building things that last.
             </p>
+          </AnimatedSection>
+
+          <div className="story-side">
+            <AnimatedSection delay={0.18}>
+              <ParallaxImage
+                src="/atmosphere/atmosphere-seoul-street.jpg"
+                alt="Quiet hanok backstreet in Seoul at first light"
+                width={900}
+                height={1200}
+                sizes="(max-width: 1023px) 100vw, 24rem"
+                range={45}
+                caption="Seoul. The new home base."
+              />
+            </AnimatedSection>
+            <AnimatedSection delay={0.26}>
+              <div className="story-now">
+                <p className="story-now__label">Currently</p>
+                <ul className="story-now__list">
+                  {focusItems.map((item) => (
+                    <li key={item.label} className="story-now__item">
+                      {item.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

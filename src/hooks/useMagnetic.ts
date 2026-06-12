@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const MAGNETIC_SELECTOR = "[data-magnetic], .btn, .connect-chip";
+const MAGNETIC_SELECTOR = "[data-magnetic], .btn";
 
 function handleMove(this: HTMLElement, e: MouseEvent) {
   const rect = this.getBoundingClientRect();
