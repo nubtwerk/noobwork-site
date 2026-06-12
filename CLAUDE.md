@@ -29,7 +29,7 @@ Tests live in `test/`. Uses Vitest + @testing-library/react + jsdom.
 Single-page portfolio using the Next.js App Router. The app lives in `src/app/`:
 
 - `layout.tsx` - Root layout with NEWAKE (local) + Inter (next/font) fonts, SEO metadata (Open Graph, Twitter Card, canonical URLs)
-- `page.tsx` - Main page: Hero, LatestVideo, About, ContentPillars, Work, Newsletter, Connect
+- `page.tsx` - Main page: Hero (kinetic poster), SocialProof, ContentReel (real YouTube uploads from `src/data/videos.ts`), About, ContentPillars, Work, PartnerCta, Newsletter, Connect
 - `media-kit/page.tsx` - Dedicated Media Kit page for brand partnerships
 - `globals.css` - Tailwind imports and CSS custom properties for the design system
 

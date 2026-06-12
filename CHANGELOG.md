@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0.0] - 2026-06-12
+
+Cinematic redesign of the homepage. Typography and motion now carry the design; the real channel carries the authenticity.
+
+### Added
+- Poster-scale kinetic hero: "NOOBWORK. IS BACK." in NEWAKE at up to 12rem over a Seoul dusk skyline, with masked line reveals on load and scroll-linked choreography (the two lines shear apart, the skyline sinks slower than the page, the stage dims on scroll-out)
+- Latest Uploads reel on a dark brown chapter: the real featured video plays in place behind a click facade, four real recent uploads link out to YouTube, newest first, with a subscribe CTA
+- Make Something With Me partner section on a sand band: media kit CTA, direct email, and the four headline stats brands care about
+- Outline-stroke display type (hero second line, accent words in chapter statements) with a solid-fill fallback wherever text-stroke is unsupported
+- TypeMarquee poster band ("Fitness / Personal Development / Gaming Heritage / Seoul") at the hero's bottom edge
+- ParallaxImage editorial figures with captions, used for two new AI-generated atmosphere images (Seoul hanok street, gym at dawn) — no people, brand color grade
+- Giant editorial index rows for Connect (each platform a poster-scale link) and Work & Ventures (NEWAKE venture names with role and phase)
+- Legacy /#latest-video anchor preserved inside the new reel section
+- No-JS fallback: without JavaScript every motion-hidden element is forced visible
+- 21 new tests (videos data validity, content reel facade swap, partner CTA, type marquee, parallax figure, hero, and a regression lock on the RevealText word-spacing fix)
+
+### Changed
+- The page now alternates dark and light chapters: green hero, light proof marquee, brown reel, light story, green pillars, light index, sand partner band, brown finale
+- About rebuilt as an editorial chapter ("Creator roots. Founder scars.") with asymmetric copy and image columns
+- Content Pillars rebuilt as a poster list on Tokyo Green with the gym atmosphere image
+- Brand marquee upgraded to NEWAKE display scale
+- Newsletter restyled as the dark "Noobwork Is Back" sign-off band
+- Navigation fades from a transparent scrim over the hero to the frosted light bar on scroll
+- Hero entrance timing tightened so content lands faster after load
+
+### Fixed
+- RevealText collapsed the spaces between words at display scale (the separator lived inside the inline-block mask); "Creator roots." no longer renders as "Creatorroots."
+- NEWAKE's narrow space glyph compensated with word-spacing on all poster-scale classes
+- WCAG AA contrast on chapter markers, section notes, reel dates, and hero/partner stat labels
+- Reduced-motion users no longer see the hero entrance animation (CSS-level override beats the hydration race)
+- Invalid dt/dd order in the partner stats list
+- Stale .connect-chip selector in the magnetic-hover hook
+- Removed dead CSS and the unused SectionHeader component
+
 ## [0.2.0.0] - 2026-06-10
 
 ### Changed

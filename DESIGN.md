@@ -119,6 +119,37 @@ Three pillars, always in this order:
 - No stock photos, no overly processed filters
 - Brand imagery should feel warm, authentic, grounded
 
+### Atmosphere imagery (AI-generated)
+
+The homepage uses AI-generated atmosphere images in `public/atmosphere/`. Rules:
+
+- **Never AI-generate people.** Atmosphere only: cityscapes, interiors, textures
+- Color grade must match the palette: deep forest green shadows (#2C3930), warm sand light (#ECDBBF), brown midtones (#2E1D23), subtle 35mm film grain, no neon saturation
+- Always dimmed under a brand-colored wash (hero) or framed as an editorial figure with a caption (`ParallaxImage`)
+- Real content (YouTube thumbnails, real photos of Joachim) carries authenticity; AI imagery only carries mood
+
+## Cinematic Layer (homepage)
+
+Introduced in the 2026 redesign. Typography and motion carry the design.
+
+### Poster typography
+- Hero lines (`.poster-hero__line`): Newake `clamp(3.4rem, 13vw, 12rem)`, line-height 0.86
+- Outline variant: transparent fill + `-webkit-text-stroke` in Sand. Used for the second hero line and accent words in display headings (`.chapter-head__display-accent`)
+- Chapter titles (`.chapter-head__title`): Newake `clamp(2.6rem, 6.5vw, 5.4rem)`
+- Display statements (`.chapter-head__display`): Newake `clamp(2.8rem, 8.5vw, 7.4rem)`
+- **Newake's space glyph is very narrow.** All poster-scale classes carry `word-spacing: 0.18em`. Keep this on any new display class
+- Chapter markers (`.chapter-head__marker`): Inter 0.74rem, 700, `letter-spacing: 0.22em`, uppercase ("01 / The Story")
+
+### Dark/light scroll rhythm
+Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), SocialProof (light), ContentReel (Brown), About (light), ContentPillars (Tokyo Green + gym image), Work (light), PartnerCta (Sand), Newsletter + Connect + Footer (Brown finale).
+
+### Motion grammar
+- Scroll choreography: hero lines shear apart on scroll-out, background sinks slower than the page (`useScroll` + `useTransform`), editorial images drift via `ParallaxImage`
+- Entrance: masked line rises (`.poster-hero__line-mask`), word-by-word `RevealText`, `AnimatedSection` blur-up
+- Marquees: `TypeMarquee` (poster Newake band, solid or outline) and `.social-marquee` (brand names)
+- Index rows (work, pillars, connect, reel list): hover slides the row `translateX(8-10px)` and recolors to Sand
+- Every animation has a `prefers-reduced-motion` fallback. Scroll-linked transforms are exempt from the 0.6s duration cap; discrete animations are not (entrance reveals up to 0.9s are the approved exception)
+
 ## Don'ts
 
 - No neon or high-saturation gaming colors
