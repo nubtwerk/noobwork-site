@@ -58,8 +58,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - All headings (h1, h2, h3 in sections) use Newake, uppercase, `tracking-tight`
 - Body text uses Inter at regular weight
 - Bold emphasis in body text uses `font-semibold` (Inter 600), not Newake
-- Section headers: Newake `text-3xl md:text-4xl uppercase tracking-tight`
-- Hero title: Newake `text-5xl md:text-7xl lg:text-8xl`
+- Section headers: chapter header pattern (`.chapter-head__title`, type scale in the Cinematic Layer section)
+- Hero title: poster hero pattern (`.poster-hero__line`, type scale in the Cinematic Layer section)
 - Card headings: Newake `text-xl uppercase tracking-tight`
 - Never use Newake for body paragraphs or small UI text
 
@@ -94,8 +94,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - Info cards (Current Focus): `bg-background rounded-3xl p-8`
 
 ### Section Headers
-- Use the `SectionHeader` component with `title`, `highlight` (accent-colored word), and `subtitle`
-- Highlight word defaults to `text-primary`, can be `text-accent` for purple emphasis
+- The `SectionHeader` component is retired (v0.3.0.0). Sections open with a chapter header: a `.chapter-head__marker` eyebrow ("01 / The Story") above a `.chapter-head__title` or `.chapter-head__display` statement
+- Accent words in display statements use the outline stroke variant (`.chapter-head__display-accent`). Type scale and rules live in the Cinematic Layer section
 
 ### Interest Tags
 - `bg-accent text-background rounded-full px-3 py-1 text-sm capitalize`

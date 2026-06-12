@@ -12,7 +12,7 @@ Cinematic redesign of the homepage. Typography and motion now carry the design; 
 - Make Something With Me partner section on a sand band: media kit CTA, direct email, and the four headline stats brands care about
 - Outline-stroke display type (hero second line, accent words in chapter statements) with a solid-fill fallback wherever text-stroke is unsupported
 - TypeMarquee poster band ("Fitness / Personal Development / Gaming Heritage / Seoul") at the hero's bottom edge
-- ParallaxImage editorial figures with captions, used for two new AI-generated atmosphere images (Seoul hanok street, gym at dawn) — no people, brand color grade
+- ParallaxImage editorial figures with captions, used for two new AI-generated atmosphere images (Seoul hanok street, gym at dawn). No people, brand color grade
 - Giant editorial index rows for Connect (each platform a poster-scale link) and Work & Ventures (NEWAKE venture names with role and phase)
 - Legacy /#latest-video anchor preserved inside the new reel section
 - No-JS fallback: without JavaScript every motion-hidden element is forced visible
