@@ -1,0 +1,117 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { Play, ArrowUpRight } from "lucide-react";
+import AnimatedSection from "@/components/ui/AnimatedSection";
+import { featuredVideo, recentVideos } from "@/data/videos";
+import { YOUTUBE_CHANNEL_URL as CHANNEL_URL } from "@/data/external-links";
+
+export default function ContentReel() {
+  const [playing, setPlaying] = useState(false);
+  // maxresdefault is not guaranteed for every upload; fall back to hqdefault.
+  const [featuredThumb, setFeaturedThumb] = useState(
+    `https://i.ytimg.com/vi/${featuredVideo.id}/maxresdefault.jpg`
+  );
+
+  return (
+    <section id="reel" className="site-section reel">
+      {/* Legacy anchor: external links to /#latest-video predate this section */}
+      <span id="latest-video" aria-hidden="true" />
+      <div className="shell-inner">
+        <AnimatedSection>
+          <div className="chapter-head chapter-head--onbrown">
+            <p className="chapter-head__marker">The Feed / YouTube</p>
+            <h2 className="chapter-head__title">Latest Uploads.</h2>
+            <p className="chapter-head__note">
+              No highlight reel. Straight from the channel: the grind, the
+              travel, and what I&apos;m building.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="reel-grid">
+          <AnimatedSection className="reel-feature" delay={0.08}>
+            <div className="reel-feature__embed">
+              {playing ? (
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${featuredVideo.id}?autoplay=1`}
+                  title={featuredVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                <button
+                  type="button"
+                  className="reel-feature__facade"
+                  onClick={() => setPlaying(true)}
+                  aria-label={`Play video: ${featuredVideo.title}`}
+                >
+                  <Image
+                    src={featuredThumb}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 720px"
+                    className="reel-feature__thumb"
+                    onError={() =>
+                      setFeaturedThumb(
+                        `https://i.ytimg.com/vi/${featuredVideo.id}/hqdefault.jpg`
+                      )
+                    }
+                  />
+                  <span className="reel-feature__play" aria-hidden="true">
+                    <Play size={26} fill="currentColor" />
+                  </span>
+                </button>
+              )}
+            </div>
+            <div className="reel-feature__caption">
+              <span className="reel-feature__date">{featuredVideo.date}</span>
+              <p className="reel-feature__title">{featuredVideo.title}</p>
+            </div>
+          </AnimatedSection>
+
+          <div className="reel-list">
+            {recentVideos.map((video, i) => (
+              <AnimatedSection key={video.id} delay={0.12 + i * 0.07}>
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="reel-item"
+                >
+                  <span className="reel-item__thumb-wrap">
+                    <Image
+                      src={`https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`}
+                      alt=""
+                      width={320}
+                      height={180}
+                      sizes="160px"
+                      className="reel-item__thumb"
+                    />
+                  </span>
+                  <span className="reel-item__body">
+                    <span className="reel-item__date">{video.date}</span>
+                    <span className="reel-item__title">{video.title}</span>
+                  </span>
+                  <ArrowUpRight className="reel-item__arrow" size={18} aria-hidden="true" />
+                </a>
+              </AnimatedSection>
+            ))}
+            <AnimatedSection delay={0.4}>
+              <a
+                href={CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="reel-subscribe"
+              >
+                Subscribe on YouTube
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </AnimatedSection>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

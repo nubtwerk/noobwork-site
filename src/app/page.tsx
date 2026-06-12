@@ -2,10 +2,11 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import SocialProof from "@/components/sections/SocialProof";
-import LatestVideo from "@/components/sections/LatestVideo";
+import ContentReel from "@/components/sections/ContentReel";
 import About from "@/components/sections/About";
 import ContentPillars from "@/components/sections/ContentPillars";
 import Work from "@/components/sections/Work";
+import PartnerCta from "@/components/sections/PartnerCta";
 import Newsletter from "@/components/sections/Newsletter";
 import Connect from "@/components/sections/Connect";
 
@@ -16,10 +17,11 @@ export default function Home() {
       <main id="main-content" className="site-main">
         <Hero />
         <SocialProof />
-        <LatestVideo />
+        <ContentReel />
         <About />
         <ContentPillars />
         <Work />
+        <PartnerCta />
         <Newsletter />
         <Connect />
       </main>

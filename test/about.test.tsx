@@ -16,9 +16,10 @@ beforeEach(() => {
 });
 
 describe("About", () => {
-  it("renders the section heading", () => {
+  it("renders the chapter heading", () => {
     render(<About />);
-    expect(screen.getByText("Joachim")).toBeInTheDocument();
+    expect(screen.getByText("01 / The Story")).toBeInTheDocument();
+    expect(screen.getByLabelText("Creator roots.")).toBeInTheDocument();
   });
 
   it("renders key biographical details", () => {

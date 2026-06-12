@@ -4,130 +4,139 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { Award, Star, UserRound } from "lucide-react";
-import Logo from "@/components/ui/Logo";
+import TypeMarquee from "@/components/ui/TypeMarquee";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const POSTER_LINES = [
+  { text: "NOOBWORK.", variant: "solid" as const, drift: -1 },
+  { text: "IS BACK.", variant: "outline" as const, drift: 1 },
+];
+
 export default function Hero() {
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const mediaRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
   const { scrollYProgress } = useScroll({
-    target: mediaRef,
-    offset: ["start end", "end start"],
+    target: sectionRef,
+    offset: ["start start", "end start"],
   });
-  const parallaxY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [40, -40]),
-    { stiffness: 140, damping: 30, mass: 0.5 }
-  );
+
+  // Scroll-out choreography: the two poster lines shear apart, the skyline
+  // sinks slower than the page, and the whole stage dims.
+  const spring = { stiffness: 120, damping: 28, mass: 0.4 };
+  const lineShear = useSpring(useTransform(scrollYProgress, [0, 1], [0, 90]), spring);
+  const lineShearNeg = useTransform(lineShear, (v) => -v);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const stageOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.25]);
 
   return (
-    <>
-      <section className="site-section site-section--dark">
-        <div className="shell-inner">
-          <motion.div
-            className="hero-lockup"
-            initial={{ opacity: 0, y: 28, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
+    <section ref={sectionRef} className="poster-hero" aria-label="Intro">
+      <motion.div
+        className="poster-hero__bg"
+        style={reducedMotion ? undefined : { y: bgY }}
+        aria-hidden="true"
+      >
+        <Image
+          src="/atmosphere/atmosphere-seoul-dusk.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="poster-hero__bg-image"
+        />
+      </motion.div>
+      <div className="poster-hero__wash" aria-hidden="true" />
+
+      <motion.div
+        className="poster-hero__stage"
+        style={reducedMotion ? undefined : { opacity: stageOpacity }}
+      >
+        <motion.div
+          className="poster-hero__topline"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.65, ease: EASE_OUT_EXPO }}
+        >
+          <span>Joachim Haraldsen</span>
+          <span>Creator / Founder</span>
+          <span>Seoul, South Korea</span>
+        </motion.div>
+
+        <h1 className="poster-hero__title" aria-label="Noobwork is back">
+          {POSTER_LINES.map((line, i) => (
+            <span key={line.text} className="poster-hero__line-mask" aria-hidden="true">
+              <motion.span
+                className={`poster-hero__line poster-hero__line--${line.variant}`}
+                initial={reducedMotion ? false : { y: "112%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 0.9, delay: 0.12 + i * 0.14, ease: EASE_OUT_EXPO }}
+                style={
+                  reducedMotion
+                    ? undefined
+                    : { x: line.drift < 0 ? lineShearNeg : lineShear }
+                }
+              >
+                {line.text}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+
+        <div className="poster-hero__deck">
+          <motion.p
+            className="poster-hero__copy"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT_EXPO }}
           >
-            <h1 aria-label="Noobwork">
-              <Logo variant="wordmark" className="hero-lockup__logo" />
-            </h1>
-            <motion.p
-              className="hero-lockup__subtitle"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25, ease: EASE_OUT_EXPO }}
-            >
-              Fitness / Personal Development / Gaming Heritage
-            </motion.p>
+            After years building companies, I&apos;m back to creating. The fitness
+            grind, the founder lessons, and the next chapter, documented daily
+            from Seoul.
+          </motion.p>
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.55, ease: EASE_OUT_EXPO }}
+          >
+            <Link href="/media-kit" className="btn btn--sand" data-magnetic>
+              Partner With Me
+            </Link>
+            <Link href="/#reel" className="btn btn--tertiary" data-magnetic>
+              Watch the Latest
+            </Link>
           </motion.div>
         </div>
-      </section>
 
-      <section className="site-section site-section--tight">
-        <div className="shell-inner">
-          <div className="hero-panel">
-            <motion.div
-              className="hero-panel__content"
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: EASE_OUT_EXPO }}
-            >
-              <div className="hero-panel__eyebrow" aria-hidden="true">
-                <Logo variant="wordmark" className="hero-panel__eyebrow-logo" />
-              </div>
-              <p className="hero-panel__copy">
-                After years away building companies, Joachim Haraldsen is back to creating, documenting the fitness grind and the next chapter from Seoul.
-              </p>
-              <div className="hero-actions">
-                <Link href="/#work" className="btn btn--primary" data-magnetic>
-                  See What I&apos;m Building
-                </Link>
-                <Link href="/#connect" className="btn btn--secondary" data-magnetic>
-                  Work Together
-                </Link>
-              </div>
-            </motion.div>
+        <motion.dl
+          className="poster-hero__meta"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          {[
+            { value: "195K+", label: "Subscribers" },
+            { value: "150M+", label: "Video views" },
+            { value: "Forbes", label: "Featured" },
+            { value: "13 yrs", label: "Creating" },
+          ].map((stat) => (
+            <div key={stat.label} className="poster-hero__stat">
+              <dt className="poster-hero__stat-label">{stat.label}</dt>
+              <dd className="poster-hero__stat-value">{stat.value}</dd>
+            </div>
+          ))}
+        </motion.dl>
+      </motion.div>
 
-            <motion.div
-              ref={mediaRef}
-              className="hero-panel__media"
-              initial={{ opacity: 0, scale: 0.94, y: 24 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.25, ease: EASE_OUT_EXPO }}
-            >
-              <motion.div
-                className="hero-panel__media-inner"
-                style={reducedMotion ? undefined : { y: parallaxY }}
-              >
-                <Image
-                  src="/joachim.jpg"
-                  alt="Joachim Haraldsen holding a coffee"
-                  width={500}
-                  height={600}
-                  sizes="(max-width: 768px) 100vw, 28rem"
-                  className="hero-panel__image"
-                  priority
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAKAAUDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAiEAABAwMDBQAAAAAAAAAAAAABAgMEAAUHEhNBBhEWISL/xAAVAQEBAAAAAAAAAAAAAAAAAAABA//EABsRAAIBBQAAAAAAAAAAAAAAAAABAwIRITGR/9oADAMBAAIRAxEAPwCVb/Vlyis25l+bImWtTkeSnUpwtncUACffCaVaMIpHleQFdhqVcEknk/b1Km4475pXB2f/2Q=="
-                />
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              className="hero-stats"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT_EXPO }}
-            >
-              {[
-                { icon: Star, value: "Forbes", label: "Featured" },
-                { icon: UserRound, value: "195K+", label: "Subscribers" },
-                { icon: Award, value: "13+", label: "Years creating" },
-              ].map((stat, i) => {
-                const Icon = stat.icon;
-                return (
-                  <motion.div
-                    key={stat.label}
-                    className="hero-stat"
-                    data-magnetic
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.55, delay: 0.55 + i * 0.1, ease: EASE_OUT_EXPO }}
-                  >
-                    <Icon className="hero-stat__icon" size={18} aria-hidden="true" />
-                    <div className="hero-stat__value">{stat.value}</div>
-                    <div className="hero-stat__label">{stat.label}</div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-    </>
+      <div className="poster-hero__band">
+        <TypeMarquee
+          items={["Fitness", "Personal Development", "Gaming Heritage", "Seoul"]}
+          variant="outline"
+          duration={42}
+        />
+      </div>
+    </section>
   );
 }

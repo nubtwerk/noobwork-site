@@ -57,6 +57,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${newake.variable} scroll-smooth`}>
       <body className={inter.className}>
+        <noscript>
+          {/* Motion components SSR with hidden initial styles; without JS
+              nothing would ever reveal. Force everything visible. */}
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"],.poster-hero__line{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
         <JsonLd />
         <SkipToContent />
         <SmoothScroll />
