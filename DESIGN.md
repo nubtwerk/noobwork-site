@@ -29,7 +29,7 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 - Primary CTA buttons use Tokyo Green (`bg-primary`), NOT purple
 - Text on dark backgrounds uses Off-white (`text-background`), not pure white
 - Purple is an accent, not a primary. Use it for highlights, tags, and emphasis words in headings
-- Section backgrounds alternate between Off-white (`bg-background`) and Surface (`bg-surface`)
+- Homepage section backgrounds follow the dark/light chapter rhythm (see the Cinematic Layer section)
 - The Content Pillars section uses Tokyo Green (`bg-primary`) as its background
 - Footer uses Brown (`bg-foreground`)
 - Never use pure black (`#000000`) for text. Always use Brown (`#2E1D23`)
@@ -41,7 +41,7 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 |---------|------|----------|
 | Tokyo Green | Off-white | Hero masthead, Content Pillars section |
 | Off-white | Brown | Default page sections |
-| Surface | Brown | Alternate sections (About, Connect) |
+| Surface | Brown | Light chapters (About, Work) |
 | Brown | Off-white | Footer |
 | Purple Dark | Off-white | Accent cards, interest tags |
 | Sand | Off-white | Warm accent cards |
@@ -72,8 +72,8 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 
 ## Spacing & Layout
 
-- Max content width: `max-w-6xl` (1152px)
-- Section padding: `py-20 px-6`
+- Max content width: `--site-max-width` (1120px)
+- Section rhythm: `--section-space` / `--section-space-tight` vertical, `--site-gutter` horizontal (clamp-based tokens in `globals.css`)
 - Card padding: `p-6` to `p-8`
 - Card border radius: `rounded-xl` to `rounded-2xl`
 - Image border radius: `rounded-3xl`
@@ -107,10 +107,10 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 
 ## Content Pillars
 
-Three pillars, always in this order:
-1. **Fitness & Wellness** - Green background, numbered badge ("01")
-2. **Personal Development** - Purple background, numbered badge ("02")
-3. **Gaming Heritage** - Sand background, numbered badge ("03")
+Three pillars rendered as numbered poster rows ("01" to "03") on the Tokyo Green chapter, always in this order:
+1. **Fitness & Wellness**
+2. **Personal Development**
+3. **Gaming Heritage**
 
 ## Imagery
 
@@ -159,4 +159,4 @@ Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), SocialProof
 - No backgrounds outside the approved color palette
 - No rounded corners smaller than `rounded-lg` on cards
 - No drop shadows heavier than `shadow-lg`
-- No animations longer than 0.6s
+- No discrete animations longer than 0.6s (entrance reveals up to 0.9s, scroll-linked transforms, and marquees are the approved exceptions, see Cinematic Layer)

@@ -16,7 +16,7 @@ Cinematic redesign of the homepage. Typography and motion now carry the design; 
 - Giant editorial index rows for Connect (each platform a poster-scale link) and Work & Ventures (NEWAKE venture names with role and phase)
 - Legacy /#latest-video anchor preserved inside the new reel section
 - No-JS fallback: without JavaScript every motion-hidden element is forced visible
-- 21 new tests (videos data validity, content reel facade swap, partner CTA, type marquee, parallax figure, hero, and a regression lock on the RevealText word-spacing fix)
+- 23 new tests (videos data validity, content reel facade swap, partner CTA, type marquee, parallax figure, hero, and a regression lock on the RevealText word-spacing fix)
 
 ### Changed
 - The page now alternates dark and light chapters: green hero, light proof marquee, brown reel, light story, green pillars, light index, sand partner band, brown finale

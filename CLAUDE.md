@@ -44,15 +44,15 @@ Figma source: https://www.figma.com/design/a75Y0hDzd5ymqFUeOleJnv/NOOBWORK_Brand
 **Typography:** NEWAKE (headings/display, uppercase) + Inter (body). NEWAKE loaded as a local font from `src/fonts/`; Inter loaded via `next/font/google` (self-hosted at build time, no runtime Google Fonts request).
 
 **Colors** (CSS custom properties in `globals.css`):
-- `--background: #F8F8F8` (off-white page background)
-- `--foreground: #2E1D23` (brown)
-- `--primary: #2C3930` (Tokyo Green)
-- `--primary-hover: #3F4F44` (Light Green)
-- `--accent: #B111D5` (Purple Light)
-- `--accent-dark: #511B5D` (Purple Dark)
-- `--sand: #ECDBBF` (warm light beige/hover text)
-- `--beige: #A27B5D` (warm brown/focus rings)
-- `--surface: #F8F8F8` (off-white cards/sections)
+- `--color-background: #F8F8F8` (off-white page background)
+- `--color-foreground: #2E1D23` (brown)
+- `--color-primary: #2C3930` (Tokyo Green)
+- `--color-primary-hover: #3F4F44` (Light Green)
+- `--color-accent: #B111D5` (Purple Light)
+- `--color-accent-dark: #511B5D` (Purple Dark)
+- `--color-sand: #ECDBBF` (warm light beige/hover text)
+- `--color-beige: #A27B5D` (warm brown/focus rings)
+- `--color-surface: #F8F8F8` (off-white cards/sections)
 
 **Brand tone:** Premium, warm, grounded. No neon, no gamer cliches. Refined aesthetic with subtle gaming heritage nods.
 
