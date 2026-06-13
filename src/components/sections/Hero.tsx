@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { profileFacts } from "@/data/profile-facts";
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -117,8 +118,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           {[
-            { value: "195K+", label: "Subscribers" },
-            { value: "150M+", label: "Video views" },
+            { value: profileFacts.subscribers.short, label: "Subscribers" },
+            { value: profileFacts.totalViews.short, label: "Video views" },
             { value: "Forbes", label: "Featured" },
             { value: "13 yrs", label: "Creating" },
           ].map((stat) => (
