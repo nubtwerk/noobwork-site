@@ -1,8 +1,24 @@
 import { socialLinks } from "@/data/social-links";
+import { featuredVideo, recentVideos } from "@/data/videos";
+import type { VideoItem } from "@/data/videos";
+
+function toVideoObject(v: VideoItem) {
+  const obj: Record<string, string> = {
+    "@type": "VideoObject",
+    name: v.title,
+    description: `${v.title}. Video by Joachim Haraldsen (Noobwork).`,
+    thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+    url: `https://www.youtube.com/watch?v=${v.id}`,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${v.id}`,
+  };
+  if (v.publishedIso !== undefined) {
+    obj.uploadDate = v.publishedIso;
+  }
+  return obj;
+}
 
 export default function JsonLd() {
-  const schema = {
-    "@context": "https://schema.org",
+  const personSchema = {
     "@type": "Person",
     name: "Joachim Haraldsen",
     alternateName: "Noobwork",
@@ -33,6 +49,24 @@ export default function JsonLd() {
       "@type": "City",
       name: "Seoul",
     },
+  };
+
+  const allVideos = [featuredVideo, ...recentVideos];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      personSchema,
+      {
+        "@type": "ItemList",
+        name: "Latest videos by Noobwork",
+        itemListElement: allVideos.map((v, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: toVideoObject(v),
+        })),
+      },
+    ],
   };
 
   return (
