@@ -11,6 +11,7 @@ Sharpens the AI-context layer: it now keeps itself honest, points agents at itse
 - Active discoverability for the context layer: the Person JSON-LD now carries a `subjectOf` pointer to `/context` (with the llms.txt URL), and the document head advertises a `<link rel="alternate" type="text/markdown">` to `/llms.txt`
 
 ### Changed
+- The Context link moved out of the top navigation into the footer. Agents reach the context layer through the structured data and `/llms.txt`, so the top nav is now reserved for the human conversion path (About, Work, Connect, Media Kit)
 - The three figures that grow over time (subscriber count, total views, videos published) are now single-sourced in `src/data/profile-facts.ts`. The AI-context markdown injects them via `{{token}}` placeholders at build time, and the media kit and homepage hero derive their display strings from the same source. A build-time guard fails CI if any markdown or source file hardcodes one of these figures instead of deriving it, so the media kit, hero, and context layer can never drift apart again (they had: the context page once claimed 152M views while the rest of the site said 150M+)
 
 ### Fixed
