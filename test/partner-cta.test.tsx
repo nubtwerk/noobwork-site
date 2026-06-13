@@ -1,20 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import PartnerCta from "@/components/sections/PartnerCta";
 import { mediaKitStats } from "@/data/stats";
-
-beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  });
-  vi.stubGlobal("matchMedia", () => ({
-    matches: false,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }));
-});
 
 describe("PartnerCta", () => {
   it("renders the brands chapter heading", () => {

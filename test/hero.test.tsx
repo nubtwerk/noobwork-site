@@ -1,19 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Hero from "@/components/sections/Hero";
-
-beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  });
-  vi.stubGlobal("matchMedia", () => ({
-    matches: false,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }));
-});
 
 describe("Hero", () => {
   it("renders the poster headline with an accessible label", () => {
