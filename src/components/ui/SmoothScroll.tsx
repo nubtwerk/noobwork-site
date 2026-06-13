@@ -24,7 +24,7 @@ export default function SmoothScroll() {
     }
     function start() { if (rafId === null) rafId = requestAnimationFrame(raf); }
     function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
-    function onVisibility() { document.hidden ? stop() : start(); }
+    function onVisibility() { if (document.hidden) { stop(); } else { start(); } }
 
     document.addEventListener("visibilitychange", onVisibility);
     start();
