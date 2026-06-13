@@ -2,9 +2,9 @@
 
 | Metric | Value |
 |--------|-------|
-| YouTube subscribers | 195,000+ |
-| Total video views | 150,000,000+ |
-| Videos published | 1,800+ |
+| YouTube subscribers | {{subscribers}} |
+| Total video views | {{totalViews}} |
+| Videos published | {{videosPublished}} |
 | Capital raised (Heroic) | $25M+ |
 | Heroic revenue | $10M+ |
 | Heroic profit margin | ~10% |

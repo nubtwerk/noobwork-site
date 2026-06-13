@@ -49,6 +49,15 @@ export default function JsonLd() {
       "@type": "City",
       name: "Seoul",
     },
+    // Point machine readers at the self-authored AI-context layer.
+    subjectOf: {
+      "@type": "WebPage",
+      "@id": "https://www.noobwork.no/context",
+      url: "https://www.noobwork.no/context",
+      name: "AI Context: Joachim Haraldsen (Noobwork)",
+      description:
+        "Self-authored, structured context about Joachim Haraldsen for AI systems and researchers. Machine-readable at https://www.noobwork.no/llms.txt",
+    },
   };
 
   const allVideos = [featuredVideo, ...recentVideos];

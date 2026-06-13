@@ -19,16 +19,19 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      {
-        source: "/.well-known/llm.txt",
-        destination: "/context/llm.txt",
-      },
+      // /llms.txt is the concise index (links + section map); the spec's
+      // primary file, kept lightweight for context-window-constrained agents.
       {
         source: "/llms.txt",
+        destination: "/context/llm-index.txt",
+      },
+      // /llms-full.txt and the well-known discovery path serve the full dump.
+      {
+        source: "/llms-full.txt",
         destination: "/context/llm.txt",
       },
       {
-        source: "/llms-full.txt",
+        source: "/.well-known/llm.txt",
         destination: "/context/llm.txt",
       },
     ];

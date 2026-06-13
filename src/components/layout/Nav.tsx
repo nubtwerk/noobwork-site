@@ -15,11 +15,13 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  // Context lives in the footer only. Agents reach the AI-context layer via
+  // JSON-LD subjectOf, the head alternate link, and /llms.txt; the top nav is
+  // reserved for the human conversion path.
   const navLinks = [
     { href: "/#about", label: "About" },
     { href: "/#work", label: "Work" },
     { href: "/#connect", label: "Connect" },
-    { href: "/context", label: "Context" },
   ];
 
   return (

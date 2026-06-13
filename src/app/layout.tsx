@@ -29,6 +29,12 @@ export const metadata: Metadata = {
   creator: "Joachim Haraldsen",
   alternates: {
     canonical: "/",
+    // Advertise the AI-readable context layer to agents that look for it.
+    types: {
+      "text/markdown": [
+        { url: "/llms.txt", title: "LLM-readable context (index)" },
+      ],
+    },
   },
   openGraph: {
     title: "Noobwork | Joachim Haraldsen",
