@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0.0] - 2026-06-13
+
+Sharpens the AI-context layer: it now keeps itself honest, points agents at itself, and follows the emerging llms.txt convention.
+
+### Added
+- Two-tier llms.txt: `/llms.txt` is now a concise index (one-paragraph summary, contact, links, and a map of every section) for AI agents, while `/llms-full.txt`, `/.well-known/llm.txt`, and `/context/llm.txt` serve the complete profile. This matches the llmstxt.org convention. (The full content moved off `/llms.txt`; it remains reachable at the three paths above and is linked from the index.)
+- Active discoverability for the context layer: the Person JSON-LD now carries a `subjectOf` pointer to `/context` (with the llms.txt URL), and the document head advertises a `<link rel="alternate" type="text/markdown">` to `/llms.txt`
+
+### Changed
+- The three figures that grow over time (subscriber count, total views, videos published) are now single-sourced in `src/data/profile-facts.ts`. The AI-context markdown injects them via `{{token}}` placeholders at build time, and the media kit and homepage hero derive their display strings from the same source. A build-time guard fails CI if any markdown or source file hardcodes one of these figures instead of deriving it, so the media kit, hero, and context layer can never drift apart again (they had: the context page once claimed 152M views while the rest of the site said 150M+)
+
+### Fixed
+- The homepage hero stat strip hardcoded the subscriber and view counts, a copy the earlier single-sourcing work missed; it now derives from `src/data/profile-facts.ts` (closes the tracked hero-stats-dedup item)
+
 ## [0.4.0.0] - 2026-06-13
 
 Hardening release from a full-repo deep audit, plus two real features: the video reel now keeps itself current, and the videos are machine-readable to search engines.
