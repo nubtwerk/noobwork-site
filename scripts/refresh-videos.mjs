@@ -88,9 +88,10 @@ export function formatDisplayDate(iso) {
  */
 export async function isShort(id, fetchImpl = fetch) {
   const res = await fetchWithTimeout(
-    fetchImpl,
     `https://www.youtube.com/shorts/${id}`,
-    { method: "HEAD", redirect: "manual" }
+    { method: "HEAD", redirect: "manual" },
+    8_000,
+    fetchImpl
   );
   return res.status === 200;
 }
@@ -99,14 +100,44 @@ export async function isShort(id, fetchImpl = fetch) {
  * Every network call gets a hard timeout: a reachable-but-hanging YouTube
  * must never stall a CI or production build (undici's default is minutes).
  */
-export async function fetchWithTimeout(fetchImpl, url, options = {}, ms = 8_000) {
+export async function fetchWithTimeout(url, options = {}, ms = 8_000, fetchImpl = fetch) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);
+  // Respect a caller-supplied signal instead of clobbering it.
+  const signal = options.signal
+    ? AbortSignal.any([options.signal, controller.signal])
+    : controller.signal;
   try {
-    return await fetchImpl(url, { ...options, signal: controller.signal });
+    return await fetchImpl(url, { ...options, signal });
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Like fetchWithTimeout, but the timeout also covers reading the body —
+ * needed for the feed download, where a hung body read would stall the build
+ * just as badly as hung headers.
+ */
+export async function fetchTextWithTimeout(url, ms = 10_000, fetchImpl = fetch) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetchImpl(url, { signal: controller.signal });
+    return await res.text();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * True when two generated-json payloads carry the same video content.
+ * generatedAt: undefined is dropped by JSON.stringify, so timestamps are
+ * ignored; a build must not rewrite the file just to bump the timestamp.
+ */
+export function isSameVideoContent(a, b) {
+  const strip = (o) => JSON.stringify({ ...o, generatedAt: undefined });
+  return strip(a) === strip(b);
 }
 
 // ---------------------------------------------------------------------------
@@ -122,16 +153,8 @@ if (isMain) {
 
 async function main() {
   try {
-    // 1. Fetch the feed with a 10s timeout.
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10_000);
-    let feedXml;
-    try {
-      const res = await fetch(FEED_URL, { signal: controller.signal });
-      feedXml = await res.text();
-    } finally {
-      clearTimeout(timeout);
-    }
+    // 1. Fetch the feed; the 10s budget covers headers AND body.
+    const feedXml = await fetchTextWithTimeout(FEED_URL, 10_000);
 
     // 2. Parse; feed is already newest-first.
     const entries = parseFeed(feedXml);
@@ -170,7 +193,7 @@ async function main() {
     const featuredRaw = longForm[0];
     const thumbUrl = `https://i.ytimg.com/vi/${featuredRaw.id}/maxresdefault.jpg`;
     try {
-      const thumbRes = await fetchWithTimeout(fetch, thumbUrl, { method: "HEAD" });
+      const thumbRes = await fetchWithTimeout(thumbUrl, { method: "HEAD" });
       const contentLength = parseInt(
         thumbRes.headers.get("content-length") || "0",
         10
@@ -206,10 +229,7 @@ async function main() {
     // the file just to bump generatedAt (a build must not dirty the worktree).
     try {
       const existing = JSON.parse(readFileSync(OUTPUT_PATH, "utf8"));
-      // generatedAt: undefined is dropped by JSON.stringify, so this compares
-      // video content only.
-      const stripTs = (o) => JSON.stringify({ ...o, generatedAt: undefined });
-      if (stripTs(existing) === stripTs(output)) {
+      if (isSameVideoContent(existing, output)) {
         console.log("refresh-videos: feed content unchanged — skipping write");
         return;
       }
