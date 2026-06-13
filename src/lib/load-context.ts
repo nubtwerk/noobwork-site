@@ -18,7 +18,7 @@ export interface ContextSection {
 /**
  * Replace `{{token}}` placeholders with their canonical values from
  * src/data/profile-facts.ts. Unknown tokens are left intact so a typo stays
- * visible (and is caught by test/context-tokens.test.ts) rather than vanishing.
+ * visible (and is caught by test/context-layer.test.ts) rather than vanishing.
  */
 export function substituteTokens(markdown: string): string {
   return markdown.replace(/\{\{(\w+)\}\}/g, (whole, token: string) =>
