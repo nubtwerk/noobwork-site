@@ -11,14 +11,15 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
 describe("CopyContextButton", () => {
   it("happy path: fetches llm.txt and writes it to clipboard", async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
       ok: true,
       text: () => Promise.resolve("# md"),
-    }) as unknown as typeof fetch;
+    }));
 
     render(<CopyContextButton />);
     const button = screen.getByRole("button");
@@ -32,10 +33,10 @@ describe("CopyContextButton", () => {
   });
 
   it("HTTP error: falls back to window.open and does not write to clipboard", async () => {
-    global.fetch = vi.fn().mockResolvedValue({
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
       ok: false,
       status: 500,
-    }) as unknown as typeof fetch;
+    }));
 
     render(<CopyContextButton />);
     fireEvent.click(screen.getByRole("button"));
@@ -49,24 +50,26 @@ describe("CopyContextButton", () => {
   it("reset: button returns to default label after 2000ms", async () => {
     vi.useFakeTimers();
 
-    global.fetch = vi.fn().mockResolvedValue({
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
       ok: true,
       text: () => Promise.resolve("# md"),
-    }) as unknown as typeof fetch;
+    }));
 
     render(<CopyContextButton />);
 
-    // Click and flush all async work (fetch + clipboard + setState)
+    // Click and flush microtasks only (fetch + clipboard + setState).
+    // Deliberately NOT runAllTimersAsync: that could consume the 2000ms
+    // reset timer before the "Copied" assertion below.
     await act(async () => {
       fireEvent.click(screen.getByRole("button"));
-      await vi.runAllTimersAsync();
+      await vi.advanceTimersByTimeAsync(0);
     });
 
     expect(screen.getByRole("button")).toHaveTextContent("Copied to clipboard");
 
     // Advance past the 2000ms reset timeout
     await act(async () => {
-      vi.advanceTimersByTime(2000);
+      await vi.advanceTimersByTimeAsync(2000);
     });
 
     expect(screen.getByRole("button")).toHaveTextContent("Copy all as markdown");
