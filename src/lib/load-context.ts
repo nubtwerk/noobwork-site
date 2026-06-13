@@ -4,8 +4,8 @@ import { contextFiles, type ContextFileEntry } from "@/content/ai-context/manife
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/ai-context");
 
-/** Last manual update date for the context content. Update this when content changes. */
-export const CONTEXT_LAST_UPDATED = "2026-06-10";
+/** Evaluated once per production build; content only changes via deploys. */
+export const CONTEXT_LAST_UPDATED = new Date().toISOString().slice(0, 10);
 
 export interface ContextSection {
   id: string;
