@@ -72,7 +72,9 @@ export default function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      // Escape < so externally-sourced titles (YouTube feed) can never break
+      // out of the inline script element; \u003c parses back to < in JSON.
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
     />
   );
 }
