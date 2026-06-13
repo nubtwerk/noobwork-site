@@ -12,6 +12,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 
 describe("CopyContextButton", () => {
@@ -73,7 +74,5 @@ describe("CopyContextButton", () => {
     });
 
     expect(screen.getByRole("button")).toHaveTextContent("Copy all as markdown");
-
-    vi.useRealTimers();
   });
 });
