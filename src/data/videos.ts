@@ -21,7 +21,6 @@ export interface VideoItem {
  * "Latest Uploads."). The generated file preserves this from the feed.
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 import generated from "./videos.generated.json";
 
 // ---------------------------------------------------------------------------
