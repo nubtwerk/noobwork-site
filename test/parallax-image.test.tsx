@@ -1,19 +1,6 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ParallaxImage from "@/components/ui/ParallaxImage";
-
-beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  });
-  vi.stubGlobal("matchMedia", () => ({
-    matches: false,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }));
-});
 
 describe("ParallaxImage", () => {
   it("renders the image with its alt text and caption", () => {

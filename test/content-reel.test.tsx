@@ -1,20 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ContentReel from "@/components/sections/ContentReel";
 import { featuredVideo, recentVideos } from "@/data/videos";
-
-beforeEach(() => {
-  vi.stubGlobal("IntersectionObserver", class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  });
-  vi.stubGlobal("matchMedia", () => ({
-    matches: false,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-  }));
-});
 
 describe("ContentReel", () => {
   it("renders the featured video as a facade, not an iframe", () => {
