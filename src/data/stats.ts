@@ -1,10 +1,5 @@
 import { Stat } from "@/types";
 
-export const heroStats: Stat[] = [
-  { label: "Forbes Featured", value: "Forbes Featured" },
-  { label: "YouTube subscribers", value: "195K+", numericValue: 195000, suffix: "+" },
-];
-
 export const mediaKitStats: Stat[] = [
   { label: "YouTube Subscribers", value: "195K+", numericValue: 195, suffix: "K+" },
   { label: "Total Video Views", value: "150M+", numericValue: 150, suffix: "M+" },

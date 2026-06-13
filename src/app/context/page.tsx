@@ -85,7 +85,7 @@ export default async function ContextPage() {
                   <a href="/context/llm.txt" className="btn btn--secondary">
                     View llm.txt
                   </a>
-                  <Link href="/media-kit" className="btn btn--ghost">
+                  <Link href="/media-kit" className="btn btn--secondary">
                     Media Kit
                   </Link>
                 </div>

@@ -1,9 +1,3 @@
-export const audienceDemographics = [
-  { label: "Primary Age", value: "18-34", description: "Core demographic" },
-  { label: "Gender Split", value: "96/4", description: "Male / Female" },
-  { label: "Top Regions", value: "Nordics", description: "Norway, Sweden, Denmark" },
-];
-
 export const contentCategories = [
   {
     title: "Fitness & Training",
