@@ -1,8 +1,13 @@
+"use client";
+
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import { useMarqueePause } from "@/hooks/useMarqueePause";
 
 const brands = ["Forbes", "YouTube", "Heroic", "Blast.tv", "Team Haraldsen", "DailyBase"];
 
 export default function SocialProof() {
+  const trackRef = useMarqueePause<HTMLDivElement>();
+
   const row = brands.map((brand) => (
     <span key={brand} className="social-marquee__item">
       {brand}
@@ -21,7 +26,7 @@ export default function SocialProof() {
       </div>
       <AnimatedSection delay={0.1}>
         <div className="social-marquee" role="img" aria-label={brands.join(", ")}>
-          <div className="social-marquee__track">
+          <div ref={trackRef} className="social-marquee__track">
             <span className="social-marquee__group">{row}</span>
             <span className="social-marquee__group" aria-hidden="true">{row}</span>
           </div>

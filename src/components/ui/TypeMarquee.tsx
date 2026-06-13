@@ -1,3 +1,7 @@
+"use client";
+
+import { useMarqueePause } from "@/hooks/useMarqueePause";
+
 interface TypeMarqueeProps {
   items: string[];
   /** "solid" fills the glyphs, "outline" strokes them */
@@ -17,6 +21,8 @@ export default function TypeMarquee({
   className,
   duration = 36,
 }: TypeMarqueeProps) {
+  const trackRef = useMarqueePause<HTMLDivElement>();
+
   const row = items.map((item) => (
     <span key={item} className="type-marquee__item">
       {item}
@@ -30,7 +36,7 @@ export default function TypeMarquee({
       role="img"
       aria-label={items.join(", ")}
     >
-      <div className="type-marquee__track" style={{ animationDuration: `${duration}s` }}>
+      <div ref={trackRef} className="type-marquee__track" style={{ animationDuration: `${duration}s` }}>
         <span className="type-marquee__group">{row}</span>
         <span className="type-marquee__group" aria-hidden="true">{row}</span>
       </div>

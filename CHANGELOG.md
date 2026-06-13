@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0.0] - 2026-06-13
+
+Hardening release from a full-repo deep audit, plus two real features: the video reel now keeps itself current, and the videos are machine-readable to search engines.
+
+### Added
+- The Latest Uploads reel refreshes itself from the channel feed on every deploy: a build-time script pulls the YouTube RSS feed, filters out Shorts, verifies thumbnails, and writes the video list, with a hard fallback to the pinned list so an offline build can never break
+- VideoObject structured data: the JSON-LD now carries an ItemList of all reel videos (titles, thumbnails, upload dates, watch and embed URLs) alongside the Person schema, making the channel's work indexable from noobwork.no
+- `npm run typecheck` script, and CI now gates every push and PR on lint, typecheck, production build, and tests (previously tests only), with a read-only workflow token
+- 42 new tests (63 to 105): reduced-motion fallbacks for the motion orchestrators, the llm.txt endpoint, context file-loading error paths, the copy button, the feed parser and its timeout/skip-write helpers, marquee pausing, JSON-LD shape, and a hostile-title escape regression
+- The plans/ directory: the full audit findings, executor-ready plans, and execution record
+
+### Changed
+- Next.js patched 16.1.6 to 16.2.9, clearing all four high-severity advisories; dev-only dependency advisories fixed; lockfile resynced; next and eslint-config-next are now pinned exactly so framework upgrades are always deliberate
+- The Lenis smooth-scroll loop now pauses while the tab is hidden, and both marquees pause when scrolled offscreen, cutting idle battery and compositor cost
+- The /context "Last updated" date now derives from the build instead of a hand-maintained constant, so it can never go stale
+
+### Fixed
+- The media-kit "Let's Work Together" heading and copy were rendering unstyled (their CSS classes never existed); now styled in the NEWAKE display treatment
+- The context page's Media Kit button referenced an undefined button variant; now uses the standard secondary button
+- The AI-context page claimed 152,000,000+ total views while the rest of the site says 150M+; figures now agree with stats.ts, guarded by a drift test
+- The context copy button copied error pages to the clipboard with a success message when the endpoint failed; it now checks the response and falls back properly, and its reset timer is cleaned up on unmount
+- Removed dead code: three unused data exports and five unreferenced logo PNGs
+
 ## [0.3.0.0] - 2026-06-12
 
 Cinematic redesign of the homepage. Typography and motion now carry the design; the real channel carries the authenticity.

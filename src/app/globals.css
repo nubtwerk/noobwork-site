@@ -1004,6 +1004,24 @@ body:hover .mouse-spotlight { opacity: 1; }
     margin: clamp(2rem, 4vw, 3rem) 0;
   }
 
+  .mk-cta .newsletter-title {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-family-display);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    word-spacing: 0.18em;
+    color: var(--color-foreground);
+  }
+
+  .mk-cta .newsletter-copy {
+    margin: 0 auto 1.6rem;
+    max-width: 34rem;
+    color: rgba(46, 29, 35, 0.65);
+    line-height: 1.7;
+  }
+
   .context-hero {
     margin-top: -1px;
     padding-top: 0;

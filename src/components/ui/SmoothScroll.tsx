@@ -17,15 +17,21 @@ export default function SmoothScroll() {
       anchors: true,
     });
 
-    let rafId: number;
+    let rafId: number | null = null;
     function raf(time: number) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
-    rafId = requestAnimationFrame(raf);
+    function start() { if (rafId === null) rafId = requestAnimationFrame(raf); }
+    function stop() { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } }
+    function onVisibility() { if (document.hidden) { stop(); } else { start(); } }
+
+    document.addEventListener("visibilitychange", onVisibility);
+    start();
 
     return () => {
-      cancelAnimationFrame(rafId);
+      document.removeEventListener("visibilitychange", onVisibility);
+      stop();
       lenis.destroy();
     };
   }, [reducedMotion]);
