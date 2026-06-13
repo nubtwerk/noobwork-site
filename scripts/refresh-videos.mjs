@@ -14,7 +14,7 @@
  * Feed: https://www.youtube.com/feeds/videos.xml?channel_id=UCv1Jgx1bL0SCB8ofJW5-nqQ
  */
 
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -87,11 +87,26 @@ export function formatDisplayDate(iso) {
  * fetchImpl is injectable for tests.
  */
 export async function isShort(id, fetchImpl = fetch) {
-  const res = await fetchImpl(`https://www.youtube.com/shorts/${id}`, {
-    method: "HEAD",
-    redirect: "manual",
-  });
+  const res = await fetchWithTimeout(
+    fetchImpl,
+    `https://www.youtube.com/shorts/${id}`,
+    { method: "HEAD", redirect: "manual" }
+  );
   return res.status === 200;
+}
+
+/**
+ * Every network call gets a hard timeout: a reachable-but-hanging YouTube
+ * must never stall a CI or production build (undici's default is minutes).
+ */
+export async function fetchWithTimeout(fetchImpl, url, options = {}, ms = 8_000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetchImpl(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -155,7 +170,7 @@ async function main() {
     const featuredRaw = longForm[0];
     const thumbUrl = `https://i.ytimg.com/vi/${featuredRaw.id}/maxresdefault.jpg`;
     try {
-      const thumbRes = await fetch(thumbUrl, { method: "HEAD" });
+      const thumbRes = await fetchWithTimeout(fetch, thumbUrl, { method: "HEAD" });
       const contentLength = parseInt(
         thumbRes.headers.get("content-length") || "0",
         10
@@ -186,6 +201,21 @@ async function main() {
       featured: toVideoItem(featuredRaw),
       recent: recentRaw.map(toVideoItem),
     };
+
+    // Deterministic builds: if the video content is unchanged, do not rewrite
+    // the file just to bump generatedAt (a build must not dirty the worktree).
+    try {
+      const existing = JSON.parse(readFileSync(OUTPUT_PATH, "utf8"));
+      // generatedAt: undefined is dropped by JSON.stringify, so this compares
+      // video content only.
+      const stripTs = (o) => JSON.stringify({ ...o, generatedAt: undefined });
+      if (stripTs(existing) === stripTs(output)) {
+        console.log("refresh-videos: feed content unchanged — skipping write");
+        return;
+      }
+    } catch {
+      // No existing file or unparsable: fall through and write.
+    }
 
     writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2) + "\n");
     console.log(
