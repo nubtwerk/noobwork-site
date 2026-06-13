@@ -50,6 +50,7 @@ const fallbackFeatured: VideoItem = {
   id: "j3fcJnIYBEw",
   title: "Min første dag i Kyoto | Shinkansen, Airbnb og meal prep",
   date: "Jun 2026",
+  publishedIso: "2026-06-10T00:00:00+00:00",
 };
 
 const fallbackRecent: VideoItem[] = [
@@ -57,21 +58,25 @@ const fallbackRecent: VideoItem[] = [
     id: "6Dt2jvU7Z-w",
     title: "Første push day tilbake i Norge | Trening",
     date: "Jun 2026",
+    publishedIso: "2026-06-07T00:00:00+00:00",
   },
   {
     id: "SpHxsZIVuJ4",
     title: "Jeg testet alle matkjedene i Norge (Kiwi vant)",
     date: "Jun 2026",
+    publishedIso: "2026-06-06T00:00:00+00:00",
   },
   {
     id: "23zAbLMuN8I",
     title: "Jeg hentet Rolexen jeg har ventet på | Norge vlog",
     date: "Jun 2026",
+    publishedIso: "2026-06-03T00:00:00+00:00",
   },
   {
     id: "AacH4JBZK_g",
     title: "Jeg testet Emirates First Class hjem til Norge",
     date: "May 2026",
+    publishedIso: "2026-05-29T00:00:00+00:00",
   },
 ];
 
