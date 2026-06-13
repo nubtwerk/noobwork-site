@@ -1,11 +1,5 @@
 # TODOS
 
-## Content Reel
-
-### Auto-refresh the video list from the channel RSS feed
-**Priority:** P2
-`src/data/videos.ts` is a manually pinned list under a "Latest Uploads." heading. Fetch https://www.youtube.com/feeds/videos.xml?channel_id=UCv1Jgx1bL0SCB8ofJW5-nqQ at build time (filter shorts, keep newest-first, verify maxresdefault exists for the featured pick) so the reel never goes stale. Noticed during the v0.3.0.0 cinematic redesign review.
-
 ## Hero
 
 ### Re-export the Seoul dusk atmosphere image with more vertical resolution
@@ -16,10 +10,10 @@
 **Priority:** P3
 Hero.tsx hardcodes 195K+/150M+/Forbes/13 yrs inline while stats.ts carries overlapping values for the media kit. Single source would prevent the two surfaces drifting when the numbers change.
 
-## Performance
+## Completed
+
+### Auto-refresh the video list from the channel RSS feed
+**Completed:** v0.4.0.0 (2026-06-13) via plans/005-video-rss-refresh.md
 
 ### Pause the marquees when offscreen
-**Priority:** P4
-`.type-marquee__track` and `.social-marquee__track` run infinite compositor animations for the page's lifetime. An IntersectionObserver toggling `animation-play-state: paused` (or `content-visibility: auto` on the bands) would save battery on long reads.
-
-## Completed
+**Completed:** v0.4.0.0 (2026-06-13) via plans/007-idle-motion-cost.md
