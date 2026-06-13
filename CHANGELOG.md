@@ -10,11 +10,11 @@ Hardening release from a full-repo deep audit, plus two real features: the video
 - The Latest Uploads reel refreshes itself from the channel feed on every deploy: a build-time script pulls the YouTube RSS feed, filters out Shorts, verifies thumbnails, and writes the video list, with a hard fallback to the pinned list so an offline build can never break
 - VideoObject structured data: the JSON-LD now carries an ItemList of all reel videos (titles, thumbnails, upload dates, watch and embed URLs) alongside the Person schema, making the channel's work indexable from noobwork.no
 - `npm run typecheck` script, and CI now gates every push and PR on lint, typecheck, production build, and tests (previously tests only), with a read-only workflow token
-- 36 new tests (63 to 99): reduced-motion fallbacks for the motion orchestrators, the llm.txt endpoint, context file-loading error paths, the copy button, the feed parser, marquee pausing, and JSON-LD shape
+- 42 new tests (63 to 105): reduced-motion fallbacks for the motion orchestrators, the llm.txt endpoint, context file-loading error paths, the copy button, the feed parser and its timeout/skip-write helpers, marquee pausing, JSON-LD shape, and a hostile-title escape regression
 - The plans/ directory: the full audit findings, executor-ready plans, and execution record
 
 ### Changed
-- Next.js patched 16.1.6 to 16.2.9, clearing all four high-severity advisories; dev-only dependency advisories fixed; lockfile metadata resynced
+- Next.js patched 16.1.6 to 16.2.9, clearing all four high-severity advisories; dev-only dependency advisories fixed; lockfile resynced; next and eslint-config-next are now pinned exactly so framework upgrades are always deliberate
 - The Lenis smooth-scroll loop now pauses while the tab is hidden, and both marquees pause when scrolled offscreen, cutting idle battery and compositor cost
 - The /context "Last updated" date now derives from the build instead of a hand-maintained constant, so it can never go stale
 
