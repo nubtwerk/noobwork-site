@@ -9,7 +9,8 @@
  *  - Exits 0 always. Network failure or parse error leaves the existing
  *    json untouched so the build falls back to the pinned snapshot.
  *  - Shorts are detected by HEAD-requesting https://www.youtube.com/shorts/<id>;
- *    a 200 means Short, a 3xx means regular video.
+ *    a 200 means Short, a 3xx means regular video. Any other status is
+ *    ambiguous and throws, so the entry is skipped conservatively.
  *
  * Feed: https://www.youtube.com/feeds/videos.xml?channel_id=UCv1Jgx1bL0SCB8ofJW5-nqQ
  */
@@ -83,7 +84,9 @@ export function formatDisplayDate(iso) {
  * Returns true if the given YouTube id is a Short.
  * Short detection: HEAD https://www.youtube.com/shorts/<id>
  *   - HTTP 200 => is a Short
- *   - HTTP 3xx => regular video
+ *   - HTTP 3xx => regular video (Shorts URL redirects to /watch)
+ *   - anything else (404/429/5xx/etc.) is ambiguous: throw so the caller skips
+ *     the entry conservatively instead of mislabeling a Short as long-form.
  * fetchImpl is injectable for tests.
  */
 export async function isShort(id, fetchImpl = fetch) {
@@ -93,7 +96,9 @@ export async function isShort(id, fetchImpl = fetch) {
     8_000,
     fetchImpl
   );
-  return res.status === 200;
+  if (res.status === 200) return true;
+  if (res.status >= 300 && res.status < 400) return false;
+  throw new Error(`unexpected status ${res.status} for shorts/${id}`);
 }
 
 /**
@@ -124,6 +129,9 @@ export async function fetchTextWithTimeout(url, ms = 10_000, fetchImpl = fetch) 
   const timer = setTimeout(() => controller.abort(), ms);
   try {
     const res = await fetchImpl(url, { signal: controller.signal });
+    // Fail fast on an HTTP error so an error/throttle page is never parsed as
+    // feed XML; main()'s catch keeps the existing json and exits 0.
+    if (!res.ok) throw new Error(`feed fetch failed: ${res.status}`);
     return await res.text();
   } finally {
     clearTimeout(timer);

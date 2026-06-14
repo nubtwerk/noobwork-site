@@ -96,6 +96,45 @@ describe("isShort", () => {
     const result = await isShort("AAAAAAAAAAA", fakeFetch);
     expect(result).toBe(false);
   });
+
+  it("throws on a 404 so an ambiguous response is not treated as a regular video", async () => {
+    const fakeFetch = (async () => ({ status: 404 })) as unknown as typeof fetch;
+    await expect(isShort("AAAAAAAAAAA", fakeFetch)).rejects.toThrow(
+      /unexpected status 404/
+    );
+  });
+
+  it("throws on a 429 rate-limit rather than misclassifying a Short as long-form", async () => {
+    const fakeFetch = (async () => ({ status: 429 })) as unknown as typeof fetch;
+    await expect(isShort("AAAAAAAAAAA", fakeFetch)).rejects.toThrow(/429/);
+  });
+});
+
+describe("fetchTextWithTimeout", () => {
+  it("returns the body text on an ok response", async () => {
+    const okFetch = (async () => ({
+      ok: true,
+      status: 200,
+      text: async () => "<feed/>",
+    })) as unknown as typeof fetch;
+    const text = await refreshVideos.fetchTextWithTimeout(
+      "https://example.com",
+      10000,
+      okFetch
+    );
+    expect(text).toBe("<feed/>");
+  });
+
+  it("throws on a non-ok response so an error page is never parsed as feed XML", async () => {
+    const errFetch = (async () => ({
+      ok: false,
+      status: 503,
+      text: async () => "<html>throttled</html>",
+    })) as unknown as typeof fetch;
+    await expect(
+      refreshVideos.fetchTextWithTimeout("https://example.com", 10000, errFetch)
+    ).rejects.toThrow(/feed fetch failed: 503/);
+  });
 });
 
 describe("fetchWithTimeout", () => {
