@@ -2,7 +2,7 @@ import { useCallback, RefObject } from "react";
 import { useMousePosition } from "./useMousePosition";
 
 /** Renders a radial gradient spotlight that follows the cursor. */
-export function useSpotlight(ref: RefObject<HTMLDivElement | null>) {
+export function useSpotlight(ref: RefObject<HTMLDivElement | null>, enabled = true) {
   const onUpdate = useCallback(
     (mouseX: number, mouseY: number) => {
       const el = ref.current;
@@ -13,5 +13,5 @@ export function useSpotlight(ref: RefObject<HTMLDivElement | null>) {
     [ref],
   );
 
-  useMousePosition(onUpdate);
+  useMousePosition(enabled ? onUpdate : null);
 }
