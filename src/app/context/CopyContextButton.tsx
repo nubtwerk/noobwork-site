@@ -26,6 +26,7 @@ export default function CopyContextButton() {
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
       className="context-link context-link--button"
     >
