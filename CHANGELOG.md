@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.1.0] - 2026-06-14
+
+Bug-fix pass from a full-repo audit: motion, accessibility, build-script resilience, and one stray copy figure that could drift.
+
+### Fixed
+- Reduced-motion and coarse-pointer visitors no longer pay for the cursor spotlight. The hook now actually skips its page-wide mousemove listener and per-move animation frame when motion is off; it was disabling the wrong piece, so the listener ran all session doing nothing.
+- Keyboard focus follows the featured video into play. Activating the play button now moves focus onto the embedded player instead of dropping it to the top of the page (WCAG 2.4.3).
+- The Open Graph share image (every link preview on X, LinkedIn, iMessage, Slack) used a slightly-off sand color (`#ECD8BF` instead of the brand `#ECDBBF`); it now matches the rest of the site.
+- The build-time reel refresh no longer misreads videos on a transient YouTube hiccup. An ambiguous Shorts-check response (404/429/5xx) now skips that entry conservatively instead of treating it as a regular video, and an HTTP error on the feed itself is no longer parsed as feed XML. Both paths still fall back to the pinned list and never fail the build.
+- The reel can no longer show the same upload twice: the recent list drops any entry that collides with the featured video, closing a gap that could surface when a generated featured video pairs with the pinned fallback list.
+- The "Copy all as markdown" button on `/context` is now explicitly a button, so it can never behave as a form submit.
+
+### Changed
+- The subscriber figure in the About story and the Noobwork work card now derives from the single source in `src/data/profile-facts.ts` instead of a hardcoded "nearly 200,000". It tracks the canonical count (195K+) and cannot drift; the figure was the kind of paraphrase the drift guard could not catch.
+
+### Added
+- 8 regression tests locking in the fixes: the reduced-motion spotlight gate (attach, skip, and cleanup), the feed script's status-code handling, and the reel de-duplication guard.
+
 ## [0.5.0.0] - 2026-06-13
 
 Sharpens the AI-context layer: it now keeps itself honest, points agents at itself, and follows the emerging llms.txt convention.
