@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Play, ArrowUpRight } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -9,10 +9,17 @@ import { YOUTUBE_CHANNEL_URL as CHANNEL_URL } from "@/data/external-links";
 
 export default function ContentReel() {
   const [playing, setPlaying] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   // maxresdefault is not guaranteed for every upload; fall back to hqdefault.
   const [featuredThumb, setFeaturedThumb] = useState(
     `https://i.ytimg.com/vi/${featuredVideo.id}/maxresdefault.jpg`
   );
+
+  // When the facade is replaced by the iframe, move keyboard focus onto the
+  // now-playing video so the user's tab position is not dropped to <body>.
+  useEffect(() => {
+    if (playing) iframeRef.current?.focus();
+  }, [playing]);
 
   return (
     <section id="reel" className="site-section reel">
@@ -35,6 +42,7 @@ export default function ContentReel() {
             <div className="reel-feature__embed">
               {playing ? (
                 <iframe
+                  ref={iframeRef}
                   src={`https://www.youtube-nocookie.com/embed/${featuredVideo.id}?autoplay=1`}
                   title={featuredVideo.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

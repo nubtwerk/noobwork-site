@@ -2,6 +2,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import { focusItems } from "@/data/focus-items";
+import { profileFacts } from "@/data/profile-facts";
 
 export default function About() {
   return (
@@ -31,7 +32,7 @@ export default function About() {
               whole thing.
             </p>
             <p>
-              I&apos;m <span className="about-emphasis">Joachim Haraldsen</span>, a Norwegian founder, creator, and operator based in Seoul. I built <span className="about-emphasis">Noobwork</span> into one of Norway&apos;s biggest gaming channels, growing it to nearly <span className="about-emphasis">200,000 subscribers</span> before the creator economy had fully taken shape.
+              I&apos;m <span className="about-emphasis">Joachim Haraldsen</span>, a Norwegian founder, creator, and operator based in Seoul. I built <span className="about-emphasis">Noobwork</span> into one of Norway&apos;s biggest gaming channels, growing it to <span className="about-emphasis">{profileFacts.subscribers.long} subscribers</span> before the creator economy had fully taken shape.
             </p>
             <p>
               I later founded <span className="about-emphasis">Heroic Group</span>, raised <span className="about-emphasis">$25 million</span>, and helped scale it into one of the largest esports organisations in the world. That chapter led to a successful exit, a <span className="about-emphasis">Forbes feature</span>, and years spent operating across gaming, media, and entertainment at global scale.

@@ -13,7 +13,7 @@ export default function MouseEffects() {
   const coarsePointer = useMediaQuery("(pointer: coarse)");
   const enabled = !reducedMotion && !coarsePointer;
 
-  useSpotlight(enabled ? spotlightRef : { current: null });
+  useSpotlight(spotlightRef, enabled);
   useParallaxAndShimmer(enabled);
   useMagnetic(enabled);
   useTilt(enabled);

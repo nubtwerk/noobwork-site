@@ -88,9 +88,17 @@ export const featuredVideo: VideoItem = isValid(generated?.featured)
   ? generated.featured
   : fallbackFeatured;
 
-export const recentVideos: VideoItem[] =
+const selectedRecent: VideoItem[] =
   Array.isArray(generated?.recent) &&
   generated.recent.length >= 2 &&
   generated.recent.every(isValid)
     ? generated.recent
     : fallbackRecent;
+
+// featuredVideo and selectedRecent are chosen independently, so the fallback
+// path can mix a generated featured with the pinned recent list. Drop any
+// collision so the same video never renders twice (UI and JSON-LD both
+// concatenate [featuredVideo, ...recentVideos]).
+export const recentVideos: VideoItem[] = selectedRecent.filter(
+  (v) => v.id !== featuredVideo.id,
+);

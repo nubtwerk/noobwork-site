@@ -51,8 +51,11 @@ describe("generated json selection logic", () => {
       gen.recent.every(isValidItem);
 
     if (generatedIsValid) {
-      // Selection logic should have picked generated.recent.
-      expect(recentVideos).toEqual(gen.recent);
+      // Selection picks generated.recent, then drops any id that collides
+      // with the featured video (cross-source dedup guard in videos.ts).
+      expect(recentVideos).toEqual(
+        (gen.recent as typeof recentVideos).filter((v) => v.id !== featuredVideo.id)
+      );
     } else {
       // Generated file is not usable; just ensure recentVideos is non-empty.
       expect(recentVideos.length).toBeGreaterThan(0);

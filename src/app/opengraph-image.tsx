@@ -45,7 +45,7 @@ export default function OGImage() {
             style={{
               fontSize: 96,
               fontWeight: 700,
-              color: "#ECD8BF",
+              color: "#ECDBBF",
               letterSpacing: "-2px",
               lineHeight: 1,
             }}
@@ -57,7 +57,7 @@ export default function OGImage() {
           <div
             style={{
               fontSize: 16,
-              color: "#ECD8BF",
+              color: "#ECDBBF",
               opacity: 0.7,
               letterSpacing: "4px",
               marginTop: 24,
