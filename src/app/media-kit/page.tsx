@@ -84,11 +84,23 @@ export default function MediaKit() {
               <AnimatedSection delay={0.1}>
                 <div className="mk-audience-card" data-tilt>
                   <div className="mk-audience-card__label">Core Age Range</div>
-                  <div className="mk-age-range">
-                    <div className="mk-age-range__seg" style={{ flex: 1 }}>13-17</div>
-                    <div className="mk-age-range__seg mk-age-range__seg--active" style={{ flex: 3 }}>18-34</div>
-                    <div className="mk-age-range__seg" style={{ flex: 0.6 }}>35-44</div>
-                    <div className="mk-age-range__seg" style={{ flex: 0.4 }}>45+</div>
+                  <div
+                    className="mk-age-range"
+                    role="img"
+                    aria-label="Core audience age range is 18 to 34"
+                  >
+                    <div className="mk-age-range__bar" aria-hidden="true">
+                      <div className="mk-age-range__seg" style={{ flex: 1 }} />
+                      <div className="mk-age-range__seg mk-age-range__seg--active" style={{ flex: 3 }} />
+                      <div className="mk-age-range__seg" style={{ flex: 0.6 }} />
+                      <div className="mk-age-range__seg" style={{ flex: 0.4 }} />
+                    </div>
+                    <div className="mk-age-range__labels">
+                      <span>13-17</span>
+                      <span className="mk-age-range__label--active">18-34</span>
+                      <span>35-44</span>
+                      <span>45+</span>
+                    </div>
                   </div>
                 </div>
               </AnimatedSection>

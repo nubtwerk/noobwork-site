@@ -915,6 +915,13 @@ body:hover .mouse-spotlight { opacity: 1; }
 
   @media (min-width: 768px) {
     .mk-audience-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 2.5rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .mk-audience-grid {
       grid-template-columns: 1fr 1fr 1fr;
       gap: 2.5rem;
     }
@@ -922,7 +929,8 @@ body:hover .mouse-spotlight { opacity: 1; }
 
   .mk-audience-card {
     display: grid;
-    gap: 0.8rem;
+    gap: 1rem;
+    min-width: 0;
   }
 
   .mk-audience-card__label {
@@ -934,31 +942,44 @@ body:hover .mouse-spotlight { opacity: 1; }
   }
 
   .mk-age-range {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .mk-age-range__bar {
     display: flex;
     gap: 0;
-    height: 2.5rem;
-    border-radius: 0.5rem;
+    height: 0.65rem;
+    border-radius: 999px;
     overflow: hidden;
   }
 
   .mk-age-range__seg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgba(46, 29, 35, 0.35);
-    background: rgba(46, 29, 35, 0.04);
-    border-right: 1px solid rgba(46, 29, 35, 0.06);
+    background: rgba(46, 29, 35, 0.08);
+    border-right: 1px solid rgba(248, 248, 248, 0.65);
   }
 
   .mk-age-range__seg:last-child { border-right: none; }
 
   .mk-age-range__seg--active {
     background: var(--color-primary);
-    color: var(--color-background);
+  }
+
+  .mk-age-range__labels {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(46, 29, 35, 0.45);
+    text-align: center;
+  }
+
+  .mk-age-range__label--active {
+    color: var(--color-primary);
     font-weight: 800;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
   }
 
   .mk-bar-chart { display: grid; gap: 0.4rem; }
