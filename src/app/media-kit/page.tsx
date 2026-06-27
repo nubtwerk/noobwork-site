@@ -3,6 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import AtmosphereBackdrop from "@/components/ui/AtmosphereBackdrop";
 import RevealText from "@/components/ui/RevealText";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
@@ -26,8 +27,9 @@ export default function MediaKit() {
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main media-kit">
-        <section className="site-section site-section--dark mk-hero">
-          <div className="shell-inner">
+        <section className="site-section mk-hero">
+          <AtmosphereBackdrop imagePosition="center 42%" priority />
+          <div className="shell-inner mk-hero__stage">
             <AnimatedSection>
               <div className="chapter-head chapter-head--ongreen mk-hero__head">
                 <p className="chapter-head__marker">Media Kit / Partnerships</p>

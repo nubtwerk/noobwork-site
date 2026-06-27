@@ -844,7 +844,27 @@ body:hover .mouse-spotlight { opacity: 1; }
   }
 
   .mk-hero {
+    position: relative;
+    overflow: clip;
+    color: var(--color-sand);
+    background: var(--color-primary);
+    padding-top: clamp(6.5rem, 14vh, 8.5rem);
     padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .atmosphere-backdrop__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .atmosphere-backdrop__image {
+    object-fit: cover;
+  }
+
+  .mk-hero__stage {
+    position: relative;
+    z-index: 1;
   }
 
   .mk-hero__head {
@@ -856,9 +876,20 @@ body:hover .mouse-spotlight { opacity: 1; }
     font-size: clamp(2.8rem, 8vw, 6.2rem);
   }
 
+  .mk-hero__title.chapter-head__display,
+  .mk-hero__title .chapter-head__display-accent {
+    color: var(--color-sand);
+    -webkit-text-stroke-color: rgba(236, 219, 191, 0.85);
+  }
+
   .mk-hero__note {
     max-width: 42rem;
     margin-top: 0.4rem;
+    color: rgba(248, 248, 248, 0.88);
+  }
+
+  .mk-hero .chapter-head__marker {
+    color: rgba(236, 219, 191, 0.66);
   }
 
   .mk-stats-section {
