@@ -61,7 +61,7 @@ Responsive via Tailwind `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`).
+Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`). Higgsfield credentials (`HF_CREDENTIALS`) are for local atmosphere regeneration only via `npm run generate:atmosphere`; keep them in `.env.local`, not on Vercel.
 
 ## Skill routing
 

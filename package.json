@@ -6,6 +6,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/refresh-videos.mjs",
     "refresh:videos": "node scripts/refresh-videos.mjs",
+    "generate:atmosphere": "node --env-file=.env.local scripts/generate-atmosphere.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -23,6 +24,7 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@higgsfield/client": "^0.2.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
