@@ -3,6 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import RevealText from "@/components/ui/RevealText";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
 import { contentCategories, partnershipTypes, partnershipProcess } from "@/data/media-kit";
@@ -25,46 +26,59 @@ export default function MediaKit() {
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main media-kit">
-        {/* Hero */}
-        <section className="site-section site-section--dark media-hero-section">
+        <section className="site-section site-section--dark mk-hero">
           <div className="shell-inner">
             <AnimatedSection>
-              <div className="media-hero">
-                <h1 className="media-title media-title--split">
-                  <span>Media</span>
-                  <span>Kit</span>
+              <div className="chapter-head chapter-head--ongreen mk-hero__head">
+                <p className="chapter-head__marker">Media Kit / Partnerships</p>
+                <h1
+                  className="chapter-head__display mk-hero__title"
+                  aria-label="Work with Noobwork"
+                >
+                  <RevealText text="Work with" />
+                  <br />
+                  <span className="chapter-head__display-accent">
+                    <RevealText text="Noobwork." delay={0.15} />
+                  </span>
                 </h1>
-                <p className="media-copy">
-                  I&apos;ve spent over a decade building authentic communities, first in gaming and esports, now in fitness and lifestyle. Here&apos;s what a partnership with me looks like.
+                <p className="chapter-head__note mk-hero__note">
+                  I&apos;ve spent over a decade building authentic communities,
+                  first in gaming and esports, now in fitness and lifestyle.
+                  Here&apos;s what a partnership with me looks like.
                 </p>
               </div>
             </AnimatedSection>
           </div>
         </section>
 
-        {/* Stat Band */}
-        <AnimatedSection>
-          <div className="mk-stat-band">
-            {mediaKitStats.map((stat) => (
-              <div key={stat.label} className="mk-stat" data-magnetic>
-                <div className="mk-stat__value">
-                  {stat.numericValue != null ? (
-                    <CountUp target={stat.numericValue} suffix={stat.suffix} />
-                  ) : (
-                    <span>{stat.value}</span>
-                  )}
-                </div>
-                <p className="mk-stat__label">{stat.label}</p>
-              </div>
-            ))}
+        <section className="site-section site-section--tight mk-stats-section">
+          <div className="shell-inner">
+            <AnimatedSection>
+              <dl className="partner-stats mk-stats">
+                {mediaKitStats.map((stat) => (
+                  <div key={stat.label} className="partner-stat" data-magnetic>
+                    <dt className="partner-stat__label">{stat.label}</dt>
+                    <dd className="partner-stat__value">
+                      {stat.numericValue != null ? (
+                        <CountUp target={stat.numericValue} suffix={stat.suffix} />
+                      ) : (
+                        stat.value
+                      )}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </AnimatedSection>
           </div>
-        </AnimatedSection>
+        </section>
 
-        {/* Audience — Visual */}
         <div className="mk-content">
           <section className="mk-editorial">
-            <AnimatedSection>
-              <h2 className="mk-editorial__heading" data-shimmer>Audience</h2>
+            <AnimatedSection className="mk-editorial__aside">
+              <div className="chapter-head">
+                <p className="chapter-head__marker">01 / Audience</p>
+                <h2 className="chapter-head__title">Who watches.</h2>
+              </div>
             </AnimatedSection>
             <div className="mk-audience-grid">
               <AnimatedSection delay={0.1}>
@@ -99,10 +113,10 @@ export default function MediaKit() {
                 <div className="mk-audience-card" data-tilt>
                   <div className="mk-audience-card__label">Top Regions</div>
                   <div className="mk-region-list">
-                    {["Norway", "Sweden"].map(r => (
+                    {["Norway", "Sweden"].map((r) => (
                       <span key={r} className="mk-region-tag mk-region-tag--primary"><span className="mk-region-tag__dot" />{r}</span>
                     ))}
-                    {["United States", "Denmark"].map(r => (
+                    {["United States", "Denmark"].map((r) => (
                       <span key={r} className="mk-region-tag"><span className="mk-region-tag__dot" />{r}</span>
                     ))}
                   </div>
@@ -111,10 +125,12 @@ export default function MediaKit() {
             </div>
           </section>
 
-          {/* Content Categories — Numbered */}
           <section className="mk-editorial">
-            <AnimatedSection>
-              <h2 className="mk-editorial__heading" data-shimmer>Content</h2>
+            <AnimatedSection className="mk-editorial__aside">
+              <div className="chapter-head">
+                <p className="chapter-head__marker">02 / Content</p>
+                <h2 className="chapter-head__title">What I make.</h2>
+              </div>
             </AnimatedSection>
             <ul className="mk-numbered-list">
               {contentCategories.map((cat, i) => (
@@ -129,10 +145,12 @@ export default function MediaKit() {
             </ul>
           </section>
 
-          {/* Partnership Types — Numbered */}
           <section className="mk-editorial">
-            <AnimatedSection>
-              <h2 className="mk-editorial__heading" data-shimmer>Partnerships</h2>
+            <AnimatedSection className="mk-editorial__aside">
+              <div className="chapter-head">
+                <p className="chapter-head__marker">03 / Partnerships</p>
+                <h2 className="chapter-head__title">How we work.</h2>
+              </div>
             </AnimatedSection>
             <ul className="mk-numbered-list">
               {partnershipTypes.map((type, i) => (
@@ -147,10 +165,12 @@ export default function MediaKit() {
             </ul>
           </section>
 
-          {/* Process — Steps */}
           <section className="mk-editorial">
-            <AnimatedSection>
-              <h2 className="mk-editorial__heading" data-shimmer>Process</h2>
+            <AnimatedSection className="mk-editorial__aside">
+              <div className="chapter-head">
+                <p className="chapter-head__marker">04 / Process</p>
+                <h2 className="chapter-head__title">From brief to live.</h2>
+              </div>
             </AnimatedSection>
             <div className="mk-process-grid">
               {partnershipProcess.map((step, i) => (
@@ -164,30 +184,54 @@ export default function MediaKit() {
               ))}
             </div>
           </section>
+        </div>
 
-          {/* CTA */}
-          <AnimatedSection>
-            <div className="mk-cta">
-              <h2 className="newsletter-title">
-                Let&apos;s Work <span className="section-heading__title--primary">Together</span>
-              </h2>
-              <p className="newsletter-copy">
-                Interested in a partnership? Reach out directly or follow my Beacons page for updates and announcements.
-              </p>
-              <div className="cta-actions">
-                <a href={BEACONS_URL} target="_blank" rel="noopener noreferrer" className="btn btn--primary">
-                  Follow on Beacons
-                </a>
-                <a href="mailto:joachim@noobwork.no" className="btn btn--secondary">
-                  Get in Touch
-                </a>
+        <section className="site-section mk-finale">
+          <div className="shell-inner">
+            <AnimatedSection>
+              <div className="mk-finale__inner">
+                <div className="chapter-head">
+                  <p className="chapter-head__marker">Next step</p>
+                  <h2
+                    className="chapter-head__display partner__display"
+                    aria-label="Let's work together"
+                  >
+                    <RevealText text="Let's work" />
+                    <br />
+                    <span className="chapter-head__display-accent">
+                      <RevealText text="together." delay={0.18} />
+                    </span>
+                  </h2>
+                </div>
+                <p className="partner-pitch__copy mk-finale__copy">
+                  Interested in a partnership? Reach out directly or follow my
+                  Beacons page for updates and announcements.
+                </p>
+                <div className="hero-actions mk-finale__actions">
+                  <a
+                    href="mailto:joachim@noobwork.no"
+                    className="btn btn--primary"
+                    data-magnetic
+                  >
+                    Get in Touch
+                  </a>
+                  <a
+                    href={BEACONS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--secondary"
+                    data-magnetic
+                  >
+                    Follow on Beacons
+                  </a>
+                </div>
               </div>
-            </div>
-          </AnimatedSection>
-
-          <div className="section-heading--center">
-            <Link href="/" className="back-link">&larr; Back to home</Link>
+            </AnimatedSection>
           </div>
+        </section>
+
+        <div className="mk-back shell-inner">
+          <Link href="/" className="back-link">&larr; Back to home</Link>
         </div>
       </main>
       <Footer />

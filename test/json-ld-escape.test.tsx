@@ -5,23 +5,26 @@ import { render } from "@testing-library/react";
 // YouTube RSS feed at build time, and the refresh script decodes XML entities
 // into raw characters. A title containing "</script>" must never break out of
 // the inline JSON-LD script element.
-vi.mock("@/data/videos", () => ({
-  featuredVideo: {
-    id: "AAAAAAAAAAA",
-    title: 'Hostile </script><script>alert(1)</script> title',
-    date: "Jun 2026",
-    publishedIso: "2026-06-01",
-  },
-  recentVideos: [
-    { id: "BBBBBBBBBBB", title: "Normal title", date: "Jun 2026" },
-  ],
+vi.mock("@/lib/get-videos", () => ({
+  getLatestVideos: vi.fn(async () => ({
+    featuredVideo: {
+      id: "AAAAAAAAAAA",
+      title: 'Hostile </script><script>alert(1)</script> title',
+      date: "Jun 2026",
+      publishedIso: "2026-06-01",
+    },
+    recentVideos: [
+      { id: "BBBBBBBBBBB", title: "Normal title", date: "Jun 2026" },
+    ],
+  })),
 }));
 
 import JsonLd from "@/components/JsonLd";
 
 describe("JsonLd escaping (hostile feed title)", () => {
-  it("never emits a raw </script and still parses back to the original title", () => {
-    const { container } = render(<JsonLd />);
+  it("never emits a raw </script and still parses back to the original title", async () => {
+    const element = await JsonLd();
+    const { container } = render(element);
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script).not.toBeNull();
 

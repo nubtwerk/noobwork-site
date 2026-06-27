@@ -4,10 +4,22 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Play, ArrowUpRight } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { featuredVideo, recentVideos } from "@/data/videos";
+import type { VideoItem } from "@/data/videos";
+import {
+  featuredVideo as fallbackFeatured,
+  recentVideos as fallbackRecent,
+} from "@/data/videos";
 import { YOUTUBE_CHANNEL_URL as CHANNEL_URL } from "@/data/external-links";
 
-export default function ContentReel() {
+interface ContentReelProps {
+  featuredVideo?: VideoItem;
+  recentVideos?: VideoItem[];
+}
+
+export default function ContentReel({
+  featuredVideo = fallbackFeatured,
+  recentVideos = fallbackRecent,
+}: ContentReelProps) {
   const [playing, setPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   // maxresdefault is not guaranteed for every upload; fall back to hqdefault.

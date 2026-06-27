@@ -1,6 +1,6 @@
 import { socialLinks } from "@/data/social-links";
-import { featuredVideo, recentVideos } from "@/data/videos";
 import type { VideoItem } from "@/data/videos";
+import { getLatestVideos } from "@/lib/get-videos";
 
 function toVideoObject(v: VideoItem) {
   const obj: Record<string, string> = {
@@ -17,7 +17,9 @@ function toVideoObject(v: VideoItem) {
   return obj;
 }
 
-export default function JsonLd() {
+export default async function JsonLd() {
+  const { featuredVideo, recentVideos } = await getLatestVideos();
+
   const personSchema = {
     "@type": "Person",
     name: "Joachim Haraldsen",

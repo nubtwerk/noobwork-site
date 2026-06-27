@@ -9,15 +9,18 @@ import Work from "@/components/sections/Work";
 import PartnerCta from "@/components/sections/PartnerCta";
 import Newsletter from "@/components/sections/Newsletter";
 import Connect from "@/components/sections/Connect";
+import { getLatestVideos } from "@/lib/get-videos";
 
-export default function Home() {
+export default async function Home() {
+  const { featuredVideo, recentVideos } = await getLatestVideos();
+
   return (
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main">
         <Hero />
         <SocialProof />
-        <ContentReel />
+        <ContentReel featuredVideo={featuredVideo} recentVideos={recentVideos} />
         <About />
         <ContentPillars />
         <Work />
