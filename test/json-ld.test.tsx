@@ -1,25 +1,44 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import JsonLd from "@/components/JsonLd";
-import { recentVideos } from "@/data/videos";
+
+vi.mock("@/lib/get-videos", () => ({
+  getLatestVideos: vi.fn(async () => ({
+    featuredVideo: {
+      id: "AAAAAAAAAAA",
+      title: "Featured from feed",
+      date: "Jun 2026",
+      publishedIso: "2026-06-24T14:30:22+00:00",
+    },
+    recentVideos: [
+      {
+        id: "BBBBBBBBBBB",
+        title: "Recent from feed",
+        date: "Jun 2026",
+        publishedIso: "2026-06-20T16:30:21+00:00",
+      },
+    ],
+  })),
+}));
 
 describe("JsonLd structured data", () => {
-  function getSchema() {
-    const { container } = render(<JsonLd />);
+  async function getSchema() {
+    const element = await JsonLd();
+    const { container } = render(element);
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script).not.toBeNull();
     const json = JSON.parse(script!.innerHTML);
     return json;
   }
 
-  it("renders a valid JSON-LD script tag that parses without error", () => {
-    const schema = getSchema();
+  it("renders a valid JSON-LD script tag that parses without error", async () => {
+    const schema = await getSchema();
     expect(schema).toBeTruthy();
     expect(schema["@context"]).toBe("https://schema.org");
   });
 
-  it("@graph contains exactly one Person with name 'Joachim Haraldsen'", () => {
-    const schema = getSchema();
+  it("@graph contains exactly one Person with name 'Joachim Haraldsen'", async () => {
+    const schema = await getSchema();
     const graph: unknown[] = schema["@graph"];
     expect(Array.isArray(graph)).toBe(true);
     const persons = graph.filter(
@@ -34,8 +53,8 @@ describe("JsonLd structured data", () => {
     );
   });
 
-  it("@graph contains exactly one ItemList with the correct number of entries", () => {
-    const schema = getSchema();
+  it("@graph contains exactly one ItemList with the correct number of entries", async () => {
+    const schema = await getSchema();
     const graph: unknown[] = schema["@graph"];
     const lists = graph.filter(
       (node) =>
@@ -46,12 +65,11 @@ describe("JsonLd structured data", () => {
     expect(lists).toHaveLength(1);
     const list = lists[0] as Record<string, unknown>;
     const items = list.itemListElement as unknown[];
-    // 1 featured + recentVideos.length
-    expect(items).toHaveLength(1 + recentVideos.length);
+    expect(items).toHaveLength(2);
   });
 
-  it("every VideoObject has name, thumbnailUrl containing its id, and correct watch url", () => {
-    const schema = getSchema();
+  it("every VideoObject has name, thumbnailUrl containing its id, and correct watch url", async () => {
+    const schema = await getSchema();
     const graph: unknown[] = schema["@graph"];
     const list = graph.find(
       (node) =>
@@ -73,8 +91,9 @@ describe("JsonLd structured data", () => {
     }
   });
 
-  it("serialized JSON contains no </script substring (injection guard)", () => {
-    const { container } = render(<JsonLd />);
+  it("serialized JSON contains no </script substring (injection guard)", async () => {
+    const element = await JsonLd();
+    const { container } = render(element);
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script).not.toBeNull();
     expect(script!.innerHTML).not.toContain("</script");

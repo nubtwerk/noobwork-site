@@ -32,7 +32,7 @@ export default function PartnerCta() {
             </p>
             <div className="hero-actions">
               <Link href="/media-kit" className="btn btn--primary" data-magnetic>
-                Open the Media Kit
+                Partner With Me
               </Link>
               <a href="mailto:joachim@noobwork.no" className="btn btn--secondary" data-magnetic>
                 joachim@noobwork.no

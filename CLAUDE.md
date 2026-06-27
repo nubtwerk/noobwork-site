@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the current Seoul fitness chapter: daily content through Noobwork, coaching through Team Haraldsen, and meal planning through DailyBase. Single-page portfolio + Media Kit page. Newsletter and update signups are handled externally through Beacons (`https://beacons.ai/noobwork`). Core content is hardcoded in React components and data files; AI-readable context lives in `src/content/ai-context/` (15 markdown files). It is served as a human page at `/context` and as machine-readable markdown in two tiers: `/llms.txt` is a concise index (built by `buildContextIndex`), while `/llms-full.txt`, `/.well-known/llm.txt`, and `/context/llm.txt` serve the full dump (`buildContextMarkdown`). Volatile figures (subscriber count, total views, videos published) are single-sourced in `src/data/profile-facts.ts` and injected into the markdown via `{{token}}` placeholders at build time, so the media kit and context layer can never drift apart again. Rewrites are in `next.config.ts`.
+Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the current Seoul fitness chapter: daily content through Noobwork, coaching through Team Haraldsen, and meal planning through DailyBase. Single-page portfolio + Media Kit page. Core content is hardcoded in React components and data files; AI-readable context lives in `src/content/ai-context/` (15 markdown files). It is served as a human page at `/context` and as machine-readable markdown in two tiers: `/llms.txt` is a concise index (built by `buildContextIndex`), while `/llms-full.txt`, `/.well-known/llm.txt`, and `/context/llm.txt` serve the full dump (`buildContextMarkdown`). Volatile figures (subscriber count, total views, videos published) are single-sourced in `src/data/profile-facts.ts` and injected into the markdown via `{{token}}` placeholders at build time, so the media kit and context layer can never drift apart again. Rewrites are in `next.config.ts`.
 
 ## Commands
 
@@ -61,7 +61,7 @@ Responsive via Tailwind `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. No environment variables are required for newsletter subscription flows.
+Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`).
 
 ## Skill routing
 

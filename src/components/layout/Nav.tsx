@@ -1,11 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useState, useEffect, useMemo } from "react";
 import Logo from "@/components/ui/Logo";
-import { NAV_SCROLL_THRESHOLD } from "@/lib/constants";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
 
 export default function Nav() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const sectionIds = useMemo(
+    () => (isHome ? NAV_SECTIONS.map((link) => link.id) : []),
+    [isHome]
+  );
+  const activeSection = useActiveSection(sectionIds);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -15,14 +25,9 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  // Context lives in the footer only. Agents reach the AI-context layer via
-  // JSON-LD subjectOf, the head alternate link, and /llms.txt; the top nav is
-  // reserved for the human conversion path.
-  const navLinks = [
-    { href: "/#about", label: "About" },
-    { href: "/#work", label: "Work" },
-    { href: "/#connect", label: "Connect" },
-  ];
+
+  const navLinkClass = (sectionId: string) =>
+    `nav-link${activeSection === sectionId ? " nav-link--active" : ""}`;
 
   return (
     <nav aria-label="Main navigation" className={`nav-shell${scrolled ? " nav-shell--scrolled" : ""}`}>
@@ -41,8 +46,8 @@ export default function Nav() {
           <Logo variant="wordmark" className="nav-logo" />
         </Link>
         <div className="nav-links nav-links--desktop">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="nav-link">
+          {NAV_SECTIONS.map((link) => (
+            <Link key={link.href} href={link.href} className={navLinkClass(link.id)}>
               {link.label}
             </Link>
           ))}
@@ -50,7 +55,7 @@ export default function Nav() {
             href="/media-kit"
             className="btn btn--tertiary"
           >
-            Media Kit
+            Partner With Me
           </Link>
         </div>
         <button
@@ -79,11 +84,11 @@ export default function Nav() {
       {isMobileMenuOpen && (
         <div className="nav-mobile-dropdown">
           <div className="nav-mobile-dropdown__panel">
-            {navLinks.map((link) => (
+            {NAV_SECTIONS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav-mobile-dropdown__link"
+                className={`nav-mobile-dropdown__link${activeSection === link.id ? " nav-mobile-dropdown__link--active" : ""}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
@@ -94,7 +99,7 @@ export default function Nav() {
               className="nav-mobile-dropdown__link"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Media Kit
+              Partner With Me
             </Link>
           </div>
         </div>

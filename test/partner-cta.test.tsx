@@ -13,7 +13,7 @@ describe("PartnerCta", () => {
 
   it("links to the media kit page", () => {
     render(<PartnerCta />);
-    const link = screen.getByText("Open the Media Kit").closest("a");
+    const link = screen.getByText("Partner With Me").closest("a");
     expect(link).toHaveAttribute("href", "/media-kit");
   });
 

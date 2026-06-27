@@ -7,7 +7,7 @@ describe("Footer", () => {
     render(<Footer />);
     expect(screen.getByText("Noobwork")).toBeInTheDocument();
     expect(screen.getByText("About")).toBeInTheDocument();
-    expect(screen.getByText("Media Kit")).toBeInTheDocument();
+    expect(screen.getByText("Partner With Me")).toBeInTheDocument();
     expect(screen.getByText("Context")).toBeInTheDocument();
   });
 

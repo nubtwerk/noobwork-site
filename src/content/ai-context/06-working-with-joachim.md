@@ -27,5 +27,4 @@
 ## Contact
 
 - Email: joachim@noobwork.no
-- Beacons: beacons.ai/noobwork
 - Website: noobwork.no

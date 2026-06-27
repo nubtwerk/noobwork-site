@@ -49,6 +49,7 @@ export default function Hero() {
         />
       </motion.div>
       <div className="poster-hero__wash" aria-hidden="true" />
+      <div className="poster-hero__grain" aria-hidden="true" />
 
       <motion.div
         className="poster-hero__stage"
