@@ -4,6 +4,7 @@ import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import AtmosphereBackdrop from "@/components/ui/AtmosphereBackdrop";
+import ContactForm from "@/components/ui/ContactForm";
 import RevealText from "@/components/ui/RevealText";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
@@ -31,7 +32,7 @@ export default function MediaKit() {
           <div className="shell-inner mk-hero__stage">
             <AnimatedSection>
               <div className="chapter-head chapter-head--ongreen mk-hero__head">
-                <p className="chapter-head__marker">Media Kit / Partnerships</p>
+                <p className="chapter-head__marker">Partnerships</p>
                 <h1
                   className="chapter-head__display mk-hero__title"
                   aria-label="Work with Noobwork"
@@ -202,33 +203,27 @@ export default function MediaKit() {
         <section className="site-section mk-finale">
           <div className="shell-inner">
             <AnimatedSection>
-              <div className="mk-finale__inner">
-                <div className="chapter-head">
-                  <p className="chapter-head__marker">Next step</p>
-                  <h2
-                    className="chapter-head__display partner__display"
-                    aria-label="Let's work together"
-                  >
-                    <RevealText text="Let's work" />
-                    <br />
-                    <span className="chapter-head__display-accent">
-                      <RevealText text="together." delay={0.18} />
-                    </span>
-                  </h2>
+              <div className="mk-finale__layout">
+                <div className="mk-finale__intro">
+                  <div className="chapter-head">
+                    <p className="chapter-head__marker">Next step</p>
+                    <h2
+                      className="chapter-head__display partner__display"
+                      aria-label="Let's work together"
+                    >
+                      <RevealText text="Let's work" />
+                      <br />
+                      <span className="chapter-head__display-accent">
+                        <RevealText text="together." delay={0.18} />
+                      </span>
+                    </h2>
+                  </div>
+                  <p className="partner-pitch__copy mk-finale__copy">
+                    Share a few details about the brand, campaign, and timeline.
+                    I&apos;ll reply by email once we&apos;ve checked the fit.
+                  </p>
                 </div>
-                <p className="partner-pitch__copy mk-finale__copy">
-                  Interested in a partnership? Reach out directly and we&apos;ll
-                  align on audience fit, deliverables, and timeline.
-                </p>
-                <div className="hero-actions mk-finale__actions">
-                  <a
-                    href="mailto:joachim@noobwork.no"
-                    className="btn btn--primary"
-                    data-magnetic
-                  >
-                    Get in Touch
-                  </a>
-                </div>
+                <ContactForm />
               </div>
             </AnimatedSection>
           </div>

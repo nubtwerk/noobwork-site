@@ -86,7 +86,7 @@ export default async function ContextPage() {
                     View llm.txt
                   </a>
                   <Link href="/media-kit" className="btn btn--secondary">
-                    Media Kit
+                    Partner With Me
                   </Link>
                 </div>
               </div>

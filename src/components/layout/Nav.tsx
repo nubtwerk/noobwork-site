@@ -55,7 +55,7 @@ export default function Nav() {
             href="/media-kit"
             className="btn btn--tertiary"
           >
-            Media Kit
+            Partner With Me
           </Link>
         </div>
         <button
@@ -99,7 +99,7 @@ export default function Nav() {
               className="nav-mobile-dropdown__link"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Media Kit
+              Partner With Me
             </Link>
           </div>
         </div>

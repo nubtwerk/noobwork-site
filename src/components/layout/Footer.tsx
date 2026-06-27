@@ -14,7 +14,7 @@ export default function Footer() {
             <Link href="/#about" className="footer-nav__link">About</Link>
             <Link href="/#work" className="footer-nav__link">Work</Link>
             <Link href="/#connect" className="footer-nav__link">Connect</Link>
-            <Link href="/media-kit" className="footer-nav__link">Media Kit</Link>
+            <Link href="/media-kit" className="footer-nav__link">Partner With Me</Link>
             <Link href="/context" className="footer-nav__link">Context</Link>
           </nav>
         </div>

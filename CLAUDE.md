@@ -61,7 +61,7 @@ Responsive via Tailwind `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. No environment variables are required for newsletter subscription flows.
+Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`).
 
 ## Skill routing
 

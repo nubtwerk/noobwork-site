@@ -9,7 +9,7 @@ describe("MediaKit page", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Work with Noobwork" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Media Kit / Partnerships")).toBeInTheDocument();
+    expect(screen.getByText("Partnerships")).toBeInTheDocument();
   });
 
   it("renders media kit stats", () => {
@@ -19,10 +19,13 @@ describe("MediaKit page", () => {
     });
   });
 
-  it("renders primary email CTA", () => {
+  it("renders the partnership contact form", () => {
     render(<MediaKit />);
-    const email = screen.getByText("Get in Touch").closest("a");
-    expect(email).toHaveAttribute("href", "mailto:joachim@noobwork.no");
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText(/Company \/ Brand/)).toBeInTheDocument();
+    expect(screen.getByLabelText("Message")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Send inquiry" })).toBeInTheDocument();
   });
 
   it("links back to the homepage", () => {
