@@ -7,14 +7,14 @@ describe("ParallaxImage", () => {
     render(
       <ParallaxImage
         src="/atmosphere/atmosphere-seoul-street.jpg"
-        alt="Quiet hanok backstreet in Seoul at first light"
+        alt="Bukchon Hanok Village alley in Seoul at golden hour"
         width={900}
         height={1200}
         caption="Seoul. The new home base."
       />
     );
     expect(
-      screen.getByAltText("Quiet hanok backstreet in Seoul at first light")
+      screen.getByAltText("Bukchon Hanok Village alley in Seoul at golden hour")
     ).toBeInTheDocument();
     expect(screen.getByText("Seoul. The new home base.")).toBeInTheDocument();
   });

@@ -38,7 +38,7 @@ const VARIANTS = {
     aspect_ratio: "4:5",
     resolution: "720p",
     prompt:
-      "Quiet Seoul hanok alley at dusk, traditional curved tile roofs, warm sand lantern glow, deep forest green shadows in doorways, brown wood and stone textures, subtle film grain, no people, no text, premium lifestyle editorial atmosphere",
+      "Bukchon Hanok Village Seoul South Korea, narrow cobblestone alley between restored traditional hanok houses, curved dark giwa tile roofs with layered eaves, warm sand golden hour light on plaster walls, deep forest green shadows in doorways and under rooflines, brown wood lattice doors and stone steps, distant hazy mountain ridge, premium lifestyle editorial atmosphere, subtle 35mm film grain, cinematic depth, empty streetscape only, no people, no text, no neon, no logos, no signage",
   },
   "gym-dawn": {
     file: "atmosphere-gym-dawn.jpg",

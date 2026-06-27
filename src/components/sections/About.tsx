@@ -52,7 +52,7 @@ export default function About() {
             <AnimatedSection delay={0.18}>
               <ParallaxImage
                 src="/atmosphere/atmosphere-seoul-street.jpg"
-                alt="Quiet hanok backstreet in Seoul at first light"
+                alt="Bukchon Hanok Village alley in Seoul at golden hour"
                 width={900}
                 height={1200}
                 sizes="(max-width: 1023px) 100vw, 24rem"
