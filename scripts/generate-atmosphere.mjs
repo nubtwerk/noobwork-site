@@ -29,24 +29,45 @@ const VARIANTS = {
   "seoul-dusk": {
     file: "atmosphere-seoul-dusk.jpg",
     aspect_ratio: "16:9",
+    resolution: "1080p",
     prompt:
       "Seoul South Korea dusk skyline panoramic view, Namsan mountain with N Seoul Tower silhouette centered, dense mid-rise city between forested hills, warm sand golden hour light on horizon fading to deep forest green shadows, brown urban midtones, subtle 35mm film grain, cinematic atmospheric haze, premium editorial mood, no people, no text, no neon, no logos",
   },
   "seoul-street": {
     file: "atmosphere-seoul-street.jpg",
     aspect_ratio: "4:5",
+    resolution: "720p",
     prompt:
       "Quiet Seoul hanok alley at dusk, traditional curved tile roofs, warm sand lantern glow, deep forest green shadows in doorways, brown wood and stone textures, subtle film grain, no people, no text, premium lifestyle editorial atmosphere",
   },
   "gym-dawn": {
     file: "atmosphere-gym-dawn.jpg",
     aspect_ratio: "4:5",
+    resolution: "720p",
     prompt:
       "Empty modern gym interior at dawn, soft sand light through tall windows, deep forest green rubber floor tones, brown leather equipment accents, minimal and premium, subtle film grain, no people, no text, no logos",
   },
 };
 
-const ENDPOINT = "flux-pro/kontext/max/text-to-image";
+const ENDPOINT = "higgsfield-ai/soul/standard";
+
+function imageUrlFromResult(result) {
+  return (
+    result?.images?.[0]?.url ??
+    result?.jobs?.[0]?.results?.raw?.url ??
+    null
+  );
+}
+
+function formatApiError(err) {
+  if (err?.response?.data) {
+    return JSON.stringify(err.response.data);
+  }
+  if (err?.statusCode && err?.message) {
+    return `${err.statusCode} ${err.message}`;
+  }
+  return err instanceof Error ? err.message : String(err);
+}
 
 function credentialsFromEnv() {
   if (process.env.HF_CREDENTIALS?.trim()) {
@@ -76,25 +97,32 @@ async function generateVariant(client, variantKey) {
   }
 
   const destPath = path.join(OUT_DIR, variant.file);
-  console.log(`Generating ${variantKey} → ${variant.file} (${variant.aspect_ratio})…`);
+  console.log(`Generating ${variantKey} → ${variant.file} (${variant.aspect_ratio}, ${variant.resolution})…`);
 
-  const jobSet = await client.subscribe(ENDPOINT, {
-    input: {
-      prompt: variant.prompt,
-      aspect_ratio: variant.aspect_ratio,
-      safety_tolerance: 2,
-    },
-    withPolling: true,
-  });
+  let result;
+  try {
+    result = await client.subscribe(ENDPOINT, {
+      input: {
+        prompt: variant.prompt,
+        aspect_ratio: variant.aspect_ratio,
+        resolution: variant.resolution,
+      },
+      withPolling: true,
+    });
+  } catch (err) {
+    throw new Error(`Higgsfield request failed: ${formatApiError(err)}`);
+  }
 
-  if (jobSet.isNsfw) {
+  if (result?.status === "nsfw") {
     throw new Error("Higgsfield flagged the result as NSFW. Try a softer prompt.");
   }
-  if (!jobSet.isCompleted) {
-    throw new Error(`Generation did not complete (status: ${jobSet.jobs[0]?.status ?? "unknown"})`);
+  if (result?.status !== "completed") {
+    throw new Error(
+      `Generation did not complete (status: ${result?.status ?? "unknown"}).`
+    );
   }
 
-  const imageUrl = jobSet.jobs[0]?.results?.raw?.url;
+  const imageUrl = imageUrlFromResult(result);
   if (!imageUrl) {
     throw new Error("No image URL in Higgsfield response.");
   }
@@ -109,6 +137,16 @@ async function generateVariant(client, variantKey) {
   console.log(`Source URL: ${imageUrl}`);
 }
 
+function parseVariant(argv) {
+  const eq = argv.find((a) => a.startsWith("--variant="));
+  if (eq) return eq.slice("--variant=".length);
+  const idx = argv.indexOf("--variant");
+  if (idx !== -1 && argv[idx + 1] && !argv[idx + 1].startsWith("-")) {
+    return argv[idx + 1];
+  }
+  return "seoul-dusk";
+}
+
 async function main() {
   const credentials = credentialsFromEnv();
   if (!credentials) {
@@ -119,11 +157,7 @@ async function main() {
     process.exit(1);
   }
 
-  const variantArg = process.argv.find((a) => a.startsWith("--variant="));
-  const variant =
-    variantArg?.slice("--variant=".length) ??
-    process.argv[process.argv.indexOf("--variant") + 1] ??
-    "seoul-dusk";
+  const variant = parseVariant(process.argv.slice(2));
 
   const client = createHiggsfieldClient({ credentials });
   await generateVariant(client, variant);
