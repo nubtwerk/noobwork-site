@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Hero from "@/components/sections/Hero";
+import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 describe("Hero", () => {
   it("renders the poster headline with an accessible label", () => {
@@ -14,7 +15,7 @@ describe("Hero", () => {
   it("renders the primary CTAs", () => {
     render(<Hero />);
     const partner = screen.getByText("Partner With Me").closest("a");
-    expect(partner).toHaveAttribute("href", "/media-kit");
+    expect(partner).toHaveAttribute("href", MEDIA_KIT_INQUIRY_HREF);
     const watch = screen.getByText("Watch the Latest").closest("a");
     expect(watch).toHaveAttribute("href", "/#reel");
   });

@@ -26,6 +26,7 @@ describe("MediaKit page", () => {
     expect(screen.getByLabelText(/Company \/ Brand/)).toBeInTheDocument();
     expect(screen.getByLabelText("Message")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Send inquiry" })).toBeInTheDocument();
+    expect(document.getElementById("inquiry")).toBeInTheDocument();
   });
 
   it("links back to the homepage", () => {

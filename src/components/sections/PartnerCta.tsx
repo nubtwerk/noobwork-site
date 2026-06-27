@@ -2,6 +2,7 @@ import Link from "next/link";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
 import { mediaKitStats } from "@/data/stats";
+import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 export default function PartnerCta() {
   return (
@@ -28,15 +29,13 @@ export default function PartnerCta() {
             <p className="partner-pitch__copy">
               Sponsored content, ambassadorships, events, and consulting. One
               engaged Nordic audience across fitness, lifestyle, and tech,
-              reached daily from Seoul.
+              reached daily from Seoul. Share campaign details on the inquiry
+              form and Joachim will reply by email.
             </p>
             <div className="hero-actions">
-              <Link href="/media-kit" className="btn btn--primary" data-magnetic>
+              <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--primary" data-magnetic>
                 Partner With Me
               </Link>
-              <a href="mailto:joachim@noobwork.no" className="btn btn--secondary" data-magnetic>
-                joachim@noobwork.no
-              </a>
             </div>
           </AnimatedSection>
 

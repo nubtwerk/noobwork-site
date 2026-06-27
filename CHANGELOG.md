@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- Media Kit partnership inquiry form (Resend-backed `/api/contact`) with honeypot spam guard
+- `#inquiry` deep link so every "Partner With Me" CTA scrolls straight to the form
+
+### Changed
+- Nav, footer, hero, partner band, and context CTAs now say **Partner With Me** and link to the inquiry form
+- Media Kit hero headline legibility on the Seoul dusk background (sand type + headline scrim)
+- AI context (`06-working-with-joachim.md`) documents the inquiry form as the primary partnership path
+
+### Removed
+- Beacons links across the site; newsletter CTA points to YouTube instead
+- Redundant mailto button on the homepage partner section (form is the single path)
+
 ## [0.5.1.0] - 2026-06-14
 
 Bug-fix pass from a full-repo audit: motion, accessibility, build-script resilience, and one stray copy figure that could drift.

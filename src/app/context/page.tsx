@@ -6,6 +6,7 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import { loadContextSections, CONTEXT_LAST_UPDATED } from "@/lib/load-context";
 import { renderMarkdown } from "@/lib/render-markdown";
 import CopyContextButton from "./CopyContextButton";
+import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "AI Context - Noobwork | Joachim Haraldsen",
@@ -85,7 +86,7 @@ export default async function ContextPage() {
                   <a href="/context/llm.txt" className="btn btn--secondary">
                     View llm.txt
                   </a>
-                  <Link href="/media-kit" className="btn btn--secondary">
+                  <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--secondary">
                     Partner With Me
                   </Link>
                 </div>

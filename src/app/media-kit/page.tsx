@@ -223,7 +223,9 @@ export default function MediaKit() {
                     I&apos;ll reply by email once we&apos;ve checked the fit.
                   </p>
                 </div>
-                <ContactForm />
+                <div id="inquiry" className="mk-inquiry">
+                  <ContactForm />
+                </div>
               </div>
             </AnimatedSection>
           </div>

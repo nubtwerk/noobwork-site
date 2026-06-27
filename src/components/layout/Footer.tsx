@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 import Logo from "@/components/ui/Logo";
 
 export default function Footer() {
@@ -14,7 +15,7 @@ export default function Footer() {
             <Link href="/#about" className="footer-nav__link">About</Link>
             <Link href="/#work" className="footer-nav__link">Work</Link>
             <Link href="/#connect" className="footer-nav__link">Connect</Link>
-            <Link href="/media-kit" className="footer-nav__link">Partner With Me</Link>
+            <Link href={MEDIA_KIT_INQUIRY_HREF} className="footer-nav__link">Partner With Me</Link>
             <Link href="/context" className="footer-nav__link">Context</Link>
           </nav>
         </div>

@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { profileFacts } from "@/data/profile-facts";
+import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -103,7 +104,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55, ease: EASE_OUT_EXPO }}
           >
-            <Link href="/media-kit" className="btn btn--sand" data-magnetic>
+            <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--sand" data-magnetic>
               Partner With Me
             </Link>
             <Link href="/#reel" className="btn btn--tertiary" data-magnetic>

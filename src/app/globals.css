@@ -401,6 +401,16 @@ body:hover .mouse-spotlight { opacity: 1; }
     box-shadow: inset 0 -1px 0 rgba(46, 29, 35, 0.35);
   }
 
+  .nav-cta--active.btn--tertiary {
+    border-color: rgba(236, 219, 191, 0.75);
+    background: rgba(236, 219, 191, 0.14);
+  }
+
+  .nav-shell--scrolled .nav-cta--active.btn--tertiary {
+    border-color: rgba(46, 29, 35, 0.22);
+    background: rgba(46, 29, 35, 0.06);
+  }
+
   .nav-links--desktop {
     display: none;
   }
@@ -1062,6 +1072,10 @@ body:hover .mouse-spotlight { opacity: 1; }
   .contact-form__reset {
     justify-self: start;
     margin-top: 0.25rem;
+  }
+
+  .mk-inquiry {
+    scroll-margin-top: var(--nav-anchor-offset);
   }
 
   .mk-finale__copy {

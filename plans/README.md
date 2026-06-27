@@ -22,7 +22,7 @@ Repo verification battery (used by every plan):
 | 007 | Idle motion cost (Lenis rAF visibility pause, offscreen marquee pause) | P3 | M | — | DONE (approved; worktree `worktree-agent-a2bc4c020e4491e04`) |
 | 008 | VideoObject structured data for the reel | P3 | S-M | 005 (soft) | DONE (approved; worktree `worktree-agent-aa09439be73186b30`, stacked on 005) |
 | 009 | Hero atmosphere image — taller Seoul dusk crop | P3 | S | — | TODO |
-| 010 | Media Kit cinematic layer (homepage parity) | P2 | M | — | IN PROGRESS (branch feat/cinematic-polish-and-media-kit) |
+| 010 | Media Kit cinematic layer (homepage parity) | P2 | M | — | DONE (merged to main, 2026-06-27) |
 | 011 | Icon set migration (Lucide → Phosphor) | P3 | S-M | — | TODO |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)

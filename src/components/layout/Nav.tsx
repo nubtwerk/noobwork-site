@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import Logo from "@/components/ui/Logo";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
+import { MEDIA_KIT_INQUIRY_HREF, NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
 
 export default function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isMediaKit = pathname === "/media-kit";
   const sectionIds = useMemo(
     () => (isHome ? NAV_SECTIONS.map((link) => link.id) : []),
     [isHome]
@@ -52,8 +53,9 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="/media-kit"
-            className="btn btn--tertiary"
+            href={MEDIA_KIT_INQUIRY_HREF}
+            className={`btn btn--tertiary${isMediaKit ? " nav-cta--active" : ""}`}
+            aria-current={isMediaKit ? "page" : undefined}
           >
             Partner With Me
           </Link>
@@ -95,8 +97,9 @@ export default function Nav() {
               </Link>
             ))}
             <Link
-              href="/media-kit"
-              className="nav-mobile-dropdown__link"
+              href={MEDIA_KIT_INQUIRY_HREF}
+              className={`nav-mobile-dropdown__link${isMediaKit ? " nav-mobile-dropdown__link--active" : ""}`}
+              aria-current={isMediaKit ? "page" : undefined}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Partner With Me
