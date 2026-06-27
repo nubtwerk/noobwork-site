@@ -8,7 +8,6 @@ import RevealText from "@/components/ui/RevealText";
 import CountUp from "@/components/ui/CountUp";
 import { mediaKitStats } from "@/data/stats";
 import { contentCategories, partnershipTypes, partnershipProcess } from "@/data/media-kit";
-import { BEACONS_URL } from "@/data/external-links";
 
 export const metadata: Metadata = {
   title: "Media Kit",
@@ -218,8 +217,8 @@ export default function MediaKit() {
                   </h2>
                 </div>
                 <p className="partner-pitch__copy mk-finale__copy">
-                  Interested in a partnership? Reach out directly or follow my
-                  Beacons page for updates and announcements.
+                  Interested in a partnership? Reach out directly and we&apos;ll
+                  align on audience fit, deliverables, and timeline.
                 </p>
                 <div className="hero-actions mk-finale__actions">
                   <a
@@ -228,15 +227,6 @@ export default function MediaKit() {
                     data-magnetic
                   >
                     Get in Touch
-                  </a>
-                  <a
-                    href={BEACONS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--secondary"
-                    data-magnetic
-                  >
-                    Follow on Beacons
                   </a>
                 </div>
               </div>

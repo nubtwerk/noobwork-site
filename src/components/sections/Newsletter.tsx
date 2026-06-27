@@ -2,7 +2,7 @@
 
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
-import { BEACONS_URL } from "@/data/external-links";
+import { YOUTUBE_CHANNEL_URL } from "@/data/external-links";
 
 export default function Newsletter() {
   return (
@@ -19,13 +19,13 @@ export default function Newsletter() {
               the way.
             </p>
             <a
-              href={BEACONS_URL}
+              href={YOUTUBE_CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--sand"
               data-magnetic
             >
-              Follow the Return
+              Subscribe on YouTube
             </a>
           </div>
         </AnimatedSection>

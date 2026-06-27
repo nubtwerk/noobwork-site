@@ -8,8 +8,8 @@ describe("Newsletter", () => {
     expect(
       screen.getByRole("heading", { level: 2, name: "Noobwork is back" })
     ).toBeInTheDocument();
-    const cta = screen.getByText("Follow the Return");
-    expect(cta.closest("a")).toHaveAttribute("href", "https://beacons.ai/noobwork");
+    const cta = screen.getByText("Subscribe on YouTube");
+    expect(cta.closest("a")).toHaveAttribute("href", "https://www.youtube.com/@Noobworkify");
     expect(cta.closest("a")).toHaveAttribute("target", "_blank");
   });
 });

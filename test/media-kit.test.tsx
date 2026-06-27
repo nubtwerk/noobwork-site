@@ -19,14 +19,10 @@ describe("MediaKit page", () => {
     });
   });
 
-  it("renders primary email CTA and Beacons secondary link", () => {
+  it("renders primary email CTA", () => {
     render(<MediaKit />);
     const email = screen.getByText("Get in Touch").closest("a");
     expect(email).toHaveAttribute("href", "mailto:joachim@noobwork.no");
-
-    const beacons = screen.getByText("Follow on Beacons").closest("a");
-    expect(beacons).toHaveAttribute("href", "https://beacons.ai/noobwork");
-    expect(beacons).toHaveAttribute("target", "_blank");
   });
 
   it("links back to the homepage", () => {
