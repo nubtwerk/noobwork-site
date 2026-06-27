@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { Play, ArrowUpRight } from "lucide-react";
+import { Play, ArrowUpRight } from "@phosphor-icons/react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import type { VideoItem } from "@/data/videos";
 import {
@@ -80,7 +80,7 @@ export default function ContentReel({
                     }
                   />
                   <span className="reel-feature__play" aria-hidden="true">
-                    <Play size={26} fill="currentColor" />
+                    <Play size={26} weight="fill" />
                   </span>
                 </button>
               )}
@@ -114,7 +114,7 @@ export default function ContentReel({
                     <span className="reel-item__date">{video.date}</span>
                     <span className="reel-item__title">{video.title}</span>
                   </span>
-                  <ArrowUpRight className="reel-item__arrow" size={18} aria-hidden="true" />
+                  <ArrowUpRight className="reel-item__arrow" size={18} weight="regular" aria-hidden />
                 </a>
               </AnimatedSection>
             ))}
@@ -126,7 +126,7 @@ export default function ContentReel({
                 className="reel-subscribe"
               >
                 Subscribe on YouTube
-                <ArrowUpRight size={16} aria-hidden="true" />
+                <ArrowUpRight size={16} weight="regular" aria-hidden />
               </a>
             </AnimatedSection>
           </div>

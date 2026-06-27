@@ -100,6 +100,11 @@ All colors defined as CSS custom properties in `src/app/globals.css` via Tailwin
 ### Interest Tags
 - `bg-accent text-background rounded-full px-3 py-1 text-sm capitalize`
 
+### Icons
+- UI icons use **Phosphor** (`@phosphor-icons/react`): `weight="regular"` for arrows and social marks, `weight="fill"` for the reel play button
+- Server components import from `@phosphor-icons/react/dist/ssr`; client components from `@phosphor-icons/react`
+- Brand social marks in Connect use the Phosphor logo set (`YoutubeLogo`, `TwitterLogo`, etc.)
+
 ### Animations
 - Entry: `initial={{ opacity: 0, y: 20 }}` with `whileInView`
 - Duration: 0.5s, easeOut

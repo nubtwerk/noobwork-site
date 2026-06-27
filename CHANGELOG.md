@@ -12,10 +12,12 @@ All notable changes to this project will be documented in this file.
 - Nav, footer, hero, partner band, and context CTAs now say **Partner With Me** and link to the inquiry form
 - Media Kit hero headline legibility on the Seoul dusk background (sand type + headline scrim)
 - AI context (`06-working-with-joachim.md`) documents the inquiry form as the primary partnership path
+- UI icons migrated from Lucide to Phosphor (`regular` arrows/social, `fill` play button)
 
 ### Removed
 - Beacons links across the site; newsletter CTA points to YouTube instead
 - Redundant mailto button on the homepage partner section (form is the single path)
+- `lucide-react` dependency (replaced by `@phosphor-icons/react`)
 
 ## [0.5.1.0] - 2026-06-14
 

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { socialLinks } from "@/data/social-links";
@@ -32,7 +32,7 @@ export default function Connect() {
                   <SocialIcon iconName={social.iconName} />
                 </span>
                 <span className="connect-row__name">{social.name}</span>
-                <ArrowUpRight className="connect-row__arrow" size={22} aria-hidden="true" />
+                <ArrowUpRight className="connect-row__arrow" size={22} weight="regular" aria-hidden />
               </a>
             </AnimatedSection>
           ))}

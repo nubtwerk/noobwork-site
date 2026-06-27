@@ -1,11 +1,18 @@
-import { Youtube, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
+import {
+  YoutubeLogo,
+  TwitterLogo,
+  InstagramLogo,
+  LinkedinLogo,
+  EnvelopeSimple,
+} from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  youtube: Youtube,
-  twitter: Twitter,
-  instagram: Instagram,
-  linkedin: Linkedin,
-  mail: Mail,
+const iconMap: Record<string, Icon> = {
+  youtube: YoutubeLogo,
+  twitter: TwitterLogo,
+  instagram: InstagramLogo,
+  linkedin: LinkedinLogo,
+  mail: EnvelopeSimple,
 };
 
 interface SocialIconProps {
@@ -14,7 +21,14 @@ interface SocialIconProps {
 }
 
 export default function SocialIcon({ iconName, className = "w-5 h-5" }: SocialIconProps) {
-  const Icon = iconMap[iconName];
-  if (!Icon) return null;
-  return <Icon className={className} />;
+  const IconComponent = iconMap[iconName];
+  if (!IconComponent) return null;
+  return (
+    <IconComponent
+      className={className}
+      size={20}
+      weight="regular"
+      aria-hidden
+    />
+  );
 }
