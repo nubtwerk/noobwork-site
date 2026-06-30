@@ -1,12 +1,11 @@
 import { WorkItem } from "@/types";
-import { profileFacts } from "@/data/profile-facts";
 
 export const workItems: WorkItem[] = [
   {
     name: "Noobwork",
     role: "Creator",
     phase: "Current",
-    desc: `The original platform and the one I'm rebuilding now with daily content. What started as one of Norway's biggest gaming channels grew to ${profileFacts.subscribers.long} subscribers and became the foundation for everything that followed.`,
+    desc: `The original platform and the one I'm rebuilding now with daily content. What started as one of Norway's biggest gaming channels grew to a huge audience and became the foundation for everything that followed.`,
     url: "https://www.youtube.com/@Noobworkify",
   },
   {
