@@ -2,22 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.5.2.0] - 2026-06-30
 
 ### Added
 - Media Kit partnership inquiry form (Resend-backed `/api/contact`) with honeypot spam guard
 - `#inquiry` deep link so every "Partner With Me" CTA scrolls straight to the form
+- Per-IP rate limiting on the contact API so the unauthenticated email endpoint can't be flooded into inbox spam or runaway cost — prefers the trusted `x-real-ip`, rejects oversized request bodies, and bounds its in-memory store
 
 ### Changed
 - Nav, footer, hero, partner band, and context CTAs now say **Partner With Me** and link to the inquiry form
 - Media Kit hero headline legibility on the Seoul dusk background (sand type + headline scrim)
 - AI context (`06-working-with-joachim.md`) documents the inquiry form as the primary partnership path
 - UI icons migrated from Lucide to Phosphor (`regular` arrows/social, `fill` play button)
+- YouTube feed fetch now has a body-read timeout so a hung feed can't stall a build or the hourly refresh; the feed-selection logic is shared between the build script and the runtime resolver so they can't drift
+- Work section "Noobwork" blurb describes the audience qualitatively instead of pinning a hardcoded subscriber figure
+
+### Fixed
+- Social-proof marquee pauses on hover again (an inline style was permanently overriding the hover rule)
+- Active nav link no longer stays highlighted after you scroll past a section with nothing else in view
+- Reduced-motion users no longer see the hero entrance animation (now gated in-component, not just via a CSS fallback)
+- Video reel dates show the correct month regardless of the build server's timezone
+- Contact honeypot no longer mis-flags a real visitor named "spam"
 
 ### Removed
 - Beacons links across the site; newsletter CTA points to YouTube instead
 - Redundant mailto button on the homepage partner section (form is the single path)
 - `lucide-react` dependency (replaced by `@phosphor-icons/react`)
+- Dead constants (`MEDIA_KIT_HREF`, `NAV_ANCHOR_OFFSET`)
 
 ## [0.5.1.0] - 2026-06-14
 
