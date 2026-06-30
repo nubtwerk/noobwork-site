@@ -17,51 +17,22 @@ export interface LatestVideos {
 }
 
 async function fetchFromYouTubeFeed(): Promise<LatestVideos | null> {
-  const { parseFeed, formatDisplayDate, isShort } = await import(
+  // parseFeed/selectLatestVideos/fetchTextWithTimeout are shared with the
+  // build-time script so the two feed paths can never diverge.
+  const { parseFeed, selectLatestVideos, fetchTextWithTimeout } = await import(
     "../../scripts/refresh-videos.mjs"
   );
 
-  const res = await fetch(FEED_URL, {
-    next: { revalidate: VIDEO_REVALIDATE_SECONDS },
-  });
-  if (!res.ok) return null;
-
-  const feedXml = await res.text();
+  // fetchTextWithTimeout bounds BOTH the headers and the body read (undici's
+  // default is minutes), so a reachable-but-hanging feed can never stall a
+  // production build or an ISR regeneration. It throws on a non-ok response,
+  // which resolveLatestVideos catches and treats as a fallback.
+  const feedXml = await fetchTextWithTimeout(FEED_URL, 10_000);
   const entries = parseFeed(feedXml);
-  if (entries.length < 2) return null;
+  const selected = await selectLatestVideos(entries);
+  if (!selected) return null;
 
-  const longForm = [];
-  for (const entry of entries) {
-    if (longForm.length >= 5) break;
-    try {
-      if (!(await isShort(entry.id))) longForm.push(entry);
-    } catch {
-      continue;
-    }
-  }
-
-  if (longForm.length < 2) return null;
-
-  const toVideoItem = (e: {
-    id: string;
-    title: string;
-    publishedIso: string;
-  }): VideoItem => ({
-    id: e.id,
-    title: e.title,
-    date: formatDisplayDate(e.publishedIso),
-    publishedIso: e.publishedIso,
-  });
-
-  const featuredVideo = toVideoItem(longForm[0]);
-  const recentVideos = longForm
-    .slice(1, 5)
-    .map(toVideoItem)
-    .filter((v) => v.id !== featuredVideo.id);
-
-  if (recentVideos.length < 2) return null;
-
-  return { featuredVideo, recentVideos };
+  return { featuredVideo: selected.featured, recentVideos: selected.recent };
 }
 
 function fromBuildSnapshot(): LatestVideos {
@@ -75,8 +46,16 @@ async function resolveLatestVideos(): Promise<LatestVideos> {
   try {
     const fromFeed = await fetchFromYouTubeFeed();
     if (fromFeed) return fromFeed;
-  } catch {
-    // Offline, rate-limited, or parse failure — fall back to build snapshot.
+    // Feed reachable but too sparse to render a full reel — log so a silently
+    // degraded (stale-but-coherent) feed is observable in production logs.
+    console.warn(
+      "get-videos: live feed yielded too few long-form videos — using build snapshot"
+    );
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    console.warn(
+      `get-videos: live feed fetch failed (${detail}) — using build snapshot`
+    );
   }
   return fromBuildSnapshot();
 }
