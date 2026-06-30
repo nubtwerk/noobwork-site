@@ -23,9 +23,20 @@ export default function ContentReel({
   const [playing, setPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   // maxresdefault is not guaranteed for every upload; fall back to hqdefault.
-  const [featuredThumb, setFeaturedThumb] = useState(
-    `https://i.ytimg.com/vi/${featuredVideo.id}/maxresdefault.jpg`
-  );
+  const [thumbTier, setThumbTier] = useState<"max" | "hq">("max");
+
+  // Reset the tier when the featured video changes so a new prop value never
+  // keeps showing the previous video's (possibly downgraded) image. This is the
+  // React-recommended "adjust state during render" pattern — no effect needed.
+  const [lastFeaturedId, setLastFeaturedId] = useState(featuredVideo.id);
+  if (featuredVideo.id !== lastFeaturedId) {
+    setLastFeaturedId(featuredVideo.id);
+    setThumbTier("max");
+  }
+
+  const featuredThumb = `https://i.ytimg.com/vi/${featuredVideo.id}/${
+    thumbTier === "max" ? "maxresdefault" : "hqdefault"
+  }.jpg`;
 
   // When the facade is replaced by the iframe, move keyboard focus onto the
   // now-playing video so the user's tab position is not dropped to <body>.
@@ -73,11 +84,7 @@ export default function ContentReel({
                     fill
                     sizes="(max-width: 1024px) 100vw, 720px"
                     className="reel-feature__thumb"
-                    onError={() =>
-                      setFeaturedThumb(
-                        `https://i.ytimg.com/vi/${featuredVideo.id}/hqdefault.jpg`
-                      )
-                    }
+                    onError={() => setThumbTier("hq")}
                   />
                   <span className="reel-feature__play" aria-hidden="true">
                     <Play size={26} weight="fill" />

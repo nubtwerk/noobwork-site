@@ -543,6 +543,12 @@ body:hover .mouse-spotlight { opacity: 1; }
     animation-play-state: paused;
   }
 
+  /* useMarqueePause toggles this when the marquee scrolls offscreen. A class
+     (not an inline style) so the :hover rule above keeps working onscreen. */
+  .social-marquee__track.is-offscreen {
+    animation-play-state: paused;
+  }
+
   .social-marquee__group {
     display: flex;
     align-items: center;
@@ -1827,6 +1833,11 @@ body:hover .mouse-spotlight { opacity: 1; }
   display: flex;
   width: max-content;
   animation: marquee-scroll 36s linear infinite;
+}
+
+/* useMarqueePause toggles this when the marquee scrolls offscreen. */
+.type-marquee__track.is-offscreen {
+  animation-play-state: paused;
 }
 
 .type-marquee__group {

@@ -72,7 +72,7 @@ describe("useMarqueePause via TypeMarquee", () => {
     const io = instances[0];
 
     io.callback([{ isIntersecting: false } as IntersectionObserverEntry]);
-    expect(track.style.animationPlayState).toBe("paused");
+    expect(track.classList.contains("is-offscreen")).toBe(true);
   });
 
   it("resumes the track when the observer fires isIntersecting:true", () => {
@@ -83,11 +83,11 @@ describe("useMarqueePause via TypeMarquee", () => {
 
     // First pause it
     io.callback([{ isIntersecting: false } as IntersectionObserverEntry]);
-    expect(track.style.animationPlayState).toBe("paused");
+    expect(track.classList.contains("is-offscreen")).toBe(true);
 
     // Then resume
     io.callback([{ isIntersecting: true } as IntersectionObserverEntry]);
-    expect(track.style.animationPlayState).toBe("running");
+    expect(track.classList.contains("is-offscreen")).toBe(false);
   });
 
   it("disconnects the observer on unmount", () => {
@@ -125,7 +125,7 @@ describe("useMarqueePause via SocialProof", () => {
     // At least one IO is created by useMarqueePause; motion may create more.
     expect(instances.length).toBeGreaterThanOrEqual(1);
     fireAll(false);
-    expect(track.style.animationPlayState).toBe("paused");
+    expect(track.classList.contains("is-offscreen")).toBe(true);
   });
 
   it("resumes the social-marquee track when back onscreen", () => {
@@ -133,10 +133,10 @@ describe("useMarqueePause via SocialProof", () => {
     const track = container.querySelector(".social-marquee__track") as HTMLElement;
 
     fireAll(false);
-    expect(track.style.animationPlayState).toBe("paused");
+    expect(track.classList.contains("is-offscreen")).toBe(true);
 
     fireAll(true);
-    expect(track.style.animationPlayState).toBe("running");
+    expect(track.classList.contains("is-offscreen")).toBe(false);
   });
 
   it("calls disconnect on all observers on unmount", () => {

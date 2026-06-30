@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Hero from "@/components/sections/Hero";
 import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { profileFacts } from "@/data/profile-facts";
 
 describe("Hero", () => {
   it("renders the poster headline with an accessible label", () => {
@@ -22,8 +23,12 @@ describe("Hero", () => {
 
   it("renders the stat strip and topic marquee", () => {
     render(<Hero />);
-    expect(screen.getByText("195K+")).toBeInTheDocument();
-    expect(screen.getByText("150M+")).toBeInTheDocument();
+    // Derive the volatile figures from profile-facts so the test is a real
+    // single-sourcing assertion, not a second place the numbers can drift.
+    expect(
+      screen.getByText(profileFacts.subscribers.short)
+    ).toBeInTheDocument();
+    expect(screen.getByText(profileFacts.totalViews.short)).toBeInTheDocument();
     expect(screen.getByText("Forbes")).toBeInTheDocument();
     expect(screen.getByText("13 yrs")).toBeInTheDocument();
     expect(
