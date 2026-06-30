@@ -18,15 +18,33 @@ export function useActiveSection(sectionIds: readonly string[]) {
 
     if (elements.length === 0) return;
 
+    // Track the latest ratio for every observed section across callbacks. An
+    // IntersectionObserver callback only carries the entries that *changed*, so
+    // deciding from a single callback's entries leaves a stale highlight when
+    // the active section scrolls out of the band and nothing new scrolls in.
+    const ratios = new Map<string, number>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]?.target.id) {
-          setActiveId(visible[0].target.id);
+        for (const entry of entries) {
+          ratios.set(
+            entry.target.id,
+            entry.isIntersecting ? entry.intersectionRatio : 0
+          );
         }
+
+        let topId: string | null = null;
+        let topRatio = 0;
+        for (const [id, ratio] of ratios) {
+          if (ratio > topRatio) {
+            topRatio = ratio;
+            topId = id;
+          }
+        }
+
+        // topId is null when nothing is in the band — clear it rather than
+        // leaving the previously active link highlighted.
+        setActiveId(topId);
       },
       {
         rootMargin: "-18% 0px -52% 0px",

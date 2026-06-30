@@ -72,6 +72,87 @@ describe("formatDisplayDate", () => {
   it('formats ISO date to "May 2026"', () => {
     expect(formatDisplayDate("2026-05-29T14:00:06+00:00")).toBe("May 2026");
   });
+
+  it("uses UTC so a just-after-midnight UTC date keeps its month", () => {
+    // 2026-06-01T00:30:00Z is still May in US timezones but June in UTC; the
+    // label must follow the feed's UTC date regardless of build-host timezone.
+    expect(formatDisplayDate("2026-06-01T00:30:00+00:00")).toBe("Jun 2026");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// selectLatestVideos — shared feed selection (build + runtime)
+// ---------------------------------------------------------------------------
+
+describe("selectLatestVideos", () => {
+  const entry = (id: string, title = "Title") => ({
+    id,
+    title,
+    publishedIso: "2026-06-10T00:00:00+00:00",
+  });
+  const FIVE = [
+    entry("AAAAAAAAAAA"),
+    entry("BBBBBBBBBBB"),
+    entry("CCCCCCCCCCC"),
+    entry("DDDDDDDDDDD"),
+    entry("EEEEEEEEEEE"),
+  ];
+  const allLongForm = async () => false;
+  const allShorts = async () => true;
+
+  it("splits the newest long-form as featured and the next four as recent", async () => {
+    const res = await refreshVideos.selectLatestVideos(FIVE, allLongForm);
+    expect(res).not.toBeNull();
+    if (!res) return;
+    expect(res.featured.id).toBe("AAAAAAAAAAA");
+    expect(res.recent.map((v: { id: string }) => v.id)).toEqual([
+      "BBBBBBBBBBB",
+      "CCCCCCCCCCC",
+      "DDDDDDDDDDD",
+      "EEEEEEEEEEE",
+    ]);
+  });
+
+  it("returns null when fewer than two long-form videos survive classification", async () => {
+    expect(await refreshVideos.selectLatestVideos(FIVE, allShorts)).toBeNull();
+  });
+
+  it("returns null when given fewer than two entries", async () => {
+    expect(
+      await refreshVideos.selectLatestVideos([entry("AAAAAAAAAAA")], allLongForm)
+    ).toBeNull();
+  });
+
+  it("returns null when too few recent remain after the featured split", async () => {
+    const two = [entry("AAAAAAAAAAA"), entry("BBBBBBBBBBB")];
+    expect(await refreshVideos.selectLatestVideos(two, allLongForm)).toBeNull();
+  });
+
+  it("skips an entry whose Shorts status is ambiguous (isShort throws)", async () => {
+    let call = 0;
+    const flaky = async () => {
+      call += 1;
+      if (call === 1) throw new Error("ambiguous");
+      return false;
+    };
+    const res = await refreshVideos.selectLatestVideos(FIVE, flaky);
+    expect(res).not.toBeNull();
+    if (!res) return;
+    expect(res.featured.id).toBe("BBBBBBBBBBB");
+  });
+
+  it("drops an entry with an empty title", async () => {
+    const withBlank = [
+      entry("AAAAAAAAAAA", ""),
+      entry("BBBBBBBBBBB"),
+      entry("CCCCCCCCCCC"),
+      entry("DDDDDDDDDDD"),
+    ];
+    const res = await refreshVideos.selectLatestVideos(withBlank, allLongForm);
+    expect(res).not.toBeNull();
+    if (!res) return;
+    expect(res.featured.id).toBe("BBBBBBBBBBB");
+  });
 });
 
 // ---------------------------------------------------------------------------

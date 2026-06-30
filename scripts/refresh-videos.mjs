@@ -74,10 +74,17 @@ function decodeXmlEntities(str) {
 
 /**
  * Format an ISO 8601 date string -> "Jun 2026" (en-US locale).
+ * Forced to UTC so the label is deterministic and matches the feed's UTC
+ * publish dates regardless of the build host's timezone (a video published just
+ * after midnight UTC must not render as the previous month west of UTC).
  */
 export function formatDisplayDate(iso) {
   const d = new Date(iso);
-  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 /**
@@ -148,6 +155,65 @@ export function isSameVideoContent(a, b) {
   return strip(a) === strip(b);
 }
 
+/** Convert a parsed feed entry to the stored VideoItem shape. */
+export function toVideoItem(e) {
+  return {
+    id: e.id,
+    title: e.title,
+    date: formatDisplayDate(e.publishedIso),
+    publishedIso: e.publishedIso,
+  };
+}
+
+/**
+ * Shared feed -> { featured, recent } selection used by BOTH the build script
+ * (main, below) and the runtime resolver (src/lib/get-videos.ts), so the two
+ * paths can never diverge. Classifies Shorts (skipping anything ambiguous),
+ * takes the newest long-form as featured and the next up-to-four as recent,
+ * de-dupes the featured id out of recent, and returns null unless there are 2+
+ * long-form AND 2+ recent — a sparse result is rejected in favour of the
+ * caller's pinned fallback rather than rendering a half-empty reel.
+ *
+ * isShortFn is injectable for tests. classifyBudgetMs caps total Shorts-
+ * classification time so a hostile or hanging HEAD endpoint can never dominate
+ * a build or an ISR regeneration (each individual request is timed too).
+ */
+export async function selectLatestVideos(
+  entries,
+  isShortFn = isShort,
+  classifyBudgetMs = 25_000
+) {
+  if (!Array.isArray(entries) || entries.length < 2) return null;
+
+  const deadline = Date.now() + classifyBudgetMs;
+  const longForm = [];
+  for (const entry of entries) {
+    if (longForm.length >= 5) break;
+    if (Date.now() > deadline) break;
+    // parseFeed already enforces the 11-char id; guard the title so an entry
+    // with an empty title can never ship (mirrors the build-time whitelist).
+    if (!entry || !entry.id || !entry.title) continue;
+    try {
+      if (!(await isShortFn(entry.id))) longForm.push(entry);
+    } catch {
+      // Ambiguous Shorts status — skip this entry conservatively.
+      continue;
+    }
+  }
+
+  if (longForm.length < 2) return null;
+
+  const featured = toVideoItem(longForm[0]);
+  const recent = longForm
+    .slice(1, 5)
+    .map(toVideoItem)
+    .filter((v) => v.id !== featured.id);
+
+  if (recent.length < 2) return null;
+
+  return { featured, recent };
+}
+
 // ---------------------------------------------------------------------------
 // Main flow (only when run directly)
 // ---------------------------------------------------------------------------
@@ -164,42 +230,20 @@ async function main() {
     // 1. Fetch the feed; the 10s budget covers headers AND body.
     const feedXml = await fetchTextWithTimeout(FEED_URL, 10_000);
 
-    // 2. Parse; feed is already newest-first.
+    // 2. Parse + select featured/recent via the shared resolver (same logic the
+    //    runtime path in src/lib/get-videos.ts uses).
     const entries = parseFeed(feedXml);
-    if (entries.length < 2) {
+    const selected = await selectLatestVideos(entries);
+    if (!selected) {
       console.error(
-        `refresh-videos: only ${entries.length} entries parsed — aborting, keeping existing json`
+        "refresh-videos: feed did not yield 2+ long-form videos with 2+ recent — aborting, keeping existing json"
       );
       process.exit(0);
     }
+    const { featured, recent } = selected;
 
-    // 3. Classify shorts sequentially, collect up to 5 long-form.
-    const longForm = [];
-    for (const entry of entries) {
-      if (longForm.length >= 5) break;
-      let short;
-      try {
-        short = await isShort(entry.id);
-      } catch (err) {
-        // Network error on Shorts check: skip this entry conservatively.
-        console.error(`refresh-videos: isShort(${entry.id}) failed: ${err.message}`);
-        continue;
-      }
-      if (!short) {
-        longForm.push(entry);
-      }
-    }
-
-    if (longForm.length < 2) {
-      console.error(
-        `refresh-videos: only ${longForm.length} long-form videos found — aborting, keeping existing json`
-      );
-      process.exit(0);
-    }
-
-    // 4. Featured = newest long-form. Verify maxres thumbnail.
-    const featuredRaw = longForm[0];
-    const thumbUrl = `https://i.ytimg.com/vi/${featuredRaw.id}/maxresdefault.jpg`;
+    // 3. Verify the featured maxres thumbnail (warn-only; never blocks a build).
+    const thumbUrl = `https://i.ytimg.com/vi/${featured.id}/maxresdefault.jpg`;
     try {
       const thumbRes = await fetchWithTimeout(thumbUrl, { method: "HEAD" });
       const contentLength = parseInt(
@@ -208,29 +252,20 @@ async function main() {
       );
       if (thumbRes.status !== 200 || contentLength <= 10_000) {
         console.warn(
-          `refresh-videos: maxres thumb for ${featuredRaw.id} not ideal (status=${thumbRes.status}, length=${contentLength}) — proceeding anyway`
+          `refresh-videos: maxres thumb for ${featured.id} not ideal (status=${thumbRes.status}, length=${contentLength}) — proceeding anyway`
         );
       }
     } catch (err) {
       console.warn(
-        `refresh-videos: thumb check failed for ${featuredRaw.id}: ${err.message} — proceeding anyway`
+        `refresh-videos: thumb check failed for ${featured.id}: ${err.message} — proceeding anyway`
       );
     }
 
-    // 5. Build the output: featured + 4 recent (after featured, still newest-first).
-    const recentRaw = longForm.slice(1, 5);
-
-    const toVideoItem = (e) => ({
-      id: e.id,
-      title: e.title,
-      date: formatDisplayDate(e.publishedIso),
-      publishedIso: e.publishedIso,
-    });
-
+    // 4. Build the output.
     const output = {
       generatedAt: new Date().toISOString(),
-      featured: toVideoItem(featuredRaw),
-      recent: recentRaw.map(toVideoItem),
+      featured,
+      recent,
     };
 
     // Deterministic builds: if the video content is unchanged, do not rewrite

@@ -23,7 +23,7 @@ export interface ContextSection {
 export function substituteTokens(markdown: string): string {
   return markdown.replace(/\{\{(\w+)\}\}/g, (whole, token: string) =>
     Object.prototype.hasOwnProperty.call(contextTokens, token)
-      ? contextTokens[token]
+      ? contextTokens[token as keyof typeof contextTokens]
       : whole,
   );
 }
@@ -80,24 +80,29 @@ export async function buildContextMarkdown(): Promise<string> {
  */
 export async function buildContextIndex(): Promise<string> {
   const sections = await loadContextSections();
-  return [
-    "# Noobwork — Joachim Haraldsen",
-    "",
-    "> Norwegian founder, operator, and content creator based in Seoul. Built and",
-    "> exited Heroic Group; now rebuilding Noobwork around fitness, health, and the",
-    "> discipline of building. This is the self-authored, AI-readable context layer.",
-    "",
-    `> Last updated: ${CONTEXT_LAST_UPDATED}`,
-    "",
-    "## Read this",
-    "",
-    `- [Full AI context, all sections](${SITE}/llms-full.txt): the complete self-authored profile in one document`,
-    `- [Human-readable version](${SITE}/context): the same content, rendered`,
-    `- Contact: joachim@noobwork.no`,
-    "",
-    "## What the full context covers",
-    "",
-    ...sections.map((s) => `- ${s.heading}`),
-    "",
-  ].join("\n");
+  // Route the index through substituteTokens too, so it follows the same
+  // single-sourcing path as the full dump: any volatile figure added to the
+  // blurb later resolves from profile-facts instead of silently hardcoding one.
+  return substituteTokens(
+    [
+      "# Noobwork — Joachim Haraldsen",
+      "",
+      "> Norwegian founder, operator, and content creator based in Seoul. Built and",
+      "> exited Heroic Group; now rebuilding Noobwork around fitness, health, and the",
+      "> discipline of building. This is the self-authored, AI-readable context layer.",
+      "",
+      `> Last updated: ${CONTEXT_LAST_UPDATED}`,
+      "",
+      "## Read this",
+      "",
+      `- [Full AI context, all sections](${SITE}/llms-full.txt): the complete self-authored profile in one document`,
+      `- [Human-readable version](${SITE}/context): the same content, rendered`,
+      `- Contact: joachim@noobwork.no`,
+      "",
+      "## What the full context covers",
+      "",
+      ...sections.map((s) => `- ${s.heading}`),
+      "",
+    ].join("\n")
+  );
 }

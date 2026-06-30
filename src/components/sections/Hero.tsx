@@ -58,7 +58,7 @@ export default function Hero() {
       >
         <motion.div
           className="poster-hero__topline"
-          initial={{ opacity: 0, y: -10 }}
+          initial={reducedMotion ? false : { opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.65, ease: EASE_OUT_EXPO }}
         >
@@ -90,7 +90,7 @@ export default function Hero() {
         <div className="poster-hero__deck">
           <motion.p
             className="poster-hero__copy"
-            initial={{ opacity: 0, y: 18 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT_EXPO }}
           >
@@ -100,7 +100,7 @@ export default function Hero() {
           </motion.p>
           <motion.div
             className="hero-actions"
-            initial={{ opacity: 0, y: 18 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55, ease: EASE_OUT_EXPO }}
           >
@@ -115,7 +115,7 @@ export default function Hero() {
 
         <motion.dl
           className="poster-hero__meta"
-          initial={{ opacity: 0 }}
+          initial={reducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >

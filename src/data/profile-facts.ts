@@ -10,9 +10,13 @@
  *   - the media kit and hero derive their display strings from these objects
  *     (see src/data/stats.ts, src/components/sections/Hero.tsx)
  *
- * To update a figure, change it ONCE here. The drift guard in
- * test/context-layer.test.ts fails the build if any markdown or source file
- * hardcodes one of these figures instead of deriving it.
+ * To update a figure, change it ONCE here. Two mechanisms keep things in sync:
+ * the `{{token}}` injection makes the context layer DERIVE these values (so they
+ * cannot drift), and the drift guard in test/context-layer.test.ts fails the
+ * build if any markdown or source file re-hardcodes a CURRENT figure instead of
+ * deriving it. The guard matches the current display strings only — it cannot
+ * detect a stale paraphrase of an old number, so the token mechanism (not the
+ * guard) is what actually prevents value drift.
  */
 export interface ProfileFact {
   /** Long display form for the context layer, e.g. "195,000+". */
@@ -36,9 +40,9 @@ export const profileFacts = {
  * markdown placeholder is the object key itself, so no separate token field
  * can drift out of sync with it.
  */
-export const contextTokens: Record<string, string> = Object.fromEntries(
+export const contextTokens = Object.fromEntries(
   Object.entries(profileFacts).map(([key, f]) => [key, f.long]),
-);
+) as Record<keyof typeof profileFacts, string>;
 
 /**
  * Every display string for a volatile figure (long and short forms), used by

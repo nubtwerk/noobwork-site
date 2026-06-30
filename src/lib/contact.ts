@@ -7,18 +7,23 @@ export interface ContactPayload {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function parseContactPayload(body: unknown):
+export type ParseContactResult =
   | { data: ContactPayload }
-  | { error: string } {
+  | { honeypot: true }
+  | { error: string };
+
+export function parseContactPayload(body: unknown): ParseContactResult {
   if (!body || typeof body !== "object") {
     return { error: "Invalid request." };
   }
 
   const raw = body as Record<string, unknown>;
 
-  // Honeypot — bots fill hidden fields; humans never see this input.
+  // Honeypot — bots fill hidden fields; humans never see this input. Signalled
+  // out-of-band so a real visitor's field values (e.g. someone named "spam")
+  // can never be mistaken for a bot.
   if (typeof raw.website === "string" && raw.website.trim().length > 0) {
-    return { data: { name: "spam", email: "spam@example.com", message: "spam" } };
+    return { honeypot: true };
   }
 
   const name = typeof raw.name === "string" ? raw.name.trim() : "";

@@ -50,4 +50,22 @@ describe("useSpotlight enabled gate", () => {
     unmount();
     expect(mousemoveCount(removeSpy)).toBeGreaterThan(0);
   });
+
+  it("tears down the listener when toggled from enabled to disabled at runtime", () => {
+    const addSpy = vi.spyOn(document, "addEventListener");
+    const removeSpy = vi.spyOn(document, "removeEventListener");
+    const { rerender } = renderHook(
+      ({ enabled }: { enabled: boolean }) => {
+        const ref = useRef<HTMLDivElement>(null);
+        useSpotlight(ref, enabled);
+      },
+      { initialProps: { enabled: true } }
+    );
+    expect(mousemoveCount(addSpy)).toBeGreaterThan(0);
+
+    // Media-query flips to reduced-motion mid-session: the existing listener
+    // must be removed, not leaked (the invariant the PR rests on).
+    rerender({ enabled: false });
+    expect(mousemoveCount(removeSpy)).toBeGreaterThan(0);
+  });
 });
