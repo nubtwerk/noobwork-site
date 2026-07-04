@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditPlantForm } from "@/components/EditPlantForm";
-import { fetchPlant } from "@/app/actions";
+import { fetchPlant, fetchTodayPlants } from "@/app/actions";
+import { hasMultipleRooms } from "@/lib/rooms";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -11,8 +12,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function EditPlantPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const plant = await fetchPlant(id);
+  const [plant, allPlants] = await Promise.all([fetchPlant(id), fetchTodayPlants()]);
   if (!plant) notFound();
+  const showRoomPicker = hasMultipleRooms(allPlants);
 
   return (
     <div className="space-y-6">
@@ -30,7 +32,7 @@ export default async function EditPlantPage({ params }: { params: Promise<{ id: 
         <p className="m-0 mt-1 text-sm text-foreground/60">Update care settings and location</p>
       </div>
 
-      <EditPlantForm plant={plant} />
+      <EditPlantForm plant={plant} showRoomPicker={showRoomPicker} />
     </div>
   );
 }

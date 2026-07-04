@@ -1,0 +1,34 @@
+[
+  {
+    "id": "china-doll",
+    "typeName": "China Doll Plant",
+    "description": "Compact tree with delicate, lacy bipinnate leaves on a woody trunk. Sensitive to environmental changes.",
+    "commonExamples": "Radermachera sinica (China doll plant, Serpent tree)",
+    "careTips": "Keep soil evenly moist — drops leaves if too dry or after moving. Bright indirect light; avoid direct sun. Medium to high humidity. Fertilize monthly spring through summer. Prune to shape. Repot every 1-2 years. Non-toxic to pets.",
+    "origin": "Asia",
+    "springInterval": 5,
+    "summerInterval": 5,
+    "fallInterval": 7,
+    "winterInterval": 10,
+    "lightPreference": "brightIndirect",
+    "humidityPreference": "high",
+    "plantToxicity": "nonToxic",
+    "category": "Houseplants - Trees"
+  },
+  {
+    "id": "olive-tree",
+    "typeName": "Olive Tree",
+    "description": "Mediterranean tree with narrow silvery-green leaves. Popular as a compact indoor tree when given enough light.",
+    "commonExamples": "Olea europaea (Common olive, European olive)",
+    "careTips": "Let top inch of soil dry between waterings. Needs very bright light — a south window is ideal. Low to medium humidity is fine. Fertilize monthly spring through fall. Prune to maintain size. Repot every 2-3 years. Non-toxic to pets.",
+    "origin": "Mediterranean",
+    "springInterval": 7,
+    "summerInterval": 7,
+    "fallInterval": 10,
+    "winterInterval": 14,
+    "lightPreference": "highLight",
+    "humidityPreference": "low",
+    "plantToxicity": "nonToxic",
+    "category": "Houseplants - Trees"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "bird-of-paradise",
+    "plantId": "demo-bird-of-paradise",
+    "sources": [
+      "bird-of-paradise.jpg",
+      "bird-of-paradise.jpeg",
+      "1.jpg",
+      "1.jpeg",
+      "peace-lily.jpg"
+    ],
+    "label": "Bird of paradise"
+  },
+  {
+    "slug": "china-doll",
+    "plantId": "demo-china-doll",
+    "sources": ["china-doll.jpg", "china-doll.jpeg", "2.jpg", "2.jpeg", "schefflera.jpg"],
+    "label": "China doll"
+  },
+  {
+    "slug": "olive-tree",
+    "plantId": "demo-olive-tree",
+    "sources": ["olive-tree.jpg", "olive-tree.jpeg", "3.jpg", "3.jpeg", "ctenanthe.jpg"],
+    "label": "Olive tree"
+  }
+]

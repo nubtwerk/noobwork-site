@@ -7,107 +7,180 @@
   ],
   "plants": [
     {
-      "id": "demo-swiss-cheese",
-      "nickname": "Window Monstera",
-      "speciesId": "swiss-cheese-plant",
+      "id": "demo-bird-of-paradise",
+      "nickname": "Living Room Strelitzia",
+      "speciesId": "bird-of-paradise-white",
       "roomId": "living-room",
-      "acquiredAt": "2025-11-01T00:00:00.000Z",
-      "lastWateredAt": "2026-06-18T09:00:00.000Z",
+      "acquiredAt": "2025-06-01T00:00:00.000Z",
+      "lastWateredAt": "2026-06-22T09:00:00.000Z",
       "potMaterial": "ceramic",
       "potSize": "large",
       "lightLevel": "bright",
       "photoPromptIntervalDays": 21,
-      "lastPhotoAt": "2026-06-01T10:00:00.000Z",
-      "nextPhotoPromptAt": "2026-06-22T10:00:00.000Z",
-      "notes": "Climbing a moss pole by the south window.",
-      "createdAt": "2025-11-01T00:00:00.000Z",
-      "updatedAt": "2026-06-18T09:00:00.000Z"
+      "lastPhotoAt": "2026-06-28T10:00:00.000Z",
+      "nextPhotoPromptAt": "2026-07-19T10:00:00.000Z",
+      "notes": "White cylinder pot by the window. Large banana-like leaves.",
+      "createdAt": "2025-06-01T00:00:00.000Z",
+      "updatedAt": "2026-06-22T09:00:00.000Z"
     },
     {
-      "id": "demo-snake",
-      "nickname": "Bedroom Snake",
-      "speciesId": "snake-plants",
-      "roomId": "bedroom",
-      "acquiredAt": "2024-03-15T00:00:00.000Z",
-      "lastWateredAt": "2026-06-27T08:00:00.000Z",
-      "potMaterial": "terracotta",
+      "id": "demo-china-doll",
+      "nickname": "Desk China Doll",
+      "speciesId": "china-doll",
+      "roomId": "living-room",
+      "acquiredAt": "2025-09-15T00:00:00.000Z",
+      "lastWateredAt": "2026-06-26T08:00:00.000Z",
+      "potMaterial": "ceramic",
       "potSize": "medium",
-      "lightLevel": "low",
-      "photoPromptIntervalDays": 30,
-      "lastPhotoAt": "2026-05-10T08:00:00.000Z",
-      "nextPhotoPromptAt": "2026-06-09T08:00:00.000Z",
-      "notes": "Low light corner — barely needs attention.",
-      "createdAt": "2024-03-15T00:00:00.000Z",
-      "updatedAt": "2026-06-27T08:00:00.000Z"
+      "lightLevel": "bright",
+      "photoPromptIntervalDays": 21,
+      "lastPhotoAt": "2026-06-28T10:00:00.000Z",
+      "nextPhotoPromptAt": "2026-07-19T10:00:00.000Z",
+      "notes": "Dense lacy foliage in a white pot by the curtains.",
+      "createdAt": "2025-09-15T00:00:00.000Z",
+      "updatedAt": "2026-06-26T08:00:00.000Z"
     },
     {
-      "id": "demo-pothos",
-      "nickname": "Kitchen Pothos",
-      "speciesId": "pothos",
-      "roomId": "kitchen",
-      "acquiredAt": "2026-01-20T00:00:00.000Z",
+      "id": "demo-olive-tree",
+      "nickname": "Kitchen Olive",
+      "speciesId": "olive-tree",
+      "roomId": "living-room",
+      "acquiredAt": "2026-03-01T00:00:00.000Z",
       "lastWateredAt": "2026-07-01T07:30:00.000Z",
-      "potMaterial": "plastic",
+      "potMaterial": "ceramic",
       "potSize": "small",
-      "lightLevel": "medium",
-      "photoPromptIntervalDays": 21,
-      "nextPhotoPromptAt": "2026-07-15T07:30:00.000Z",
-      "notes": "Trailing on top of the fridge.",
-      "createdAt": "2026-01-20T00:00:00.000Z",
+      "lightLevel": "bright",
+      "photoPromptIntervalDays": 30,
+      "lastPhotoAt": "2026-06-28T10:00:00.000Z",
+      "nextPhotoPromptAt": "2026-07-28T10:00:00.000Z",
+      "notes": "Opening gift — silvery leaves, river stones on top.",
+      "createdAt": "2026-03-01T00:00:00.000Z",
       "updatedAt": "2026-07-01T07:30:00.000Z"
     }
   ],
   "careLogs": [
     {
-      "id": "log-monstera-water-1",
-      "plantId": "demo-swiss-cheese",
+      "id": "log-bop-water-1",
+      "plantId": "demo-bird-of-paradise",
       "taskType": "water",
-      "completedAt": "2026-06-18T09:00:00.000Z",
-      "notes": "Soil still slightly damp at top — next check in a week."
+      "completedAt": "2026-06-22T09:00:00.000Z"
     },
     {
-      "id": "log-snake-water-1",
-      "plantId": "demo-snake",
+      "id": "log-china-water-1",
+      "plantId": "demo-china-doll",
       "taskType": "water",
-      "completedAt": "2026-06-27T08:00:00.000Z"
+      "completedAt": "2026-06-26T08:00:00.000Z"
     },
     {
-      "id": "log-pothos-water-1",
-      "plantId": "demo-pothos",
+      "id": "log-olive-water-1",
+      "plantId": "demo-olive-tree",
       "taskType": "water",
       "completedAt": "2026-07-01T07:30:00.000Z"
     },
     {
-      "id": "log-monstera-photo-1",
-      "plantId": "demo-swiss-cheese",
+      "id": "log-bop-photo-1",
+      "plantId": "demo-bird-of-paradise",
       "taskType": "photo",
-      "completedAt": "2026-06-01T10:00:00.000Z",
-      "notes": "scheduled"
+      "completedAt": "2026-06-28T10:00:00.000Z",
+      "notes": "manual"
+    },
+    {
+      "id": "log-china-photo-1",
+      "plantId": "demo-china-doll",
+      "taskType": "photo",
+      "completedAt": "2026-06-28T10:00:00.000Z",
+      "notes": "manual"
+    },
+    {
+      "id": "log-olive-photo-1",
+      "plantId": "demo-olive-tree",
+      "taskType": "photo",
+      "completedAt": "2026-06-28T10:00:00.000Z",
+      "notes": "manual"
     }
   ],
-  "photos": [],
+  "photos": [
+    {
+      "id": "photo-bop-1",
+      "plantId": "demo-bird-of-paradise",
+      "storagePath": "/demo/bird-of-paradise.jpg",
+      "takenAt": "2026-06-28T10:00:00.000Z",
+      "promptType": "manual"
+    },
+    {
+      "id": "photo-china-1",
+      "plantId": "demo-china-doll",
+      "storagePath": "/demo/china-doll.jpg",
+      "takenAt": "2026-06-28T10:00:00.000Z",
+      "promptType": "manual"
+    },
+    {
+      "id": "photo-olive-1",
+      "plantId": "demo-olive-tree",
+      "storagePath": "/demo/olive-tree.jpg",
+      "takenAt": "2026-06-28T10:00:00.000Z",
+      "promptType": "manual"
+    }
+  ],
   "analyses": [
     {
-      "id": "analysis-monstera-1",
-      "photoId": "placeholder",
-      "plantId": "demo-swiss-cheese",
+      "id": "analysis-bop-1",
+      "photoId": "photo-bop-1",
+      "plantId": "demo-bird-of-paradise",
       "model": "demo",
       "overallHealth": "healthy",
-      "confidence": 0.88,
+      "confidence": 0.9,
       "findings": [
         {
           "type": "growth",
           "severity": "low",
-          "description": "New leaf unfurling with good fenestration.",
-          "action": "Keep on the moss pole; rotate pot weekly."
+          "description": "Large glossy leaves with strong veining — good vigor.",
+          "action": "Rotate pot weekly for even growth toward the window."
         }
       ],
       "wateringAssessment": "ok",
-      "lightAssessment": "Bright indirect — good placement.",
+      "lightAssessment": "Bright indirect from window — ideal for Strelitzia.",
       "pestsDetected": false,
       "followUpDays": 21,
-      "summary": "Looking strong. One mature leaf with slight edge curl — likely past underwatering, now recovered.",
-      "createdAt": "2026-06-01T10:30:00.000Z"
+      "summary": "Bird of paradise looks healthy with bold foliage filling the white pot nicely.",
+      "createdAt": "2026-06-28T10:30:00.000Z"
+    },
+    {
+      "id": "analysis-china-1",
+      "photoId": "photo-china-1",
+      "plantId": "demo-china-doll",
+      "model": "demo",
+      "overallHealth": "healthy",
+      "confidence": 0.88,
+      "findings": [],
+      "wateringAssessment": "ok",
+      "lightAssessment": "Bright spot by curtains — good for China doll.",
+      "pestsDetected": false,
+      "followUpDays": 14,
+      "summary": "Dense, glossy lacy leaves on a sturdy trunk. No yellowing or drop visible.",
+      "createdAt": "2026-06-28T10:30:00.000Z"
+    },
+    {
+      "id": "analysis-olive-1",
+      "photoId": "photo-olive-1",
+      "plantId": "demo-olive-tree",
+      "model": "demo",
+      "overallHealth": "healthy",
+      "confidence": 0.86,
+      "findings": [
+        {
+          "type": "growth",
+          "severity": "low",
+          "description": "Silvery-green foliage full and upright.",
+          "action": "Ensure maximum light — olives need brightness indoors."
+        }
+      ],
+      "wateringAssessment": "ok",
+      "lightAssessment": "Bright indoor spot — monitor for stretching.",
+      "pestsDetected": false,
+      "followUpDays": 21,
+      "summary": "Compact olive tree with characteristic narrow leaves. Looks well established in its pot.",
+      "createdAt": "2026-06-28T10:30:00.000Z"
     }
   ]
 }

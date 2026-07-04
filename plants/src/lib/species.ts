@@ -1,7 +1,8 @@
-import speciesData from "@/data/species-houseplants.json";
+import houseplants from "@/data/species-houseplants.json";
+import customSpecies from "@/data/species-custom.json";
 import type { PlantSpecies } from "@/types";
 
-const species = speciesData as PlantSpecies[];
+const species = [...(houseplants as PlantSpecies[]), ...(customSpecies as PlantSpecies[])];
 
 export function getAllSpecies(): PlantSpecies[] {
   return species;
