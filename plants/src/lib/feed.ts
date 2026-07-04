@@ -1,4 +1,5 @@
 import type { PlantWithMeta } from "@/types";
+import { hasMultipleRooms } from "@/lib/rooms";
 
 export interface FeedItem {
   id: string;
@@ -12,6 +13,7 @@ export interface FeedItem {
 export function buildFeedItems(plants: PlantWithMeta[], baseUrl: string): FeedItem[] {
   const today = new Date().toISOString().slice(0, 10);
   const items: FeedItem[] = [];
+  const showRoom = hasMultipleRooms(plants);
 
   for (const plant of plants) {
     const url = `${baseUrl}/plants/${plant.id}`;
@@ -22,7 +24,7 @@ export function buildFeedItems(plants: PlantWithMeta[], baseUrl: string): FeedIt
         title: `${plant.nickname} needs water`,
         url,
         date: today,
-        summary: `${plant.species.typeName} in ${plant.room.name} — ${plant.waterStatus === "overdue" ? "overdue" : "due today"}.`,
+        summary: `${plant.species.typeName}${showRoom ? ` in ${plant.room.name}` : ""} — ${plant.waterStatus === "overdue" ? "overdue" : "due today"}.`,
         type: "water_due",
       });
     }

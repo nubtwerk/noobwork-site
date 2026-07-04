@@ -10,6 +10,7 @@ import {
   fetchTodayPlants,
   fetchWeatherNudge,
 } from "@/app/actions";
+import { hasMultipleRooms } from "@/lib/rooms";
 import type { PlantWithMeta } from "@/types";
 
 function groupPlants(plants: PlantWithMeta[]) {
@@ -33,6 +34,7 @@ export default async function TodayPage() {
   const needsAttention = [...groups.overdue, ...groups.dueToday];
   const dueCount = needsAttention.length;
   const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const showRoom = hasMultipleRooms(plants);
 
   return (
     <div className="space-y-8">
@@ -73,7 +75,7 @@ export default async function TodayPage() {
               </h2>
               <div className="space-y-3">
                 {needsAttention.map((plant) => (
-                  <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
+                  <PlantCard key={plant.id} plant={plant} canEdit={isEditor} showRoom={showRoom} />
                 ))}
               </div>
             </section>
@@ -86,7 +88,7 @@ export default async function TodayPage() {
               </h2>
               <div className="space-y-3">
                 {groups.photoDue.map((plant) => (
-                  <PlantCard key={plant.id} plant={plant} compact />
+                  <PlantCard key={plant.id} plant={plant} compact showRoom={showRoom} />
                 ))}
               </div>
             </section>
@@ -99,7 +101,7 @@ export default async function TodayPage() {
               </h2>
               <div className="space-y-3">
                 {groups.upcoming.map((plant) => (
-                  <PlantCard key={plant.id} plant={plant} compact />
+                  <PlantCard key={plant.id} plant={plant} compact showRoom={showRoom} />
                 ))}
               </div>
             </section>
@@ -112,7 +114,7 @@ export default async function TodayPage() {
               </h2>
               <div className="space-y-3">
                 {groups.onTrack.map((plant) => (
-                  <PlantCard key={plant.id} plant={plant} compact />
+                  <PlantCard key={plant.id} plant={plant} compact showRoom={showRoom} />
                 ))}
               </div>
             </section>

@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { addPlantAction, fetchRooms, searchSpeciesAction } from "@/app/actions";
+import { addPlantAction, fetchRooms, fetchTodayPlants, searchSpeciesAction } from "@/app/actions";
+import { DEFAULT_ROOM_ID } from "@/lib/rooms";
 import type { PlantSpecies, Room } from "@/types";
 
 export function AddPlantForm() {
@@ -13,9 +14,14 @@ export function AddPlantForm() {
   const [results, setResults] = useState<PlantSpecies[]>([]);
   const [selected, setSelected] = useState<PlantSpecies | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showRoomPicker, setShowRoomPicker] = useState(false);
 
   useEffect(() => {
     fetchRooms().then(setRooms);
+    fetchTodayPlants().then((plants) => {
+      const uniqueRooms = new Set(plants.map((p) => p.roomId));
+      if (uniqueRooms.size > 1) setShowRoomPicker(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -104,22 +110,37 @@ export function AddPlantForm() {
       </div>
 
       <div>
-        <label htmlFor="roomId" className="mb-1 block text-sm font-medium">
-          Room
-        </label>
-        <select
-          id="roomId"
-          name="roomId"
-          required
-          defaultValue={rooms[0]?.id}
-          className="w-full rounded-xl border border-foreground/15 bg-white/70 px-4 py-3 text-sm"
-        >
-          {rooms.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.name}
-            </option>
-          ))}
-        </select>
+        {showRoomPicker ? (
+          <>
+            <label htmlFor="roomId" className="mb-1 block text-sm font-medium">
+              Room
+            </label>
+            <select
+              id="roomId"
+              name="roomId"
+              required
+              defaultValue={DEFAULT_ROOM_ID}
+              className="w-full rounded-xl border border-foreground/15 bg-white/70 px-4 py-3 text-sm"
+            >
+              {rooms.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.name}
+                </option>
+              ))}
+            </select>
+          </>
+        ) : (
+          <>
+            <input type="hidden" name="roomId" value={DEFAULT_ROOM_ID} />
+            <button
+              type="button"
+              className="text-sm text-foreground/55 underline-offset-2 hover:text-primary hover:underline"
+              onClick={() => setShowRoomPicker(true)}
+            >
+              Plant is in a different room?
+            </button>
+          </>
+        )}
       </div>
 
       <div className="grid grid-cols-3 gap-3">

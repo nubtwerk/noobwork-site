@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { canEdit } from "@/lib/auth";
+import { hasMultipleRooms } from "@/lib/rooms";
 import { PlantCard } from "@/components/PlantCard";
 import { RoomGroupView } from "@/components/RoomGroupView";
 import { fetchTodayPlants } from "@/app/actions";
@@ -10,6 +11,7 @@ export const metadata = { title: "All plants" };
 export default async function PlantsPage() {
   const plants = await fetchTodayPlants();
   const isEditor = await canEdit();
+  const showRoom = hasMultipleRooms(plants);
 
   return (
     <div className="space-y-6">
@@ -47,7 +49,7 @@ export default async function PlantsPage() {
         <>
           <div className="space-y-3">
             {plants.map((plant) => (
-              <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
+              <PlantCard key={plant.id} plant={plant} canEdit={isEditor} showRoom={showRoom} />
             ))}
           </div>
           <RoomGroupView plants={plants} canEdit={isEditor} />

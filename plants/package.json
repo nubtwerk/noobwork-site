@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3001",
-    "prebuild": "node scripts/filter-species.mjs && node scripts/seed-store.mjs",
+    "prebuild": "node scripts/filter-species.mjs && node scripts/ingest-plant-photos.mjs && node scripts/generate-demo-photos.mjs && node scripts/seed-store.mjs",
+    "ingest:photos": "node scripts/ingest-plant-photos.mjs && node scripts/generate-demo-photos.mjs && node scripts/seed-store.mjs",
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "eslint",
@@ -18,6 +19,7 @@
     "@supabase/supabase-js": "^2.49.8",
     "@vercel/blob": "^2.5.0",
     "ai": "^5.0.0",
+    "heic-convert": "^2.1.0",
     "jose": "^6.0.11",
     "next": "16.2.9",
     "react": "19.2.3",

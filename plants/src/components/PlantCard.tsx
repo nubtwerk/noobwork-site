@@ -15,10 +15,12 @@ export function PlantCard({
   plant,
   compact = false,
   canEdit = false,
+  showRoom = false,
 }: {
   plant: PlantWithMeta;
   compact?: boolean;
   canEdit?: boolean;
+  showRoom?: boolean;
 }) {
   return (
     <article className="plant-card p-4">
@@ -41,7 +43,8 @@ export function PlantCard({
             </Link>
           </h2>
           <p className="m-0 mt-1 text-sm text-foreground/70">
-            {plant.species.typeName} · {plant.room.name}
+            {plant.species.typeName}
+            {showRoom && <> · {plant.room.name}</>}
           </p>
           <p className={`status-${plant.waterStatus} m-0 mt-2 flex items-center gap-1.5 text-sm font-medium`}>
             <Drop size={16} weight="fill" aria-hidden />

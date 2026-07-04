@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import { fetchRooms, searchSpeciesAction, updatePlantAction } from "@/app/actions";
 import type { PlantWithMeta, PlantSpecies, Room } from "@/types";
 
-export function EditPlantForm({ plant }: { plant: PlantWithMeta }) {
+export function EditPlantForm({
+  plant,
+  showRoomPicker = false,
+}: {
+  plant: PlantWithMeta;
+  showRoomPicker?: boolean;
+}) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -98,24 +104,28 @@ export function EditPlantForm({ plant }: { plant: PlantWithMeta }) {
         )}
       </div>
 
-      <div>
-        <label htmlFor="roomId" className="mb-1 block text-sm font-medium">
-          Room
-        </label>
-        <select
-          id="roomId"
-          name="roomId"
-          required
-          defaultValue={plant.roomId}
-          className="w-full rounded-xl border border-foreground/15 bg-white/70 px-4 py-3 text-sm"
-        >
-          {rooms.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {showRoomPicker && (
+        <div>
+          <label htmlFor="roomId" className="mb-1 block text-sm font-medium">
+            Room
+          </label>
+          <select
+            id="roomId"
+            name="roomId"
+            required
+            defaultValue={plant.roomId}
+            className="w-full rounded-xl border border-foreground/15 bg-white/70 px-4 py-3 text-sm"
+          >
+            {rooms.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {!showRoomPicker && <input type="hidden" name="roomId" value={plant.roomId} />}
 
       <div className="grid grid-cols-3 gap-3">
         <div>

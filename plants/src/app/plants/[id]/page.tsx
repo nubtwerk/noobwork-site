@@ -8,9 +8,11 @@ import {
   deletePlantAction,
   fetchPlant,
   fetchPlantTimeline,
+  fetchTodayPlants,
   listCareLogs,
 } from "@/app/actions";
 import { canEdit } from "@/lib/auth";
+import { hasMultipleRooms } from "@/lib/rooms";
 import { formatRelativeDays } from "@/lib/watering";
 import { PencilSimple } from "@phosphor-icons/react/dist/ssr";
 
@@ -22,13 +24,15 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PlantDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [plant, isEditor, logs, timeline] = await Promise.all([
+  const [plant, isEditor, logs, timeline, allPlants] = await Promise.all([
     fetchPlant(id),
     canEdit(),
     listCareLogs(id),
     fetchPlantTimeline(id),
+    fetchTodayPlants(),
   ]);
   if (!plant) notFound();
+  const showRoom = hasMultipleRooms(allPlants);
 
   return (
     <div className="space-y-6">
@@ -41,7 +45,8 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
           <div>
             <h1 className="font-display m-0 text-3xl uppercase tracking-tight">{plant.nickname}</h1>
             <p className="m-0 mt-1 text-foreground/70">
-              {plant.species.typeName} · {plant.room.name}
+              {plant.species.typeName}
+              {showRoom && <> · {plant.room.name}</>}
             </p>
           </div>
           {isEditor && (
