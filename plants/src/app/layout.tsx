@@ -1,8 +1,9 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Link from "next/link";
-import { House, Leaf, Plus } from "@phosphor-icons/react/dist/ssr";
+import { House, Leaf } from "@phosphor-icons/react/dist/ssr";
+import { AppHeader } from "@/components/AppHeader";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -19,18 +20,17 @@ export const metadata: Metadata = {
     default: "Plants | Noobwork",
     template: "%s | Plants",
   },
-  description: "Apartment plant dashboard — watering timers, care info, and photo check-ins.",
+  description:
+    "Apartment plant collection — watering schedule, care guides, and health check-ins.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     title: "Plants",
   },
-};
-
-export const viewport: Viewport = {
-  themeColor: "#2C3930",
-  width: "device-width",
-  initialScale: 1,
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -38,21 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${newake.variable}`}>
       <body className={inter.className}>
         <div className="mx-auto min-h-dvh max-w-[var(--site-max-width)] px-[var(--site-gutter)] pb-24 pt-6">
-          <header className="mb-8 flex items-center justify-between gap-4">
-            <Link href="/" className="group flex items-center gap-2 no-underline">
-              <Leaf className="text-primary" size={28} weight="duotone" aria-hidden />
-              <div>
-                <p className="font-display m-0 text-lg uppercase tracking-tight text-primary">
-                  Plants
-                </p>
-                <p className="m-0 text-xs text-foreground/60">noobwork · home</p>
-              </div>
-            </Link>
-            <Link href="/plants/new" className="btn-primary no-underline">
-              <Plus size={18} weight="bold" aria-hidden />
-              Add
-            </Link>
-          </header>
+          <AppHeader />
           <main>{children}</main>
         </div>
         <nav

@@ -13,7 +13,11 @@ export function PlantActions({ plantId }: { plantId: string }) {
         type="button"
         className="btn-primary"
         disabled={pending}
-        onClick={() => startTransition(() => waterPlantAction(plantId))}
+        onClick={() =>
+          startTransition(async () => {
+            await waterPlantAction(plantId);
+          })
+        }
       >
         <Drop size={16} weight="fill" aria-hidden />
         Water
@@ -22,7 +26,11 @@ export function PlantActions({ plantId }: { plantId: string }) {
         type="button"
         className="btn-secondary"
         disabled={pending}
-        onClick={() => startTransition(() => snoozePlantAction(plantId))}
+        onClick={() =>
+          startTransition(async () => {
+            await snoozePlantAction(plantId);
+          })
+        }
       >
         <Timer size={16} aria-hidden />
         Snooze

@@ -1,4 +1,4 @@
-import { anthropic } from "@ai-sdk/anthropic";
+import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import { z } from "zod";
 import type { PhotoAnalysisFinding, PlantWithMeta } from "@/types";
@@ -23,12 +23,14 @@ const analysisSchema = z.object({
 
 export type AnalysisResult = z.infer<typeof analysisSchema>;
 
+export const VISION_MODEL = "gpt-4o";
+
 export async function analyzePlantPhoto(
   imageBuffer: Buffer,
   mimeType: string,
   plant: PlantWithMeta,
 ): Promise<AnalysisResult | null> {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
+  if (!process.env.OPENAI_API_KEY) return null;
 
   const base64 = imageBuffer.toString("base64");
 
@@ -47,7 +49,7 @@ export async function analyzePlantPhoto(
     .join("\n");
 
   const { object } = await generateObject({
-    model: anthropic("claude-sonnet-4-20250514"),
+    model: openai(VISION_MODEL),
     schema: analysisSchema,
     messages: [
       {
@@ -78,8 +80,7 @@ export function stubAnalysis(): AnalysisResult {
   return {
     overallHealth: "healthy",
     confidence: 0.5,
-    summary:
-      "Photo saved. Add ANTHROPIC_API_KEY to enable AI condition analysis.",
+    summary: "Photo saved. Add OPENAI_API_KEY to enable AI condition analysis.",
     wateringAssessment: "ok",
     lightAssessment: "Unable to assess without vision API.",
     pestsDetected: false,

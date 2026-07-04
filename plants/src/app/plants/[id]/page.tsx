@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PlantActions } from "@/components/PlantActions";
 import { PhotoUpload } from "@/components/PhotoUpload";
-import { redirect } from "next/navigation";
 import { deletePlantAction, fetchPlant, listCareLogs } from "@/app/actions";
+import { canEdit } from "@/lib/auth";
 import { formatRelativeDays } from "@/lib/watering";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
@@ -17,6 +17,7 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
   const plant = await fetchPlant(id);
   if (!plant) notFound();
 
+  const isEditor = await canEdit();
   const logs = await listCareLogs(id);
 
   return (
@@ -35,9 +36,19 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
         </p>
       </header>
 
-      <PlantActions plantId={plant.id} />
-
-      <PhotoUpload plantId={plant.id} photoDue={plant.photoDue} />
+      {isEditor ? (
+        <>
+          <PlantActions plantId={plant.id} />
+          <PhotoUpload plantId={plant.id} photoDue={plant.photoDue} />
+        </>
+      ) : (
+        <p className="m-0 text-sm text-foreground/55">
+          <Link href="/login" className="font-medium text-primary no-underline">
+            Sign in
+          </Link>{" "}
+          to log watering or upload photos.
+        </p>
+      )}
 
       <section className="plant-card p-5">
         <h2 className="font-display m-0 text-base uppercase tracking-tight">Care info</h2>
@@ -88,17 +99,20 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
         </section>
       )}
 
-      <form
-        action={async () => {
-          "use server";
-          await deletePlantAction(id);
-          redirect("/plants");
-        }}
-      >
-        <button type="submit" className="btn-secondary w-full text-overdue">
-          Remove plant
-        </button>
-      </form>
+      {isEditor && (
+        <form
+          action={async () => {
+            "use server";
+            const result = await deletePlantAction(id);
+            if (result && "error" in result) return;
+            redirect("/plants");
+          }}
+        >
+          <button type="submit" className="btn-secondary w-full text-overdue">
+            Remove plant
+          </button>
+        </form>
+      )}
     </div>
   );
 }

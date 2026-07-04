@@ -1,3 +1,4 @@
+import { canEdit } from "@/lib/auth";
 import { PlantCard } from "@/components/PlantCard";
 import { fetchTodayPlants } from "@/app/actions";
 import type { PlantWithMeta } from "@/types";
@@ -14,6 +15,7 @@ function groupPlants(plants: PlantWithMeta[]) {
 
 export default async function TodayPage() {
   const plants = await fetchTodayPlants();
+  const isEditor = await canEdit();
   const groups = groupPlants(plants);
   const needsAttention = [...groups.overdue, ...groups.dueToday];
 
@@ -48,7 +50,7 @@ export default async function TodayPage() {
               </h2>
               <div className="space-y-3">
                 {needsAttention.map((plant) => (
-                  <PlantCard key={plant.id} plant={plant} />
+                  <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
                 ))}
               </div>
             </section>

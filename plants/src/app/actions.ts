@@ -3,7 +3,8 @@
 import fs from "fs/promises";
 import path from "path";
 import sharp from "sharp";
-import { analyzePlantPhoto, stubAnalysis } from "@/lib/analyze-photo";
+import { analyzePlantPhoto, stubAnalysis, VISION_MODEL } from "@/lib/analyze-photo";
+import { requireAdmin } from "@/lib/auth";
 import { getUploadsDir } from "@/lib/db/local-store";
 import {
   createPlant,
@@ -18,6 +19,22 @@ import {
 import { searchSpecies } from "@/lib/species";
 import type { Plant } from "@/types";
 import { revalidatePath } from "next/cache";
+
+function unauthorized() {
+  return { error: "Sign in required to make changes." };
+}
+
+async function guardAdmin() {
+  try {
+    return await requireAdmin();
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchEditorStatus() {
+  return { canEdit: (await guardAdmin()) !== null };
+}
 
 export async function fetchTodayPlants() {
   const { listPlantsWithMeta } = await import("@/lib/plants-service");
@@ -37,6 +54,7 @@ export async function searchSpeciesAction(query: string) {
 }
 
 export async function addPlantAction(formData: FormData) {
+  if (!(await guardAdmin())) return unauthorized();
   const nickname = String(formData.get("nickname") ?? "").trim();
   const speciesId = String(formData.get("speciesId") ?? "");
   const roomId = String(formData.get("roomId") ?? "");
@@ -65,18 +83,21 @@ export async function addPlantAction(formData: FormData) {
 }
 
 export async function waterPlantAction(plantId: string) {
+  if (!(await guardAdmin())) return unauthorized();
   await waterPlant(plantId);
   revalidatePath("/");
   revalidatePath(`/plants/${plantId}`);
 }
 
 export async function snoozePlantAction(plantId: string) {
+  if (!(await guardAdmin())) return unauthorized();
   await snoozePlant(plantId, 1);
   revalidatePath("/");
   revalidatePath(`/plants/${plantId}`);
 }
 
 export async function deletePlantAction(plantId: string) {
+  if (!(await guardAdmin())) return unauthorized();
   await deletePlant(plantId);
   revalidatePath("/");
   revalidatePath("/plants");
@@ -88,6 +109,7 @@ export async function listCareLogs(plantId: string) {
 }
 
 export async function uploadPhotoAction(formData: FormData) {
+  if (!(await guardAdmin())) return unauthorized();
   const plantId = String(formData.get("plantId") ?? "");
   const promptType = String(formData.get("promptType") ?? "manual") as
     | "scheduled"
@@ -131,7 +153,7 @@ export async function uploadPhotoAction(formData: FormData) {
   const analysis = await saveAnalysis({
     photoId: photo.id,
     plantId,
-    model: process.env.ANTHROPIC_API_KEY ? "claude-sonnet-4-20250514" : "stub",
+    model: process.env.OPENAI_API_KEY ? VISION_MODEL : "stub",
     overallHealth: analysisResult.overallHealth,
     confidence: analysisResult.confidence,
     findings: analysisResult.findings,

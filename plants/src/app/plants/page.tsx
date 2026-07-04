@@ -1,3 +1,4 @@
+import { canEdit } from "@/lib/auth";
 import Link from "next/link";
 import { PlantCard } from "@/components/PlantCard";
 import { fetchTodayPlants } from "@/app/actions";
@@ -6,6 +7,7 @@ export const metadata = { title: "All plants" };
 
 export default async function PlantsPage() {
   const plants = await fetchTodayPlants();
+  const isEditor = await canEdit();
 
   return (
     <div className="space-y-6">
@@ -18,17 +20,23 @@ export default async function PlantsPage() {
 
       {plants.length === 0 ? (
         <div className="plant-card p-8 text-center">
-          <p className="m-0">
-            <Link href="/plants/new" className="font-semibold text-primary">
-              Add a plant
-            </Link>{" "}
-            to get started.
+          <p className="m-0 text-foreground/70">
+            {isEditor ? (
+              <>
+                <Link href="/plants/new" className="font-semibold text-primary">
+                  Add a plant
+                </Link>{" "}
+                to get started.
+              </>
+            ) : (
+              "No plants in the collection yet."
+            )}
           </p>
         </div>
       ) : (
         <div className="space-y-3">
           {plants.map((plant) => (
-            <PlantCard key={plant.id} plant={plant} />
+            <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
           ))}
         </div>
       )}

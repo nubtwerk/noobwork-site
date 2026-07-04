@@ -11,7 +11,15 @@ const CHIP: Record<WaterStatus, string> = {
   on_track: "chip-on_track",
 };
 
-export function PlantCard({ plant, compact = false }: { plant: PlantWithMeta; compact?: boolean }) {
+export function PlantCard({
+  plant,
+  compact = false,
+  canEdit = false,
+}: {
+  plant: PlantWithMeta;
+  compact?: boolean;
+  canEdit?: boolean;
+}) {
   return (
     <article className="plant-card p-4">
       <div className="flex items-start justify-between gap-3">
@@ -40,7 +48,7 @@ export function PlantCard({ plant, compact = false }: { plant: PlantWithMeta; co
             {formatRelativeDays(plant.daysUntilWater)}
           </p>
         </div>
-        {!compact && <PlantActions plantId={plant.id} />}
+        {!compact && canEdit && <PlantActions plantId={plant.id} />}
       </div>
     </article>
   );
