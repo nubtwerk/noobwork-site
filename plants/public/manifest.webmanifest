@@ -1,0 +1,10 @@
+{
+  "name": "Plants — Noobwork",
+  "short_name": "Plants",
+  "description": "Apartment plant dashboard with watering timers and photo check-ins.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F8F8",
+  "theme_color": "#2C3930",
+  "icons": []
+}
