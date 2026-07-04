@@ -45,10 +45,50 @@ Copy `.env.example` to `.env.local`:
 
 ## Deploy to plants.noobwork.no
 
-1. Create a new Vercel project rooted at `plants/`
-2. Set root directory to `plants` in project settings
-3. Add domain `plants.noobwork.no`
-4. Set `AUTH_SECRET`, `RESEND_API_KEY`, `OPENAI_API_KEY`, and `NEXT_PUBLIC_APP_URL`
+### Option A — Vercel dashboard (recommended, ~5 min)
+
+No GitHub secrets needed. Vercel builds on every push to `main`.
+
+1. Open [vercel.com/new](https://vercel.com/new) → import **`nubtwerk/noobwork-site`**
+2. **Root Directory** → `plants` (Edit → set to `plants`, not repo root)
+3. **Project name** → e.g. `noobwork-plants`
+4. **Environment variables** (Production):
+
+   | Variable | Value |
+   |---|---|
+   | `AUTH_SECRET` | Random 32+ char string (`openssl rand -hex 32`) |
+   | `ADMIN_EMAIL` | `joachim@noobwork.no` |
+   | `NEXT_PUBLIC_APP_URL` | `https://plants.noobwork.no` |
+   | `PLANTS_SEED_DEMO` | `true` |
+   | `PLANTS_STORE` | `local` |
+   | `RESEND_API_KEY` | Your Resend key (magic-link login) |
+   | `OPENAI_API_KEY` | Your OpenAI key (photo analysis) |
+
+5. **Deploy** → then **Settings → Domains** → add `plants.noobwork.no`
+6. DNS: CNAME `plants` → `cname.vercel-dns.com` (or value Vercel shows)
+
+Demo plants seed automatically on first deploy (`PLANTS_SEED_DEMO=true`).
+
+### Option B — GitHub Actions (optional)
+
+If you prefer CI deploys, add these [GitHub repo secrets](https://github.com/nubtwerk/noobwork-site/settings/secrets/actions):
+
+- `VERCEL_TOKEN` — [vercel.com/account/tokens](https://vercel.com/account/tokens)
+- `VERCEL_ORG_ID` — Vercel team/project settings → General
+- `VERCEL_PLANTS_PROJECT_ID` — same page, Project ID
+
+Then run **Actions → Deploy Plants**, or push a change under `plants/`.
+
+### Cursor / Cloud Agent Vercel access
+
+The Vercel MCP server is **not authenticated** in this cloud agent environment, so the agent cannot create projects or set env vars for you automatically.
+
+To give **Cursor on your machine** Vercel access:
+
+1. **Cursor Settings → MCP → Vercel** → connect / sign in
+2. Re-run deploy tasks from the desktop agent
+
+Until then, use Option A in the Vercel dashboard.
 
 ## Features
 

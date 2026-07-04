@@ -1,5 +1,8 @@
 name: Deploy Plants
 
+# Optional CI deploy — the easiest path is Vercel Git integration (see plants/README.md).
+# Requires GitHub secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PLANTS_PROJECT_ID
+
 on:
   push:
     branches: [main]
@@ -8,11 +11,16 @@ on:
       - ".github/workflows/plants-deploy.yml"
   workflow_dispatch:
 
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PLANTS_PROJECT_ID }}
+
 permissions:
   contents: read
 
 jobs:
   deploy:
+    if: ${{ secrets.VERCEL_TOKEN != '' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,20 +34,14 @@ jobs:
           cache: npm
           cache-dependency-path: plants/package-lock.json
 
-      - name: Install
-        run: npm ci
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      - name: Test
-        run: npm test
+      - name: Pull Vercel env
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build
-        run: npm run build
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PLANTS_PROJECT_ID }}
-          working-directory: plants
-          vercel-args: "--prod"
+      - name: Deploy to production
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
