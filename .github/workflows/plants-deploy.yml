@@ -20,7 +20,6 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ secrets.VERCEL_TOKEN != '' }}
     runs-on: ubuntu-latest
     defaults:
       run:
