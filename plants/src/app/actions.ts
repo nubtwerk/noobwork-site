@@ -1,23 +1,31 @@
 "use server";
 
-import fs from "fs/promises";
-import path from "path";
 import sharp from "sharp";
 import { analyzePlantPhoto, stubAnalysis, VISION_MODEL } from "@/lib/analyze-photo";
 import { requireAdmin } from "@/lib/auth";
-import { getUploadsDir } from "@/lib/db/local-store";
+import { photoDisplayUrl, storePlantPhoto } from "@/lib/photo-storage";
 import {
+  addPushSubscription,
   createPlant,
   deletePlant,
+  exportSnapshot,
+  fertilizePlant,
+  getCollectionStats,
+  getPlantTimeline,
   getPlantWithMeta,
   listRooms,
   recordPhoto,
+  removePushSubscription,
   saveAnalysis,
+  scheduleFollowUpPhoto,
   snoozePlant,
+  updatePlant,
+  waterDueTodayBulk,
   waterPlant,
 } from "@/lib/plants-service";
 import { searchSpecies } from "@/lib/species";
-import type { Plant } from "@/types";
+import { getSeoulWeatherNudge } from "@/lib/weather-seoul";
+import type { Plant, TimelineEntry } from "@/types";
 import { revalidatePath } from "next/cache";
 
 function unauthorized() {
@@ -47,6 +55,18 @@ export async function fetchPlant(id: string) {
 
 export async function fetchRooms() {
   return listRooms();
+}
+
+export async function fetchCollectionStats() {
+  return getCollectionStats();
+}
+
+export async function fetchWeatherNudge() {
+  return getSeoulWeatherNudge();
+}
+
+export async function fetchPlantTimeline(plantId: string): Promise<TimelineEntry[]> {
+  return getPlantTimeline(plantId);
 }
 
 export async function searchSpeciesAction(query: string) {
@@ -82,10 +102,56 @@ export async function addPlantAction(formData: FormData) {
   return { plantId: plant.id };
 }
 
+export async function updatePlantAction(formData: FormData) {
+  if (!(await guardAdmin())) return unauthorized();
+  const plantId = String(formData.get("plantId") ?? "");
+  if (!plantId) return { error: "Missing plant" };
+
+  const customRaw = formData.get("customIntervalDays");
+  const clearCustom = formData.get("clearCustomInterval") === "on";
+  let customIntervalDays: number | null | undefined;
+  if (clearCustom) {
+    customIntervalDays = null;
+  } else if (customRaw && String(customRaw).trim()) {
+    customIntervalDays = Number(customRaw);
+  }
+
+  await updatePlant(plantId, {
+    nickname: String(formData.get("nickname") ?? "").trim() || undefined,
+    speciesId: String(formData.get("speciesId") ?? "") || undefined,
+    roomId: String(formData.get("roomId") ?? "") || undefined,
+    potMaterial: (formData.get("potMaterial") as Plant["potMaterial"]) || undefined,
+    potSize: (formData.get("potSize") as Plant["potSize"]) || undefined,
+    lightLevel: (formData.get("lightLevel") as Plant["lightLevel"]) || undefined,
+    customIntervalDays,
+    notes: String(formData.get("notes") ?? "").trim() || undefined,
+  });
+
+  revalidatePath("/");
+  revalidatePath("/plants");
+  revalidatePath(`/plants/${plantId}`);
+  revalidatePath(`/plants/${plantId}/edit`);
+  return { ok: true };
+}
+
 export async function waterPlantAction(plantId: string) {
   if (!(await guardAdmin())) return unauthorized();
   await waterPlant(plantId);
   revalidatePath("/");
+  revalidatePath(`/plants/${plantId}`);
+}
+
+export async function waterAllDueAction() {
+  if (!(await guardAdmin())) return unauthorized();
+  const count = await waterDueTodayBulk();
+  revalidatePath("/");
+  revalidatePath("/plants");
+  return { count };
+}
+
+export async function fertilizePlantAction(plantId: string) {
+  if (!(await guardAdmin())) return unauthorized();
+  await fertilizePlant(plantId);
   revalidatePath(`/plants/${plantId}`);
 }
 
@@ -94,6 +160,14 @@ export async function snoozePlantAction(plantId: string) {
   await snoozePlant(plantId, 1);
   revalidatePath("/");
   revalidatePath(`/plants/${plantId}`);
+}
+
+export async function scheduleFollowUpAction(plantId: string, days: number) {
+  if (!(await guardAdmin())) return unauthorized();
+  await scheduleFollowUpPhoto(plantId, days);
+  revalidatePath("/");
+  revalidatePath(`/plants/${plantId}`);
+  return { ok: true };
 }
 
 export async function deletePlantAction(plantId: string) {
@@ -106,6 +180,11 @@ export async function deletePlantAction(plantId: string) {
 export async function listCareLogs(plantId: string) {
   const { listCareLogs: list } = await import("@/lib/plants-service");
   return list(plantId);
+}
+
+export async function exportDataAction() {
+  if (!(await guardAdmin())) return unauthorized();
+  return exportSnapshot();
 }
 
 export async function uploadPhotoAction(formData: FormData) {
@@ -131,20 +210,13 @@ export async function uploadPhotoAction(formData: FormData) {
     return { error: "Use JPEG, PNG, or WebP" };
   }
 
-  const uploadsDir = getUploadsDir();
-  await fs.mkdir(uploadsDir, { recursive: true });
-
-  const filename = `${plantId}-${Date.now()}.webp`;
-  const filepath = path.join(uploadsDir, filename);
   const optimized = await sharp(bytes)
     .rotate()
     .resize(2048, 2048, { fit: "inside", withoutEnlargement: true })
     .webp({ quality: 85 })
     .toBuffer();
 
-  await fs.writeFile(filepath, optimized);
-  const storagePath = `/uploads/${filename}`;
-
+  const storagePath = await storePlantPhoto(plantId, optimized);
   const { photo } = await recordPhoto(plantId, storagePath, promptType);
 
   let analysisResult = await analyzePlantPhoto(optimized, "image/webp", plant);
@@ -167,5 +239,24 @@ export async function uploadPhotoAction(formData: FormData) {
   revalidatePath("/");
   revalidatePath(`/plants/${plantId}`);
 
-  return { photoId: photo.id, analysis };
+  return { photoId: photo.id, analysis, photoUrl: photoDisplayUrl(storagePath) };
+}
+
+export async function subscribePushAction(subscription: {
+  endpoint: string;
+  keys: { p256dh: string; auth: string };
+}) {
+  if (!(await guardAdmin())) return unauthorized();
+  await addPushSubscription({
+    endpoint: subscription.endpoint,
+    p256dh: subscription.keys.p256dh,
+    auth: subscription.keys.auth,
+  });
+  return { ok: true };
+}
+
+export async function unsubscribePushAction(endpoint: string) {
+  if (!(await guardAdmin())) return unauthorized();
+  await removePushSubscription(endpoint);
+  return { ok: true };
 }

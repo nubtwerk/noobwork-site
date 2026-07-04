@@ -3,6 +3,7 @@ import type { Plant, PlantSpecies } from "@/types";
 import {
   daysUntilWater,
   effectiveWaterIntervalDays,
+  explainWaterInterval,
   waterStatus,
 } from "@/lib/watering";
 
@@ -61,5 +62,12 @@ describe("watering", () => {
     const interval = effectiveWaterIntervalDays(plant(0), species);
     const p = plant(interval);
     expect(waterStatus(p, species)).toBe("due_today");
+  });
+
+  it("explains water interval with factors", () => {
+    const breakdown = explainWaterInterval(plant(0), species);
+    expect(breakdown.effectiveDays).toBeGreaterThan(0);
+    expect(breakdown.summary).toContain("days");
+    expect(breakdown.factors.length).toBeGreaterThan(1);
   });
 });

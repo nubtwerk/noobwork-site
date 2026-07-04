@@ -1,10 +1,18 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { PlantActions } from "@/components/PlantActions";
+import { PhotoTimeline } from "@/components/PhotoTimeline";
 import { PhotoUpload } from "@/components/PhotoUpload";
-import { deletePlantAction, fetchPlant, listCareLogs } from "@/app/actions";
+import { WaterExplain } from "@/components/WaterExplain";
+import {
+  deletePlantAction,
+  fetchPlant,
+  fetchPlantTimeline,
+  listCareLogs,
+} from "@/app/actions";
 import { canEdit } from "@/lib/auth";
 import { formatRelativeDays } from "@/lib/watering";
+import { PencilSimple } from "@phosphor-icons/react/dist/ssr";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -14,11 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PlantDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const plant = await fetchPlant(id);
+  const [plant, isEditor, logs, timeline] = await Promise.all([
+    fetchPlant(id),
+    canEdit(),
+    listCareLogs(id),
+    fetchPlantTimeline(id),
+  ]);
   if (!plant) notFound();
-
-  const isEditor = await canEdit();
-  const logs = await listCareLogs(id);
 
   return (
     <div className="space-y-6">
@@ -27,10 +37,24 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
       </Link>
 
       <header>
-        <h1 className="font-display m-0 text-3xl uppercase tracking-tight">{plant.nickname}</h1>
-        <p className="m-0 mt-1 text-foreground/70">
-          {plant.species.typeName} · {plant.room.name}
-        </p>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h1 className="font-display m-0 text-3xl uppercase tracking-tight">{plant.nickname}</h1>
+            <p className="m-0 mt-1 text-foreground/70">
+              {plant.species.typeName} · {plant.room.name}
+            </p>
+          </div>
+          {isEditor && (
+            <Link
+              href={`/plants/${plant.id}/edit`}
+              className="btn-secondary shrink-0 no-underline"
+              title="Edit plant"
+            >
+              <PencilSimple size={18} aria-hidden />
+              <span className="sr-only">Edit</span>
+            </Link>
+          )}
+        </div>
         <p className="m-0 mt-3 text-sm font-medium">
           {formatRelativeDays(plant.daysUntilWater)} · Next: {plant.nextWaterDate}
         </p>
@@ -49,6 +73,10 @@ export default async function PlantDetailPage({ params }: { params: Promise<{ id
           to log watering or upload photos.
         </p>
       )}
+
+      <WaterExplain breakdown={plant.waterBreakdown} />
+
+      {timeline.length > 0 && <PhotoTimeline entries={timeline} />}
 
       <section className="plant-card p-5">
         <h2 className="font-display m-0 text-base uppercase tracking-tight">Care info</h2>

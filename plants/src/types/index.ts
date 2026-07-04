@@ -98,6 +98,43 @@ export interface PlantWithMeta extends Plant {
   nextWaterDate: string;
   photoDue: boolean;
   latestAnalysis?: PhotoAnalysis;
+  waterBreakdown: WaterIntervalBreakdown;
+}
+
+export interface PushSubscriptionRecord {
+  id: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  createdAt: string;
+}
+
+export interface WaterIntervalBreakdown {
+  baseDays: number;
+  season: string;
+  factors: { label: string; multiplier: number }[];
+  rawDays: number;
+  effectiveDays: number;
+  summary: string;
+}
+
+export interface SeoulWeatherNudge {
+  humidity: number;
+  temperature: number;
+  message: string;
+  intervalAdjustDays: number;
+}
+
+export interface CollectionStats {
+  totalPlants: number;
+  needWater: number;
+  photoDue: number;
+  lastCheckInDaysAgo: number | null;
+}
+
+export interface TimelineEntry {
+  photo: PlantPhoto;
+  analysis?: PhotoAnalysis;
 }
 
 export interface StoreSnapshot {
@@ -106,4 +143,5 @@ export interface StoreSnapshot {
   careLogs: CareLog[];
   photos: PlantPhoto[];
   analyses: PhotoAnalysis[];
+  pushSubscriptions?: PushSubscriptionRecord[];
 }

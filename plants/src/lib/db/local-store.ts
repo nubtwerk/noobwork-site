@@ -6,6 +6,7 @@ import type {
   PhotoAnalysis,
   Plant,
   PlantPhoto,
+  PushSubscriptionRecord,
   Room,
   StoreSnapshot,
 } from "@/types";
@@ -27,6 +28,7 @@ function emptyStore(): StoreSnapshot {
     careLogs: [],
     photos: [],
     analyses: [],
+    pushSubscriptions: [],
   };
 }
 
@@ -44,6 +46,7 @@ async function ensureStore(): Promise<StoreSnapshot> {
     const raw = await fs.readFile(STORE_FILE, "utf8");
     const parsed = JSON.parse(raw) as StoreSnapshot;
     if (!parsed.rooms?.length) parsed.rooms = DEFAULT_ROOMS;
+    if (!parsed.pushSubscriptions) parsed.pushSubscriptions = [];
     if (parsed.plants.length === 0 && useDemoSeed()) {
       const seeded = demoSnapshot();
       await writeStore(seeded);
@@ -170,6 +173,48 @@ export const localStore = {
   async getLatestAnalysis(plantId: string): Promise<PhotoAnalysis | undefined> {
     const store = await ensureStore();
     return store.analyses.find((a) => a.plantId === plantId);
+  },
+
+  async listAnalyses(plantId: string): Promise<PhotoAnalysis[]> {
+    const store = await ensureStore();
+    return store.analyses.filter((a) => a.plantId === plantId);
+  },
+
+  async getAnalysisByPhotoId(photoId: string): Promise<PhotoAnalysis | undefined> {
+    const store = await ensureStore();
+    return store.analyses.find((a) => a.photoId === photoId);
+  },
+
+  async addPushSubscription(
+    input: Omit<PushSubscriptionRecord, "id" | "createdAt">,
+  ): Promise<PushSubscriptionRecord> {
+    const store = await ensureStore();
+    const existing = store.pushSubscriptions?.find((s) => s.endpoint === input.endpoint);
+    if (existing) return existing;
+
+    const sub: PushSubscriptionRecord = {
+      ...input,
+      id: id(),
+      createdAt: new Date().toISOString(),
+    };
+    if (!store.pushSubscriptions) store.pushSubscriptions = [];
+    store.pushSubscriptions.push(sub);
+    await writeStore(store);
+    return sub;
+  },
+
+  async removePushSubscription(endpoint: string): Promise<boolean> {
+    const store = await ensureStore();
+    if (!store.pushSubscriptions) return false;
+    const before = store.pushSubscriptions.length;
+    store.pushSubscriptions = store.pushSubscriptions.filter((s) => s.endpoint !== endpoint);
+    await writeStore(store);
+    return store.pushSubscriptions.length < before;
+  },
+
+  async listPushSubscriptions(): Promise<PushSubscriptionRecord[]> {
+    const store = await ensureStore();
+    return store.pushSubscriptions ?? [];
   },
 };
 

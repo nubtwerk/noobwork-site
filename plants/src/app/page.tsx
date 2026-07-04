@@ -1,6 +1,15 @@
 import { canEdit } from "@/lib/auth";
+import { BulkWaterButton } from "@/components/BulkWaterButton";
+import { CollectionStatsBar } from "@/components/CollectionStatsBar";
 import { PlantCard } from "@/components/PlantCard";
-import { fetchTodayPlants } from "@/app/actions";
+import { PushSubscribe } from "@/components/PushSubscribe";
+import { RoomGroupView } from "@/components/RoomGroupView";
+import { WeatherNudge } from "@/components/WeatherNudge";
+import {
+  fetchCollectionStats,
+  fetchTodayPlants,
+  fetchWeatherNudge,
+} from "@/app/actions";
 import type { PlantWithMeta } from "@/types";
 
 function groupPlants(plants: PlantWithMeta[]) {
@@ -14,10 +23,16 @@ function groupPlants(plants: PlantWithMeta[]) {
 }
 
 export default async function TodayPage() {
-  const plants = await fetchTodayPlants();
-  const isEditor = await canEdit();
+  const [plants, isEditor, stats, weather] = await Promise.all([
+    fetchTodayPlants(),
+    canEdit(),
+    fetchCollectionStats(),
+    fetchWeatherNudge(),
+  ]);
   const groups = groupPlants(plants);
   const needsAttention = [...groups.overdue, ...groups.dueToday];
+  const dueCount = needsAttention.length;
+  const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
   return (
     <div className="space-y-8">
@@ -33,6 +48,14 @@ export default async function TodayPage() {
           Today
         </h1>
       </div>
+
+      {plants.length > 0 && <CollectionStatsBar stats={stats} />}
+
+      {weather && <WeatherNudge nudge={weather} />}
+
+      {isEditor && dueCount > 0 && <BulkWaterButton count={dueCount} />}
+
+      {isEditor && vapidKey && <PushSubscribe vapidPublicKey={vapidKey} />}
 
       {plants.length === 0 ? (
         <div className="plant-card p-8 text-center">
@@ -94,6 +117,8 @@ export default async function TodayPage() {
               </div>
             </section>
           )}
+
+          <RoomGroupView plants={plants} canEdit={isEditor} />
         </>
       )}
     </div>

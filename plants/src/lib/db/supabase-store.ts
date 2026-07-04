@@ -4,6 +4,7 @@ import type {
   PhotoAnalysis,
   Plant,
   PlantPhoto,
+  PushSubscriptionRecord,
   Room,
   StoreSnapshot,
 } from "@/types";
@@ -174,6 +175,86 @@ export const supabaseStore = {
     if (error) throw error;
     return data ? mapAnalysisRow(data) : undefined;
   },
+
+  async listAnalyses(plantId: string): Promise<PhotoAnalysis[]> {
+    const sb = supabaseAdmin();
+    if (!sb) return [];
+    const { data, error } = await sb
+      .from("photo_analyses")
+      .select("*")
+      .eq("plant_id", plantId)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map(mapAnalysisRow);
+  },
+
+  async getAnalysisByPhotoId(photoId: string): Promise<PhotoAnalysis | undefined> {
+    const sb = supabaseAdmin();
+    if (!sb) return undefined;
+    const { data, error } = await sb
+      .from("photo_analyses")
+      .select("*")
+      .eq("photo_id", photoId)
+      .maybeSingle();
+    if (error) throw error;
+    return data ? mapAnalysisRow(data) : undefined;
+  },
+
+  async getSnapshot(): Promise<StoreSnapshot> {
+    const sb = supabaseAdmin();
+    if (!sb) {
+      return { rooms: [], plants: [], careLogs: [], photos: [], analyses: [], pushSubscriptions: [] };
+    }
+    const [rooms, plants, careLogs, photos, analyses, pushSubscriptions] = await Promise.all([
+      sb.from("rooms").select("*").order("name"),
+      sb.from("plants").select("*"),
+      sb.from("care_logs").select("*").order("completed_at", { ascending: false }),
+      sb.from("plant_photos").select("*").order("taken_at", { ascending: false }),
+      sb.from("photo_analyses").select("*").order("created_at", { ascending: false }),
+      sb.from("push_subscriptions").select("*"),
+    ]);
+    return {
+      rooms: (rooms.data ?? []) as Room[],
+      plants: (plants.data ?? []).map(mapPlantRow),
+      careLogs: (careLogs.data ?? []).map(mapCareLogRow),
+      photos: (photos.data ?? []).map(mapPhotoRow),
+      analyses: (analyses.data ?? []).map(mapAnalysisRow),
+      pushSubscriptions: (pushSubscriptions.data ?? []).map(mapPushSubRow),
+    };
+  },
+
+  async addPushSubscription(
+    input: Omit<PushSubscriptionRecord, "id" | "createdAt">,
+  ): Promise<PushSubscriptionRecord> {
+    const sb = supabaseAdmin();
+    if (!sb) throw new Error("Supabase not configured");
+    const { data, error } = await sb
+      .from("push_subscriptions")
+      .upsert(
+        { endpoint: input.endpoint, p256dh: input.p256dh, auth: input.auth },
+        { onConflict: "endpoint" },
+      )
+      .select()
+      .single();
+    if (error) throw error;
+    return mapPushSubRow(data);
+  },
+
+  async removePushSubscription(endpoint: string): Promise<boolean> {
+    const sb = supabaseAdmin();
+    if (!sb) return false;
+    const { error } = await sb.from("push_subscriptions").delete().eq("endpoint", endpoint);
+    if (error) throw error;
+    return true;
+  },
+
+  async listPushSubscriptions(): Promise<PushSubscriptionRecord[]> {
+    const sb = supabaseAdmin();
+    if (!sb) return [];
+    const { data, error } = await sb.from("push_subscriptions").select("*");
+    if (error) throw error;
+    return (data ?? []).map(mapPushSubRow);
+  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -271,6 +352,17 @@ function mapAnalysisRow(row: any): PhotoAnalysis {
     pestsDetected: row.pests_detected,
     followUpDays: row.follow_up_days,
     summary: row.summary,
+    createdAt: row.created_at,
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapPushSubRow(row: any): PushSubscriptionRecord {
+  return {
+    id: row.id,
+    endpoint: row.endpoint,
+    p256dh: row.p256dh,
+    auth: row.auth,
     createdAt: row.created_at,
   };
 }

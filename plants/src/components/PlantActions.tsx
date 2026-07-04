@@ -1,8 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import { Drop, Timer } from "@phosphor-icons/react";
-import { snoozePlantAction, waterPlantAction } from "@/app/actions";
+import { Drop, Flask, Timer } from "@phosphor-icons/react";
+import { fertilizePlantAction, snoozePlantAction, waterPlantAction } from "@/app/actions";
 
 export function PlantActions({ plantId }: { plantId: string }) {
   const [pending, startTransition] = useTransition();
@@ -34,6 +34,19 @@ export function PlantActions({ plantId }: { plantId: string }) {
       >
         <Timer size={16} aria-hidden />
         Snooze
+      </button>
+      <button
+        type="button"
+        className="btn-secondary"
+        disabled={pending}
+        onClick={() =>
+          startTransition(async () => {
+            await fertilizePlantAction(plantId);
+          })
+        }
+      >
+        <Flask size={16} aria-hidden />
+        Fertilize
       </button>
     </div>
   );

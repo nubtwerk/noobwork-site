@@ -92,14 +92,33 @@ Until then, use Option A in the Vercel dashboard.
 
 ## Features
 
-- **Today** dashboard — overdue, due today, photo check-ins
-- **Add plant** — species search, room, pot/light modifiers (signed in)
-- **Water / snooze** — one-tap timer reset (signed in)
-- **Photo check-in** — upload + GPT-4o health summary (signed in)
+- **Today** dashboard — overdue, due today, photo check-ins, collection stats, Seoul weather nudge
+- **By room** — grouped view across living room, bedroom, kitchen, balcony
+- **Add / edit plant** — species search, room, pot/light modifiers, custom water interval (signed in)
+- **Water / snooze / fertilize** — one-tap care logging (signed in)
+- **Bulk water** — water all due plants in one tap (signed in)
+- **Photo check-in** — upload + GPT-4o health summary with follow-up scheduling (signed in)
+- **Photo timeline** — gallery with before/after comparison on plant detail
+- **Why this schedule?** — watering interval explainer with season + pot modifiers
+- **JSON export** — full collection backup at `/api/export` (signed in)
+- **JSON Feed** — public `/feed.json` for due tasks and health alerts
+- **Web Push** — morning digest via Vercel Cron (requires VAPID keys)
 - **Care info** — per-species tips from bundled catalog (public)
 
-## Connectors (planned)
+## Production persistence
 
-- Web Push + Vercel Cron for reminders
-- Open-Meteo for Seoul humidity adjustments
-- Perenual API fallback for unknown species
+On Vercel, set these for durable storage:
+
+| Variable | Purpose |
+|---|---|
+| `BLOB_READ_WRITE_TOKEN` | Photo uploads via Vercel Blob (auto-provisioned in Vercel dashboard) |
+| `PLANTS_STORE=supabase` | Postgres for plants, logs, analyses — run `supabase/schema.sql` |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Web Push notifications |
+| `CRON_SECRET` | Protects `/api/cron/reminders` |
+
+Generate VAPID keys: `npx web-push generate-vapid-keys`
+
+## Connectors
+
+- **Open-Meteo** — Seoul humidity/temperature nudge on Today (disable with `OPEN_METEO_ENABLED=false`)
+- **Vercel Cron** — daily push digest at 08:00 KST (`0 23 * * *` UTC)

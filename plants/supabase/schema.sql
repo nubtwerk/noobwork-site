@@ -68,3 +68,11 @@ create table if not exists photo_analyses (
 create index if not exists idx_plants_room on plants(room_id);
 create index if not exists idx_care_logs_plant on care_logs(plant_id, completed_at desc);
 create index if not exists idx_photo_analyses_plant on photo_analyses(plant_id, created_at desc);
+
+create table if not exists push_subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  endpoint text not null unique,
+  p256dh text not null,
+  auth text not null,
+  created_at timestamptz not null default now()
+);

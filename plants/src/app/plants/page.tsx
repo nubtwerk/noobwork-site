@@ -1,7 +1,9 @@
-import { canEdit } from "@/lib/auth";
 import Link from "next/link";
+import { canEdit } from "@/lib/auth";
 import { PlantCard } from "@/components/PlantCard";
+import { RoomGroupView } from "@/components/RoomGroupView";
 import { fetchTodayPlants } from "@/app/actions";
+import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = { title: "All plants" };
 
@@ -11,11 +13,19 @@ export default async function PlantsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display m-0 text-3xl uppercase tracking-tight text-primary">
-          All plants
-        </h1>
-        <p className="m-0 mt-1 text-sm text-foreground/60">{plants.length} in your apartment</p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display m-0 text-3xl uppercase tracking-tight text-primary">
+            All plants
+          </h1>
+          <p className="m-0 mt-1 text-sm text-foreground/60">{plants.length} in your apartment</p>
+        </div>
+        {isEditor && (
+          <Link href="/api/export" className="btn-secondary shrink-0 no-underline">
+            <DownloadSimple size={18} aria-hidden />
+            Export
+          </Link>
+        )}
       </div>
 
       {plants.length === 0 ? (
@@ -34,11 +44,14 @@ export default async function PlantsPage() {
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
-          {plants.map((plant) => (
-            <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
-          ))}
-        </div>
+        <>
+          <div className="space-y-3">
+            {plants.map((plant) => (
+              <PlantCard key={plant.id} plant={plant} canEdit={isEditor} />
+            ))}
+          </div>
+          <RoomGroupView plants={plants} canEdit={isEditor} />
+        </>
       )}
     </div>
   );

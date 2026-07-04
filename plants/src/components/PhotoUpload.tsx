@@ -2,7 +2,7 @@
 
 import { useRef, useState, useTransition } from "react";
 import { Camera, Spinner } from "@phosphor-icons/react";
-import { uploadPhotoAction } from "@/app/actions";
+import { scheduleFollowUpAction, uploadPhotoAction } from "@/app/actions";
 import type { PhotoAnalysis } from "@/types";
 
 export function PhotoUpload({
@@ -16,10 +16,12 @@ export function PhotoUpload({
   const [pending, startTransition] = useTransition();
   const [analysis, setAnalysis] = useState<PhotoAnalysis | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [followUpScheduled, setFollowUpScheduled] = useState(false);
 
   function handleFile(file: File | null) {
     if (!file) return;
     setError(null);
+    setFollowUpScheduled(false);
     const fd = new FormData();
     fd.set("plantId", plantId);
     fd.set("photo", file);
@@ -34,6 +36,13 @@ export function PhotoUpload({
       if ("analysis" in result && result.analysis) {
         setAnalysis(result.analysis);
       }
+    });
+  }
+
+  function scheduleFollowUp(days: number) {
+    startTransition(async () => {
+      await scheduleFollowUpAction(plantId, days);
+      setFollowUpScheduled(true);
     });
   }
 
@@ -99,6 +108,27 @@ export function PhotoUpload({
           <p className="m-0 mt-3 text-xs text-foreground/55">
             Watering: {analysis.wateringAssessment.replace("_", " ")} · Light: {analysis.lightAssessment}
           </p>
+
+          {analysis.overallHealth === "concerning" && !followUpScheduled && (
+            <div className="mt-4 rounded-lg border border-overdue/20 bg-white/60 p-3">
+              <p className="m-0 text-sm font-medium">Schedule a follow-up check?</p>
+              <p className="m-0 mt-1 text-xs text-foreground/60">
+                Recommended in {analysis.followUpDays} days based on this analysis.
+              </p>
+              <button
+                type="button"
+                className="btn-secondary mt-3 w-full"
+                disabled={pending}
+                onClick={() => scheduleFollowUp(analysis.followUpDays)}
+              >
+                Remind me in {analysis.followUpDays} days
+              </button>
+            </div>
+          )}
+
+          {followUpScheduled && (
+            <p className="m-0 mt-3 text-sm text-primary">Follow-up photo scheduled.</p>
+          )}
         </div>
       )}
     </section>

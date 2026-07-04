@@ -1,4 +1,4 @@
-import type { Plant, PlantSpecies, WaterStatus } from "@/types";
+import type { Plant, PlantSpecies, WaterIntervalBreakdown, WaterStatus } from "@/types";
 
 const MONTH_TO_SEASON: Record<number, "spring" | "summer" | "fall" | "winter"> = {
   0: "winter",
@@ -117,6 +117,37 @@ export function nextPhotoPromptDate(plant: Plant): Date {
   const next = new Date(base);
   next.setDate(next.getDate() + plant.photoPromptIntervalDays);
   return next;
+}
+
+export function explainWaterInterval(
+  plant: Plant,
+  species: PlantSpecies,
+  date = new Date(),
+): WaterIntervalBreakdown {
+  const season = seasonForDate(date);
+  const baseDays = baseIntervalForSpecies(species, season);
+  const factors = [
+    { label: `${season} baseline`, multiplier: 1 },
+    { label: `${plant.potMaterial} pot`, multiplier: POT_MATERIAL_FACTOR[plant.potMaterial] },
+    { label: `${plant.potSize} size`, multiplier: POT_SIZE_FACTOR[plant.potSize] },
+    { label: `${plant.lightLevel} light`, multiplier: LIGHT_FACTOR[plant.lightLevel] },
+  ];
+  const rawDays = baseDays * factors.slice(1).reduce((acc, f) => acc * f.multiplier, 1);
+  const effectiveDays = plant.customIntervalDays ?? Math.max(1, Math.round(rawDays));
+
+  const factorText = factors
+    .slice(1)
+    .map((f) => `${f.label} ×${f.multiplier.toFixed(2)}`)
+    .join(" · ");
+
+  return {
+    baseDays,
+    season,
+    factors,
+    rawDays: Math.round(rawDays * 10) / 10,
+    effectiveDays,
+    summary: `Water every ~${effectiveDays} days (${species.typeName} ${baseDays}d in ${season}${plant.customIntervalDays ? ", custom override" : ` · ${factorText}`}).`,
+  };
 }
 
 export function formatRelativeDays(days: number): string {
