@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3001",
-    "prebuild": "node scripts/filter-species.mjs",
+    "prebuild": "node scripts/filter-species.mjs && node scripts/seed-store.mjs",
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "eslint",

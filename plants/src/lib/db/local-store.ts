@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import seedStore from "@/data/seed-store.json";
 import type {
   CareLog,
   PhotoAnalysis,
@@ -29,16 +30,34 @@ function emptyStore(): StoreSnapshot {
   };
 }
 
+function useDemoSeed(): boolean {
+  return process.env.PLANTS_SEED_DEMO !== "false";
+}
+
+function demoSnapshot(): StoreSnapshot {
+  return seedStore as StoreSnapshot;
+}
+
 async function ensureStore(): Promise<StoreSnapshot> {
   await fs.mkdir(DATA_DIR, { recursive: true });
   try {
     const raw = await fs.readFile(STORE_FILE, "utf8");
     const parsed = JSON.parse(raw) as StoreSnapshot;
     if (!parsed.rooms?.length) parsed.rooms = DEFAULT_ROOMS;
+    if (parsed.plants.length === 0 && useDemoSeed()) {
+      const seeded = demoSnapshot();
+      await writeStore(seeded);
+      return seeded;
+    }
     return parsed;
   } catch {
+    if (useDemoSeed()) {
+      const seeded = demoSnapshot();
+      await writeStore(seeded);
+      return seeded;
+    }
     const store = emptyStore();
-    await fs.writeFile(STORE_FILE, JSON.stringify(store, null, 2));
+    await writeStore(store);
     return store;
   }
 }
