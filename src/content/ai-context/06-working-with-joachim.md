@@ -1,30 +1,14 @@
 # Working with Joachim
 
-## Best ways to engage
+## Creator partnerships
 
-- **Partnerships and brand collaborations** - Via the inquiry form at noobwork.no/media-kit#inquiry or by email at joachim@noobwork.no. Strongest fit: fitness, health, nutrition, lifestyle, tech, and travel brands.
-- **Speaking and appearances** - Fitness and creator strategy, entrepreneurship, gaming business, AI products, and building across cultures.
-- **Founder outreach** - Joachim likes connecting with younger founders, helping where useful, and occasionally investing early when there is real fit.
-- **Content collaborations** - Only when the fit is authentic and the collaboration makes sense for the Noobwork brand.
+- **Sponsor a video:** A relevant integration, description link, call to action and agreed reporting.
+- **Partner on a series:** Recurring content plus a featured website partner card for a defined term.
+- **Content for your brand:** Videos and photographs produced for the brand's channels, with usage rights agreed in the brief.
 
-## What gets a strong response
+The featured Seoul-series opportunity is an inquiry, not an automatic booking. Dates, number of episodes, fee and any exclusivity must be agreed before a commitment is made.
 
-- Clear context, not vague networking energy
-- A real fit with what Joachim is already building or interested in
-- Serious founders, serious operators, or serious partners
-- Specific asks instead of broad "would love to connect" messages
-- Long-term alignment over one-off extraction
-- Professional communication with enough detail to evaluate quickly
+## A useful first message
+Include your brand or product, who you want to reach, the format, campaign timing and a budget range if available. Explain why the product belongs in Joachim's content. Events, speaking and advisory work can use the same contact route.
 
-## What makes outreach low-signal
-
-- Generic copy-paste intros
-- Asking for time without a clear reason
-- Pitches built on hype, buzzwords, or borrowed status
-- Brand deals that do not fit the Noobwork tone
-- Outreach that clearly ignores the information on this page
-
-## Contact
-
-- Email: joachim@noobwork.no
-- Website: noobwork.no
+[Explore partnerships](https://www.noobwork.no/media-kit) or email joachim@noobwork.no.

@@ -1,15 +1,25 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+import { getInquiryFeedback } from "@/lib/inquiry-feedback";
+import { trackPartnership } from "@/lib/partnership-analytics";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm() {
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [error, setError] = useState<string | null>(null);
+export default function ContactForm({ initialOffer = "", feedback }: { initialOffer?: PartnershipOfferId | ""; feedback?: string } = {}) {
+  const initialError = getInquiryFeedback(feedback);
+  const [status, setStatus] = useState<FormStatus>(feedback === "sent" ? "success" : initialError ? "error" : "idle");
+  const [error, setError] = useState<string | null>(initialError ?? null);
+  const started = useRef(false);
+  const offerSelect = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    if (offerSelect.current) offerSelect.current.value = initialOffer;
+  }, [initialOffer]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting") return;
     setStatus("submitting");
     setError(null);
 
@@ -26,18 +36,22 @@ export default function ContactForm() {
           company: data.get("company"),
           message: data.get("message"),
           website: data.get("website"),
+          offer: data.get("offer"),
+          timing: data.get("timing"),
+          budget: data.get("budget"),
         }),
       });
 
       const json = (await res.json()) as { ok?: boolean; error?: string };
 
-      if (!res.ok) {
+      if (!res.ok || json.ok !== true) {
         setError(json.error ?? "Could not send your message. Try again.");
         setStatus("error");
         return;
       }
 
       setStatus("success");
+      trackPartnership("inquiry_submitted", { offer: data.get("offer") });
       form.reset();
     } catch {
       setError("Network error. Check your connection or email joachim@noobwork.no.");
@@ -53,19 +67,25 @@ export default function ContactForm() {
           Thanks for reaching out — Joachim will get back to you at the email
           you provided.
         </p>
-        <button
-          type="button"
+        <a
+          href="/media-kit#inquiry"
           className="btn btn--secondary contact-form__reset"
-          onClick={() => setStatus("idle")}
+          onClick={(event) => { event.preventDefault(); setStatus("idle"); setError(null); started.current = false; }}
         >
           Send another message
-        </button>
+        </a>
       </div>
     );
   }
 
   return (
-    <form className="contact-form" onSubmit={onSubmit} noValidate>
+    <form className="contact-form" method="post" action="/api/contact" onSubmit={onSubmit}
+      onFocus={() => {
+        if (!started.current) {
+          started.current = true;
+          trackPartnership("inquiry_started", { offer: offerSelect.current?.value });
+        }
+      }}>
       <div className="contact-form__row">
         <div className="contact-form__field">
           <label className="contact-form__label" htmlFor="contact-name">
@@ -77,6 +97,8 @@ export default function ContactForm() {
             type="text"
             autoComplete="name"
             required
+            minLength={2}
+            maxLength={120}
             className="contact-form__input"
           />
         </div>
@@ -90,6 +112,7 @@ export default function ContactForm() {
             type="email"
             autoComplete="email"
             required
+            maxLength={254}
             className="contact-form__input"
           />
         </div>
@@ -104,8 +127,28 @@ export default function ContactForm() {
           name="company"
           type="text"
           autoComplete="organization"
+          maxLength={160}
           className="contact-form__input"
         />
+      </div>
+
+      <div className="contact-form__field">
+        <label className="contact-form__label" htmlFor="contact-offer">Partnership format</label>
+        <select ref={offerSelect} id="contact-offer" name="offer" className="contact-form__input" defaultValue={initialOffer}
+          onChange={(event) => trackPartnership("partnership_offer_selected", { offer: event.target.value })}>
+          <option value="">Let&apos;s find the right fit</option>
+          {partnershipOffers.map((offer) => <option key={offer.id} value={offer.id}>{offer.title}</option>)}
+        </select>
+      </div>
+      <div className="contact-form__row">
+        <div className="contact-form__field">
+          <label className="contact-form__label" htmlFor="contact-timing">Timing <span className="contact-form__optional">(optional)</span></label>
+          <input id="contact-timing" name="timing" type="text" maxLength={120} className="contact-form__input" placeholder="Dates or campaign window" />
+        </div>
+        <div className="contact-form__field">
+          <label className="contact-form__label" htmlFor="contact-budget">Budget range <span className="contact-form__optional">(optional)</span></label>
+          <input id="contact-budget" name="budget" type="text" maxLength={120} className="contact-form__input" placeholder="Amount and currency, if known" />
+        </div>
       </div>
 
       <div className="contact-form__field">
@@ -116,9 +159,11 @@ export default function ContactForm() {
           id="contact-message"
           name="message"
           required
+          minLength={20}
+          maxLength={5000}
           rows={5}
           className="contact-form__textarea"
-          placeholder="Tell me about the brand, campaign goals, and timeline."
+          placeholder="Tell me about your product, who you want to reach, and what you have in mind."
         />
       </div>
 
@@ -140,8 +185,10 @@ export default function ContactForm() {
         disabled={status === "submitting"}
         data-magnetic
       >
-        {status === "submitting" ? "Sending…" : "Send inquiry"}
+        {status === "submitting" ? "Sending…" : "Send partnership inquiry"}
       </button>
+      <p className="contact-form__privacy">Your details are used to respond to this inquiry. You won&apos;t be added to a mailing list.</p>
+      <p className="contact-form__fallback">Prefer email? <a href="mailto:joachim@noobwork.no" data-partnership-source="email">joachim@noobwork.no</a></p>
     </form>
   );
 }

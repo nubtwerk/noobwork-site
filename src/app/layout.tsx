@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
@@ -7,6 +7,8 @@ import MouseEffects from "@/components/ui/MouseEffects";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import JsonLd from "@/components/JsonLd";
+import PartnershipAnalytics from "@/components/ui/PartnershipAnalytics";
+import { SITE_DESCRIPTION, socialMetadata } from "@/lib/site-metadata";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
     default: "Noobwork | Joachim Haraldsen: Fitness, Personal Development, Gaming Heritage",
     template: "%s | Noobwork",
   },
-  description: "Premium fitness and lifestyle creator brand by Joachim Haraldsen. Training, nutrition, personal development, and gaming heritage, documented from Seoul. Built on Norway's largest gaming YouTube channel.",
+  description: SITE_DESCRIPTION,
   keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube", "Team Haraldsen", "DailyBase"],
   authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
   creator: "Joachim Haraldsen",
@@ -36,20 +38,7 @@ export const metadata: Metadata = {
       ],
     },
   },
-  openGraph: {
-    title: "Noobwork | Joachim Haraldsen",
-    description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",
-    url: "https://www.noobwork.no",
-    siteName: "Noobwork",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Noobwork | Joachim Haraldsen",
-    description: "Premium fitness and lifestyle creator brand. Training, personal development, and gaming heritage, documented from Seoul.",
-    creator: "@noobwork",
-  },
+  ...socialMetadata("Noobwork | Joachim Haraldsen", SITE_DESCRIPTION),
   other: {
     "theme-color": "#2C3930",
   },
@@ -61,20 +50,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${newake.variable} scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} ${newake.variable}`}>
       <body className={inter.className}>
         <noscript>
           {/* Motion components SSR with hidden initial styles; without JS
               nothing would ever reveal. Force everything visible. */}
           <style>{`[style*="opacity:0"],[style*="opacity: 0"],.poster-hero__line{opacity:1!important;transform:none!important;filter:none!important}`}</style>
         </noscript>
-        <JsonLd />
+        <JsonLd includeVideos={false} />
         <SkipToContent />
         <SmoothScroll />
         <ScrollProgress />
         <MouseEffects />
         {children}
         <Analytics />
+        <PartnershipAnalytics />
       </body>
     </html>
   );

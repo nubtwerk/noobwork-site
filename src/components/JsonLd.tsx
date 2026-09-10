@@ -1,3 +1,4 @@
+import { SITE_DESCRIPTION } from "@/lib/site-metadata";
 import { socialLinks } from "@/data/social-links";
 import type { VideoItem } from "@/data/videos";
 import { getLatestVideos } from "@/lib/get-videos";
@@ -17,8 +18,8 @@ function toVideoObject(v: VideoItem) {
   return obj;
 }
 
-export default async function JsonLd() {
-  const { featuredVideo, recentVideos } = await getLatestVideos();
+export default async function JsonLd({ includeVideos = true, includePerson = true }: { includeVideos?: boolean; includePerson?: boolean } = {}) {
+  const videos = includeVideos ? await getLatestVideos() : null;
 
   const personSchema = {
     "@type": "Person",
@@ -27,7 +28,7 @@ export default async function JsonLd() {
     url: "https://www.noobwork.no",
     image: "https://www.noobwork.no/joachim.jpg",
     email: "mailto:joachim@noobwork.no",
-    description: "Premium fitness and lifestyle creator brand by Joachim Haraldsen. Training, nutrition, personal development, and gaming heritage, documented from Seoul. Built on Norway's largest gaming YouTube channel.",
+    description: SITE_DESCRIPTION,
     jobTitle: "Creator & Entrepreneur",
     sameAs: socialLinks
       .filter((link) => link.url.startsWith("http"))
@@ -62,13 +63,13 @@ export default async function JsonLd() {
     },
   };
 
-  const allVideos = [featuredVideo, ...recentVideos];
+  const allVideos = videos ? [videos.featuredVideo, ...videos.recentVideos] : [];
 
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
-      personSchema,
-      {
+      ...(includePerson ? [personSchema] : []),
+      ...(includeVideos ? [{
         "@type": "ItemList",
         name: "Latest videos by Noobwork",
         itemListElement: allVideos.map((v, i) => ({
@@ -76,7 +77,7 @@ export default async function JsonLd() {
           position: i + 1,
           item: toVideoObject(v),
         })),
-      },
+      }] : []),
     ],
   };
 

@@ -51,3 +51,8 @@ export const contextTokens = Object.fromEntries(
 export const volatileFigures: string[] = [
   ...new Set(Object.values(profileFacts).flatMap((f) => [f.long, f.short])),
 ];
+
+/** Reviewed against public snapshots; these remain rounded historical milestones.
+ * Studio reporting periods and demographics are intentionally not inferred.
+ */
+export const PROFILE_CONTENT_REVIEWED_AT = "2026-09-10";

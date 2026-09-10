@@ -12,12 +12,13 @@ describe("About", () => {
 
   it("renders key biographical details", () => {
     render(<About />);
-    expect(screen.getByText(/Joachim Haraldsen/)).toBeInTheDocument();
+    expect(screen.getByText("Joachim Haraldsen")).toBeInTheDocument();
     expect(screen.getByText(/Heroic Group/)).toBeInTheDocument();
     expect(
       screen.getByText(`${profileFacts.subscribers.long} subscribers`)
     ).toBeInTheDocument();
-    expect(screen.getByText(/\$25 million/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Forbes profile from 2022/ })).toHaveAttribute("href", expect.stringContaining("forbes.com"));
+    expect(screen.queryByText(/\$25 million/)).not.toBeInTheDocument();
   });
 
   it("has the about section id", () => {

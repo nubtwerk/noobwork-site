@@ -1,3 +1,4 @@
+import JsonLd from "@/components/JsonLd";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
@@ -16,6 +17,7 @@ export default async function Home() {
 
   return (
     <div className="site-shell">
+      <JsonLd includePerson={false} />
       <Nav />
       <main id="main-content" className="site-main">
         <Hero />

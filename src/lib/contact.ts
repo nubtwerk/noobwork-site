@@ -1,8 +1,13 @@
+import { isPartnershipOffer, partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+
 export interface ContactPayload {
   name: string;
   email: string;
   company?: string;
   message: string;
+  offer?: PartnershipOfferId;
+  timing?: string;
+  budget?: string;
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,9 +36,16 @@ export function parseContactPayload(body: unknown): ParseContactResult {
   const company =
     typeof raw.company === "string" ? raw.company.trim() : undefined;
   const message = typeof raw.message === "string" ? raw.message.trim() : "";
+  const offer = typeof raw.offer === "string" ? raw.offer.trim() : "";
+  const timing = typeof raw.timing === "string" ? raw.timing.trim() : "";
+  const budget = typeof raw.budget === "string" ? raw.budget.trim() : "";
 
   if (name.length < 2) return { error: "Please enter your name." };
-  if (!EMAIL_PATTERN.test(email)) return { error: "Please enter a valid email." };
+  if (name.length > 120 || /[\r\n]/.test(name)) return { error: "Please keep your name to one line and under 120 characters." };
+  if (email.length > 254 || !EMAIL_PATTERN.test(email)) return { error: "Please enter a valid email." };
+  if (company && (company.length > 160 || /[\r\n]/.test(company))) return { error: "Please keep the brand name to one line and under 160 characters." };
+  if (offer && !isPartnershipOffer(offer)) return { error: "Please choose one of the partnership formats." };
+  if (timing.length > 120 || budget.length > 120) return { error: "Please keep timing and budget details under 120 characters each." };
   if (message.length < 20) {
     return { error: "Please share a bit more detail about the partnership." };
   }
@@ -47,6 +59,9 @@ export function parseContactPayload(body: unknown): ParseContactResult {
       email,
       company: company || undefined,
       message,
+      offer: isPartnershipOffer(offer) ? offer : undefined,
+      timing: timing || undefined,
+      budget: budget || undefined,
     },
   };
 }
@@ -69,6 +84,9 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     payload.company ? `Company: ${payload.company}` : null,
+    payload.offer ? `Format: ${partnershipOffers.find((offer) => offer.id === payload.offer)?.title}` : null,
+    payload.timing ? `Timing: ${payload.timing}` : null,
+    payload.budget ? `Budget: ${payload.budget}` : null,
     "",
     payload.message,
   ]
@@ -77,6 +95,7 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
+    signal: AbortSignal.timeout(8_000),
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
@@ -91,7 +110,6 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
   });
 
   if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`RESEND_FAILED:${res.status}:${detail}`);
+    throw new Error(`RESEND_FAILED:${res.status}`);
   }
 }

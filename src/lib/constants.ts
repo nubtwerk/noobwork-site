@@ -6,6 +6,8 @@ export const ANIMATION_VIEWPORT_MARGIN = "200px 0px 200px 0px";
 
 /** Deep link to the Media Kit inquiry form. */
 export const MEDIA_KIT_INQUIRY_HREF = "/media-kit#inquiry";
+/** Start at the offers and evidence, rather than bypassing them. */
+export const MEDIA_KIT_HREF = "/media-kit";
 
 /**
  * Homepage sections surfaced in the top nav. This order is curated for the nav

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Hero from "@/components/sections/Hero";
-import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF } from "@/lib/constants";
 import { profileFacts } from "@/data/profile-facts";
 
 describe("Hero", () => {
@@ -15,9 +15,9 @@ describe("Hero", () => {
 
   it("renders the primary CTAs", () => {
     render(<Hero />);
-    const partner = screen.getByText("Partner With Me").closest("a");
-    expect(partner).toHaveAttribute("href", MEDIA_KIT_INQUIRY_HREF);
-    const watch = screen.getByText("Watch the Latest").closest("a");
+    const partner = screen.getByText("Explore partnerships").closest("a");
+    expect(partner).toHaveAttribute("href", MEDIA_KIT_HREF);
+    const watch = screen.getByText("Watch my work").closest("a");
     expect(watch).toHaveAttribute("href", "/#reel");
   });
 
@@ -30,7 +30,7 @@ describe("Hero", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(profileFacts.totalViews.short)).toBeInTheDocument();
     expect(screen.getByText("Forbes")).toBeInTheDocument();
-    expect(screen.getByText("13 yrs")).toBeInTheDocument();
+    expect(screen.getByText("2013")).toBeInTheDocument();
     expect(
       screen.getByRole("img", {
         name: "Fitness, Personal Development, Gaming Heritage, Seoul",

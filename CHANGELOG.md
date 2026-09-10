@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0.0] - 2026-09-10
+
+### Added
+- Three partnership formats with deliverables, dated organic video examples, and a featured Seoul-series inquiry.
+- Format, timing and budget fields, an email fallback, and anonymous partnership interaction events.
+- A visible portrait and a shorter introduction connecting the creator’s work to partnership opportunities.
+
+### Changed
+- Homepage, navigation and profile context now guide brands through the partnership offers.
+- Audience milestones are labelled as historical; undated demographics and unsupported business totals are removed.
+- Website and Plants now have separate build, lint, type and test checks. The optional Plants deployment runs only when explicitly configured.
+- Next.js, React and compatible dependencies updated to patched versions.
+
+### Fixed
+- The root production build no longer tries to resolve Plants imports with the website alias.
+- Inquiry drafts survive provider failures and format changes; native POST submissions can be corrected and retried without putting personal information in the URL.
+- Actual request-body limits, field bounds, cross-site submission checks and sender timeouts protect the contact endpoint.
+- Channel figures appear in server-rendered content; reduced-motion settings, route-aware hover behavior and list semantics are respected.
+- Partnership and context links include their own social-preview image and URL.
+- Mobile menu closes with Escape and returns keyboard focus.
+- Local Plants builds preserve existing collections; concurrent in-process changes, corrupt files and failed writes no longer silently reset or overwrite collection data.
+
 ## [0.5.2.0] - 2026-06-30
 
 ### Added

@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-
-const MAGNETIC_SELECTOR = "[data-magnetic], .btn";
+import { useDelegatedHover } from "./useDelegatedHover";
 
 function handleMove(this: HTMLElement, e: MouseEvent) {
   const rect = this.getBoundingClientRect();
@@ -11,24 +9,7 @@ function handleMove(this: HTMLElement, e: MouseEvent) {
   this.style.transform = `translate(${dx}px, ${dy}px)`;
 }
 
-function handleLeave(this: HTMLElement) {
-  this.style.transform = "translate(0, 0)";
-}
-
-/** Attaches magnetic hover effect to buttons and data-magnetic elements. */
+/** Follows matching elements across client-side navigation. */
 export function useMagnetic(enabled = true) {
-  useEffect(() => {
-    if (!enabled) return;
-    const elements = document.querySelectorAll<HTMLElement>(MAGNETIC_SELECTOR);
-    elements.forEach((el) => {
-      el.addEventListener("mousemove", handleMove);
-      el.addEventListener("mouseleave", handleLeave);
-    });
-    return () => {
-      elements.forEach((el) => {
-        el.removeEventListener("mousemove", handleMove);
-        el.removeEventListener("mouseleave", handleLeave);
-      });
-    };
-  }, [enabled]);
+  useDelegatedHover("[data-magnetic], .btn", handleMove, enabled);
 }

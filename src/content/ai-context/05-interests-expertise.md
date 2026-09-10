@@ -16,5 +16,5 @@
 - Kardashev-scale thinking, long-horizon progress, and civilization-level questions around energy and technology
 - Piano
 
-## Industry network
-Joachim's network spans publishers like Ubisoft, Activision, Blizzard, Bungie, DICE, and Funcom, along with esports organizations, global agencies, media, Middle Eastern sovereign investment circles, and venture capital.
+## Working relationships
+For a specific past role, client or collaboration, confirm the relationship and date before presenting it as a credential.

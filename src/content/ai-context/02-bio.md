@@ -1,7 +1,5 @@
 # Short Bio
 
-Joachim built one of Norway's biggest gaming YouTube channels, then founded and sold Heroic Group, scaling it to $10 million in revenue with a 10% profit margin while raising $25 million and leading a team of 50. He also published six Minecraft books, produced a monthly magazine that became a national bestseller, and worked with publishers like Ubisoft, Activision, Blizzard, Bungie, and DICE.
+Joachim Haraldsen, known as Noobwork, is a Norwegian creator and founder living in Seoul. He started his YouTube channel in 2013 and built a career across content and company building. He founded Omaken, which acquired Heroic and later became Heroic Group.
 
-He has lived and worked across Oslo, Dubai, Tokyo, and now Seoul. His career spans professional gaming, publishing, executive leadership, and company building. The current chapter is focused on health, fitness, and wellness: daily content through Noobwork, coaching through Team Haraldsen, and product building through DailyBase.
-
-He is not best described as a traditional gaming influencer. He is an operator who creates, and a creator who builds.
+Today his videos follow training, travel, life in Korea and the work of building things. He also works on health and fitness through Team Haraldsen and his product projects. Brands can work with him on sponsored videos, recurring series and content for their own channels.
