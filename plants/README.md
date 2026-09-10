@@ -61,6 +61,8 @@ No GitHub secrets needed. Vercel builds on every push to `main`.
    | `NEXT_PUBLIC_APP_URL` | `https://plants.noobwork.no` |
    | `PLANTS_SEED_DEMO` | `false` |
    | `PLANTS_STORE` | `supabase` (configure durable storage before deployment) |
+   | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+   | `SUPABASE_SERVICE_ROLE_KEY` | Your server-only Supabase service-role key |
    | `RESEND_API_KEY` | Your Resend key (magic-link login) |
    | `OPENAI_API_KEY` | Your OpenAI key (photo analysis) |
 
@@ -106,8 +108,12 @@ On Vercel, set these for durable storage:
 |---|---|
 | `BLOB_READ_WRITE_TOKEN` | Photo uploads via Vercel Blob (auto-provisioned in Vercel dashboard) |
 | `PLANTS_STORE=supabase` | Postgres for plants, logs, analyses — run `supabase/schema.sql` |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL, required for the database store |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only service-role key, required for the database store |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Web Push notifications |
 | `CRON_SECRET` | Protects `/api/cron/reminders` |
+
+Set both Supabase variables as well as `PLANTS_STORE=supabase`. The current store selector falls back to local JSON when either credential is missing.
 
 Generate VAPID keys: `npx web-push generate-vapid-keys`
 

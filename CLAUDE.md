@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the current Seoul fitness chapter: daily content through Noobwork, coaching through Team Haraldsen, and meal planning through DailyBase. Single-page portfolio + Media Kit page. Core content is hardcoded in React components and data files; AI-readable context lives in `src/content/ai-context/` (15 markdown files). It is served as a human page at `/context` and as machine-readable markdown in two tiers: `/llms.txt` is a concise index (built by `buildContextIndex`), while `/llms-full.txt`, `/.well-known/llm.txt`, and `/context/llm.txt` serve the full dump (`buildContextMarkdown`). Volatile figures (subscriber count, total views, videos published) are single-sourced in `src/data/profile-facts.ts` and injected into the markdown via `{{token}}` placeholders at build time, so every surface derives each figure from one source; a build-time guard (`test/context-layer.test.ts`) additionally blocks re-hardcoding the current values (it cannot catch a stale paraphrase, so the token injection — not the guard — is what prevents value drift). Rewrites are in `next.config.ts`.
+Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the current Seoul chapter: Noobwork videos about training, travel and life in Korea, paid creator partnerships, coaching through Team Haraldsen, and nutrition-planning project work through DailyBase. Single-page portfolio + partnership inquiry page at `/media-kit`. Core content is hardcoded in React components and data files; AI-readable context lives in `src/content/ai-context/` (15 markdown files). It is served as a human page at `/context` and as machine-readable markdown in two tiers: `/llms.txt` is a concise index (built by `buildContextIndex`), while `/llms-full.txt`, `/.well-known/llm.txt`, and `/context/llm.txt` serve the full dump (`buildContextMarkdown`). Volatile figures (subscriber count, total views, videos published) are single-sourced in `src/data/profile-facts.ts` and injected into the markdown via `{{token}}` placeholders at build time, so every surface derives each figure from one source; a build-time guard (`test/context-layer.test.ts`) additionally blocks re-hardcoding the current values (it cannot catch a stale paraphrase, so the token injection — not the guard — is what prevents value drift). The content review date is the explicit `PROFILE_CONTENT_REVIEWED_AT` value, independent of build time. Rewrites are in `next.config.ts`.
 
 ## Commands
 
@@ -17,7 +17,7 @@ Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the c
 - `npm test` - Run Vitest test suite
 - `npm run test:watch` - Run Vitest in watch mode
 
-Tests live in `test/`. Uses Vitest + @testing-library/react + jsdom.
+Root tests live in `test/`. Uses Vitest + @testing-library/react + jsdom. The separate `plants/` app has its own dependencies, scripts and tests; run its checks from that directory. CI verifies both apps before its aggregate `test` check succeeds.
 
 ## Tech Stack
 
@@ -29,9 +29,9 @@ Tests live in `test/`. Uses Vitest + @testing-library/react + jsdom.
 
 Single-page portfolio using the Next.js App Router. The app lives in `src/app/`:
 
-- `layout.tsx` - Root layout with NEWAKE (local) + Inter (next/font) fonts, SEO metadata (Open Graph, Twitter Card, canonical URLs)
-- `page.tsx` - Main page: Hero (kinetic poster), SocialProof, ContentReel (real YouTube uploads from `src/data/videos.ts`), About, ContentPillars, Work, PartnerCta, Newsletter, Connect
-- `media-kit/page.tsx` - Dedicated Media Kit page for brand partnerships
+- `layout.tsx` - Root layout with NEWAKE (local) + Inter (next/font) fonts, SEO metadata (Open Graph, Twitter Card, canonical URLs), person JSON-LD and partnership analytics
+- `page.tsx` - Main page: Hero (kinetic poster), SocialProof, ContentReel (YouTube uploads resolved by `src/lib/get-videos.ts`, with a committed fallback in `src/data/videos.ts`), About, ContentPillars, Work, PartnerCta, Newsletter, Connect; video JSON-LD is scoped to this page
+- `media-kit/page.tsx` - Three partnership formats, dated work examples, featured series inquiry and a form supporting query-selected formats and native POST fallback
 - `globals.css` - Tailwind imports and CSS custom properties for the design system
 
 Path alias: `@/*` maps to `./src/*`.
@@ -61,7 +61,7 @@ Responsive via Tailwind `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`). Higgsfield credentials (`HF_CREDENTIALS`) are for local atmosphere regeneration only via `npm run generate:atmosphere`; keep them in `.env.local`, not on Vercel.
+Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`). Inquiry handling and measurement are documented in [partnership operations](docs/partnership-operations.md); profile evidence and update rules are in the [fact review](docs/profile-fact-review.md). Plants uses a separate deployment and storage configuration described in [its README](plants/README.md). Higgsfield credentials (`HF_CREDENTIALS`) are for local atmosphere regeneration only via `npm run generate:atmosphere`; keep them in `.env.local`, not on Vercel.
 
 ## Skill routing
 

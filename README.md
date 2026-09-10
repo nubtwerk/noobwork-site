@@ -36,7 +36,7 @@ Tests mock email delivery. A passing form test proves the request and feedback p
 
 ## Analytics
 
-Vercel Analytics receives only the event names and allowlisted offer/source labels defined in `src/lib/partnership-analytics.ts`. Names, emails, budgets, timing and message contents are excluded. Custom events require a Vercel plan that supports them; verify receipt in the project dashboard before relying on conversion reports. JavaScript-disabled visits do not emit these custom events.
+Custom partnership events send only the event names and allowlisted offer/source labels defined in `src/lib/partnership-analytics.ts` to Vercel Analytics. Names, emails, budgets, timing and message contents are excluded from these custom events. Custom events require a Vercel plan that supports them; verify receipt in the project dashboard before relying on conversion reports. JavaScript-disabled visits do not emit these custom events.
 
 ## Deployment
 

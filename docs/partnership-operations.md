@@ -14,7 +14,7 @@ Keep fees private and quote to scope until real demand and production costs esta
 
 ## Measurement
 
-The site emits `partnership_cta_clicked`, `partnership_offer_selected`, `inquiry_started` and `inquiry_submitted`. These are interaction counts, not unique people or qualified leads. The submitted event means the API accepted delivery through the email provider, not inbox delivery or a booking. Confirm custom-event availability and dashboard receipt on the Vercel account.
+The site emits `partnership_cta_clicked`, `partnership_offer_selected`, `inquiry_started` and `inquiry_submitted`. These are interaction counts, not unique people or qualified leads. The submitted event means the form received an API success response; the spam honeypot also returns success without sending email. The event does not prove provider acceptance, inbox delivery or a booking. Confirm custom-event availability and dashboard receipt on the Vercel account.
 
 Copy `partnership-pipeline-template.csv` to a private CRM or spreadsheet outside this public repository. Maintain one row per opportunity and use stages: New, Qualified, Proposal, Agreed, Paid, Delivered, Renewed, Lost. Never commit real prospect names, contact details, budgets or contracts here.
 
