@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Noobwork
 
-## Getting Started
+Joachim Haraldsen’s creator website and partnership inquiry page, built with Next.js 16, React 19 and TypeScript. The existing Newake / Inter typography and colour system are documented in `DESIGN.md`.
 
-First, run the development server:
+## Local development and verification
 
-```bash
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The root website and `plants/` are independent Next.js applications with separate dependencies, TypeScript aliases and builds. Root tooling excludes Plants; GitHub Actions checks both applications separately before its aggregate `test` check succeeds. Run the same commands inside `plants/` when changing that application.
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+The website prebuild refreshes its YouTube feed, keeping the committed fallback if YouTube is unavailable. It does not refresh the manually reviewed partnership examples or factual review date.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to load Inter (body text) and the local NEWAKE display font from `src/fonts/`. See `DESIGN.md` for the full brand guidelines and `CLAUDE.md` for project conventions and commands.
+## Partnership content
 
-## Learn More
+- `src/data/partnerships.ts`: the three inquiry formats and dated organic work examples.
+- `src/data/profile-facts.ts`: shared profile milestones and explicit content review date.
+- `src/content/ai-context/`: the same positioning in machine-readable profile content.
+- `docs/profile-fact-review.md`: evidence, limitations and review checklist.
+- `docs/partnership-operations.md`: qualification, proposals, reporting and measurement.
 
-To learn more about Next.js, take a look at the following resources:
+## Contact form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy `.env.example` to `.env.local`. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and a verified `CONTACT_FROM_EMAIL` in the deployment environment. An unconfigured sender produces a visible error and email fallback. Never commit credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The form supports JavaScript and native POST submissions. Native errors render the escaped draft in a non-cacheable response so it can be corrected or retried; success uses a redirect containing only a result code. The API caps the actual streamed body at 64 KB, validates field sizes and rejects cross-site browser submissions. Its in-memory rate limit is per server instance, so use edge rate limiting if production traffic requires a global limit.
 
-## Deploy on Vercel
+Tests mock email delivery. A passing form test proves the request and feedback paths, not provider or inbox delivery. Do not submit live test inquiries without explicit authorization to send a message.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Analytics
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Custom partnership events send only the event names and allowlisted offer/source labels defined in `src/lib/partnership-analytics.ts` to Vercel Analytics. Names, emails, budgets, timing and message contents are excluded from these custom events. Custom events require a Vercel plan that supports them; verify receipt in the project dashboard before relying on conversion reports. JavaScript-disabled visits do not emit these custom events.
+
+## Deployment
+
+The root website uses Vercel Git integration. Verify the deployment commit and custom-domain alias after release, as a failed latest deployment can leave the previous successful version live. Plants deployment is a separate opt-in workflow documented in `plants/README.md`.

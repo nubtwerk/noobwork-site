@@ -1,13 +1,13 @@
 import fs from "fs/promises";
 import path from "path";
 import { contextFiles, type ContextFileEntry } from "@/content/ai-context/manifest";
-import { contextTokens } from "@/data/profile-facts";
+import { contextTokens, PROFILE_CONTENT_REVIEWED_AT } from "@/data/profile-facts";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/ai-context");
 const SITE = "https://www.noobwork.no";
 
-/** Evaluated once per production build; content only changes via deploys. */
-export const CONTEXT_LAST_UPDATED = new Date().toISOString().slice(0, 10);
+/** An editorial review date, deliberately independent of build/module time. */
+export const CONTEXT_LAST_UPDATED = PROFILE_CONTENT_REVIEWED_AT;
 
 export interface ContextSection {
   id: string;
@@ -87,9 +87,10 @@ export async function buildContextIndex(): Promise<string> {
     [
       "# Noobwork — Joachim Haraldsen",
       "",
-      "> Norwegian founder, operator, and content creator based in Seoul. Built and",
-      "> exited Heroic Group; now rebuilding Noobwork around fitness, health, and the",
-      "> discipline of building. This is the self-authored, AI-readable context layer.",
+      "> Norwegian creator, founder and operator based in Seoul. Joachim has",
+      "> worked across content and esports; now creating from Seoul around training,",
+      "> travel and building things. Paid creator partnerships are welcome.",
+      "> This is the self-authored, AI-readable context layer.",
       "",
       `> Last updated: ${CONTEXT_LAST_UPDATED}`,
       "",

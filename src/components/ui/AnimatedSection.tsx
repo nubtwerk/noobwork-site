@@ -8,17 +8,20 @@ interface AnimatedSectionProps {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  as?: "div" | "li";
 }
 
-export default function AnimatedSection({ children, delay = 0, className }: AnimatedSectionProps) {
+export default function AnimatedSection({ children, delay = 0, className, as = "div" }: AnimatedSectionProps) {
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+    const Element = as;
+    return <Element className={className}>{children}</Element>;
   }
 
+  const MotionElement = as === "li" ? motion.li : motion.div;
   return (
-    <motion.div
+    <MotionElement
       initial={{ opacity: 0, y: 28, filter: "blur(5px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: ANIMATION_VIEWPORT_MARGIN }}
@@ -26,6 +29,6 @@ export default function AnimatedSection({ children, delay = 0, className }: Anim
       className={className}
     >
       {children}
-    </motion.div>
+    </MotionElement>
   );
 }

@@ -3,7 +3,7 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { useMarqueePause } from "@/hooks/useMarqueePause";
 
-const brands = ["Forbes", "YouTube", "Heroic", "Blast.tv", "Team Haraldsen", "DailyBase"];
+const brands = ["Creator · Noobwork", "Featured · Forbes", "Founded · Omaken", "Founder · Team Haraldsen"];
 
 export default function SocialProof() {
   const trackRef = useMarqueePause<HTMLDivElement>();
@@ -20,7 +20,7 @@ export default function SocialProof() {
       <div className="shell-inner">
         <AnimatedSection>
           <div className="social-proof">
-            <p className="social-proof__eyebrow">Featured In &amp; Associated With</p>
+            <p className="social-proof__eyebrow">Across content, companies &amp; press</p>
           </div>
         </AnimatedSection>
       </div>

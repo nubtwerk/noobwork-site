@@ -1,8 +1,8 @@
 import { FocusItem } from "@/types";
 
 export const focusItems: FocusItem[] = [
-  { label: "Daily content across YouTube and social, documenting the fitness grind" },
+  { label: "Videos about training, travel and life in Seoul" },
+  { label: "Paid content and series partnerships" },
   { label: "Team Haraldsen, my health and fitness coaching community" },
-  { label: "DailyBase, meal planning without the overwhelm" },
-  { label: "Building toward an AI-native platform for personalized wellness" },
+  { label: "Product work in health and nutrition" },
 ];

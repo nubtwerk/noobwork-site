@@ -2,7 +2,7 @@ import Link from "next/link";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
 import { mediaKitStats } from "@/data/stats";
-import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF } from "@/lib/constants";
 
 export default function PartnerCta() {
   return (
@@ -27,14 +27,14 @@ export default function PartnerCta() {
         <div className="partner-grid">
           <AnimatedSection delay={0.12} className="partner-pitch">
             <p className="partner-pitch__copy">
-              Sponsored content, ambassadorships, events, and consulting. One
-              engaged Nordic audience across fitness, lifestyle, and tech,
-              reached daily from Seoul. Share campaign details on the inquiry
-              form and Joachim will reply by email.
+              A sponsored video, a recurring series, or content for your own channels.
+              I work with brands that belong in my content, from training and
+              everyday tech to travel and life in Korea. Explore the formats
+              and recent work, then send me your idea.
             </p>
             <div className="hero-actions">
-              <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--primary" data-magnetic>
-                Partner With Me
+              <Link href={MEDIA_KIT_HREF} data-partnership-source="homepage-partner" className="btn btn--primary" data-magnetic>
+                Explore partnerships
               </Link>
             </div>
           </AnimatedSection>

@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { profileFacts } from "@/data/profile-facts";
-import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF } from "@/lib/constants";
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -94,9 +94,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT_EXPO }}
           >
-            After years building companies, I&apos;m back to creating. The fitness
-            grind, the founder lessons, and the next chapter, documented daily
-            from Seoul.
+            I&apos;m Joachim, a Norwegian creator and founder living in Seoul.
+            I make videos about training, life abroad, and the things
+            I&apos;m building along the way.
           </motion.p>
           <motion.div
             className="hero-actions"
@@ -104,11 +104,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55, ease: EASE_OUT_EXPO }}
           >
-            <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--sand" data-magnetic>
-              Partner With Me
+            <Link href={MEDIA_KIT_HREF} data-partnership-source="hero" className="btn btn--sand" data-magnetic>
+              Explore partnerships
             </Link>
             <Link href="/#reel" className="btn btn--tertiary" data-magnetic>
-              Watch the Latest
+              Watch my work
             </Link>
           </motion.div>
         </div>
@@ -121,9 +121,9 @@ export default function Hero() {
         >
           {[
             { value: profileFacts.subscribers.short, label: "Subscribers" },
-            { value: profileFacts.totalViews.short, label: "Video views" },
+            { value: profileFacts.totalViews.short, label: "Lifetime views" },
             { value: "Forbes", label: "Featured" },
-            { value: "13 yrs", label: "Creating" },
+            { value: "2013", label: "On YouTube since" },
           ].map((stat) => (
             <div key={stat.label} className="poster-hero__stat">
               <dt className="poster-hero__stat-label">{stat.label}</dt>

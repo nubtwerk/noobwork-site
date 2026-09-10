@@ -8,7 +8,7 @@ const pillars: Array<{
 }> = [
   {
     title: "Fitness & Wellness",
-    desc: "Training, nutrition, and the daily routines behind the grind, documented honestly from Seoul.",
+    desc: "Training, nutrition, and the routines that make them part of everyday life in Seoul.",
     tone: "green",
   },
   {

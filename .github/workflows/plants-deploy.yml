@@ -2,6 +2,7 @@ name: Deploy Plants
 
 # Optional CI deploy — the easiest path is Vercel Git integration (see plants/README.md).
 # Requires GitHub secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PLANTS_PROJECT_ID
+# Enable explicitly with the PLANTS_ACTIONS_DEPLOY_ENABLED repository variable.
 
 on:
   push:
@@ -19,7 +20,27 @@ permissions:
   contents: read
 
 jobs:
+  verify:
+    if: vars.PLANTS_ACTIONS_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plants
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: plants/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
   deploy:
+    if: vars.PLANTS_ACTIONS_DEPLOY_ENABLED == 'true'
+    needs: verify
     runs-on: ubuntu-latest
     defaults:
       run:

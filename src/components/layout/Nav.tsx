@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Logo from "@/components/ui/Logo";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { MEDIA_KIT_INQUIRY_HREF, NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
+import { MEDIA_KIT_HREF, NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -19,6 +19,17 @@ export default function Nav() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuToggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setIsMobileMenuOpen(false);
+      menuToggle.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > NAV_SCROLL_THRESHOLD);
@@ -38,7 +49,7 @@ export default function Nav() {
           onClick={(e) => {
             if (window.location.pathname === "/") {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
             }
           }}
           className="nav-brand"
@@ -53,15 +64,17 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href={MEDIA_KIT_INQUIRY_HREF}
+            href={MEDIA_KIT_HREF} data-partnership-source="navigation"
             className={`btn btn--tertiary${isMediaKit ? " nav-cta--active" : ""}`}
             aria-current={isMediaKit ? "page" : undefined}
           >
-            Partner With Me
+            Explore partnerships
           </Link>
         </div>
         <button
+          ref={menuToggle}
           type="button"
+          aria-controls="mobile-navigation"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
           className={`nav-hamburger ${scrolled ? "nav-hamburger--scrolled" : ""}`}
@@ -84,7 +97,7 @@ export default function Nav() {
         </button>
       </div>
       {isMobileMenuOpen && (
-        <div className="nav-mobile-dropdown">
+        <div id="mobile-navigation" className="nav-mobile-dropdown">
           <div className="nav-mobile-dropdown__panel">
             {NAV_SECTIONS.map((link) => (
               <Link
@@ -97,12 +110,12 @@ export default function Nav() {
               </Link>
             ))}
             <Link
-              href={MEDIA_KIT_INQUIRY_HREF}
+              href={MEDIA_KIT_HREF} data-partnership-source="navigation"
               className={`nav-mobile-dropdown__link${isMediaKit ? " nav-mobile-dropdown__link--active" : ""}`}
               aria-current={isMediaKit ? "page" : undefined}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Partner With Me
+              Explore partnerships
             </Link>
           </div>
         </div>

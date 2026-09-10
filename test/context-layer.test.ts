@@ -106,7 +106,7 @@ describe("buildContextIndex (concise index)", () => {
 
   it("is a map, not a copy: it omits the section body text", async () => {
     // A sentence that only appears inside a section body, never in the index.
-    const bodyMarker = "founded and sold Heroic Group";
+    const bodyMarker = "Omaken acquired Heroic and later became Heroic Group";
     const [idx, full] = await Promise.all([
       buildContextIndex(),
       buildContextMarkdown(),

@@ -6,12 +6,14 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import { loadContextSections, CONTEXT_LAST_UPDATED } from "@/lib/load-context";
 import { renderMarkdown } from "@/lib/render-markdown";
 import CopyContextButton from "./CopyContextButton";
-import { MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF } from "@/lib/constants";
+import { socialMetadata } from "@/lib/site-metadata";
 
 export const metadata: Metadata = {
-  title: "AI Context - Noobwork | Joachim Haraldsen",
+  title: "AI Context",
+  ...socialMetadata("AI Context | Noobwork", "A self-authored profile of Joachim Haraldsen: current work, creator partnerships and dated sources.", "/context"),
   description:
-    "The source-of-truth context page for Joachim Haraldsen and Noobwork, built for AI systems, researchers, recruiters, and collaborators who need the accurate version.",
+    "A self-authored profile of Joachim Haraldsen, with current work, creator partnerships and dated sources.",
   alternates: {
     canonical: "https://www.noobwork.no/context",
   },
@@ -33,9 +35,9 @@ export default async function ContextPage() {
                   <span>Context</span>
                 </h1>
                 <p className="context-copy context-copy--lead">
-                  The source-of-truth page for anyone trying to understand Joachim Haraldsen and
-                  Noobwork properly. Built for AI systems, recruiters, researchers, and
-                  collaborators who need the accurate version before anything gets written or sent.
+                  A self-authored profile of Joachim Haraldsen and Noobwork. Current work,
+                  partnership opportunities and dated sources for collaborators, researchers
+                  and AI systems.
                 </p>
                 <div className="context-hero__actions">
                   <a href="/context/llm.txt" className="context-link">
@@ -44,7 +46,7 @@ export default async function ContextPage() {
                   <span className="hidden sm:inline text-foreground/30">|</span>
                   <CopyContextButton />
                 </div>
-                <p className="context-meta">Last updated: {CONTEXT_LAST_UPDATED}</p>
+                <p className="context-meta">Content reviewed: {CONTEXT_LAST_UPDATED}</p>
               </div>
             </AnimatedSection>
           </div>
@@ -86,8 +88,8 @@ export default async function ContextPage() {
                   <a href="/context/llm.txt" className="btn btn--secondary">
                     View llm.txt
                   </a>
-                  <Link href={MEDIA_KIT_INQUIRY_HREF} className="btn btn--secondary">
-                    Partner With Me
+                  <Link href={MEDIA_KIT_HREF} className="btn btn--secondary" data-partnership-source="context">
+                    Explore partnerships
                   </Link>
                 </div>
               </div>

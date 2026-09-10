@@ -3,34 +3,34 @@ import { render, screen } from "@testing-library/react";
 import MediaKit from "@/app/media-kit/page";
 import { mediaKitStats } from "@/data/stats";
 
-describe("MediaKit page", () => {
-  it("renders the cinematic hero heading", () => {
-    render(<MediaKit />);
+describe("MediaKit page", async () => {
+  it("renders the cinematic hero heading", async () => {
+    render(await MediaKit());
     expect(
       screen.getByRole("heading", { level: 1, name: "Work with Noobwork" })
     ).toBeInTheDocument();
     expect(screen.getByText("Partnerships")).toBeInTheDocument();
   });
 
-  it("renders media kit stats", () => {
-    render(<MediaKit />);
+  it("renders media kit stats", async () => {
+    render(await MediaKit());
     mediaKitStats.forEach((stat) => {
       expect(screen.getByText(stat.label)).toBeInTheDocument();
     });
   });
 
-  it("renders the partnership contact form", () => {
-    render(<MediaKit />);
+  it("renders the partnership contact form", async () => {
+    render(await MediaKit());
     expect(screen.getByLabelText("Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
     expect(screen.getByLabelText(/Company \/ Brand/)).toBeInTheDocument();
     expect(screen.getByLabelText("Message")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Send inquiry" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Send partnership inquiry" })).toBeInTheDocument();
     expect(document.getElementById("inquiry")).toBeInTheDocument();
   });
 
-  it("links back to the homepage", () => {
-    render(<MediaKit />);
+  it("links back to the homepage", async () => {
+    render(await MediaKit());
     const back = screen.getByText("← Back to home").closest("a");
     expect(back).toHaveAttribute("href", "/");
   });
