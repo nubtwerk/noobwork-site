@@ -59,15 +59,15 @@ No GitHub secrets needed. Vercel builds on every push to `main`.
    | `AUTH_SECRET` | Random 32+ char string (`openssl rand -hex 32`) |
    | `ADMIN_EMAIL` | `joachim@noobwork.no` |
    | `NEXT_PUBLIC_APP_URL` | `https://plants.noobwork.no` |
-   | `PLANTS_SEED_DEMO` | `true` |
-   | `PLANTS_STORE` | `local` |
+   | `PLANTS_SEED_DEMO` | `false` |
+   | `PLANTS_STORE` | `supabase` (configure durable storage before deployment) |
    | `RESEND_API_KEY` | Your Resend key (magic-link login) |
    | `OPENAI_API_KEY` | Your OpenAI key (photo analysis) |
 
 5. **Deploy** → then **Settings → Domains** → add `plants.noobwork.no`
 6. DNS: CNAME `plants` → `cname.vercel-dns.com` (or value Vercel shows)
 
-Demo plants seed automatically on first deploy (`PLANTS_SEED_DEMO=true`).
+Configure durable database and photo storage before deploying a writable collection. Local JSON storage is for a single Node process on a persistent local disk; Vercel function filesystems do not provide persistent application storage. See Production persistence below.
 
 ### Option B — GitHub Actions (optional)
 
@@ -77,18 +77,11 @@ If you prefer CI deploys, add these [GitHub repo secrets](https://github.com/nub
 - `VERCEL_ORG_ID` — Vercel team/project settings → General
 - `VERCEL_PLANTS_PROJECT_ID` — same page, Project ID
 
-Then run **Actions → Deploy Plants**, or push a change under `plants/`.
+Set the repository variable `PLANTS_ACTIONS_DEPLOY_ENABLED=true` only after these secrets and durable storage are configured. Then run **Actions → Deploy Plants**, or push a change under `plants/`. The workflow verifies lint, types, tests and build before deployment; ordinary repository CI verifies Plants even when this optional deployment is disabled.
 
-### Cursor / Cloud Agent Vercel access
+## Local collection integrity
 
-The Vercel MCP server is **not authenticated** in this cloud agent environment, so the agent cannot create projects or set env vars for you automatically.
-
-To give **Cursor on your machine** Vercel access:
-
-1. **Cursor Settings → MCP → Vercel** → connect / sign in
-2. Re-run deploy tasks from the desktop agent
-
-Until then, use Option A in the Vercel dashboard.
+Build-time demo seeding creates a missing store only; it never replaces an existing collection. A deliberately empty store stays empty, and read/parse errors are reported without silently resetting the file. In-process transactions are serialized and written through an atomic rename. This does not coordinate multiple processes or machines; use durable database storage for that environment. Back up `.plants-data/` before moving an existing local installation.
 
 ## Features
 
