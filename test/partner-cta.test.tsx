@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import PartnerCta from "@/components/sections/PartnerCta";
 import { mediaKitStats } from "@/data/stats";
-import { MEDIA_KIT_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 describe("PartnerCta", () => {
   it("renders the brands chapter heading", () => {
@@ -12,10 +12,10 @@ describe("PartnerCta", () => {
     expect(screen.getByLabelText("with me.")).toBeInTheDocument();
   });
 
-  it("links to the partnership offers and evidence", () => {
+  it("links explore and send CTAs to the media kit", () => {
     render(<PartnerCta />);
-    const link = screen.getByText("Explore partnerships").closest("a");
-    expect(link).toHaveAttribute("href", MEDIA_KIT_HREF);
+    expect(screen.getByText("Explore partnerships").closest("a")).toHaveAttribute("href", MEDIA_KIT_HREF);
+    expect(screen.getByText("Send a brief").closest("a")).toHaveAttribute("href", MEDIA_KIT_INQUIRY_HREF);
   });
 
   it("does not render a separate mailto button", () => {

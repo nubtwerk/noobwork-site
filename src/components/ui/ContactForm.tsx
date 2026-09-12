@@ -64,8 +64,11 @@ export default function ContactForm({ initialOffer = "", feedback }: { initialOf
       <div className="contact-form__success" role="status">
         <p className="contact-form__success-title">Message sent.</p>
         <p className="contact-form__success-copy">
-          Thanks for reaching out — Joachim will get back to you at the email
-          you provided.
+          Thanks for reaching out — Joachim will reply to the email you
+          provided, usually within a few business days. Prefer email?{" "}
+          <a href="mailto:joachim@noobwork.no" data-partnership-source="email">
+            joachim@noobwork.no
+          </a>
         </p>
         <a
           href="/media-kit#inquiry"

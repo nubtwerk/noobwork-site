@@ -38,6 +38,11 @@ describe("ContactForm", () => {
     await waitFor(() => {
       expect(screen.getByText("Message sent.")).toBeInTheDocument();
     });
+    expect(screen.getByText(/usually within a few business days/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "joachim@noobwork.no" })).toHaveAttribute(
+      "href",
+      "mailto:joachim@noobwork.no"
+    );
     expect(fetch).toHaveBeenCalledWith(
       "/api/contact",
       expect.objectContaining({ method: "POST" })
