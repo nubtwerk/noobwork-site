@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { socialLinks } from "@/data/social-links";
+import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 export default function Connect() {
   return (
@@ -14,7 +16,15 @@ export default function Connect() {
             <p className="chapter-head__note">
               Find me across the internet, or reach out directly. If you&apos;re
               a young founder building something real, I&apos;m always happy to
-              connect.
+              connect. Brands —{" "}
+              <Link href={MEDIA_KIT_HREF} data-partnership-source="connect">
+                explore the media kit
+              </Link>{" "}
+              or{" "}
+              <Link href={MEDIA_KIT_INQUIRY_HREF} data-partnership-source="connect">
+                send a brief
+              </Link>
+              .
             </p>
           </div>
         </AnimatedSection>

@@ -8,6 +8,7 @@ import AtmosphereBackdrop from "@/components/ui/AtmosphereBackdrop";
 import ContactForm from "@/components/ui/ContactForm";
 import RevealText from "@/components/ui/RevealText";
 import CountUp from "@/components/ui/CountUp";
+import ScrollToHash from "@/components/ui/ScrollToHash";
 import { mediaKitStats } from "@/data/stats";
 import { partnershipProcess } from "@/data/media-kit";
 import { isPartnershipOffer, partnershipOffers, selectedWork, workViewsObservedAt, workViewsSource } from "@/data/partnerships";
@@ -21,6 +22,15 @@ export const metadata: Metadata = {
   ...socialMetadata("Partnerships | Noobwork", description, "/media-kit"),
 };
 
+function formatUtcDay(isoDate: string): string {
+  return new Date(`${isoDate}T12:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 type Query = Record<string, string | string[] | undefined>;
 export default async function MediaKit({ searchParams }: { searchParams?: Promise<Query> } = {}) {
   const query = await searchParams ?? {};
@@ -30,6 +40,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
   return (
     <div className="site-shell">
       <Nav />
+      <ScrollToHash id="inquiry" trigger={`${offer}|${feedback ?? ""}`} force={Boolean(feedback)} />
       <main id="main-content" className="site-main media-kit">
         <section className="site-section mk-hero">
           <AtmosphereBackdrop imagePosition="center 42%" priority />
@@ -105,7 +116,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                 </AnimatedSection>
               ))}
             </div>
-            <p className="mk-evidence-note">Lifetime views for these videos, checked <time dateTime={workViewsObservedAt}>10 September 2026</time>. <a href={workViewsSource}>Public YouTube source</a>. Individual examples do not predict a new campaign&apos;s reach.</p>
+            <p className="mk-evidence-note">Lifetime views for these videos, checked <time dateTime={workViewsObservedAt}>{formatUtcDay(workViewsObservedAt)}</time>. <a href={workViewsSource}>Public YouTube source</a>. Individual examples do not predict a new campaign&apos;s reach.</p>
           </section>
 
           <section id="offers" className="mk-editorial mk-anchor">

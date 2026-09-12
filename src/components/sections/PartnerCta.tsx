@@ -2,7 +2,7 @@ import Link from "next/link";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
 import { mediaKitStats } from "@/data/stats";
-import { MEDIA_KIT_HREF } from "@/lib/constants";
+import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 export default function PartnerCta() {
   return (
@@ -35,6 +35,9 @@ export default function PartnerCta() {
             <div className="hero-actions">
               <Link href={MEDIA_KIT_HREF} data-partnership-source="homepage-partner" className="btn btn--primary" data-magnetic>
                 Explore partnerships
+              </Link>
+              <Link href={MEDIA_KIT_INQUIRY_HREF} data-partnership-source="homepage-partner" className="btn btn--tertiary" data-magnetic>
+                Send a brief
               </Link>
             </div>
           </AnimatedSection>

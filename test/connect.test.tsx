@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Connect from "@/components/sections/Connect";
+import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 describe("Connect", () => {
   it("renders all social links", () => {
@@ -24,5 +25,18 @@ describe("Connect", () => {
   it("has the connect section id", () => {
     const { container } = render(<Connect />);
     expect(container.querySelector("#connect")).toBeInTheDocument();
+  });
+
+  it("keeps founder tone and adds a short brand partnership line", () => {
+    render(<Connect />);
+    expect(screen.getByText(/young founder building something real/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "explore the media kit" })).toHaveAttribute(
+      "href",
+      MEDIA_KIT_HREF
+    );
+    expect(screen.getByRole("link", { name: "send a brief" })).toHaveAttribute(
+      "href",
+      MEDIA_KIT_INQUIRY_HREF
+    );
   });
 });
