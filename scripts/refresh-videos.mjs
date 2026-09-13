@@ -6,8 +6,11 @@
  *
  * Rules:
  *  - ZERO new npm dependencies (plain Node >= 18, global fetch).
- *  - Exits 0 always. Network failure or parse error leaves the existing
- *    json untouched so the build falls back to the pinned snapshot.
+ *  - Default (prebuild): exits 0 always. Network failure or parse error
+ *    leaves the existing json untouched so the build falls back to the
+ *    pinned snapshot.
+ *  - Strict (`--strict` or REFRESH_VIDEOS_STRICT=1): exits non-zero on
+ *    refresh failure so the daily scheduled Action surfaces the problem.
  *  - Shorts are detected by HEAD-requesting https://www.youtube.com/shorts/<id>;
  *    a 200 means Short, a 3xx means regular video. Any other status is
  *    ambiguous and throws, so the entry is skipped conservatively.
@@ -15,7 +18,7 @@
  * Feed: https://www.youtube.com/feeds/videos.xml?channel_id=UCv1Jgx1bL0SCB8ofJW5-nqQ
  */
 
-import { readFileSync, writeFileSync } from "fs";
+import { appendFileSync, readFileSync, writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -166,6 +169,52 @@ export function toVideoItem(e) {
 }
 
 /**
+ * Strict mode fails the process on refresh errors (scheduled Action).
+ * Default mode keeps prebuild/Vercel builds non-fatal.
+ * @param {string[]} [argv]
+ * @param {NodeJS.ProcessEnv | Record<string, string | undefined>} [env]
+ */
+export function isStrictMode(argv = process.argv, env = process.env) {
+  return (
+    argv.includes("--strict") ||
+    env.REFRESH_VIDEOS_STRICT === "1" ||
+    env.REFRESH_VIDEOS_STRICT === "true"
+  );
+}
+
+/** Emit a GitHub Actions annotation when running inside Actions. */
+export function emitGithubAnnotation(level, message, title = "YouTube video refresh") {
+  if (!process.env.GITHUB_ACTIONS) return;
+  const safe = String(message).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+  const safeTitle = String(title).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+  console.error(`::${level} title=${safeTitle}::${safe}`);
+}
+
+/** Append a short Markdown block to the Actions job summary when available. */
+export function appendJobSummary(markdown) {
+  const summaryPath = process.env.GITHUB_STEP_SUMMARY;
+  if (!summaryPath) return;
+  try {
+    appendFileSync(summaryPath, `${markdown}\n`);
+  } catch {
+    // Summary is best-effort; never break the refresh over a write failure.
+  }
+}
+
+/**
+ * Report a soft or hard refresh failure. Returns the exit code that callers
+ * should use (1 in strict mode, 0 otherwise).
+ */
+export function reportRefreshFailure(message, { strict = false } = {}) {
+  console.error(`refresh-videos: ${message}`);
+  emitGithubAnnotation(strict ? "error" : "warning", message);
+  appendJobSummary(
+    `### Video refresh ${strict ? "failed" : "degraded"}\n\n${message}\n`
+  );
+  return strict ? 1 : 0;
+}
+
+/**
  * Shared feed -> { featured, recent } selection used by BOTH the build script
  * (main, below) and the runtime resolver (src/lib/get-videos.ts), so the two
  * paths can never diverge. Classifies Shorts (skipping anything ambiguous),
@@ -226,6 +275,7 @@ if (isMain) {
 }
 
 async function main() {
+  const strict = isStrictMode();
   try {
     // 1. Fetch the feed; the 10s budget covers headers AND body.
     const feedXml = await fetchTextWithTimeout(FEED_URL, 10_000);
@@ -235,10 +285,11 @@ async function main() {
     const entries = parseFeed(feedXml);
     const selected = await selectLatestVideos(entries);
     if (!selected) {
-      console.error(
-        "refresh-videos: feed did not yield 2+ long-form videos with 2+ recent — aborting, keeping existing json"
+      const code = reportRefreshFailure(
+        "feed did not yield 2+ long-form videos with 2+ recent — aborting, keeping existing json",
+        { strict }
       );
-      process.exit(0);
+      process.exit(code);
     }
     const { featured, recent } = selected;
 
@@ -274,6 +325,9 @@ async function main() {
       const existing = JSON.parse(readFileSync(OUTPUT_PATH, "utf8"));
       if (isSameVideoContent(existing, output)) {
         console.log("refresh-videos: feed content unchanged — skipping write");
+        appendJobSummary(
+          "### Video refresh ok\n\nFeed content unchanged; kept existing `videos.generated.json`.\n"
+        );
         return;
       }
     } catch {
@@ -284,9 +338,15 @@ async function main() {
     console.log(
       `refresh-videos: wrote ${OUTPUT_PATH} (featured=${output.featured.id}, recent=${output.recent.length})`
     );
+    appendJobSummary(
+      `### Video refresh wrote snapshot\n\n- Featured: \`${output.featured.id}\` — ${output.featured.title}\n- Recent: ${output.recent.length}\n- generatedAt: \`${output.generatedAt}\`\n`
+    );
   } catch (err) {
-    console.error(`refresh-videos: unexpected error — ${err.message}`);
-    // Do NOT touch the existing json. Exit 0 so the build never fails.
-    process.exit(0);
+    const detail = err instanceof Error ? err.message : String(err);
+    const code = reportRefreshFailure(`unexpected error — ${detail}`, {
+      strict,
+    });
+    // Do NOT touch the existing json.
+    process.exit(code);
   }
 }

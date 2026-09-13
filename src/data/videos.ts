@@ -23,6 +23,21 @@ export interface VideoItem {
 
 import generated from "./videos.generated.json";
 
+type GeneratedSnapshot = {
+  generatedAt?: string;
+  featured?: unknown;
+  recent?: unknown;
+};
+
+const generatedSnapshot = generated as GeneratedSnapshot;
+
+/** ISO timestamp from the last successful snapshot write, when present. */
+export const videosGeneratedAt: string | null =
+  typeof generatedSnapshot.generatedAt === "string" &&
+  generatedSnapshot.generatedAt.length > 0
+    ? generatedSnapshot.generatedAt
+    : null;
+
 // ---------------------------------------------------------------------------
 // Validation
 // ---------------------------------------------------------------------------
@@ -84,15 +99,15 @@ const fallbackRecent: VideoItem[] = [
 // Exported values: prefer generated, fall back to pinned
 // ---------------------------------------------------------------------------
 
-export const featuredVideo: VideoItem = isValid(generated?.featured)
-  ? generated.featured
+export const featuredVideo: VideoItem = isValid(generatedSnapshot.featured)
+  ? generatedSnapshot.featured
   : fallbackFeatured;
 
 const selectedRecent: VideoItem[] =
-  Array.isArray(generated?.recent) &&
-  generated.recent.length >= 2 &&
-  generated.recent.every(isValid)
-    ? generated.recent
+  Array.isArray(generatedSnapshot.recent) &&
+  generatedSnapshot.recent.length >= 2 &&
+  generatedSnapshot.recent.every(isValid)
+    ? generatedSnapshot.recent
     : fallbackRecent;
 
 // featuredVideo and selectedRecent are chosen independently, so the fallback

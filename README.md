@@ -29,7 +29,7 @@ Playwright starts `npm run start` against the production build. With a server al
 
 The root website and `plants/` are independent Next.js applications with separate dependencies, TypeScript aliases and builds. Root tooling excludes Plants; GitHub Actions checks both applications separately (plus root Playwright E2E) before its aggregate `test` check succeeds. Run the same commands inside `plants/` when changing that application.
 
-The website prebuild refreshes its YouTube feed, keeping the committed fallback if YouTube is unavailable. It does not refresh the manually reviewed partnership examples or factual review date.
+The website prebuild refreshes its YouTube feed, keeping the committed fallback if YouTube is unavailable. A daily GitHub Action runs the same refresh in **strict** mode and opens a PR when `src/data/videos.generated.json` changes (see [docs/video-feed-refresh.md](docs/video-feed-refresh.md)). It does not refresh the manually reviewed partnership examples or factual review date.
 
 ## Partnership content
 

@@ -10,6 +10,7 @@ Premium creator brand website for Joachim Haraldsen (noobwork.no), telling the c
 
 - `npm run dev` - Start Next.js development server
 - `npm run build` - Production build (the `prebuild` hook first refreshes `src/data/videos.generated.json` from the YouTube channel feed via `scripts/refresh-videos.mjs`; offline failures are non-fatal and fall back to the pinned list in `src/data/videos.ts`)
+- `npm run refresh:videos` - Same feed refresh; add `-- --strict` for non-zero exit on failure (used by `.github/workflows/refresh-videos.yml`, which also opens a PR when the snapshot changes — see `docs/video-feed-refresh.md`)
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 - `npm run typecheck` - TypeScript check (`tsc --noEmit`); CI gates every push/PR on lint + typecheck + build + test
