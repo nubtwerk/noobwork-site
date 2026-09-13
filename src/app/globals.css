@@ -916,6 +916,22 @@ body {
     border-bottom: 1px solid rgba(46, 29, 35, 0.08);
   }
 
+  .mk-reach-section {
+    border-bottom: 1px solid rgba(46, 29, 35, 0.08);
+  }
+
+  .mk-reach-head {
+    margin-bottom: 0.75rem;
+  }
+
+  .mk-reach-stats {
+    margin-top: 0.25rem;
+  }
+
+  .mk-reach-value {
+    font-variant-numeric: tabular-nums;
+  }
+
   .mk-stats {
     margin: 0;
   }

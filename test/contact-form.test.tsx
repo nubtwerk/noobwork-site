@@ -1,10 +1,16 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
 import ContactForm from "@/components/ui/ContactForm";
+import { trackPartnership } from "@/lib/partnership-analytics";
+
+vi.mock("@/lib/partnership-analytics", () => ({
+  trackPartnership: vi.fn(),
+}));
 
 describe("ContactForm", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn());
+    vi.mocked(trackPartnership).mockReset();
   });
 
   afterEach(() => {
@@ -117,5 +123,33 @@ describe("ContactForm", () => {
     await waitFor(() => {
       expect(screen.getByRole("alert")).toHaveTextContent("Please enter a valid email.");
     });
+    expect(trackPartnership).toHaveBeenCalledWith("inquiry_failed", { offer: "" });
+  });
+
+  it("tracks rate limits separately and includes UTM context in the request body only", async () => {
+    vi.mocked(fetch).mockResolvedValue(
+      new Response(JSON.stringify({ error: "Too many requests." }), { status: 429 }),
+    );
+
+    render(
+      <ContactForm
+        initialOffer="video"
+        initialAttribution={{ utm_source: "newsletter", ref: "deck" }}
+      />,
+    );
+    expect(document.querySelector('input[name="utm_source"]')).toHaveValue("newsletter");
+    fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Alex Brand" } });
+    fireEvent.change(screen.getByLabelText("Email"), { target: { value: "alex@brand.no" } });
+    fireEvent.change(screen.getByLabelText("Message"), {
+      target: { value: "We would love to explore a Q3 campaign across YouTube and IG." },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Send partnership inquiry" }));
+
+    await waitFor(() => {
+      expect(trackPartnership).toHaveBeenCalledWith("inquiry_rate_limited", { offer: "video" });
+    });
+    const body = JSON.parse(vi.mocked(fetch).mock.calls[0][1]?.body as string);
+    expect(body.utm_source).toBe("newsletter");
+    expect(body.ref).toBe("deck");
   });
 });

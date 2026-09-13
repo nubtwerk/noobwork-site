@@ -1,4 +1,9 @@
 import { isPartnershipOffer, partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+import {
+  formatInquiryAttributionLines,
+  parseInquiryAttribution,
+  type InquiryAttribution,
+} from "@/lib/inquiry-attribution";
 
 export interface ContactPayload {
   name: string;
@@ -8,6 +13,8 @@ export interface ContactPayload {
   offer?: PartnershipOfferId;
   timing?: string;
   budget?: string;
+  /** Allowlisted UTM/`ref` for the inquiry email body only — never analytics. */
+  attribution?: InquiryAttribution;
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -62,6 +69,7 @@ export function parseContactPayload(body: unknown): ParseContactResult {
       offer: isPartnershipOffer(offer) ? offer : undefined,
       timing: timing || undefined,
       budget: budget || undefined,
+      attribution: parseInquiryAttribution(raw),
     },
   };
 }
@@ -80,6 +88,7 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
     ? `Partnership inquiry — ${payload.company} (${payload.name})`
     : `Partnership inquiry from ${payload.name}`;
 
+  const attributionLines = formatInquiryAttributionLines(payload.attribution);
   const text = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -87,10 +96,13 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
     payload.offer ? `Format: ${partnershipOffers.find((offer) => offer.id === payload.offer)?.title}` : null,
     payload.timing ? `Timing: ${payload.timing}` : null,
     payload.budget ? `Budget: ${payload.budget}` : null,
+    attributionLines.length > 0 ? "" : null,
+    attributionLines.length > 0 ? "Campaign context (UTM / ref):" : null,
+    ...attributionLines,
     "",
     payload.message,
   ]
-    .filter(Boolean)
+    .filter((line) => line != null)
     .join("\n");
 
   const res = await fetch("https://api.resend.com/emails", {

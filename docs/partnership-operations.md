@@ -14,12 +14,16 @@ Keep fees private and quote to scope until real demand and production costs esta
 
 ## Measurement
 
-The site emits `partnership_cta_clicked`, `partnership_offer_selected`, `inquiry_started` and `inquiry_submitted`. These are interaction counts, not unique people or qualified leads. The submitted event means the form received an API success response; the spam honeypot also returns success without sending email. The event does not prove provider acceptance, inbox delivery or a booking. Confirm custom-event availability and dashboard receipt on the Vercel account.
+The site emits `partnership_cta_clicked`, `partnership_offer_selected`, `inquiry_started`, `inquiry_submitted`, `inquiry_failed` and `inquiry_rate_limited`. These are interaction counts, not unique people or qualified leads. The submitted event means the form received an API success response; the spam honeypot also returns success without sending email. Failed and rate-limited events fire from the client when the API rejects or the network fails — they still exclude names, emails, budgets, messages and UTM values. Events do not prove provider acceptance, inbox delivery or a booking. Confirm custom-event availability and dashboard receipt on the Vercel account.
 
-Copy `partnership-pipeline-template.csv` to a private CRM or spreadsheet outside this public repository. Maintain one row per opportunity and use stages: New, Qualified, Proposal, Agreed, Paid, Delivered, Renewed, Lost. Never commit real prospect names, contact details, budgets or contracts here.
+Allowlisted `utm_*` and `ref` query params from the inquiry page are included in the Resend email body as campaign context only. They are not sent to Vercel Analytics.
+
+### Monthly pipeline (private)
+
+Template: [`docs/partnership-pipeline-template.csv`](./partnership-pipeline-template.csv). Copy it to a private CRM or spreadsheet outside this public repository each month. Maintain one row per opportunity and use stages: New, Qualified, Proposal, Agreed, Paid, Delivered, Renewed, Lost. Never commit real prospect names, contact details, budgets or contracts here.
 
 Track monthly: qualified inquiries, proposals sent, paid bookings, collected revenue, delivery cost and renewals. Calculate proposal-to-paid conversion using the same proposal cohort; calculate renewal rate only among agreements eligible for renewal. Keep actual collected revenue separate from pipeline value.
 
 ## Review rhythm
 
-Before each proposal, verify the relevant channel’s current 30/90-day analytics and recent comparable uploads. Monthly, review public examples, partner availability and pipeline outcomes. Do not refresh evidence dates automatically. Paid placements need clear advertising disclosure and sponsored external links; agree disclosure and editorial boundaries with the brand before production.
+Before each proposal, verify the relevant channel’s current 30/90-day analytics and recent comparable uploads. Paste those Studio figures into `recentReach` in `src/data/partnerships.ts` (set `observedAt` and each metric `value`) so `/media-kit` stays aligned with what you quote. Monthly, review public examples, partner availability and pipeline outcomes using the CSV template above. Do not refresh evidence dates automatically. Paid placements need clear advertising disclosure and sponsored external links; agree disclosure and editorial boundaries with the brand before production.
