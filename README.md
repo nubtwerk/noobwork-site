@@ -14,7 +14,20 @@ npm run build
 npm start
 ```
 
-The root website and `plants/` are independent Next.js applications with separate dependencies, TypeScript aliases and builds. Root tooling excludes Plants; GitHub Actions checks both applications separately before its aggregate `test` check succeeds. Run the same commands inside `plants/` when changing that application.
+### Browser E2E (Playwright)
+
+Partnership-funnel coverage lives in `e2e/`. CI runs it with `CONTACT_EMAIL_MODE=stub` so Resend is never called.
+
+```sh
+npm ci
+npm run test:e2e:install   # once per machine
+npm run build
+CONTACT_EMAIL_MODE=stub npm run test:e2e
+```
+
+Playwright starts `npm run start` against the production build. With a server already on port 3000, local runs reuse it (`reuseExistingServer`). Desktop and mobile Chromium projects share the same funnel specs.
+
+The root website and `plants/` are independent Next.js applications with separate dependencies, TypeScript aliases and builds. Root tooling excludes Plants; GitHub Actions checks both applications separately (plus root Playwright E2E) before its aggregate `test` check succeeds. Run the same commands inside `plants/` when changing that application.
 
 The website prebuild refreshes its YouTube feed, keeping the committed fallback if YouTube is unavailable. It does not refresh the manually reviewed partnership examples or factual review date.
 
@@ -33,7 +46,7 @@ Copy `.env.example` to `.env.local`. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` an
 
 The form supports JavaScript and native POST submissions. Native errors render the escaped draft in a non-cacheable response so it can be corrected or retried; success uses a redirect containing only a result code. The API caps the actual streamed body at 64 KB, validates field sizes and rejects cross-site browser submissions. Its in-memory rate limit is per server instance, so use edge rate limiting if production traffic requires a global limit.
 
-Tests mock email delivery. A passing form test proves the request and feedback paths, not provider or inbox delivery. Do not submit live test inquiries without explicit authorization to send a message.
+Unit tests mock email delivery. Playwright E2E uses `CONTACT_EMAIL_MODE=stub` so the API returns success without calling Resend. A passing form test proves the request and feedback paths, not provider or inbox delivery. Do not submit live test inquiries without explicit authorization to send a message.
 
 ## Analytics
 
