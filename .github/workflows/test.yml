@@ -24,10 +24,29 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+  e2e:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:e2e
+        env:
+          CI: true
+          CONTACT_EMAIL_MODE: stub
   test:
-    # Retain the existing required check name while checking both applications.
+    # Retain the existing required check name while checking both applications + E2E.
     if: always()
-    needs: verify
+    needs: [verify, e2e]
     runs-on: ubuntu-latest
     steps:
-      - run: test "${{ needs.verify.result }}" = "success"
+      - run: test "${{ needs.verify.result }}" = "success" && test "${{ needs.e2e.result }}" = "success"

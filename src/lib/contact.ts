@@ -75,6 +75,11 @@ export function parseContactPayload(body: unknown): ParseContactResult {
 }
 
 export async function sendContactEmail(payload: ContactPayload): Promise<void> {
+  // E2E / local CI stub — never set in production. Skips Resend entirely.
+  if (process.env.CONTACT_EMAIL_MODE === "stub") {
+    return;
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     throw new Error("CONTACT_NOT_CONFIGURED");

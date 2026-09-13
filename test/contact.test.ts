@@ -64,6 +64,7 @@ describe("sendContactEmail", () => {
 
   it("throws when Resend is not configured", async () => {
     delete process.env.RESEND_API_KEY;
+    delete process.env.CONTACT_EMAIL_MODE;
     await expect(
       sendContactEmail({
         name: "Alex",
@@ -73,7 +74,21 @@ describe("sendContactEmail", () => {
     ).rejects.toThrow("CONTACT_NOT_CONFIGURED");
   });
 
+  it("returns without calling Resend when CONTACT_EMAIL_MODE=stub", async () => {
+    delete process.env.RESEND_API_KEY;
+    process.env.CONTACT_EMAIL_MODE = "stub";
+
+    await sendContactEmail({
+      name: "Alex",
+      email: "alex@brand.no",
+      message: "Partnership inquiry with enough detail for validation.",
+    });
+
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it("posts a correctly-shaped email to Resend when configured", async () => {
+    delete process.env.CONTACT_EMAIL_MODE;
     process.env.RESEND_API_KEY = "re_test_key";
     process.env.CONTACT_TO_EMAIL = "joachim@noobwork.no";
 

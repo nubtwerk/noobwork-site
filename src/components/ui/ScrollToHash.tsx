@@ -21,14 +21,37 @@ export default function ScrollToHash({
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!force && window.location.hash !== `#${id}`) return;
-    const el = document.getElementById(id);
-    if (!el) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const frame = requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const behavior: ScrollBehavior = reduce ? "auto" : "smooth";
+
+    // Prefer window.scrollTo over scrollIntoView: #inquiry can sit inside a
+    // Motion/AnimatedSection transform, where scrollIntoView is a no-op.
+    const scrollToTarget = () => {
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const top = window.scrollY + el.getBoundingClientRect().top;
+      window.scrollTo({ top, behavior });
+      return true;
+    };
+
+    let frame = requestAnimationFrame(() => {
+      scrollToTarget();
     });
-    return () => cancelAnimationFrame(frame);
+    // Retry after layout/hydration — Next can reset scroll, and motion
+    // wrappers may not be settled on the first frame.
+    const retryTimers = [120, 400].map((ms) =>
+      window.setTimeout(() => {
+        frame = requestAnimationFrame(() => {
+          scrollToTarget();
+        });
+      }, ms)
+    );
+
+    return () => {
+      cancelAnimationFrame(frame);
+      for (const timer of retryTimers) window.clearTimeout(timer);
+    };
   }, [id, trigger, force]);
 
   return null;
