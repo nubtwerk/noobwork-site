@@ -1,7 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const port = Number(process.env.E2E_PORT ?? 3000);
-const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://127.0.0.1:${port}`;
+// Prefer localhost over 127.0.0.1 — Next's request.url origin is localhost, and
+// the contact API rejects mismatched Origin headers.
+const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${port}`;
 
 export default defineConfig({
   testDir: "e2e",
@@ -13,7 +15,6 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "on-first-retry",
-    // Instant hash scroll — avoids flaky Lenis/smooth-scroll races in CI.
     colorScheme: "light",
   },
   projects: [
@@ -23,7 +24,10 @@ export default defineConfig({
     },
     {
       name: "mobile-chromium",
-      use: { ...devices["iPhone 13"] },
+      use: {
+        ...devices["Pixel 7"],
+        browserName: "chromium",
+      },
     },
   ],
   webServer: {
