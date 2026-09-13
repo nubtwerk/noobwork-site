@@ -49,4 +49,14 @@ describe("ContentReel", () => {
     );
     expect(subscribe).toHaveAttribute("target", "_blank");
   });
+
+  it("renders a subtle As of line when provided", () => {
+    render(<ContentReel asOfLabel="Jul 19, 2026" />);
+    expect(screen.getByText("As of Jul 19, 2026")).toBeInTheDocument();
+  });
+
+  it("omits the As of line when no label is provided", () => {
+    render(<ContentReel />);
+    expect(screen.queryByText(/^As of /)).not.toBeInTheDocument();
+  });
 });

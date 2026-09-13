@@ -13,7 +13,7 @@ import Connect from "@/components/sections/Connect";
 import { getLatestVideos } from "@/lib/get-videos";
 
 export default async function Home() {
-  const { featuredVideo, recentVideos } = await getLatestVideos();
+  const { featuredVideo, recentVideos, asOfLabel } = await getLatestVideos();
 
   return (
     <div className="site-shell">
@@ -22,7 +22,11 @@ export default async function Home() {
       <main id="main-content" className="site-main">
         <Hero />
         <SocialProof />
-        <ContentReel featuredVideo={featuredVideo} recentVideos={recentVideos} />
+        <ContentReel
+          featuredVideo={featuredVideo}
+          recentVideos={recentVideos}
+          asOfLabel={asOfLabel}
+        />
         <About />
         <ContentPillars />
         <Work />

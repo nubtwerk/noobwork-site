@@ -291,3 +291,39 @@ describe("isSameVideoContent", () => {
     expect(refreshVideos.isSameVideoContent(base, other)).toBe(false);
   });
 });
+
+describe("isStrictMode", () => {
+  it("is off by default", () => {
+    expect(refreshVideos.isStrictMode(["node", "script.mjs"], {})).toBe(false);
+  });
+
+  it("turns on for --strict", () => {
+    expect(
+      refreshVideos.isStrictMode(["node", "script.mjs", "--strict"], {})
+    ).toBe(true);
+  });
+
+  it("turns on for REFRESH_VIDEOS_STRICT=1", () => {
+    expect(
+      refreshVideos.isStrictMode(["node", "script.mjs"], {
+        REFRESH_VIDEOS_STRICT: "1",
+      })
+    ).toBe(true);
+  });
+});
+
+describe("reportRefreshFailure", () => {
+  it("returns 0 in default mode and 1 in strict mode", () => {
+    const warnSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(refreshVideos.reportRefreshFailure("boom", { strict: false })).toBe(
+        0
+      );
+      expect(refreshVideos.reportRefreshFailure("boom", { strict: true })).toBe(
+        1
+      );
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+});

@@ -14,11 +14,14 @@ import { YOUTUBE_CHANNEL_URL as CHANNEL_URL } from "@/data/external-links";
 interface ContentReelProps {
   featuredVideo?: VideoItem;
   recentVideos?: VideoItem[];
+  /** Formatted date for a subtle "As of …" line under the chapter note. */
+  asOfLabel?: string | null;
 }
 
 export default function ContentReel({
   featuredVideo = fallbackFeatured,
   recentVideos = fallbackRecent,
+  asOfLabel = null,
 }: ContentReelProps) {
   const [playing, setPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -57,6 +60,9 @@ export default function ContentReel({
               No highlight reel. Straight from the channel: the grind, the
               travel, and what I&apos;m building.
             </p>
+            {asOfLabel ? (
+              <p className="chapter-head__meta">As of {asOfLabel}</p>
+            ) : null}
           </div>
         </AnimatedSection>
 

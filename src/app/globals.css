@@ -1957,9 +1957,19 @@ body {
   line-height: 1.65;
 }
 
+.chapter-head__meta {
+  margin: 0;
+  color: rgba(46, 29, 35, 0.48);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
 .chapter-head--onbrown .chapter-head__marker { color: rgba(236, 219, 191, 0.66); }
 .chapter-head--onbrown .chapter-head__title { color: var(--color-sand); }
 .chapter-head--onbrown .chapter-head__note { color: rgba(236, 219, 191, 0.66); }
+.chapter-head--onbrown .chapter-head__meta { color: rgba(236, 219, 191, 0.42); }
 
 .chapter-head--ongreen .chapter-head__marker { color: rgba(236, 219, 191, 0.66); }
 .chapter-head--ongreen .chapter-head__title { color: var(--color-sand); }
@@ -1972,6 +1982,7 @@ body {
   -webkit-text-stroke: 2px rgba(236, 219, 191, 0.9);
 }
 .chapter-head--ongreen .chapter-head__note { color: rgba(236, 219, 191, 0.66); }
+.chapter-head--ongreen .chapter-head__meta { color: rgba(236, 219, 191, 0.42); }
 
 /* ── Dark surfaces ── */
 .reel,
