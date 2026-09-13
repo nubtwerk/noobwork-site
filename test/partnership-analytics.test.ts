@@ -13,6 +13,10 @@ describe("partnership analytics privacy", () => {
     expect(track).toHaveBeenCalledWith("partnership_cta_clicked", { source: "connect" });
     trackPartnership("inquiry_submitted", { source: "alex@example.com", offer: "My private message" });
     expect(track).toHaveBeenLastCalledWith("inquiry_submitted", {});
+    trackPartnership("inquiry_failed", { offer: "video" });
+    expect(track).toHaveBeenLastCalledWith("inquiry_failed", { offer: "video" });
+    trackPartnership("inquiry_rate_limited", { offer: "series", source: "utm_source=secret" });
+    expect(track).toHaveBeenLastCalledWith("inquiry_rate_limited", { offer: "series" });
   });
   it("does not break the interaction if analytics fails", () => {
     vi.mocked(track).mockImplementation(() => { throw new Error("Unavailable"); });

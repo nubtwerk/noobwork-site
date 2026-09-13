@@ -37,6 +37,15 @@ describe("MediaKit page", async () => {
     expect(stamp).toHaveTextContent("10 September 2026");
   });
 
+  it("renders the Studio recent-reach block with partner-safe placeholders", async () => {
+    render(await MediaKit());
+    expect(screen.getByRole("heading", { name: "Studio window." })).toBeInTheDocument();
+    expect(screen.getByText("Views · last 30 days")).toBeInTheDocument();
+    expect(screen.getByText("Views · last 90 days")).toBeInTheDocument();
+    expect(screen.getByText("Typical long-form range")).toBeInTheDocument();
+    expect(screen.getByText(/dated YouTube Studio export/i)).toBeInTheDocument();
+  });
+
   it("links back to the homepage", async () => {
     render(await MediaKit());
     const back = screen.getByText("← Back to home").closest("a");

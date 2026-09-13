@@ -86,6 +86,7 @@ describe("sendContactEmail", () => {
       email: "alex@brand.no",
       company: "Nordic Fit",
       message: "We would love to explore a Q3 campaign across YouTube and IG.",
+      attribution: { utm_source: "newsletter", ref: "partner-deck" },
     });
 
     const [url, init] = vi.mocked(fetch).mock.calls[0];
@@ -99,5 +100,29 @@ describe("sendContactEmail", () => {
     expect(sent.subject).toContain("Alex Brand");
     expect(sent.text).toContain("We would love to explore a Q3 campaign");
     expect(sent.text).toContain("alex@brand.no");
+    expect(sent.text).toContain("Campaign context (UTM / ref):");
+    expect(sent.text).toContain("utm_source: newsletter");
+    expect(sent.text).toContain("ref: partner-deck");
+  });
+
+  it("keeps allowlisted attribution on the parsed payload without inventing fields", () => {
+    const result = parseContactPayload({
+      name: "Alex Brand",
+      email: "alex@brand.no",
+      message: "We would love to explore a Q3 campaign across YouTube and IG.",
+      utm_source: "linkedin",
+      utm_campaign: "q3-brief",
+      ref: "media-kit",
+      utm_evil: "drop-me",
+      email_extra: "ignored",
+    });
+    expect("data" in result).toBe(true);
+    if ("data" in result) {
+      expect(result.data.attribution).toEqual({
+        utm_source: "linkedin",
+        utm_campaign: "q3-brief",
+        ref: "media-kit",
+      });
+    }
   });
 });

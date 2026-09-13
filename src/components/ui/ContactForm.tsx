@@ -2,15 +2,29 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+import {
+  INQUIRY_ATTRIBUTION_KEYS,
+  type InquiryAttribution,
+} from "@/lib/inquiry-attribution";
 import { getInquiryFeedback } from "@/lib/inquiry-feedback";
 import { trackPartnership } from "@/lib/partnership-analytics";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm({ initialOffer = "", feedback }: { initialOffer?: PartnershipOfferId | ""; feedback?: string } = {}) {
+export default function ContactForm({
+  initialOffer = "",
+  feedback,
+  initialAttribution = {},
+}: {
+  initialOffer?: PartnershipOfferId | "";
+  feedback?: string;
+  /** Allowlisted UTM/`ref` from the page query — email body only, never analytics. */
+  initialAttribution?: InquiryAttribution;
+} = {}) {
   const initialError = getInquiryFeedback(feedback);
   const [status, setStatus] = useState<FormStatus>(feedback === "sent" ? "success" : initialError ? "error" : "idle");
   const [error, setError] = useState<string | null>(initialError ?? null);
+  const attribution = initialAttribution;
   const started = useRef(false);
   const offerSelect = useRef<HTMLSelectElement>(null);
   useEffect(() => {
@@ -25,6 +39,7 @@ export default function ContactForm({ initialOffer = "", feedback }: { initialOf
 
     const form = event.currentTarget;
     const data = new FormData(form);
+    const offer = data.get("offer");
 
     try {
       const res = await fetch("/api/contact", {
@@ -36,9 +51,12 @@ export default function ContactForm({ initialOffer = "", feedback }: { initialOf
           company: data.get("company"),
           message: data.get("message"),
           website: data.get("website"),
-          offer: data.get("offer"),
+          offer,
           timing: data.get("timing"),
           budget: data.get("budget"),
+          ...Object.fromEntries(
+            INQUIRY_ATTRIBUTION_KEYS.filter((key) => attribution[key]).map((key) => [key, attribution[key]]),
+          ),
         }),
       });
 
@@ -47,15 +65,17 @@ export default function ContactForm({ initialOffer = "", feedback }: { initialOf
       if (!res.ok || json.ok !== true) {
         setError(json.error ?? "Could not send your message. Try again.");
         setStatus("error");
+        trackPartnership(res.status === 429 ? "inquiry_rate_limited" : "inquiry_failed", { offer });
         return;
       }
 
       setStatus("success");
-      trackPartnership("inquiry_submitted", { offer: data.get("offer") });
+      trackPartnership("inquiry_submitted", { offer });
       form.reset();
     } catch {
       setError("Network error. Check your connection or email joachim@noobwork.no.");
       setStatus("error");
+      trackPartnership("inquiry_failed", { offer });
     }
   }
 
@@ -175,6 +195,13 @@ export default function ContactForm({ initialOffer = "", feedback }: { initialOf
         <label htmlFor="contact-website">Website</label>
         <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
+
+      {/* Campaign context for email only; values never enter Vercel Analytics custom events. */}
+      {INQUIRY_ATTRIBUTION_KEYS.map((key) =>
+        attribution[key] ? (
+          <input key={key} type="hidden" name={key} value={attribution[key]} />
+        ) : null,
+      )}
 
       {error ? (
         <p className="contact-form__error" role="alert">

@@ -18,4 +18,15 @@ The book and award milestones were retained from the existing profile; supportin
 
 ## How to update
 
-Update the shared facts, visible pages and AI-context files together. Change `PROFILE_CONTENT_REVIEWED_AT` only after a human evidence review. Update `workViewsObservedAt` and every displayed example from the same dated observation. Current audience geography and recent aggregate reach should come from the owner’s platform analytics, which were not available for this release.
+Update the shared facts, visible pages and AI-context files together. Change `PROFILE_CONTENT_REVIEWED_AT` only after a human evidence review. Update `workViewsObservedAt` and every displayed example from the same dated observation.
+
+### Studio recent reach (`recentReach`)
+
+There is no live YouTube Studio API on this site. After each proposal-ready Studio check:
+
+1. Open YouTube Studio → Analytics for the channel.
+2. Copy conservative display strings for last-30-day views, last-90-day views, and a typical long-form view range from recent comparable uploads.
+3. Paste them into `recentReach.metrics[].value` in `src/data/partnerships.ts` and set `recentReach.observedAt` to the review day (`YYYY-MM-DD`).
+4. Leave values `null` (and `observedAt` null) rather than inventing numbers. Do not add undated demographics.
+
+Until figures are pasted, `/media-kit` shows the reach block with placeholders so partners see the structure without fake data.

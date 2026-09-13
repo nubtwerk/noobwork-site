@@ -38,3 +38,38 @@ export const selectedWork = [
 
 export const workViewsObservedAt = "2026-09-10";
 export const workViewsSource = "https://www.youtube.com/feeds/videos.xml?channel_id=UCv1Jgx1bL0SCB8ofJW5-nqQ";
+
+/**
+ * Recent reach from YouTube Studio — single source of truth for the media-kit block.
+ *
+ * Update path (no live Studio API on this site):
+ * 1. In YouTube Studio → Analytics, note 30-day views, 90-day views, and a
+ *    conservative typical long-form view range for recent comparable uploads.
+ * 2. Paste display strings into `metrics[].value` below (e.g. "420K", "1.1M", "8K–25K").
+ * 3. Set `observedAt` to the review day (YYYY-MM-DD). Leave values null until then.
+ * 4. Do not invent demographics or sponsored case studies here.
+ *
+ * See docs/profile-fact-review.md and docs/partnership-operations.md.
+ */
+export type RecentReachMetric = {
+  id: "views30" | "views90" | "typicalLongForm";
+  label: string;
+  /** Display string from Studio export, or null until Joachim pastes figures. */
+  value: string | null;
+};
+
+export const recentReach = {
+  /** ISO date of the Studio export review; null means the public block stays pending. */
+  observedAt: null as string | null,
+  sourceLabel: "YouTube Studio",
+  sourceDetail: "Owner-reviewed Analytics export (not the public RSS feed)",
+  metrics: [
+    { id: "views30", label: "Views · last 30 days", value: null },
+    { id: "views90", label: "Views · last 90 days", value: null },
+    { id: "typicalLongForm", label: "Typical long-form range", value: null },
+  ] satisfies RecentReachMetric[],
+};
+
+export function recentReachIsReady(): boolean {
+  return Boolean(recentReach.observedAt && recentReach.metrics.some((metric) => metric.value));
+}

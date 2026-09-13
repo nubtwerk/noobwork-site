@@ -20,11 +20,12 @@ The website prebuild refreshes its YouTube feed, keeping the committed fallback 
 
 ## Partnership content
 
-- `src/data/partnerships.ts`: the three inquiry formats and dated organic work examples.
+- `src/data/partnerships.ts`: the three inquiry formats, dated organic work examples, and `recentReach` (YouTube Studio paste target for the media-kit block).
 - `src/data/profile-facts.ts`: shared profile milestones and explicit content review date.
 - `src/content/ai-context/`: the same positioning in machine-readable profile content.
-- `docs/profile-fact-review.md`: evidence, limitations and review checklist.
+- `docs/profile-fact-review.md`: evidence, limitations and review checklist (includes Studio reach update steps).
 - `docs/partnership-operations.md`: qualification, proposals, reporting and measurement.
+- `docs/partnership-pipeline-template.csv`: private monthly CRM template — copy out of the repo; never commit real prospects.
 
 ## Contact form
 
@@ -36,7 +37,7 @@ Tests mock email delivery. A passing form test proves the request and feedback p
 
 ## Analytics
 
-Custom partnership events send only the event names and allowlisted offer/source labels defined in `src/lib/partnership-analytics.ts` to Vercel Analytics. Names, emails, budgets, timing and message contents are excluded from these custom events. Custom events require a Vercel plan that supports them; verify receipt in the project dashboard before relying on conversion reports. JavaScript-disabled visits do not emit these custom events.
+Custom partnership events send only the event names and allowlisted offer/source labels defined in `src/lib/partnership-analytics.ts` to Vercel Analytics (`partnership_cta_clicked`, `partnership_offer_selected`, `inquiry_started`, `inquiry_submitted`, `inquiry_failed`, `inquiry_rate_limited`). Names, emails, budgets, timing, message contents and UTM/`ref` values are excluded from these custom events; allowlisted UTMs are added to the inquiry email body only. Custom events require a Vercel plan that supports them; verify receipt in the project dashboard before relying on conversion reports. JavaScript-disabled visits do not emit these custom events.
 
 ## Deployment
 

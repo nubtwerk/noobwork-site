@@ -11,7 +11,8 @@ import CountUp from "@/components/ui/CountUp";
 import ScrollToHash from "@/components/ui/ScrollToHash";
 import { mediaKitStats } from "@/data/stats";
 import { partnershipProcess } from "@/data/media-kit";
-import { isPartnershipOffer, partnershipOffers, selectedWork, workViewsObservedAt, workViewsSource } from "@/data/partnerships";
+import { isPartnershipOffer, partnershipOffers, recentReach, recentReachIsReady, selectedWork, workViewsObservedAt, workViewsSource } from "@/data/partnerships";
+import { parseInquiryAttribution } from "@/lib/inquiry-attribution";
 import { socialMetadata } from "@/lib/site-metadata";
 
 const description = "Sponsored videos, series partnerships and content for your brand. Explore Noobwork's work and send Joachim Haraldsen a partnership brief.";
@@ -36,6 +37,11 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
   const query = await searchParams ?? {};
   const offer = isPartnershipOffer(query.offer) ? query.offer : "";
   const feedback = typeof query.inquiry === "string" ? query.inquiry : undefined;
+  const attribution = parseInquiryAttribution(
+    Object.fromEntries(
+      Object.entries(query).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
+    ),
+  ) ?? {};
 
   return (
     <div className="site-shell">
@@ -76,6 +82,41 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                     <dt className="partner-stat__label">{stat.label}</dt>
                     <dd className="partner-stat__value">
                       {stat.numericValue != null ? <CountUp target={stat.numericValue} suffix={stat.suffix} /> : stat.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        <section className="site-section site-section--tight mk-reach-section" aria-labelledby="recent-reach-title">
+          <div className="shell-inner">
+            <AnimatedSection>
+              <div className="chapter-head mk-reach-head">
+                <p className="chapter-head__marker">Recent reach</p>
+                <h2 id="recent-reach-title" className="chapter-head__title">Studio window.</h2>
+              </div>
+              <p className="mk-evidence-note">
+                {recentReachIsReady() && recentReach.observedAt ? (
+                  <>
+                    Channel totals from {recentReach.sourceLabel}, checked{" "}
+                    <time dateTime={recentReach.observedAt}>{formatUtcDay(recentReach.observedAt)}</time>
+                    . {recentReach.sourceDetail}. Not a guarantee for a new campaign.
+                  </>
+                ) : (
+                  <>
+                    Channel totals from a dated {recentReach.sourceLabel} export after owner review
+                    — not estimated demographics. Figures appear here once that review is recorded.
+                  </>
+                )}
+              </p>
+              <dl className="partner-stats mk-reach-stats">
+                {recentReach.metrics.map((metric) => (
+                  <div key={metric.id} className="partner-stat">
+                    <dt className="partner-stat__label">{metric.label}</dt>
+                    <dd className="partner-stat__value mk-reach-value">
+                      {metric.value ?? "—"}
                     </dd>
                   </div>
                 ))}
@@ -183,7 +224,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                   <p className="mk-evidence-note">For events, speaking or advisory work, use the same form and tell me what you have in mind.</p>
                 </div>
                 <div id="inquiry" className="mk-inquiry">
-                  <ContactForm initialOffer={offer} feedback={feedback} />
+                  <ContactForm initialOffer={offer} feedback={feedback} initialAttribution={attribution} />
                 </div>
               </div>
             </AnimatedSection>
