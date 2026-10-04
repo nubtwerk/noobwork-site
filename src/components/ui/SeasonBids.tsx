@@ -234,7 +234,7 @@ function BidDialog({ spotId, onClose, onPlaced }: { spotId: string | null; onClo
                   <input id="bid-amount" name="amount" className="contact-form__input" inputMode="numeric" pattern="[0-9,]*" required
                     defaultValue={minimum} key={spot.id} aria-describedby="bid-amount-hint" autoComplete="off" />
                 </div>
-                <p id="bid-amount-hint" className="season-bid-form__hint">Minimum {formatUsd(minimum)}. Raises go up by at least {formatUsd(seasonBidding.minRaise)}.</p>
+                <p id="bid-amount-hint" className="season-bid-form__hint">Minimum {formatUsd(minimum)}. Raises go up by at least {formatUsd(seasonBidding.minRaise)}. {seasonBidding.setupNote}</p>
               </div>
               <div className="contact-form__row">
                 <div className="contact-form__field">

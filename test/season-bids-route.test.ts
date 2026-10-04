@@ -5,7 +5,7 @@ import { __resetRateLimitStore } from "@/lib/rate-limit";
 import { __setBidStore, createMemoryStore } from "@/lib/season-bids/store";
 
 const body = {
-  spotId: "banner-2", amount: 2500, brand: "Northlight", category: "AI and creator tools",
+  spotId: "banner-2", amount: 3000, brand: "Northlight", category: "AI and creator tools",
   website: "northlight.ai", contactName: "Ada Lee", email: "ada@northlight.ai",
 };
 const post = (data: unknown, headers: Record<string, string> = {}) =>

@@ -107,7 +107,7 @@ describe("Season page interactions", () => {
     const card = screen.getByText("Banner spot 3", { selector: ".season-slot-card__title" }).closest("article") as HTMLElement;
     fireEvent.click(within(card).getByRole("button", { name: "Place a bid on Banner spot 3" }));
     await waitFor(() => expect(screen.getByRole("heading", { level: 2, name: "Bid on Banner spot 3" })).toBeInTheDocument());
-    expect(screen.getByLabelText(/Your bid in US dollars/)).toHaveValue("2500");
+    expect(screen.getByLabelText(/Your bid in US dollars/)).toHaveValue("3000");
     expect(screen.getByText(/non-binding offers/, { selector: ".contact-form__privacy" })).toBeInTheDocument();
   });
 

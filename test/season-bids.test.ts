@@ -11,7 +11,7 @@ const BEFORE = new Date("2026-11-01T00:00:00Z");
 const CLOSE = new Date(seasonBidding.closesAt).getTime();
 
 const input = (over: Record<string, unknown> = {}) => ({
-  spotId: "banner-1", amount: 2500, brand: "Northlight", category: "AI and creator tools",
+  spotId: "banner-1", amount: 3000, brand: "Northlight", category: "AI and creator tools",
   website: "https://northlight.ai", contactName: "Ada Lee", email: "ada@northlight.ai", ...over,
 });
 
@@ -44,7 +44,7 @@ afterEach(() => {
 
 describe("bid input", () => {
   it("accepts a work email on the brand's domain", () => {
-    expect(parseBidInput(input({ showName: true }))).toMatchObject({ data: { amount: 2500, showName: true, email: "ada@northlight.ai" } });
+    expect(parseBidInput(input({ showName: true }))).toMatchObject({ data: { amount: 3000, showName: true, email: "ada@northlight.ai" } });
     expect(parseBidInput(input({ amount: "$3,250" }))).toMatchObject({ data: { amount: 3250 } });
   });
 
@@ -111,11 +111,11 @@ describe("bid flow", () => {
     expect(await decideBid(store, confirmed.value.id, "approve", SITE, BEFORE)).toMatchObject({ ok: true });
 
     // Too low a second bid is refused before anything is stored.
-    const low = parseBidInput(input({ email: "bo@rival.com", website: "rival.com", brand: "Rival", amount: 2600 }));
+    const low = parseBidInput(input({ email: "bo@rival.com", website: "rival.com", brand: "Rival", amount: 3100 }));
     if (!("data" in low)) throw new Error("bad input");
     expect(await placeBid(store, low.data, SITE, BEFORE)).toMatchObject({ ok: false, status: 409 });
 
-    const second = parseBidInput(input({ email: "bo@rival.com", website: "rival.com", brand: "Rival", amount: 2750 }));
+    const second = parseBidInput(input({ email: "bo@rival.com", website: "rival.com", brand: "Rival", amount: 3250 }));
     if (!("data" in second)) throw new Error("bad input");
     await placeBid(store, second.data, SITE, BEFORE);
     const rival = await confirmBid(store, lastConfirmToken(), SITE, BEFORE);
@@ -166,5 +166,14 @@ describe("admin session", () => {
     expect(verifySession(value, Date.now() + 13 * 3_600_000)).toBe(false);
     process.env.SEASON_ADMIN_PASSWORD = "another long password";
     expect(verifySession(value)).toBe(false);
+  });
+});
+
+describe("pricing floor", () => {
+  it("never opens a recurring spot below $1,000 a month", async () => {
+    const { seasonSpots } = await import("@/data/season");
+    for (const spot of seasonSpots.filter((s) => s.board === "banner" || s.id === "apparel")) {
+      expect(spot.openingBid).toBeGreaterThanOrEqual(3_000);
+    }
   });
 });

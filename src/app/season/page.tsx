@@ -153,7 +153,7 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               {bids ? (
                 <p>
                   Bidding: raises go up by at least {formatUsd(seasonBidding.minRaise)}. A bid in the last {seasonBidding.extensionMinutes} minutes
-                  extends that spot&apos;s close by {seasonBidding.extensionMinutes} minutes. Every bid is checked before it shows, and bids
+                  extends that spot&apos;s close by {seasonBidding.extensionMinutes} minutes. {seasonBidding.setupNote} Every bid is checked before it shows, and bids
                   are non-binding offers. The winner gets a contract and an invoice. No payment is taken on this site.
                 </p>
               ) : null}

@@ -123,10 +123,10 @@ function demoBids(): Bid[] {
     showName, status, tokenHash: null, createdAt: at(hoursAgo), confirmedAt: at(hoursAgo), decidedAt: status === "pending" ? null : at(hoursAgo - 1),
   });
   return [
-    bid("d1", "banner-1", 2_500, "Northlight AI", "AI and creator tools", true, "approved", 50),
-    bid("d2", "banner-1", 3_250, "Gaming hardware brand", "Gaming hardware and setups", false, "approved", 20),
-    bid("d3", "banner-2", 2_750, "Seoul Strength Club", "Gyms and training", true, "approved", 30),
-    bid("d4", "banner-1", 3_500, "Hydra Labs", "Energy and hydration", false, "pending", 2),
+    bid("d1", "banner-1", 3_000, "Northlight AI", "AI and creator tools", true, "approved", 50),
+    bid("d2", "banner-1", 3_500, "Gaming hardware brand", "Gaming hardware and setups", false, "approved", 20),
+    bid("d3", "banner-2", 3_250, "Seoul Strength Club", "Gyms and training", true, "approved", 30),
+    bid("d4", "banner-1", 3_750, "Hydra Labs", "Energy and hydration", false, "pending", 2),
     bid("d5", "retest-q1", 2_000, "Recovery brand", "Recovery and wellness", false, "approved", 12),
   ];
 }

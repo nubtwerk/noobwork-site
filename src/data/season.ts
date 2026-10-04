@@ -39,6 +39,8 @@ export const seasonBidding = {
   /** 1 December 2026, 21:00 KST. Every Q1 auction closes here unless extended. */
   closesAt: "2026-12-01T12:00:00Z",
   minRaise: 250,
+  /** Every sponsor pays a minimum of $1,000 a month and covers setup work on top of the bid. */
+  setupNote: "Plus a one-off setup fee for the branding work (logo files, banner and profile design), quoted with the contract.",
   /** A bid confirmed this close to the end pushes that spot's close out by the same amount. */
   extensionMinutes: 30,
   /** Highest single bid accepted, to catch typos. */
@@ -102,7 +104,8 @@ export const seasonSpots: readonly SeasonSpot[] = [
       "Logo on this page",
     ],
     status: "open",
-    openingBid: 2_500,
+    // Floor: $1,000 per sponsor per month, so a quarter opens at $3,000.
+    openingBid: 3_000,
     bidUnit: "for Q1",
   })),
   {
@@ -112,7 +115,7 @@ export const seasonSpots: readonly SeasonSpot[] = [
     board: null,
     includes: ["Your shirt, cap or shoes worn in training episodes", "Only gear I would wear anyway"],
     status: "open",
-    openingBid: 1_500,
+    openingBid: 3_000,
     bidUnit: "per quarter, plus product",
   },
   {
