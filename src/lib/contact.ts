@@ -1,4 +1,4 @@
-import { isPartnershipOffer, partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+import { inquiryOffers, isPartnershipOffer, type PartnershipOfferId } from "@/data/partnerships";
 import {
   formatInquiryAttributionLines,
   parseInquiryAttribution,
@@ -98,7 +98,7 @@ export async function sendContactEmail(payload: ContactPayload): Promise<void> {
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     payload.company ? `Company: ${payload.company}` : null,
-    payload.offer ? `Format: ${partnershipOffers.find((offer) => offer.id === payload.offer)?.title}` : null,
+    payload.offer ? `Format: ${inquiryOffers.find((offer) => offer.id === payload.offer)?.title}` : null,
     payload.timing ? `Timing: ${payload.timing}` : null,
     payload.budget ? `Budget: ${payload.budget}` : null,
     attributionLines.length > 0 ? "" : null,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { partnershipOffers, type PartnershipOfferId } from "@/data/partnerships";
+import { inquiryOffers, type PartnershipOfferId } from "@/data/partnerships";
 import {
   INQUIRY_ATTRIBUTION_KEYS,
   type InquiryAttribution,
@@ -15,11 +15,14 @@ export default function ContactForm({
   initialOffer = "",
   feedback,
   initialAttribution = {},
+  initialMessage = "",
 }: {
   initialOffer?: PartnershipOfferId | "";
   feedback?: string;
   /** Allowlisted UTM/`ref` from the page query — email body only, never analytics. */
   initialAttribution?: InquiryAttribution;
+  /** Prefilled opening line, e.g. the Season 1 spot a visitor chose to claim. */
+  initialMessage?: string;
 } = {}) {
   const initialError = getInquiryFeedback(feedback);
   const [status, setStatus] = useState<FormStatus>(feedback === "sent" ? "success" : initialError ? "error" : "idle");
@@ -160,7 +163,7 @@ export default function ContactForm({
         <select ref={offerSelect} id="contact-offer" name="offer" className="contact-form__input" defaultValue={initialOffer}
           onChange={(event) => trackPartnership("partnership_offer_selected", { offer: event.target.value })}>
           <option value="">Let&apos;s find the right fit</option>
-          {partnershipOffers.map((offer) => <option key={offer.id} value={offer.id}>{offer.title}</option>)}
+          {inquiryOffers.map((offer) => <option key={offer.id} value={offer.id}>{offer.title}</option>)}
         </select>
       </div>
       <div className="contact-form__row">
@@ -185,6 +188,7 @@ export default function ContactForm({
           minLength={20}
           maxLength={5000}
           rows={5}
+          defaultValue={initialMessage}
           className="contact-form__textarea"
           placeholder="Tell me about your product, who you want to reach, and what you have in mind."
         />

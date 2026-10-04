@@ -1,4 +1,4 @@
-import { partnershipOffers } from "@/data/partnerships";
+import { inquiryOffers } from "@/data/partnerships";
 import { INQUIRY_ATTRIBUTION_KEYS } from "@/lib/inquiry-attribution";
 
 function escapeHtml(value: string): string {
@@ -22,7 +22,7 @@ export function nativeContactError(status: number, message: string, body: unknow
 ${input("name", "Name", 'type="text" autocomplete="name" required minlength="2" maxlength="120"')}
 ${input("email", "Email", 'type="email" autocomplete="email" required maxlength="254"')}
 ${input("company", "Company / Brand (optional)", 'type="text" autocomplete="organization" maxlength="160"')}
-<label for="offer">Partnership format</label><select id="offer" name="offer"><option value="">Let's find the right fit</option>${partnershipOffers.map((offer) => `<option value="${offer.id}"${draft.offer === offer.id ? " selected" : ""}>${escapeHtml(offer.title)}</option>`).join("")}</select>
+<label for="offer">Partnership format</label><select id="offer" name="offer"><option value="">Let's find the right fit</option>${inquiryOffers.map((offer) => `<option value="${offer.id}"${draft.offer === offer.id ? " selected" : ""}>${escapeHtml(offer.title)}</option>`).join("")}</select>
 ${input("timing", "Timing (optional)", 'type="text" maxlength="120"')}
 ${input("budget", "Budget range (optional)", 'type="text" maxlength="120"')}
 <label for="message">Message</label><textarea id="message" name="message" required minlength="20" maxlength="5000">${value("message")}</textarea>
