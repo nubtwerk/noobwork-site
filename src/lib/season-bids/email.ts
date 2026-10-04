@@ -13,7 +13,7 @@ export async function sendMail(mail: Mail): Promise<void> {
   if (process.env.CONTACT_EMAIL_MODE === "stub") return;
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("EMAIL_NOT_CONFIGURED");
-  const from = process.env.CONTACT_FROM_EMAIL ?? "Noobwork Media Kit <onboarding@resend.dev>";
+  const from = process.env.SEASON_FROM_EMAIL?.trim() || (process.env.CONTACT_FROM_EMAIL ?? "Noobwork Media Kit <onboarding@resend.dev>");
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     signal: AbortSignal.timeout(8_000),
