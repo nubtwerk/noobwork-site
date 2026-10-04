@@ -56,7 +56,7 @@ describe("Season page interactions", () => {
   it("opens a checkpoint on the elevation profile", async () => {
     render(await page());
     fireEvent.click(screen.getByRole("button", { name: "Finale, January 2028" }));
-    expect(screen.getByRole("heading", { level: 3, name: "January 2028Finale" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: "Finale" })).toBeInTheDocument();
     expect(screen.getByRole("list", { name: "What gets measured" }).querySelectorAll("li")).toHaveLength(season.measures.length);
   });
 

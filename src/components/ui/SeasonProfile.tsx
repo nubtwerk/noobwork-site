@@ -43,6 +43,8 @@ function profilePath(heights: readonly number[]) {
  */
 export default function SeasonProfile({ checkpoints, measures }: SeasonProfileProps) {
   const [active, setActive] = useState(0);
+  // Announce changes only once the visitor picks a checkpoint, not while scrolling auto-advances it.
+  const [interacted, setInteracted] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const touched = useRef(false);
@@ -79,6 +81,7 @@ export default function SeasonProfile({ checkpoints, measures }: SeasonProfilePr
 
   const choose = (index: number) => {
     touched.current = true;
+    setInteracted(true);
     setActive(index);
   };
   const current = checkpoints[active];
@@ -131,11 +134,11 @@ export default function SeasonProfile({ checkpoints, measures }: SeasonProfilePr
           );
         })}
       </svg>
-      <div className="season-profile__panel" aria-live="polite">
-        <h3 className="season-profile__title">
-          <small>{current.month}</small>
-          {current.label}
-        </h3>
+      <div className="season-profile__panel" aria-live={interacted ? "polite" : "off"}>
+        <div>
+          <p className="season-profile__month-label">{current.month}</p>
+          <h3 className="season-profile__title">{current.label}</h3>
+        </div>
         <div>
           <p>{current.text}</p>
           <ul className="season-profile__measures" aria-label="What gets measured">

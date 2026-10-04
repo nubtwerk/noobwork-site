@@ -44,9 +44,6 @@ export default function SeasonBoard({ spots }: SeasonBoardProps) {
                 className="season-slot__button"
                 aria-pressed={spot.id === selected.id}
                 onClick={() => setSelectedId(spot.id)}
-                onPointerEnter={(event) => {
-                  if (event.pointerType === "mouse") setSelectedId(spot.id);
-                }}
               >
                 <span className="season-slot__name">{spot.status === "sold" && spot.sponsor ? spot.sponsor.name : spot.title}</span>
                 <span className="sr-only">, {seasonStatusLabel[spot.status]}</span>

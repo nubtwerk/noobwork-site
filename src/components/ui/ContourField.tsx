@@ -104,7 +104,8 @@ export default function ContourField() {
     const start = performance.now();
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // Cap the drawing buffer near 1.6 MP so large and high-DPI screens stay cheap.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(1_600_000 / Math.max(1, host.clientWidth * host.clientHeight)));
       canvas.width = Math.round(host.clientWidth * dpr);
       canvas.height = Math.round(host.clientHeight * dpr);
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -134,7 +135,7 @@ export default function ContourField() {
       raf = requestAnimationFrame(loop);
     };
     const resume = () => {
-      if (!reduced && !raf && visible && !document.hidden) raf = requestAnimationFrame(loop);
+      if (!reduced && !lost && !raf && visible && !document.hidden) raf = requestAnimationFrame(loop);
     };
 
     const onMove = (event: PointerEvent) => {
@@ -153,13 +154,23 @@ export default function ContourField() {
       if (readoutRef.current) readoutRef.current.dataset.on = "false";
     };
 
+    let lost = false;
+    const onContextLost = (event: Event) => {
+      event.preventDefault();
+      lost = true;
+      cancelAnimationFrame(raf);
+      raf = 0;
+      canvas.dataset.ready = "false";
+    };
+    canvas.addEventListener("webglcontextlost", onContextLost);
+
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       resume();
     });
     const onResize = () => {
       resize();
-      if (reduced) draw(start);
+      if (reduced && !lost) draw(start);
     };
 
     resize();
@@ -180,7 +191,7 @@ export default function ContourField() {
       document.removeEventListener("visibilitychange", resume);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      canvas.removeEventListener("webglcontextlost", onContextLost);
     };
   }, []);
 
