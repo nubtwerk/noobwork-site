@@ -51,7 +51,7 @@ function Action({ bid, action, label }: { bid: Bid; action: string; label: strin
   );
 }
 
-export default async function SeasonAdmin({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function SeasonAdmin({ searchParams }: { searchParams?: Promise<Query> }) {
   const query = (await searchParams) ?? {};
   const signedIn = verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
   const notice = typeof query.notice === "string" ? adminNotices[query.notice] : undefined;

@@ -52,7 +52,7 @@ async function loadBids(): Promise<PublicSpotBids[] | null> {
   }
 }
 
-export default async function Season({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function Season({ searchParams }: { searchParams?: Promise<Query> }) {
   const query = await searchParams ?? {};
   const chosen = findSeasonSpot(query.spot);
   const spot = chosen && chosen.status === "open" ? chosen : undefined;
