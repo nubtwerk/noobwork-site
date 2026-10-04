@@ -33,7 +33,7 @@ describe("Hero", () => {
     expect(screen.getByText("2013")).toBeInTheDocument();
     expect(
       screen.getByRole("img", {
-        name: "Training, Life in Korea, Gaming Heritage, Seoul",
+        name: "Training, Personal Development, Life in Korea, Gaming Heritage",
       })
     ).toBeInTheDocument();
   });

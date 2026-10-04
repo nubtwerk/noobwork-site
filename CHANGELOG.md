@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Work & Ventures is split into Now and Before.
-- Content pillars are now Training, Life in Korea and Gaming Heritage, with plainer copy across the homepage.
+- Content pillars are now Training, Personal Development, Life in Korea and Gaming Heritage, with plainer copy across the homepage.
 - Selected text on dark sections stays readable.
 - Em dashes removed from visible copy.
 

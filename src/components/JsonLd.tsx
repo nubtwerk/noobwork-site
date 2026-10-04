@@ -36,6 +36,7 @@ export default async function JsonLd({ includeVideos = true, includePerson = tru
     knowsAbout: [
       "Fitness & Training",
       "Nutrition",
+      "Personal Development",
       "Startup Advisory",
       "Content Creation",
       "Entrepreneurship",

@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Noobwork | Joachim Haraldsen",
     short_name: "Noobwork",
-    description: "Creator brand of Joachim Haraldsen. Training, life in Korea and gaming heritage, from Seoul.",
+    description: "Creator brand of Joachim Haraldsen. Training, personal development, life in Korea and gaming heritage, from Seoul.",
     start_url: "/",
     display: "standalone",
     background_color: "#F8F8F8",

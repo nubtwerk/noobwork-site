@@ -12,6 +12,11 @@ const pillars: Array<{
     tone: "green",
   },
   {
+    title: "Personal Development",
+    desc: "Getting better at hard things, one habit at a time. What works for me, and what doesn't.",
+    tone: "sand",
+  },
+  {
     title: "Life in Korea",
     desc: "Everyday life in Seoul as a Norwegian, and the trips around it.",
     tone: "purple",
@@ -31,7 +36,7 @@ export default function ContentPillars() {
           <div className="chapter-head chapter-head--ongreen">
             <p className="chapter-head__marker">02 / Content Pillars</p>
             <h2 className="chapter-head__title">What I Make.</h2>
-            <p className="chapter-head__note">Three things I make videos about.</p>
+            <p className="chapter-head__note">What my videos are about.</p>
           </div>
         </AnimatedSection>
 
