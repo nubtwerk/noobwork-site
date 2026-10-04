@@ -8,6 +8,8 @@ import ContactForm from "@/components/ui/ContactForm";
 import RevealText from "@/components/ui/RevealText";
 import SeasonBoard from "@/components/ui/SeasonBoard";
 import SeasonProfile from "@/components/ui/SeasonProfile";
+import ChallengeSection, { loadChallengeView } from "@/components/sections/ChallengeSection";
+import { isChallengeVisible } from "@/data/challenge";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
 import { findSeasonSpot, season, seasonSpots, seasonStatusLabel } from "@/data/season";
@@ -39,6 +41,9 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
   const chosen = findSeasonSpot(query.spot);
   const spot = chosen && chosen.status === "open" ? chosen : undefined;
   const feedback = typeof query.inquiry === "string" ? query.inquiry : undefined;
+  const challengeFeedback = typeof query.challenge === "string" ? query.challenge : undefined;
+  const runner = typeof query.runner === "string" ? query.runner : undefined;
+  const challengeView = isChallengeVisible() ? await loadChallengeView() : undefined;
   const attribution = parseInquiryAttribution(
     Object.fromEntries(
       Object.entries(query).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
@@ -51,6 +56,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
     <div className="site-shell">
       <Nav />
       <ScrollToHash id="inquiry" trigger={`${spot?.id ?? ""}|${feedback ?? ""}`} force={Boolean(feedback)} />
+      {challengeFeedback ? <ScrollToHash id="challenge" trigger={challengeFeedback} force /> : null}
+      {runner ? <ScrollToHash id="leaderboard" trigger={runner} force /> : null}
       <main id="main-content" className="site-main media-kit season">
         <section className="site-section mk-hero season-hero">
           <ContourField />
@@ -136,6 +143,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               <p>One brand per category. Every sponsored post is labelled as a paid partnership. Banner spots run per quarter, so you can start small and renew.</p>
             </AnimatedSection>
           </section>
+
+          {challengeView ? <ChallengeSection view={challengeView} feedback={challengeFeedback} runner={runner} /> : null}
         </div>
 
         <section className="site-section mk-finale">

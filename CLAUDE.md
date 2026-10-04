@@ -33,7 +33,7 @@ Single-page portfolio using the Next.js App Router. The app lives in `src/app/`:
 - `layout.tsx` - Root layout with NEWAKE (local) + Inter (next/font) fonts, SEO metadata (Open Graph, Twitter Card, canonical URLs), person JSON-LD and partnership analytics
 - `page.tsx` - Main page: Hero (kinetic poster), SocialProof, ContentReel (YouTube uploads resolved by `src/lib/get-videos.ts`, with a committed fallback in `src/data/videos.ts`), About, ContentPillars, Work, PartnerCta, Newsletter, Connect; video JSON-LD is scoped to this page
 - `media-kit/page.tsx` - Three partnership formats, dated work examples, featured series inquiry and a form supporting query-selected formats and native POST fallback
-- `season/page.tsx` - Season 1 sponsorship: banner board of spots (open/reserved/sold), spot list with claim links that preselect the `season` inquiry format and prefill the chosen spot
+- `season/page.tsx` - Season 1 sponsorship: banner board of spots (open/reserved/sold), spot list with claim links that preselect the `season` inquiry format and prefill the chosen spot, plus the community challenge section (`src/data/challenge.ts`, `src/lib/challenge/`, runner pages under `season/challenge/`, admin at `season/admin/challenge`; hidden in production until `challenge.enabled`, demo data on previews — see `docs/community-challenge.md`)
 - `globals.css` - Tailwind imports and CSS custom properties for the design system
 
 Path alias: `@/*` maps to `./src/*`.
