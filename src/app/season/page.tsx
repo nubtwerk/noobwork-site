@@ -10,7 +10,11 @@ import SeasonBoard from "@/components/ui/SeasonBoard";
 import SeasonProfile from "@/components/ui/SeasonProfile";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
-import { findSeasonSpot, season, seasonSpots, seasonStatusLabel } from "@/data/season";
+import { SeasonBidPanel, SeasonBidsProvider, SeasonSpotStatusLabel } from "@/components/ui/SeasonBids";
+import { findSeasonSpot, formatUsd, season, seasonBidding, seasonSpots, seasonStatusLabel } from "@/data/season";
+import { publicBoard } from "@/lib/season-bids/service";
+import { getBidStore } from "@/lib/season-bids/store";
+import type { PublicSpotBids } from "@/lib/season-bids/types";
 import { parseInquiryAttribution } from "@/lib/inquiry-attribution";
 import { socialMetadata } from "@/lib/site-metadata";
 
@@ -34,6 +38,20 @@ function formatUtcDay(isoDate: string): string {
 }
 
 type Query = Record<string, string | string[] | undefined>;
+
+/** The live auction, or null to keep the inquiry flow (bidding off, or the store unreachable). */
+async function loadBids(): Promise<PublicSpotBids[] | null> {
+  if (!seasonBidding.enabled) return null;
+  const store = getBidStore();
+  if (!store) return null;
+  try {
+    return await publicBoard(store);
+  } catch (error) {
+    console.error("season board read failed", error instanceof Error ? error.message : "UnknownError");
+    return null;
+  }
+}
+
 export default async function Season({ searchParams }: { searchParams?: Promise<Query> } = {}) {
   const query = await searchParams ?? {};
   const chosen = findSeasonSpot(query.spot);
@@ -46,6 +64,7 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
   ) ?? {};
   const board = seasonSpots.filter((s) => s.board !== null);
   const openCount = seasonSpots.filter((s) => s.status === "open").length;
+  const bids = await loadBids();
 
   return (
     <div className="site-shell">
@@ -80,6 +99,7 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
           <TypeMarquee items={["Season 1", "Body scans", "Tested", "Strength", "Life in Korea", "5 km", "Myths", "Quarterly retests"]} variant="outline" duration={40} />
         </div>
 
+        <SeasonBidsProvider initial={bids}>
         <div className="mk-content">
           <section className="mk-editorial">
             <AnimatedSection className="mk-editorial__aside">
@@ -99,9 +119,9 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               <div className="chapter-head"><p className="chapter-head__marker">02 / The board</p><h2 id="board-title" className="chapter-head__title">On the profiles.</h2></div>
               <p className="mk-evidence-note">
                 Sponsors sit on my YouTube and X banners, which work as the season&apos;s board.
-                Pick a spot to see what it includes. A spot shows here as it is taken. {openCount} of {seasonSpots.length} spots open.
+                Pick a spot to see what it includes{bids ? " and the live bids" : ""}. A spot shows here as it is taken. {openCount} of {seasonSpots.length} spots open.
               </p>
-              <SeasonBoard spots={board} />
+              <SeasonBoard spots={board} initialSpotId={chosen?.id} />
             </AnimatedSection>
           </section>
 
@@ -115,13 +135,9 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
                   <span className="mk-numbered-item__num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                   <h3 className="mk-numbered-item__title">{item.title}</h3>
                   <div className="mk-numbered-item__desc mk-offer-copy">
-                    <p><span className={`season-status season-status--${item.status}`}>{seasonStatusLabel[item.status]}</span> · {item.term}</p>
+                    <p><SeasonSpotStatusLabel spot={item} labels={seasonStatusLabel} /> · {item.term}</p>
                     <ul className="mk-deliverables">{item.includes.map((line) => <li key={line}>{line}</li>)}</ul>
-                    {item.status === "open" ? (
-                      <Link className="btn btn--secondary" href={`/season?spot=${item.id}#inquiry`} data-partnership-source="season" data-partnership-offer="season">
-                        Claim this spot <span className="sr-only">: {item.title}</span>
-                      </Link>
-                    ) : null}
+                    <SeasonBidPanel spot={item} />
                   </div>
                 </AnimatedSection>
               ))}
@@ -134,9 +150,17 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               <h2 id="rules-title" className="chapter-head__title">Placement, never a verdict.</h2>
               <p>Sponsors buy a place on the profiles and in the season. They don&apos;t buy a review. I won&apos;t test or debunk a sponsor&apos;s own product category while they are on the board.</p>
               <p>One brand per category. Every sponsored post is labelled as a paid partnership. Banner spots run per quarter, so you can start small and renew.</p>
+              {bids ? (
+                <p>
+                  Bidding: raises go up by at least {formatUsd(seasonBidding.minRaise)}. A bid in the last {seasonBidding.extensionMinutes} minutes
+                  extends that spot&apos;s close by {seasonBidding.extensionMinutes} minutes. Every bid is checked before it shows, and bids
+                  are non-binding offers. The winner gets a contract and an invoice. No payment is taken on this site.
+                </p>
+              ) : null}
             </AnimatedSection>
           </section>
         </div>
+        </SeasonBidsProvider>
 
         <section className="site-section mk-finale">
           <div className="shell-inner">

@@ -8,8 +8,13 @@
  *
  * `isPublic` keeps the page out of search, the sitemap and the navigation while
  * spots are sold privately. Flip it at the public announcement.
+ *
+ * Bidding: a spot with an `openingBid` is auctioned while `seasonBidding.enabled`
+ * is true. Bids are non-binding offers stored outside this file (see
+ * `src/lib/season-bids/`); marking a winner in /season/admin shows the spot as
+ * Reserved, and "sold" stays a change here once the contract is signed.
  */
-export type SeasonSpotStatus = "open" | "reserved" | "sold";
+export type SeasonSpotStatus = "open" | "talks" | "reserved" | "sold";
 
 export type SeasonSpot = {
   id: string;
@@ -21,7 +26,39 @@ export type SeasonSpot = {
   includes: readonly string[];
   status: SeasonSpotStatus;
   sponsor?: { name: string; url?: string };
+  /** USD. Present only on spots that are auctioned; the minimum first bid. */
+  openingBid?: number;
+  /** Shown next to the amount, e.g. "per quarter". */
+  bidUnit?: string;
 };
+
+export const seasonBidding = {
+  /** Off returns every spot to the "Claim this spot" inquiry flow. */
+  enabled: true,
+  currency: "USD",
+  /** 1 December 2026, 21:00 KST. Every Q1 auction closes here unless extended. */
+  closesAt: "2026-12-01T12:00:00Z",
+  minRaise: 250,
+  /** A bid confirmed this close to the end pushes that spot's close out by the same amount. */
+  extensionMinutes: 30,
+  /** Highest single bid accepted, to catch typos. */
+  maxBid: 250_000,
+  /** One brand per category per quarter. Supplements stay out while Aker is the season partner. */
+  categories: [
+    "AI and creator tools",
+    "Gaming hardware and setups",
+    "Energy and hydration",
+    "Apparel and footwear",
+    "Recovery and wellness",
+    "Gyms and training",
+    "Food and drink",
+    "Software and apps",
+    "Travel and lifestyle",
+    "Other",
+  ],
+} as const;
+
+export type SeasonBidCategory = (typeof seasonBidding.categories)[number];
 
 export const season = {
   name: "Season 1",
@@ -52,7 +89,7 @@ export const seasonSpots: readonly SeasonSpot[] = [
       "Logo on the training shirt",
       "A segment in every retest episode",
     ],
-    status: "open",
+    status: "talks",
   },
   ...[1, 2, 3, 4].map((n): SeasonSpot => ({
     id: `banner-${n}`,
@@ -65,6 +102,8 @@ export const seasonSpots: readonly SeasonSpot[] = [
       "Logo on this page",
     ],
     status: "open",
+    openingBid: 2_500,
+    bidUnit: "for Q1",
   })),
   {
     id: "apparel",
@@ -73,6 +112,8 @@ export const seasonSpots: readonly SeasonSpot[] = [
     board: null,
     includes: ["Your shirt, cap or shoes worn in training episodes", "Only gear I would wear anyway"],
     status: "open",
+    openingBid: 1_500,
+    bidUnit: "per quarter, plus product",
   },
   {
     id: "retest-q1",
@@ -81,6 +122,8 @@ export const seasonSpots: readonly SeasonSpot[] = [
     board: null,
     includes: ["Presents the first retest episode", "Logo on the thumbnail and the retest posts"],
     status: "open",
+    openingBid: 2_000,
+    bidUnit: "for the episode",
   },
 ];
 
@@ -90,6 +133,16 @@ export function findSeasonSpot(id: unknown): SeasonSpot | undefined {
 
 export const seasonStatusLabel: Record<SeasonSpotStatus, string> = {
   open: "Open",
+  talks: "In talks",
   reserved: "Reserved",
   sold: "Sold",
 };
+
+/** Spots taking bids right now, according to this file alone. */
+export function isBiddable(spot: SeasonSpot): spot is SeasonSpot & { openingBid: number } {
+  return seasonBidding.enabled && spot.status === "open" && typeof spot.openingBid === "number";
+}
+
+export function formatUsd(amount: number): string {
+  return `$${amount.toLocaleString("en-US")}`;
+}
