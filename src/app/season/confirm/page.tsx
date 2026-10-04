@@ -22,7 +22,7 @@ const RESULTS: Record<string, { title: string; copy: string }> = {
 
 type Query = Record<string, string | string[] | undefined>;
 
-export default async function ConfirmBid({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function ConfirmBid({ searchParams }: { searchParams?: Promise<Query> }) {
   const query = (await searchParams) ?? {};
   const token = typeof query.token === "string" ? query.token : "";
   const result = typeof query.result === "string" ? RESULTS[query.result] : undefined;

@@ -83,29 +83,32 @@ export function createSupabaseStore(url: string, key: string, secret: string): B
 
 const globalStore = globalThis as typeof globalThis & { __seasonBidStore?: BidStore };
 
-/**
- * Supabase when configured. Otherwise a memory store outside production, so
- * the flow works locally; in production without config bidding reports
- * itself unavailable and the page falls back to the inquiry form.
- */
-/**
- * The project URL and publishable key are public by design: on their own they
- * can only call the secret-gated functions. SEASON_DB_SECRET is what unlocks them.
- */
-const DEFAULT_SUPABASE_URL = "https://mudmzagbhjriswjdzzcq.supabase.co";
-const DEFAULT_SUPABASE_KEY = "sb_publishable_QXMyeatiqlpTk2IWCQGj9A_W_lKuBlp";
-
+/** Hosted bidding requires a complete, explicit dedicated-project configuration. */
 export function getBidStore(): BidStore | null {
-  const secret = process.env.SEASON_DB_SECRET;
-  if (secret) {
-    return createSupabaseStore(
-      process.env.SEASON_SUPABASE_URL || DEFAULT_SUPABASE_URL,
-      process.env.SEASON_SUPABASE_KEY || DEFAULT_SUPABASE_KEY,
-      secret,
-    );
+  const url = process.env.SEASON_SUPABASE_URL?.trim();
+  const key = process.env.SEASON_SUPABASE_KEY?.trim();
+  const projectRef = process.env.SEASON_SUPABASE_PROJECT_REF?.trim();
+  const secret = process.env.SEASON_DB_SECRET?.trim();
+  if (url || key || projectRef || secret) {
+    if (!url || !key || !projectRef || !secret || secret.length < 32) return null;
+    try {
+      const parsed = new URL(url);
+      if (
+        !/^[a-z]{20}$/.test(projectRef) ||
+        // This fitness project is being retired; never send sponsorship data there.
+        projectRef === "mudmzagbhjriswjdzzcq" ||
+        parsed.origin !== `https://${projectRef}.supabase.co` ||
+        parsed.pathname !== "/" || parsed.search || parsed.hash ||
+        parsed.username || parsed.password || !key.startsWith("sb_publishable_")
+      ) return null;
+    } catch {
+      return null;
+    }
+    return createSupabaseStore(url, key, secret);
   }
+  // Ephemeral demo/memory stores must never accept production bids.
+  if (process.env.NODE_ENV === "production") return null;
   const mode = process.env.SEASON_BIDS_STORE;
-  if (process.env.NODE_ENV === "production" && mode !== "memory" && mode !== "demo") return null;
   globalStore.__seasonBidStore ??= createMemoryStore(mode === "demo" ? demoBids() : []);
   return globalStore.__seasonBidStore;
 }
