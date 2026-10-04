@@ -15,7 +15,7 @@ export default function Connect() {
             <h2 className="chapter-head__title">Let&apos;s Connect.</h2>
             <p className="chapter-head__note">
               Find me across the internet, or reach out directly. Founders at
-              early-stage startups and scale-ups can{" "}
+              early-stage startups and scale‑ups can{" "}
               <a href="mailto:joachim@noobwork.no?subject=Advisory">
                 reach me about advisory
               </a>

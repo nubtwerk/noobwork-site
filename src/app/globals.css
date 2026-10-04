@@ -2422,6 +2422,20 @@ body {
   max-width: 64ch;
 }
 
+.work-group + .work-group {
+  margin-top: 3rem;
+}
+
+.work-group__label {
+  margin: 0 0 0.9rem;
+  color: rgba(46, 29, 35, 0.72);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
 /* ── Partner CTA ── */
 .partner {
   position: relative;

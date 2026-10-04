@@ -2,6 +2,11 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import WorkCard from "@/components/ui/WorkCard";
 import { workItems } from "@/data/work-items";
 
+const groups = [
+  { label: "Now", items: workItems.filter((item) => item.phase !== "Past") },
+  { label: "Before", items: workItems.filter((item) => item.phase === "Past") },
+].filter((group) => group.items.length > 0);
+
 export default function Work() {
   return (
     <section id="work" className="site-section">
@@ -17,13 +22,18 @@ export default function Work() {
           </div>
         </AnimatedSection>
 
-        <div className="index-list">
-          {workItems.map((item, i) => (
-            <AnimatedSection key={item.name} delay={i * 0.08}>
-              <WorkCard item={item} />
-            </AnimatedSection>
-          ))}
-        </div>
+        {groups.map((group) => (
+          <div key={group.label} className="work-group">
+            <h3 className="work-group__label">{group.label}</h3>
+            <div className="index-list">
+              {group.items.map((item, i) => (
+                <AnimatedSection key={item.name} delay={i * 0.08}>
+                  <WorkCard item={{ ...item, phase: undefined }} />
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

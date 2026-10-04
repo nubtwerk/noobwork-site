@@ -29,7 +29,7 @@ describe("Connect", () => {
 
   it("offers founders advisory and adds a short brand partnership line", () => {
     render(<Connect />);
-    expect(screen.getByText(/early-stage startups and scale-ups/i)).toBeInTheDocument();
+    expect(screen.getByText(/early-stage startups and scale.ups/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "reach me about advisory" })).toHaveAttribute(
       "href",
       "mailto:joachim@noobwork.no?subject=Advisory"
