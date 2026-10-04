@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
+
 ### Removed
 - Team Haraldsen (paused) and DailyBase (parked) from the homepage, work list, metadata and AI context.
 

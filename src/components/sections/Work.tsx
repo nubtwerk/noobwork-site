@@ -11,8 +11,8 @@ export default function Work() {
             <p className="chapter-head__marker">03 / The Portfolio</p>
             <h2 className="chapter-head__title">Work &amp; Ventures.</h2>
             <p className="chapter-head__note">
-              Creator work today, grounded in a track record from gaming and
-              esports.
+              Creator work and advisory for founders, grounded in a track
+              record from gaming and esports.
             </p>
           </div>
         </AnimatedSection>

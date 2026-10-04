@@ -27,9 +27,13 @@ describe("Connect", () => {
     expect(container.querySelector("#connect")).toBeInTheDocument();
   });
 
-  it("keeps founder tone and adds a short brand partnership line", () => {
+  it("offers founders advisory and adds a short brand partnership line", () => {
     render(<Connect />);
-    expect(screen.getByText(/young founder building something real/i)).toBeInTheDocument();
+    expect(screen.getByText(/early-stage startups and scale-ups/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "reach me about advisory" })).toHaveAttribute(
+      "href",
+      "mailto:joachim@noobwork.no?subject=Advisory"
+    );
     expect(screen.getByRole("link", { name: "explore the media kit" })).toHaveAttribute(
       "href",
       MEDIA_KIT_HREF
