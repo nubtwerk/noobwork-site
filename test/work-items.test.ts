@@ -2,12 +2,12 @@ import { describe, it, expect } from "vitest";
 import { workItems } from "@/data/work-items";
 
 describe("work-items data", () => {
-  it("has 4 work items", () => {
-    expect(workItems).toHaveLength(4);
+  it("has 3 work items", () => {
+    expect(workItems).toHaveLength(3);
   });
 
   it("primary linked items have URLs", () => {
-    const named = ["Noobwork", "Team Haraldsen", "DailyBase.ai", "Heroic Group"];
+    const named = ["Noobwork", "Advisory", "Heroic Group"];
     for (const name of named) {
       const item = workItems.find((w) => w.name === name);
       expect(item, `${name} should exist`).toBeDefined();

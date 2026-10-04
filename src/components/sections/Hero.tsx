@@ -135,7 +135,7 @@ export default function Hero() {
 
       <div className="poster-hero__band">
         <TypeMarquee
-          items={["Fitness", "Personal Development", "Gaming Heritage", "Seoul"]}
+          items={["Training", "Personal Development", "Life in Korea", "Gaming Heritage"]}
           variant="outline"
           duration={42}
         />

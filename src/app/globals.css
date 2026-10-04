@@ -509,90 +509,9 @@ body {
     gap: 0.9rem;
   }
 
-  .social-proof {
-    display: grid;
-    gap: 0.4rem;
-    justify-items: center;
-    text-align: center;
-  }
-
-  .social-proof__eyebrow {
-    margin: 0;
-    color: rgba(46, 29, 35, 0.34);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .social-marquee {
-    margin-top: 1.1rem;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
-    mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
-  }
-
-  .social-marquee__track {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 28s linear infinite;
-  }
-
-  .social-marquee:hover .social-marquee__track {
-    animation-play-state: paused;
-  }
-
-  /* useMarqueePause toggles this when the marquee scrolls offscreen. A class
-     (not an inline style) so the :hover rule above keeps working onscreen. */
-  .social-marquee__track.is-offscreen {
-    animation-play-state: paused;
-  }
-
-  .social-marquee__group {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .social-marquee__item {
-    display: inline-flex;
-    align-items: center;
-    gap: 2.6rem;
-    padding-right: 2.6rem;
-    color: rgba(46, 29, 35, 0.4);
-    font-family: var(--font-family-display);
-    font-size: clamp(1.6rem, 3vw, 2.6rem);
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .social-marquee__dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 9999px;
-    background: rgba(162, 123, 93, 0.55);
-  }
-
   @keyframes marquee-scroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .social-marquee__track {
-      animation: none;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
-    .social-marquee__group[aria-hidden="true"] {
-      display: none;
-    }
-    .social-marquee {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
   }
 
   .about-emphasis {
@@ -1649,8 +1568,7 @@ body {
 .connect-row__name,
 .pillar-row__title,
 .work-card__title,
-.type-marquee__item,
-.social-marquee__item {
+.type-marquee__item {
   word-spacing: 0.18em;
 }
 
@@ -1998,6 +1916,15 @@ body {
 
 .signoff {
   background: linear-gradient(180deg, #2e1d23 0%, #2a1a21 100%);
+}
+
+.reel ::selection,
+.signoff ::selection,
+.connect ::selection,
+.pillars ::selection,
+.mk-hero ::selection {
+  background: var(--color-sand);
+  color: var(--color-foreground);
 }
 
 .connect {
@@ -2420,6 +2347,20 @@ body {
 
 .work-card__copy {
   max-width: 64ch;
+}
+
+.work-group + .work-group {
+  margin-top: 3rem;
+}
+
+.work-group__label {
+  margin: 0 0 0.9rem;
+  color: rgba(46, 29, 35, 0.72);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 /* ── Partner CTA ── */

@@ -146,12 +146,12 @@ Introduced in the 2026 redesign. Typography and motion carry the design.
 - Chapter markers (`.chapter-head__marker`): Inter 0.74rem, 700, `letter-spacing: 0.22em`, uppercase ("01 / The Story")
 
 ### Dark/light scroll rhythm
-Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), SocialProof (light), ContentReel (Brown), About (light), ContentPillars (Tokyo Green + gym image), Work (light), PartnerCta (Sand), Newsletter + Connect + Footer (Brown finale).
+Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), ContentReel (Brown), About (light), ContentPillars (Tokyo Green + gym image), Work (light), PartnerCta (Sand), Newsletter + Connect + Footer (Brown finale).
 
 ### Motion grammar
 - Scroll choreography: hero lines shear apart on scroll-out, background sinks slower than the page (`useScroll` + `useTransform`), editorial images drift via `ParallaxImage`
 - Entrance: masked line rises (`.poster-hero__line-mask`), word-by-word `RevealText`, `AnimatedSection` blur-up
-- Marquees: `TypeMarquee` (poster Newake band, solid or outline) and `.social-marquee` (brand names)
+- Marquee: `TypeMarquee` (poster Newake band, solid or outline). One per page; credentials live in the hero stats
 - Index rows (work, pillars, connect, reel list): hover slides the row `translateX(8-10px)` and recolors to Sand
 - Every animation has a `prefers-reduced-motion` fallback. Scroll-linked transforms are exempt from the 0.6s duration cap; discrete animations are not (entrance reveals up to 0.9s are the approved exception)
 

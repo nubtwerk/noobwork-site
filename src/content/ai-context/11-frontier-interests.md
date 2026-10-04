@@ -22,7 +22,7 @@ He is more interested in people building hard things than people commenting on t
 
 ## Where this turns into action
 
-His product interests include personalized wellness and nutrition planning. Beyond his own products, he wants to spend time around the right founders, operators, investors, researchers, and events connected to AI, compute, energy, and deep tech.
+He wants to spend time around the right founders, operators, investors, researchers, and events connected to AI, compute, energy, and deep tech.
 
 Strong fits include:
 - founder conversations in AI, compute, energy, defence, and infrastructure

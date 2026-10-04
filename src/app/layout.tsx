@@ -22,11 +22,11 @@ const newake = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.noobwork.no"),
   title: {
-    default: "Noobwork | Joachim Haraldsen: Fitness, Personal Development, Gaming Heritage",
+    default: "Noobwork | Joachim Haraldsen: Training, Personal Development, Life in Korea",
     template: "%s | Noobwork",
   },
   description: SITE_DESCRIPTION,
-  keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube", "Team Haraldsen", "DailyBase"],
+  keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "Korea", "advisory", "gaming", "content creator", "YouTube"],
   authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
   creator: "Joachim Haraldsen",
   alternates: {

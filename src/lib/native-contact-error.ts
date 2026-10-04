@@ -15,7 +15,7 @@ export function nativeContactError(status: number, message: string, body: unknow
     .filter((key) => typeof draft[key] === "string" && (draft[key] as string).trim())
     .map((key) => `<input type="hidden" name="${key}" value="${value(key)}">`)
     .join("");
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Review your inquiry — Noobwork</title>
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Review your inquiry | Noobwork</title>
 <style>body{margin:0;background:#e8dfce;color:#2e351f;font:18px/1.5 system-ui,sans-serif}main{max-width:640px;margin:auto;padding:40px 24px}h1{font-size:32px;line-height:1.2}label{display:block;margin-top:18px}input,select,textarea,button{box-sizing:border-box;width:100%;font:inherit;padding:12px;border:1px solid #5b604a;border-radius:4px;background:#fff;color:#2e351f}textarea{min-height:160px}button{margin-top:24px;background:#2e351f;color:#fff;cursor:pointer}a{color:inherit}*:focus-visible{outline:3px solid #765035;outline-offset:3px}.trap{display:none}</style></head><body><main>
 <a href="/media-kit#inquiry">Back to partnerships</a><h1>Your inquiry was not sent.</h1><p role="alert">${escapeHtml(message)}</p>
 <form method="post" action="/api/contact">
