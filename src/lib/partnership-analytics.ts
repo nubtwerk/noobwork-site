@@ -1,7 +1,7 @@
 import { track } from "@vercel/analytics";
 import { isPartnershipOffer } from "@/data/partnerships";
 
-const sources = ["hero", "navigation", "footer", "homepage-partner", "media-kit-hero", "media-kit-offer", "featured-series", "context", "connect", "email"] as const;
+const sources = ["hero", "navigation", "footer", "homepage-partner", "media-kit-hero", "media-kit-offer", "featured-series", "context", "connect", "email", "season"] as const;
 type Event =
   | "partnership_cta_clicked"
   | "partnership_offer_selected"

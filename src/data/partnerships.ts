@@ -23,10 +23,16 @@ export const partnershipOffers = [
   },
 ] as const;
 
-export type PartnershipOfferId = (typeof partnershipOffers)[number]["id"];
+/** Every format the inquiry form accepts: the media-kit formats plus the Season 1 sponsorship (/season). */
+export const inquiryOffers = [
+  ...partnershipOffers,
+  { id: "season", title: "Season 1 sponsorship" },
+] as const;
+
+export type PartnershipOfferId = (typeof inquiryOffers)[number]["id"];
 
 export function isPartnershipOffer(value: unknown): value is PartnershipOfferId {
-  return typeof value === "string" && partnershipOffers.some((offer) => offer.id === value);
+  return typeof value === "string" && inquiryOffers.some((offer) => offer.id === value);
 }
 
 /** Public RSS observations, not platform analytics or sponsored case studies. */

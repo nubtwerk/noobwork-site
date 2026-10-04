@@ -2699,3 +2699,27 @@ body {
   html { scroll-behavior: auto; }
   [data-tilt], [data-magnetic] { transition: none; }
 }
+
+/* Season 1 sponsorship (/season): the banner board and spot states. */
+.season-timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.75rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.season-timeline__item { display: grid; gap: 0.15rem; padding: 0.9rem 1rem; border-radius: 0.9rem; background: var(--color-surface); border: 1px solid var(--color-border); }
+.season-timeline__label { font-family: var(--font-family-display); text-transform: uppercase; font-size: 1.05rem; line-height: 1.1; color: var(--color-foreground); }
+.season-timeline__month { font-size: 0.8rem; color: rgba(46, 29, 35, 0.72); }
+.season-board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; margin: 0.5rem 0 0; padding: clamp(0.9rem, 2.5vw, 1.4rem); list-style: none; border-radius: var(--panel-radius); background: var(--color-primary); }
+.season-slot { position: relative; display: grid; align-content: space-between; gap: 0.6rem; min-height: 6.5rem; padding: 0.9rem 1rem; border-radius: 0.9rem; border: 1px dashed rgba(236, 219, 191, 0.55); color: var(--color-background); }
+.season-slot--partner { grid-column: 1 / -1; min-height: 8rem; }
+.season-slot--reserved { border-style: solid; background: rgba(236, 219, 191, 0.12); }
+.season-slot--sold { border-style: solid; border-color: var(--color-sand); background: var(--color-sand); color: var(--color-foreground); }
+.season-slot__name { font-family: var(--font-family-display); text-transform: uppercase; font-size: clamp(1rem, 2vw, 1.35rem); line-height: 1.1; }
+.season-slot--partner .season-slot__name { font-size: clamp(1.3rem, 3vw, 2rem); }
+.season-slot__status { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; opacity: 0.8; }
+.season-slot__claim { justify-self: start; font-size: 0.84rem; font-weight: 600; color: var(--color-sand); text-decoration: underline; text-underline-offset: 0.2em; }
+.season-slot__claim::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.season-slot__claim:hover, .season-slot__claim:focus-visible { color: var(--color-background); }
+.season-board :focus-visible { outline-color: var(--color-sand); }
+.season-status { font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.78rem; }
+.season-status--open { color: var(--color-primary); }
+.season-status--reserved, .season-status--sold { color: var(--color-accent-dark); }
+@media (max-width: 767px) {
+  .season-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

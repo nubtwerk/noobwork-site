@@ -27,3 +27,10 @@ Track monthly: qualified inquiries, proposals sent, paid bookings, collected rev
 ## Review rhythm
 
 Before each proposal, verify the relevant channel’s current 30/90-day analytics and recent comparable uploads. Paste those Studio figures into `recentReach` in `src/data/partnerships.ts` (set `observedAt` and each metric `value`) so `/media-kit` stays aligned with what you quote. Monthly, review public examples, partner availability and pipeline outcomes using the CSV template above. Do not refresh evidence dates automatically. Paid placements need clear advertising disclosure and sponsored external links; agree disclosure and editorial boundaries with the brand before production.
+
+## Season 1 spots (`/season`)
+
+- Spot status lives in `src/data/season.ts`. Set `reserved` on a verbal yes and `sold` once signed and invoiced.
+- Add `sponsor` only when the agreement allows the brand to be named publicly. Never name an unsigned brand.
+- Keep `season.isPublic` false while spots are sold privately. Flip it at the public announcement, which adds the page to the sitemap and lets search engines index it.
+- Season inquiries arrive with the format "Season 1 sponsorship" and the chosen spot in the opening line of the message.
