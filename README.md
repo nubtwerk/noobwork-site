@@ -38,6 +38,7 @@ The website prebuild refreshes its YouTube feed, keeping the committed fallback 
 - `src/content/ai-context/`: the same positioning in machine-readable profile content.
 - `docs/profile-fact-review.md`: evidence, limitations and review checklist (includes Studio reach update steps).
 - `docs/partnership-operations.md`: qualification, proposals, reporting and measurement.
+- [Dedicated Season bidding database](docs/season-database-separation.md): clean-project setup, required server configuration and release verification.
 - `docs/partnership-pipeline-template.csv`: private monthly CRM template — copy out of the repo; never commit real prospects.
 
 ## Contact form

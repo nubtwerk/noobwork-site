@@ -1,6 +1,6 @@
 # Dedicated Season bidding database
 
-Season bidding requires a new dedicated Supabase project. Do not clone the fitness database or copy its customer data, Auth users, Storage files or credentials. The retired fitness endpoint is explicitly rejected, and missing or invalid hosted configuration keeps bidding unavailable. Local memory/demo mode is development-only.
+Season bidding requires a new dedicated Supabase project. Do not clone the fitness database or copy its customer data, Auth users, Storage files or credentials. The retiring fitness endpoint is explicitly rejected, and missing or invalid hosted configuration keeps bidding unavailable. Local memory/demo mode is development-only.
 
 ## Project and schema setup
 

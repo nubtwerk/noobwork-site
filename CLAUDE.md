@@ -63,7 +63,7 @@ Responsive via Tailwind `md:` and `lg:` breakpoints, mobile-first.
 
 ## Deployment
 
-Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`). Inquiry handling and measurement are documented in [partnership operations](docs/partnership-operations.md); profile evidence and update rules are in the [fact review](docs/profile-fact-review.md). Plants uses a separate deployment and storage configuration described in [its README](plants/README.md). Higgsfield credentials (`HF_CREDENTIALS`) are for local atmosphere regeneration only via `npm run generate:atmosphere`; keep them in `.env.local`, not on Vercel.
+Standard Vercel-compatible Next.js setup. The Media Kit contact form optionally uses Resend (`RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` — see `.env.example`). Season bidding requires explicit dedicated-project configuration and uses `SEASON_FROM_EMAIL` when set; see [database setup and release verification](docs/season-database-separation.md). Inquiry handling and measurement are documented in [partnership operations](docs/partnership-operations.md); profile evidence and update rules are in the [fact review](docs/profile-fact-review.md). Plants uses a separate deployment and storage configuration described in [its README](plants/README.md). Higgsfield credentials (`HF_CREDENTIALS`) are for local atmosphere regeneration only via `npm run generate:atmosphere`; keep them in `.env.local`, not on Vercel.
 
 ## Skill routing
 
