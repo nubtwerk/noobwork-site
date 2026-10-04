@@ -7,14 +7,9 @@ const pillars: Array<{
   tone: "green" | "purple" | "sand";
 }> = [
   {
-    title: "Training",
-    desc: "How I train and eat, and how it fits into a normal week in Seoul.",
+    title: "The Journey",
+    desc: "From gamer to athlete, tracked honestly. I test fitness and nutrition products and trends, and call out the myths.",
     tone: "green",
-  },
-  {
-    title: "Personal Development",
-    desc: "Getting better at hard things, one habit at a time. What works for me, and what doesn't.",
-    tone: "sand",
   },
   {
     title: "Life in Korea",
@@ -22,9 +17,14 @@ const pillars: Array<{
     tone: "purple",
   },
   {
-    title: "Gaming Heritage",
-    desc: "Where Noobwork started. Gaming is still part of who I am and what I make.",
+    title: "Personal Development",
+    desc: "Getting better at hard things, one habit at a time. What works for me, and what doesn't.",
     tone: "sand",
+  },
+  {
+    title: "Building",
+    desc: "Life as an entrepreneur. The products I'm working on, and what I learn advising founders.",
+    tone: "green",
   },
 ];
 
@@ -36,7 +36,7 @@ export default function ContentPillars() {
           <div className="chapter-head chapter-head--ongreen">
             <p className="chapter-head__marker">02 / Content Pillars</p>
             <h2 className="chapter-head__title">What I Make.</h2>
-            <p className="chapter-head__note">What my videos are about.</p>
+            <p className="chapter-head__note">What I make, and what I&apos;m working on.</p>
           </div>
         </AnimatedSection>
 

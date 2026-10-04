@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { WorkItem } from "@/types";
 
 interface WorkCardProps {
@@ -41,6 +42,14 @@ export default function WorkCard({ item }: WorkCardProps) {
       <p className="work-card__copy">{item.desc}</p>
     </>
   );
+
+  if (hasRowLink && item.url?.startsWith("/")) {
+    return (
+      <Link href={item.url} className="work-card work-card--linked block">
+        {content}
+      </Link>
+    );
+  }
 
   if (hasRowLink) {
     return (

@@ -8,6 +8,9 @@ export const ANIMATION_VIEWPORT_MARGIN = "200px 0px 200px 0px";
 export const MEDIA_KIT_INQUIRY_HREF = "/media-kit#inquiry";
 /** Start at the offers and evidence, rather than bypassing them. */
 export const MEDIA_KIT_HREF = "/media-kit";
+/** Advisory, board and operator roles for founders and companies. */
+export const ADVISORY_HREF = "/advisory";
+export const ADVISORY_MAILTO = "mailto:joachim@noobwork.no?subject=Advisory";
 
 /**
  * Homepage sections surfaced in the top nav. This order is curated for the nav
