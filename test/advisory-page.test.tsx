@@ -8,6 +8,13 @@ import { profileFacts } from "@/data/profile-facts";
 import { ADVISORY_MAILTO } from "@/lib/constants";
 
 describe("Advisory page", () => {
+  it("uses the contour map hero instead of the photo backdrop", () => {
+    const { container } = render(<Advisory />);
+    const hero = container.querySelector("section.contour-hero");
+    expect(hero?.querySelector("canvas.contour-field")).toHaveAttribute("aria-hidden", "true");
+    expect(hero?.querySelector("img")).toBeNull();
+  });
+
   it("says which roles Joachim is open to", () => {
     render(<Advisory />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveAttribute("aria-label", "Built it. Now I advise.");

@@ -8,14 +8,15 @@ import { useEffect, useRef } from "react";
  * every fifth line heavier like an index contour on a survey map. The terrain
  * drifts slowly and rises under the pointer, where a readout shows the
  * "elevation". Reduced motion renders one still frame; without WebGL the
- * section's own background shows through.
+ * section's own background shows through. The overlay variant draws only the
+ * lines, transparent elsewhere, so a photo underneath stays visible.
  */
 
 const VERTEX = "attribute vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }";
 
 const FRAGMENT = `#extension GL_OES_standard_derivatives : enable
 precision highp float;
-uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uActive;
+uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uActive; uniform float uOverlay;
 float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float noise(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3. - 2. * f);
   float a = hash(i), b = hash(i + vec2(1, 0)), c = hash(i + vec2(0, 1)), d = hash(i + vec2(1, 1));
@@ -36,7 +37,9 @@ void main(){
   vec3 lineCol = mix(sand, mix(sand, violet, .55), glow);
   float a = l * mix(.16, .5, major) * (.55 + .45 * smoothstep(0., .9, uv.y)) + l * glow * .35;
   vec3 col = green + vec3(.06, .045, .03) * smoothstep(.3, .8, h);
-  gl_FragColor = vec4(mix(col, lineCol, a), 1.);
+  // Overlay: premultiplied lines only, a touch stronger to read over a photo.
+  float oa = min(1., a * 1.25);
+  gl_FragColor = mix(vec4(mix(col, lineCol, a), 1.), vec4(lineCol * oa, oa), uOverlay);
 }`;
 
 // CPU twin of the shader's fbm, so the readout matches the lines under the pointer.
@@ -61,7 +64,12 @@ function fbm(x: number, y: number) {
   return s;
 }
 
-export default function ContourField() {
+interface ContourFieldProps {
+  /** Draw only the contour lines over whatever sits behind the canvas. */
+  overlay?: boolean;
+}
+
+export default function ContourField({ overlay = false }: ContourFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const readoutRef = useRef<HTMLDivElement>(null);
   const elevationRef = useRef<HTMLElement>(null);
@@ -94,6 +102,7 @@ export default function ContourField() {
     const uTime = gl.getUniformLocation(program, "uTime");
     const uMouse = gl.getUniformLocation(program, "uMouse");
     const uActive = gl.getUniformLocation(program, "uActive");
+    gl.uniform1f(gl.getUniformLocation(program, "uOverlay"), overlay ? 1 : 0);
     canvas.dataset.ready = "true";
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -193,11 +202,11 @@ export default function ContourField() {
       host.removeEventListener("pointerleave", onLeave);
       canvas.removeEventListener("webglcontextlost", onContextLost);
     };
-  }, []);
+  }, [overlay]);
 
   return (
     <>
-      <canvas ref={canvasRef} className="contour-field" aria-hidden="true" />
+      <canvas ref={canvasRef} className={`contour-field${overlay ? " contour-field--overlay" : ""}`} aria-hidden="true" />
       <div ref={readoutRef} className="contour-field__readout" aria-hidden="true">
         <b ref={elevationRef}>0 m</b>
         <span>37.5665° N · 126.9780° E</span>

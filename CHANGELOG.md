@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - `/advisory` page: open to advisory, board and select operator roles, with background, focus areas and an email route. Linked from the nav, footer, About, Work and Connect.
 
 ### Changed
+- The homepage hero traces the live contour map over the Seoul skyline, and the Advisory hero uses the full contour map, matching /season.
 - Work & Ventures is split into Now and Before.
 - Content pillars are now Training, Personal Development, Life in Korea and Gaming Heritage, with plainer copy across the homepage.
 - Hero, pillars and media kit now lead with the journey from gamer to athlete: product tests, myth-busting, life in Korea and personal development. Pillars are The Journey, Life in Korea, Personal Development and Building.

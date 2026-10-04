@@ -155,10 +155,11 @@ Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), ContentReel
 - Index rows (work, pillars, connect, reel list): hover slides the row `translateX(8-10px)` and recolors to Sand
 - Every animation has a `prefers-reduced-motion` fallback. Scroll-linked transforms are exempt from the 0.6s duration cap; discrete animations are not (entrance reveals up to 0.9s are the approved exception)
 
-### Contour field (/season)
+### Contour field (/season, /advisory, homepage)
 - `ContourField` draws a live topographic map on dark poster sections with one raw WebGL fragment shader (no 3D library). Sand contour lines on Tokyo Green, every fifth line heavier like a survey map's index contour; Purple Light only as a faint glow under the pointer
 - It pauses offscreen and in hidden tabs, renders one still frame for reduced motion, ignores touch input, and falls back to the section background without WebGL
 - Prefer this over three.js for atmosphere. Reserve three.js for a view that shows real 3D data
+- Two modes: full (the map is the background, used on /season and /advisory) and `overlay` (lines only, at half opacity, over the Seoul dusk photo in the homepage hero). Keep the overlay faint enough that the skyline and body copy stay the focus
 
 ## Don'ts
 
