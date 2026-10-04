@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render } from "@testing-library/react";
 import TypeMarquee from "@/components/ui/TypeMarquee";
-import SocialProof from "@/components/sections/SocialProof";
 
 type IOCallback = (entries: IntersectionObserverEntry[]) => void;
 
@@ -96,56 +95,5 @@ describe("useMarqueePause via TypeMarquee", () => {
     expect(io.disconnected).toBe(false);
     unmount();
     expect(io.disconnected).toBe(true);
-  });
-});
-
-describe("useMarqueePause via SocialProof", () => {
-  let instances: ControllableIO[];
-
-  beforeEach(() => {
-    const stub = makeIOStub();
-    instances = stub.instances;
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  /** Fire all IntersectionObserver callbacks (motion/react + useMarqueePause). */
-  function fireAll(isIntersecting: boolean) {
-    for (const io of instances) {
-      io.callback([{ isIntersecting } as IntersectionObserverEntry]);
-    }
-  }
-
-  it("pauses the social-marquee track when offscreen", () => {
-    const { container } = render(<SocialProof />);
-    const track = container.querySelector(".social-marquee__track") as HTMLElement;
-
-    // At least one IO is created by useMarqueePause; motion may create more.
-    expect(instances.length).toBeGreaterThanOrEqual(1);
-    fireAll(false);
-    expect(track.classList.contains("is-offscreen")).toBe(true);
-  });
-
-  it("resumes the social-marquee track when back onscreen", () => {
-    const { container } = render(<SocialProof />);
-    const track = container.querySelector(".social-marquee__track") as HTMLElement;
-
-    fireAll(false);
-    expect(track.classList.contains("is-offscreen")).toBe(true);
-
-    fireAll(true);
-    expect(track.classList.contains("is-offscreen")).toBe(false);
-  });
-
-  it("calls disconnect on all observers on unmount", () => {
-    const { unmount } = render(<SocialProof />);
-    expect(instances.length).toBeGreaterThanOrEqual(1);
-    unmount();
-    // Every IO created during this render should be disconnected
-    for (const io of instances) {
-      expect(io.disconnected).toBe(true);
-    }
   });
 });

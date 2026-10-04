@@ -7,8 +7,15 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
 
+### Changed
+- Work & Ventures is split into Now and Before.
+- Content pillars are now Training, Life in Korea and Gaming Heritage, with plainer copy across the homepage.
+- Selected text on dark sections stays readable.
+- Em dashes removed from visible copy.
+
 ### Removed
 - Team Haraldsen (paused) and DailyBase (parked) from the homepage, work list, metadata and AI context.
+- The scrolling brand strip under the hero. Its credentials already appear in the hero stats.
 
 ## [0.6.0.0] - 2026-09-10
 

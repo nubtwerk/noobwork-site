@@ -5,8 +5,8 @@ import ContentPillars from "@/components/sections/ContentPillars";
 describe("ContentPillars", () => {
   it("renders all three pillar titles", () => {
     render(<ContentPillars />);
-    expect(screen.getByText("Fitness & Wellness")).toBeInTheDocument();
-    expect(screen.getByText("Personal Development")).toBeInTheDocument();
+    expect(screen.getByText("Training")).toBeInTheDocument();
+    expect(screen.getByText("Life in Korea")).toBeInTheDocument();
     expect(screen.getByText("Gaming Heritage")).toBeInTheDocument();
   });
 

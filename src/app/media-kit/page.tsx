@@ -106,8 +106,8 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                   </>
                 ) : (
                   <>
-                    Channel totals from a dated {recentReach.sourceLabel} export after owner review
-                    — not estimated demographics. Figures appear here once that review is recorded.
+                    Channel totals from a dated {recentReach.sourceLabel} export after owner review,
+                    not estimated demographics. Figures appear here once that review is recorded.
                   </>
                 )}
               </p>
@@ -116,7 +116,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                   <div key={metric.id} className="partner-stat">
                     <dt className="partner-stat__label">{metric.label}</dt>
                     <dd className="partner-stat__value mk-reach-value">
-                      {metric.value ?? "—"}
+                      {metric.value ?? "Pending"}
                     </dd>
                   </div>
                 ))}
@@ -173,7 +173,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                     <p>{item.description}</p>
                     <ul className="mk-deliverables">{item.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}</ul>
                     <p>{item.detail}</p>
-                    <Link className="btn btn--secondary" href={`/media-kit?offer=${item.id}#inquiry`} data-partnership-source="media-kit-offer" data-partnership-offer={item.id}>Discuss this format <span className="sr-only">— {item.title}</span></Link>
+                    <Link className="btn btn--secondary" href={`/media-kit?offer=${item.id}#inquiry`} data-partnership-source="media-kit-offer" data-partnership-offer={item.id}>Discuss this format <span className="sr-only">: {item.title}</span></Link>
                   </div>
                 </AnimatedSection>
               ))}

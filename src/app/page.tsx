@@ -2,7 +2,6 @@ import JsonLd from "@/components/JsonLd";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import SocialProof from "@/components/sections/SocialProof";
 import ContentReel from "@/components/sections/ContentReel";
 import About from "@/components/sections/About";
 import ContentPillars from "@/components/sections/ContentPillars";
@@ -21,7 +20,6 @@ export default async function Home() {
       <Nav />
       <main id="main-content" className="site-main">
         <Hero />
-        <SocialProof />
         <ContentReel
           featuredVideo={featuredVideo}
           recentVideos={recentVideos}

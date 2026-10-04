@@ -19,7 +19,7 @@ export default function Connect() {
               <a href="mailto:joachim@noobwork.no?subject=Advisory">
                 reach me about advisory
               </a>
-              . Brands —{" "}
+              . Brands can{" "}
               <Link href={MEDIA_KIT_HREF} data-partnership-source="connect">
                 explore the media kit
               </Link>{" "}

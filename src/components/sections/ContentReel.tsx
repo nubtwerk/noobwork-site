@@ -57,8 +57,8 @@ export default function ContentReel({
             <p className="chapter-head__marker">The Feed / YouTube</p>
             <h2 className="chapter-head__title">Latest Uploads.</h2>
             <p className="chapter-head__note">
-              No highlight reel. Straight from the channel: the grind, the
-              travel, and what I&apos;m building.
+              Straight from the channel. Training, travel and what I&apos;m
+              building.
             </p>
             {asOfLabel ? (
               <p className="chapter-head__meta">As of {asOfLabel}</p>
