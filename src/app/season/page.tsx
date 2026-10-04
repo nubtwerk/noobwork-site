@@ -77,7 +77,7 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
           </div>
         </section>
         <div className="season-marquee">
-          <TypeMarquee items={["Season 1", "Body scans", "Tested", "Strength", "Life in Korea", "5 km", "Myths", "Reaction time"]} variant="outline" duration={40} />
+          <TypeMarquee items={["Season 1", "Body scans", "Tested", "Strength", "Life in Korea", "5 km", "Myths", "Quarterly retests"]} variant="outline" duration={40} />
         </div>
 
         <div className="mk-content">
