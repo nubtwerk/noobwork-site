@@ -30,13 +30,13 @@ export const season = {
   startsOn: "2027-01-01",
   finaleOn: "2028-01-01",
   checkpoints: [
-    { id: "baseline", label: "Baseline", month: "January 2027" },
-    { id: "q1", label: "First retest", month: "April 2027" },
-    { id: "q2", label: "Second retest", month: "July 2027" },
-    { id: "q3", label: "Third retest", month: "October 2027" },
-    { id: "finale", label: "Finale", month: "January 2028" },
+    { id: "baseline", label: "Baseline", month: "January 2027", text: "The starting numbers, filmed on day one. Nothing hidden, including the unflattering parts." },
+    { id: "q1", label: "First retest", month: "April 2027", text: "Three months in. The first honest read on what the training and the products did." },
+    { id: "q2", label: "Second retest", month: "July 2027", text: "Halfway. Summer in Seoul, the hardest stretch to stay consistent." },
+    { id: "q3", label: "Third retest", month: "October 2027", text: "Nine months. The trends I tested either show up in the numbers or they don't." },
+    { id: "finale", label: "Finale", month: "January 2028", text: "A year of work against the same tests. The full before and after." },
   ],
-  measures: ["Body composition scan", "5 km run", "Strength benchmarks", "Reaction time and APM"],
+  measures: ["Body composition scan", "5 km run", "Strength benchmarks"],
 } as const;
 
 export const seasonSpots: readonly SeasonSpot[] = [

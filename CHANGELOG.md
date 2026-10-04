@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Season 1 page is interactive: a live topographic contour hero, checkpoints on an elevation profile that draws as you scroll, and the sponsor board drawn as the real YouTube banner with selectable spots.
 - Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
 - `/advisory` page: open to advisory, board and select operator roles, with background, focus areas and an email route. Linked from the nav, footer, About, Work and Connect.
 
