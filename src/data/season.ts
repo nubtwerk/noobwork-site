@@ -119,6 +119,19 @@ export const seasonSpots: readonly SeasonSpot[] = [
     bidUnit: "per quarter, plus product",
   },
   {
+    id: "challenge-partner",
+    title: "Challenge partner",
+    term: "Per quarter, from Q1 2027",
+    board: null,
+    includes: [
+      "\"Leaderboard presented by\" on the community challenge board",
+      "A segment in that quarter's retest episode, naming the winners",
+      "You supply the quarter's prizes and ship them to the winners",
+      "Aggregate numbers after each retest: runners, countries, km run. Never personal data",
+    ],
+    status: "open",
+  },
+  {
     id: "retest-q1",
     title: "First retest presenter",
     term: "April 2027 episode",

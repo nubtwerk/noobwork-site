@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Follow Season 1 by email: a double opt-in signup on `/season` (and the homepage once the season is public) that adds confirmed followers to Resend Contacts.
 - Brand link alerts: open `/season?ref=brand` and Joachim gets an email saying which brand opened the link, roughly where from and on what device.
+- Season 1 community challenge, "Climb with me": followers join, log a 5 km each quarter and climb a board ranked by improvement on their own baseline. Includes a personal link per runner, a draft rules page, an admin review page and a Challenge partner spot. Hidden in production until launch.
 - Season 1 page is interactive: a live topographic contour hero, checkpoints on an elevation profile that draws as you scroll, and the sponsor board drawn as the real YouTube banner with selectable spots.
 - Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
 - `/advisory` page: open to advisory, board and select operator roles, with background, focus areas and an email route. Linked from the nav, footer, About, Work and Connect.

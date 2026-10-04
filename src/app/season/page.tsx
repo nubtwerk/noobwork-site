@@ -9,6 +9,8 @@ import RevealText from "@/components/ui/RevealText";
 import SeasonBoard from "@/components/ui/SeasonBoard";
 import SeasonProfile from "@/components/ui/SeasonProfile";
 import TerrainField from "@/components/ui/TerrainField";
+import ChallengeSection, { loadChallengeView } from "@/components/sections/ChallengeSection";
+import { isChallengeVisible } from "@/data/challenge";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
 import SeasonVisitBeacon from "@/components/ui/SeasonVisitBeacon";
@@ -61,6 +63,9 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
   const chosen = findSeasonSpot(query.spot);
   const spot = chosen && chosen.status === "open" ? chosen : undefined;
   const feedback = typeof query.inquiry === "string" ? query.inquiry : undefined;
+  const challengeFeedback = typeof query.challenge === "string" ? query.challenge : undefined;
+  const runner = typeof query.runner === "string" ? query.runner : undefined;
+  const challengeView = isChallengeVisible() ? await loadChallengeView() : undefined;
   const attribution = parseInquiryAttribution(
     Object.fromEntries(
       Object.entries(query).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
@@ -78,6 +83,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
       <ScrollToHash id="inquiry" trigger={`${spot?.id ?? ""}|${feedback ?? ""}`} force={Boolean(feedback)} />
       {followResult ? <ScrollToHash id="follow" trigger={followResult.code} force /> : null}
       <SeasonVisitBeacon visitRef={visitRef} />
+      {challengeFeedback ? <ScrollToHash id="challenge" trigger={challengeFeedback} force /> : null}
+      {runner ? <ScrollToHash id="leaderboard" trigger={runner} force /> : null}
       <main id="main-content" className="site-main media-kit season">
         <section className="site-section mk-hero season-hero">
           <TerrainField />
@@ -177,6 +184,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               ) : null}
             </AnimatedSection>
           </section>
+
+          {challengeView ? <ChallengeSection view={challengeView} feedback={challengeFeedback} runner={runner} /> : null}
         </div>
         </SeasonBidsProvider>
 
