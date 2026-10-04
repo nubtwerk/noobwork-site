@@ -2,18 +2,12 @@ import { nativeContactError } from "@/lib/native-contact-error";
 import { NextResponse } from "next/server";
 import { parseContactPayload, sendContactEmail } from "@/lib/contact";
 import { rateLimit } from "@/lib/rate-limit";
+import { clientKey, isCrossSite } from "@/lib/request-guards";
 import { inquiryFeedback, type InquiryFeedbackCode } from "@/lib/inquiry-feedback";
 
 export const runtime = "nodejs";
 export const maxDuration = 10;
 const MAX_BYTES = 64_000;
-
-/** Best-effort per-instance limiting; x-real-ip is supplied by Vercel's edge. */
-function clientKey(request: Request): string {
-  const realIp = request.headers.get("x-real-ip");
-  if (realIp) return realIp.trim().slice(0, 45);
-  return (request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown").slice(0, 45);
-}
 
 async function readBody(request: Request): Promise<string> {
   const reader = request.body?.getReader();
@@ -46,10 +40,8 @@ async function readBody(request: Request): Promise<string> {
 export async function POST(request: Request) {
   const type = request.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
   const nativeForm = type === "application/x-www-form-urlencoded";
-  // Native forms can POST across sites without CORS preflight. Reject those
-  // before parsing or sending; ordinary API clients may omit Origin.
-  const origin = request.headers.get("origin");
-  if ((origin && origin !== new URL(request.url).origin) || request.headers.get("sec-fetch-site") === "cross-site") {
+  // Reject cross-site posts before parsing or sending.
+  if (isCrossSite(request)) {
     return NextResponse.json({ error: "Invalid request origin." }, { status: 403 });
   }
 

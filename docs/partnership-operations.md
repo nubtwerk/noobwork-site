@@ -34,3 +34,17 @@ Before each proposal, verify the relevant channel’s current 30/90-day analytic
 - Add `sponsor` only when the agreement allows the brand to be named publicly. Never name an unsigned brand.
 - Keep `season.isPublic` false while spots are sold privately. Flip it at the public announcement, which adds the page to the sitemap and lets search engines index it.
 - Season inquiries arrive with the format "Season 1 sponsorship" and the chosen spot in the opening line of the message.
+
+### Brand links and open alerts
+
+- Send each brand its own link: `https://www.noobwork.no/season?ref=aker`. The `ref` is a label you choose: lowercase letters, digits and dashes, up to 40 characters.
+- When the link is opened in a real browser, an email goes to `CONTACT_TO_EMAIL`: "Season link opened: aker", with time in Seoul, approximate city and country, phone or desktop, and the referring site when there is one. Link previews in Slack, iMessage and mail scanners don't run JavaScript, so they don't trigger alerts.
+- Limits: one alert per visitor per brand link every 6 hours, once per browser tab session, and at most 30 alerts an hour per server instance, so a made-up `ref` can't flood the inbox. Your own test clicks count too.
+- The same `ref` rides along in the inquiry email if that brand fills in the form, and goes to Vercel Analytics as a `season_viewed` event (custom events need a Vercel plan that includes them). Total page views of `/season` show in Vercel Web Analytics once it is enabled on the project.
+
+## Season followers (email list)
+
+- `/season` has a "Follow along" signup. The homepage sign-off shows the same form once `season.isPublic` is true.
+- Double opt-in: the visitor gets a confirmation email and is only added after pressing "Confirm and follow" on `/follow/confirm`. The link expires after 7 days. No database: the link carries a signed token.
+- Confirmed followers are added to Resend Contacts, and to the segment in `RESEND_SEASON_SEGMENT_ID` when set. Export or email them from Resend (Broadcasts includes the unsubscribe link).
+- Confirmation emails go to visitors, so the sender (`SEASON_FROM_EMAIL`, falling back to `CONTACT_FROM_EMAIL`) must be on a domain verified in Resend. Resend's `onboarding@resend.dev` test sender can only email the account owner.

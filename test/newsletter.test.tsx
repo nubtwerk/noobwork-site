@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Newsletter from "@/components/sections/Newsletter";
+import { season } from "@/data/season";
 
 describe("Newsletter", () => {
   it("renders the editorial heading and CTA link", () => {
@@ -11,5 +12,10 @@ describe("Newsletter", () => {
     const cta = screen.getByText("Subscribe on YouTube");
     expect(cta.closest("a")).toHaveAttribute("href", "https://www.youtube.com/@Noobworkify");
     expect(cta.closest("a")).toHaveAttribute("target", "_blank");
+  });
+
+  it("keeps the season signup off the homepage until the season is public", () => {
+    render(<Newsletter />);
+    expect(screen.queryByLabelText("Email") !== null).toBe(season.isPublic);
   });
 });

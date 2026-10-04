@@ -5,13 +5,17 @@ import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ContourField from "@/components/ui/ContourField";
 import ContactForm from "@/components/ui/ContactForm";
+import FollowSeasonForm from "@/components/ui/FollowSeasonForm";
 import RevealText from "@/components/ui/RevealText";
 import SeasonBoard from "@/components/ui/SeasonBoard";
 import SeasonProfile from "@/components/ui/SeasonProfile";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
+import SeasonVisitBeacon from "@/components/ui/SeasonVisitBeacon";
 import { findSeasonSpot, season, seasonSpots, seasonStatusLabel } from "@/data/season";
 import { parseInquiryAttribution } from "@/lib/inquiry-attribution";
+import { getFollowFeedback } from "@/lib/season-follow";
+import { parseVisitRef } from "@/lib/season-visit";
 import { socialMetadata } from "@/lib/site-metadata";
 
 const description = "Season 1: one year of getting seriously fit, tested every quarter and filmed in Seoul. A small number of sponsor spots on Noobwork's profiles, one brand per category.";
@@ -44,6 +48,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
       Object.entries(query).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
     ),
   ) ?? {};
+  const followResult = getFollowFeedback(query.follow);
+  const visitRef = parseVisitRef(Array.isArray(query.ref) ? query.ref[0] : query.ref);
   const board = seasonSpots.filter((s) => s.board !== null);
   const openCount = seasonSpots.filter((s) => s.status === "open").length;
 
@@ -51,6 +57,8 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
     <div className="site-shell">
       <Nav />
       <ScrollToHash id="inquiry" trigger={`${spot?.id ?? ""}|${feedback ?? ""}`} force={Boolean(feedback)} />
+      {followResult ? <ScrollToHash id="follow" trigger={followResult.code} force /> : null}
+      <SeasonVisitBeacon visitRef={visitRef} />
       <main id="main-content" className="site-main media-kit season">
         <section className="site-section mk-hero season-hero">
           <ContourField />
@@ -93,6 +101,16 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
             <SeasonProfile checkpoints={season.checkpoints} measures={season.measures} />
             <p className="mk-evidence-note">Illustrative curve. After each retest the line is redrawn from the real numbers.</p>
           </AnimatedSection>
+
+          <section id="follow" className="mk-editorial mk-anchor season-follow" aria-labelledby="follow-title">
+            <AnimatedSection className="mk-editorial__aside">
+              <div className="chapter-head"><p className="chapter-head__marker">Follow along</p><h2 id="follow-title" className="chapter-head__title">Get every retest.</h2></div>
+            </AnimatedSection>
+            <div className="mk-content-intro">
+              <p>The numbers go out by email when each retest is filmed. One email per checkpoint, plus the big moments.</p>
+              <FollowSeasonForm from="season" feedback={followResult} />
+            </div>
+          </section>
 
           <section id="board" className="mk-work-section mk-anchor" aria-labelledby="board-title">
             <AnimatedSection>

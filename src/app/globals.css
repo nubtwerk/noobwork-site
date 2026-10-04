@@ -2724,3 +2724,33 @@ body {
   .season-banner__safe, .season-slot__button { transition: none; }
   .season-slot__button:hover, .season-slot__button:focus-visible, .season-slot__button[aria-pressed="true"] { transform: none; }
 }
+
+/* Follow the season: email signup (/season, homepage signoff) and /follow/confirm. */
+.follow-form { position: relative; display: grid; gap: 0.6rem; width: 100%; max-width: 34rem; margin-top: 0.4rem; }
+.follow-form__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(46, 29, 35, 0.72); }
+.follow-form__row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.follow-form__input { flex: 1 1 14rem; min-width: 0; min-height: 3rem; padding: 0.75rem 1.1rem; border: 1px solid rgba(162, 123, 93, 0.4); border-radius: var(--pill-radius); background: rgba(248, 248, 248, 0.92); color: var(--color-foreground); font: inherit; }
+.follow-form__input::placeholder { color: rgba(46, 29, 35, 0.6); opacity: 1; }
+.follow-form__input:focus-visible { outline: none; border-color: var(--color-beige); box-shadow: 0 0 0 3px rgba(162, 123, 93, 0.3); }
+.follow-form__submit { flex: 0 0 auto; }
+.follow-form__submit:disabled { opacity: 0.72; cursor: wait; transform: none; }
+.follow-form__note { margin: 0; font-size: 0.8rem; line-height: 1.6; color: rgba(46, 29, 35, 0.75); }
+.follow-form__error { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--color-accent-dark); }
+.follow-form--done { gap: 0.35rem; padding: 1.1rem 1.3rem; border-radius: 1.1rem; border: 1px solid rgba(44, 57, 48, 0.18); background: rgba(248, 248, 248, 0.72); }
+.follow-form__done-title { margin: 0; font-family: var(--font-family-display); text-transform: uppercase; font-size: 1.5rem; line-height: 1; color: var(--color-primary); }
+.follow-form--dark { justify-items: stretch; text-align: left; }
+.follow-form--dark .follow-form__label { color: rgba(236, 219, 191, 0.72); }
+.follow-form--dark .follow-form__note { color: rgba(236, 219, 191, 0.7); }
+.follow-form--dark .follow-form__error { color: var(--color-sand); }
+.follow-form--dark.follow-form--done { border-color: rgba(236, 219, 191, 0.22); background: rgba(236, 219, 191, 0.08); }
+.follow-form--dark .follow-form__done-title { color: var(--color-sand); }
+.season-follow .mk-content-intro { align-content: start; }
+.signoff__follow { display: grid; gap: 0.8rem; justify-items: center; width: 100%; margin-top: 0.8rem; }
+.follow-confirm { min-height: 80svh; display: grid; place-items: center; }
+.follow-confirm__inner { display: grid; gap: 1.1rem; justify-items: start; max-width: 36rem; }
+.follow-confirm .chapter-head__marker { color: var(--color-beige); }
+.follow-confirm__title { margin: 0; font-family: var(--font-family-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.6rem, 9vw, 5.5rem); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-sand); }
+.follow-confirm__copy { margin: 0; color: rgba(236, 219, 191, 0.78); line-height: 1.7; }
+@media (prefers-reduced-motion: reduce) {
+  .follow-form__input { transition: none; }
+}
