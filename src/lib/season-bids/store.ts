@@ -88,9 +88,22 @@ const globalStore = globalThis as typeof globalThis & { __seasonBidStore?: BidSt
  * the flow works locally; in production without config bidding reports
  * itself unavailable and the page falls back to the inquiry form.
  */
+/**
+ * The project URL and publishable key are public by design: on their own they
+ * can only call the secret-gated functions. SEASON_DB_SECRET is what unlocks them.
+ */
+const DEFAULT_SUPABASE_URL = "https://mudmzagbhjriswjdzzcq.supabase.co";
+const DEFAULT_SUPABASE_KEY = "sb_publishable_QXMyeatiqlpTk2IWCQGj9A_W_lKuBlp";
+
 export function getBidStore(): BidStore | null {
-  const { SEASON_SUPABASE_URL: url, SEASON_SUPABASE_KEY: key, SEASON_DB_SECRET: secret } = process.env;
-  if (url && key && secret) return createSupabaseStore(url, key, secret);
+  const secret = process.env.SEASON_DB_SECRET;
+  if (secret) {
+    return createSupabaseStore(
+      process.env.SEASON_SUPABASE_URL || DEFAULT_SUPABASE_URL,
+      process.env.SEASON_SUPABASE_KEY || DEFAULT_SUPABASE_KEY,
+      secret,
+    );
+  }
   const mode = process.env.SEASON_BIDS_STORE;
   if (process.env.NODE_ENV === "production" && mode !== "memory" && mode !== "demo") return null;
   globalStore.__seasonBidStore ??= createMemoryStore(mode === "demo" ? demoBids() : []);

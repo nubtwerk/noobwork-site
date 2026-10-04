@@ -77,9 +77,9 @@ begin
 end $$;
 
 revoke all on function season_private.check_secret(text) from public, anon, authenticated;
-revoke all on function public.season_bids_list(text) from public;
-revoke all on function public.season_bids_insert(text, jsonb) from public;
-revoke all on function public.season_bids_update(text, uuid, jsonb) from public;
+revoke all on function public.season_bids_list(text) from public, authenticated;
+revoke all on function public.season_bids_insert(text, jsonb) from public, authenticated;
+revoke all on function public.season_bids_update(text, uuid, jsonb) from public, authenticated;
 grant execute on function public.season_bids_list(text) to anon;
 grant execute on function public.season_bids_insert(text, jsonb) to anon;
 grant execute on function public.season_bids_update(text, uuid, jsonb) to anon;
