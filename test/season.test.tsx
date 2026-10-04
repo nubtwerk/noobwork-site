@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Season, { metadata } from "@/app/season/page";
 import sitemap from "@/app/sitemap";
 import { season, seasonSpots } from "@/data/season";
@@ -49,5 +49,20 @@ describe("Season page", () => {
   it("accepts season inquiries through the contact API", () => {
     const result = parseContactPayload({ name: "Ada", email: "ada@example.com", message: "We would like a banner spot for Q1.", offer: "season" });
     expect(result).toMatchObject({ data: { offer: "season" } });
+  });
+});
+
+describe("Season page interactions", () => {
+  it("opens a checkpoint on the elevation profile", async () => {
+    render(await page());
+    fireEvent.click(screen.getByRole("button", { name: "Finale, January 2028" }));
+    expect(screen.getByRole("heading", { level: 3, name: "January 2028Finale" })).toBeInTheDocument();
+    expect(screen.getByRole("list", { name: "What gets measured" }).querySelectorAll("li")).toHaveLength(season.measures.length);
+  });
+
+  it("shows the picked banner spot with a claim link", async () => {
+    render(await page());
+    fireEvent.click(screen.getByRole("button", { name: "Banner spot 3, Open" }));
+    expect(screen.getByRole("link", { name: "Claim Banner spot 3" })).toHaveAttribute("href", "/season?spot=banner-3#inquiry");
   });
 });

@@ -3,11 +3,14 @@ import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import AtmosphereBackdrop from "@/components/ui/AtmosphereBackdrop";
+import ContourField from "@/components/ui/ContourField";
 import ContactForm from "@/components/ui/ContactForm";
 import RevealText from "@/components/ui/RevealText";
+import SeasonBoard from "@/components/ui/SeasonBoard";
+import SeasonProfile from "@/components/ui/SeasonProfile";
+import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
-import { findSeasonSpot, season, seasonSpots, seasonStatusLabel, type SeasonSpot } from "@/data/season";
+import { findSeasonSpot, season, seasonSpots, seasonStatusLabel } from "@/data/season";
 import { parseInquiryAttribution } from "@/lib/inquiry-attribution";
 import { socialMetadata } from "@/lib/site-metadata";
 
@@ -30,21 +33,6 @@ function formatUtcDay(isoDate: string): string {
   });
 }
 
-function BoardSlot({ spot }: { spot: SeasonSpot }) {
-  const taken = spot.status !== "open";
-  return (
-    <li className={`season-slot season-slot--${spot.board} season-slot--${spot.status}`}>
-      <span className="season-slot__name">{spot.status === "sold" && spot.sponsor ? spot.sponsor.name : spot.title}</span>
-      <span className="season-slot__status">{seasonStatusLabel[spot.status]}</span>
-      {!taken ? (
-        <Link className="season-slot__claim" href={`/season?spot=${spot.id}#inquiry`} data-partnership-source="season" data-partnership-offer="season">
-          Claim <span className="sr-only">{spot.title}</span>
-        </Link>
-      ) : null}
-    </li>
-  );
-}
-
 type Query = Record<string, string | string[] | undefined>;
 export default async function Season({ searchParams }: { searchParams?: Promise<Query> } = {}) {
   const query = await searchParams ?? {};
@@ -64,8 +52,10 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
       <Nav />
       <ScrollToHash id="inquiry" trigger={`${spot?.id ?? ""}|${feedback ?? ""}`} force={Boolean(feedback)} />
       <main id="main-content" className="site-main media-kit season">
-        <section className="site-section mk-hero">
-          <AtmosphereBackdrop imagePosition="center 42%" priority />
+        <section className="site-section mk-hero season-hero">
+          <ContourField />
+          <div className="season-hero__veil" aria-hidden="true" />
+          <div className="poster-hero__grain" aria-hidden="true" />
           <div className="shell-inner mk-hero__stage">
             <AnimatedSection>
               <div className="chapter-head chapter-head--ongreen mk-hero__head">
@@ -86,6 +76,9 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
             </AnimatedSection>
           </div>
         </section>
+        <div className="season-marquee">
+          <TypeMarquee items={["Season 1", "Body scans", "Tested", "Strength", "Life in Korea", "5 km", "Myths", "Reaction time"]} variant="outline" duration={40} />
+        </div>
 
         <div className="mk-content">
           <section className="mk-editorial">
@@ -93,31 +86,22 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
               <div className="chapter-head"><p className="chapter-head__marker">01 / The season</p><h2 className="chapter-head__title">Prove it.</h2></div>
             </AnimatedSection>
             <div className="mk-content-intro">
-              <p>Day one sets the baseline. Every three months I run the same tests again and publish the numbers, good or bad.</p>
-              <div className="mk-region-list" aria-label="What gets measured">
-                {season.measures.map((measure) => <span key={measure} className="mk-region-tag mk-region-tag--primary">{measure}</span>)}
-              </div>
-              <ol className="season-timeline" aria-label="Season checkpoints">
-                {season.checkpoints.map((checkpoint) => (
-                  <li key={checkpoint.id} className="season-timeline__item">
-                    <span className="season-timeline__label">{checkpoint.label}</span>
-                    <span className="season-timeline__month">{checkpoint.month}</span>
-                  </li>
-                ))}
-              </ol>
+              <p>Day one sets the baseline. Every three months I run the same tests again and publish the numbers, good or bad. Pick a checkpoint to see what gets measured.</p>
             </div>
           </section>
+          <AnimatedSection className="season-profile-wrap">
+            <SeasonProfile checkpoints={season.checkpoints} measures={season.measures} />
+            <p className="mk-evidence-note">Illustrative curve. After each retest the line is redrawn from the real numbers.</p>
+          </AnimatedSection>
 
           <section id="board" className="mk-work-section mk-anchor" aria-labelledby="board-title">
             <AnimatedSection>
               <div className="chapter-head"><p className="chapter-head__marker">02 / The board</p><h2 id="board-title" className="chapter-head__title">On the profiles.</h2></div>
               <p className="mk-evidence-note">
                 Sponsors sit on my YouTube and X banners, which work as the season&apos;s board.
-                A spot shows here as it is taken. {openCount} of {seasonSpots.length} spots open.
+                Pick a spot to see what it includes. A spot shows here as it is taken. {openCount} of {seasonSpots.length} spots open.
               </p>
-              <ul className="season-board" aria-label="Banner board">
-                {board.map((s) => <BoardSlot key={s.id} spot={s} />)}
-              </ul>
+              <SeasonBoard spots={board} />
             </AnimatedSection>
           </section>
 
