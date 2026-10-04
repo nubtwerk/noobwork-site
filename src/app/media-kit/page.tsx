@@ -131,10 +131,10 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
               <div className="chapter-head"><p className="chapter-head__marker">01 / The content</p><h2 className="chapter-head__title">From Seoul.</h2></div>
             </AnimatedSection>
             <div className="mk-content-intro">
-              <p>Norwegian-language videos about training, travel and everyday life in Korea, shaped by my background in gaming and company building.</p>
+              <p>Norwegian-language videos following my journey from gamer to athlete: training, testing fitness and nutrition products and trends, and everyday life in Korea.</p>
               <p>A good partnership starts with a product that belongs in the story. We agree the audience fit, content format and reporting window as part of the brief.</p>
               <div className="mk-region-list" aria-label="Content themes">
-                {["Training & nutrition", "Life in Korea", "Travel", "Gaming heritage"].map((theme) => <span key={theme} className="mk-region-tag mk-region-tag--primary">{theme}</span>)}
+                {["The journey", "Product tests", "Life in Korea", "Personal development"].map((theme) => <span key={theme} className="mk-region-tag mk-region-tag--primary">{theme}</span>)}
               </div>
             </div>
           </section>
@@ -221,7 +221,7 @@ export default async function MediaKit({ searchParams }: { searchParams?: Promis
                     </h2>
                   </div>
                   <p className="partner-pitch__copy mk-finale__copy">Tell me what you&apos;re making and who you want to reach. Include your campaign timing and budget range if you have them.</p>
-                  <p className="mk-evidence-note">For events, speaking or advisory work, use the same form and tell me what you have in mind.</p>
+                  <p className="mk-evidence-note">For events or speaking, use the same form and tell me what you have in mind. For advisory or board work, see <Link href="/advisory">advisory</Link>.</p>
                 </div>
                 <div id="inquiry" className="mk-inquiry">
                   <ContactForm initialOffer={offer} feedback={feedback} initialAttribution={attribution} />

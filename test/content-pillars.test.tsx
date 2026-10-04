@@ -5,10 +5,10 @@ import ContentPillars from "@/components/sections/ContentPillars";
 describe("ContentPillars", () => {
   it("renders all four pillar titles", () => {
     render(<ContentPillars />);
-    expect(screen.getByText("Training")).toBeInTheDocument();
-    expect(screen.getByText("Personal Development")).toBeInTheDocument();
+    expect(screen.getByText("The Journey")).toBeInTheDocument();
     expect(screen.getByText("Life in Korea")).toBeInTheDocument();
-    expect(screen.getByText("Gaming Heritage")).toBeInTheDocument();
+    expect(screen.getByText("Personal Development")).toBeInTheDocument();
+    expect(screen.getByText("Building")).toBeInTheDocument();
   });
 
   it("renders section heading", () => {

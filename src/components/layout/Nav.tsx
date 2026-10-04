@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useMemo, useRef } from "react";
 import Logo from "@/components/ui/Logo";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { MEDIA_KIT_HREF, NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
+import { ADVISORY_HREF, MEDIA_KIT_HREF, NAV_SCROLL_THRESHOLD, NAV_SECTIONS } from "@/lib/constants";
 
 export default function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isMediaKit = pathname === "/media-kit";
+  const isAdvisory = pathname === ADVISORY_HREF;
   const sectionIds = useMemo(
     () => (isHome ? NAV_SECTIONS.map((link) => link.id) : []),
     [isHome]
@@ -64,6 +65,13 @@ export default function Nav() {
             </Link>
           ))}
           <Link
+            href={ADVISORY_HREF}
+            className={`nav-link${isAdvisory ? " nav-link--active" : ""}`}
+            aria-current={isAdvisory ? "page" : undefined}
+          >
+            Advisory
+          </Link>
+          <Link
             href={MEDIA_KIT_HREF} data-partnership-source="navigation"
             className={`btn btn--tertiary${isMediaKit ? " nav-cta--active" : ""}`}
             aria-current={isMediaKit ? "page" : undefined}
@@ -109,6 +117,14 @@ export default function Nav() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href={ADVISORY_HREF}
+              className={`nav-mobile-dropdown__link${isAdvisory ? " nav-mobile-dropdown__link--active" : ""}`}
+              aria-current={isAdvisory ? "page" : undefined}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Advisory
+            </Link>
             <Link
               href={MEDIA_KIT_HREF} data-partnership-source="navigation"
               className={`nav-mobile-dropdown__link${isMediaKit ? " nav-mobile-dropdown__link--active" : ""}`}

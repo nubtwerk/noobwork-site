@@ -13,7 +13,7 @@ export const workItems: WorkItem[] = [
     role: "Advisor",
     phase: "Current",
     desc: "Advising early-stage startups and scale‑ups in gaming, media, AI and frontier tech. Operator experience from building, acquiring and scaling a company across borders.",
-    url: "mailto:joachim@noobwork.no?subject=Advisory",
+    url: "/advisory",
   },
   {
     name: "Heroic Group",

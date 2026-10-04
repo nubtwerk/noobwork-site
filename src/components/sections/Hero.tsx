@@ -63,7 +63,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.65, ease: EASE_OUT_EXPO }}
         >
           <span>Joachim Haraldsen</span>
-          <span>Creator / Founder</span>
+          <span>Creator / Founder / Advisor</span>
           <span>Seoul, South Korea</span>
         </motion.div>
 
@@ -94,9 +94,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.45, ease: EASE_OUT_EXPO }}
           >
-            I&apos;m Joachim, a Norwegian creator and founder living in Seoul.
-            I make videos about training, life abroad, and the things
-            I&apos;m building along the way.
+            I&apos;m Joachim. Gamer, founder, and now getting seriously fit.
+            Follow the journey from Seoul as I test fitness and nutrition
+            products and trends, call out the myths, and share life in Korea.
           </motion.p>
           <motion.div
             className="hero-actions"
@@ -135,7 +135,7 @@ export default function Hero() {
 
       <div className="poster-hero__band">
         <TypeMarquee
-          items={["Training", "Personal Development", "Life in Korea", "Gaming Heritage"]}
+          items={["The Journey", "Tested", "Life in Korea", "Personal Development"]}
           variant="outline"
           duration={42}
         />

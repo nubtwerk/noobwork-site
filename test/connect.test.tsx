@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Connect from "@/components/sections/Connect";
-import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { ADVISORY_HREF, MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 describe("Connect", () => {
   it("renders all social links", () => {
@@ -32,7 +32,7 @@ describe("Connect", () => {
     expect(screen.getByText(/early-stage startups and scale.ups/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "reach me about advisory" })).toHaveAttribute(
       "href",
-      "mailto:joachim@noobwork.no?subject=Advisory"
+      ADVISORY_HREF
     );
     expect(screen.getByRole("link", { name: "explore the media kit" })).toHaveAttribute(
       "href",

@@ -315,7 +315,10 @@ body {
 
   .reveal-word__mask {
     display: inline-block;
-    overflow: hidden;
+    /* Clip only vertically (the rise-in). overflow: hidden also cut the
+       right edge of each word's last glyph, since tight display
+       letter-spacing makes the ink wider than the box. */
+    clip-path: inset(0 -0.3em);
     vertical-align: bottom;
     padding-bottom: 0.08em;
     margin-bottom: -0.08em;
