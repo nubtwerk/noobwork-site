@@ -19,6 +19,14 @@ describe("WorkCard", () => {
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });
 
+  it("keeps internal links in the same tab", () => {
+    const item = { name: "Advisory", role: "Advisor", desc: "Advisory work.", url: "/advisory" };
+    const { container } = render(<WorkCard item={item} />);
+    const link = container.querySelector("a");
+    expect(link).toHaveAttribute("href", "/advisory");
+    expect(link).not.toHaveAttribute("target");
+  });
+
   it("renders as a div when no url is provided", () => {
     const item = {
       name: "Advisory & Angel",

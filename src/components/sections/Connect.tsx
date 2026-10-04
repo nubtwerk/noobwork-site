@@ -3,7 +3,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { socialLinks } from "@/data/social-links";
-import { MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
+import { ADVISORY_HREF, MEDIA_KIT_HREF, MEDIA_KIT_INQUIRY_HREF } from "@/lib/constants";
 
 export default function Connect() {
   return (
@@ -16,9 +16,7 @@ export default function Connect() {
             <p className="chapter-head__note">
               Find me across the internet, or reach out directly. Founders at
               early-stage startups and scale‑ups can{" "}
-              <a href="mailto:joachim@noobwork.no?subject=Advisory">
-                reach me about advisory
-              </a>
+              <Link href={ADVISORY_HREF}>reach me about advisory</Link>
               . Brands can{" "}
               <Link href={MEDIA_KIT_HREF} data-partnership-source="connect">
                 explore the media kit

@@ -6,10 +6,12 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
+- `/advisory` page: open to advisory, board and select operator roles, with background, focus areas and an email route. Linked from the nav, footer, About, Work and Connect.
 
 ### Changed
 - Work & Ventures is split into Now and Before.
 - Content pillars are now Training, Personal Development, Life in Korea and Gaming Heritage, with plainer copy across the homepage.
+- Hero, pillars and media kit now lead with the journey from gamer to athlete: product tests, myth-busting, life in Korea and personal development. Pillars are The Journey, Life in Korea, Personal Development and Building.
 - Selected text on dark sections stays readable.
 - Em dashes removed from visible copy.
 

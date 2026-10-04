@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_DESCRIPTION = "Joachim Haraldsen, known as Noobwork, is a Norwegian creator and founder based in Seoul. Videos about training, life abroad and building things. Explore content partnerships.";
+export const SITE_DESCRIPTION = "Joachim Haraldsen, known as Noobwork, is a Norwegian creator and founder based in Seoul. Follow the journey from gamer to athlete, product tests and life in Korea. Content partnerships and advisory.";
 
 /** Next replaces nested metadata objects; each route needs a complete object. */
 export function socialMetadata(title: string, description: string, path = "/"): Pick<Metadata, "openGraph" | "twitter"> {

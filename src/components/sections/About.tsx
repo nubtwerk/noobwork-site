@@ -1,6 +1,8 @@
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import RevealText from "@/components/ui/RevealText";
 import Image from "next/image";
+import Link from "next/link";
+import { ADVISORY_HREF } from "@/lib/constants";
 import { focusItems } from "@/data/focus-items";
 import { profileFacts } from "@/data/profile-facts";
 
@@ -22,7 +24,7 @@ export default function About() {
             <p className="story-lead">I&apos;m <span className="about-emphasis">Joachim Haraldsen</span>, a Norwegian creator and founder living in Seoul. Gaming brought me to YouTube. It grew into a career in content and company building.</p>
             <p>I started Noobwork on YouTube in 2013. The channel grew to <span className="about-emphasis">{profileFacts.subscribers.long} subscribers</span>.</p>
             <p>I later founded Omaken, which acquired Heroic and became <span className="about-emphasis">Heroic Group</span>. That took me into esports, running a company and building teams across borders. <a className="story-source-link" href="https://www.forbes.com/sites/mattgardner1/2022/11/11/truly-heroic-meet-the-inspirational-owner-of-norways-esports-powerhouse/" target="_blank" rel="noopener noreferrer">Read the Forbes profile from 2022 ↗</a></p>
-            <p>Today my videos follow training, travel, everyday life in Korea, and the things I&apos;m building along the way.</p>
+            <p>Today my videos follow my journey from gamer to athlete, everyday life in Korea, and the things I&apos;m building. I also take on a small number of advisory projects for founders in gaming, media, AI and frontier tech. <Link className="story-source-link" href={ADVISORY_HREF}>More on advisory</Link></p>
           </AnimatedSection>
           <div className="story-side">
             <AnimatedSection delay={0.18}>
