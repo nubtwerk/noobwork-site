@@ -159,7 +159,7 @@ Sections alternate, in order: Hero (Tokyo Green + Seoul dusk image), ContentReel
 - `ContourField` draws a live topographic map on dark poster sections with one raw WebGL fragment shader (no 3D library). Sand contour lines on Tokyo Green, every fifth line heavier like a survey map's index contour; Purple Light only as a faint glow under the pointer
 - It pauses offscreen and in hidden tabs, renders one still frame for reduced motion, ignores touch input, and falls back to the section background without WebGL
 - Prefer this over three.js for atmosphere. Reserve three.js for a view that shows real 3D data
-- Two modes: full (the map is the background, used on /season and /advisory) and `overlay` (lines only, at half opacity, over the Seoul dusk photo in the homepage hero). Keep the overlay faint enough that the skyline and body copy stay the focus
+- Two modes: full (the map is the background, used on /season and /advisory) and `overlay` (lines only, at 0.9 opacity, over the Seoul dusk photo in the homepage hero). Lines stay thin so the body copy and stats remain readable
 
 ## Don'ts
 
