@@ -36,7 +36,7 @@ export const season = {
     { id: "q3", label: "Third retest", month: "October 2027" },
     { id: "finale", label: "Finale", month: "January 2028" },
   ],
-  measures: ["Body composition scan", "Bloodwork", "5 km run", "Strength benchmarks", "Reaction time and APM"],
+  measures: ["Body composition scan", "5 km run", "Strength benchmarks", "Reaction time and APM"],
 } as const;
 
 export const seasonSpots: readonly SeasonSpot[] = [
