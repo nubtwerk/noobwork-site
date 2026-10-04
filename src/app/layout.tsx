@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Noobwork",
   },
   description: SITE_DESCRIPTION,
-  keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube", "Team Haraldsen", "DailyBase"],
+  keywords: ["Noobwork", "Joachim Haraldsen", "fitness", "training", "nutrition", "Seoul", "personal development", "gaming", "content creator", "YouTube"],
   authors: [{ name: "Joachim Haraldsen", url: "https://www.noobwork.no" }],
   creator: "Joachim Haraldsen",
   alternates: {

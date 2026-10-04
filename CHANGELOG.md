@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Removed
+- Team Haraldsen (paused) and DailyBase (parked) from the homepage, work list, metadata and AI context.
+
 ## [0.6.0.0] - 2026-09-10
 
 ### Added
