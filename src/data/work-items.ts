@@ -9,18 +9,11 @@ export const workItems: WorkItem[] = [
     url: "https://www.youtube.com/@Noobworkify",
   },
   {
-    name: "Team Haraldsen",
-    role: "Founder",
+    name: "Advisory",
+    role: "Advisor",
     phase: "Current",
-    desc: "My health and fitness brand and paid coaching community. Real coaching, real accountability, and a community built around training, nutrition, and feeling good, with zero guilt and zero diet-shaming.",
-    url: "https://teamharaldsen.no/",
-  },
-  {
-    name: "DailyBase.ai",
-    role: "Founder",
-    phase: "Current",
-    desc: "A nutrition-planning project exploring simpler meal planning and everyday food decisions.",
-    url: "https://dailybase.ai/",
+    desc: "Advising early-stage startups and scale‑ups in gaming, media, AI and frontier tech. Operator experience from building, acquiring and scaling a company across borders.",
+    url: "mailto:joachim@noobwork.no?subject=Advisory",
   },
   {
     name: "Heroic Group",

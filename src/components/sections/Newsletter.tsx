@@ -14,9 +14,8 @@ export default function Newsletter() {
               <RevealText text="Noobwork Is Back" />
             </h2>
             <p className="signoff__copy">
-              I&apos;m documenting the return properly this time: what I&apos;m
-              building, what I&apos;m learning, and what&apos;s changing along
-              the way.
+              This time I&apos;m documenting it properly. Follow along on
+              YouTube.
             </p>
             <a
               href={YOUTUBE_CHANNEL_URL}

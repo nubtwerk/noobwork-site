@@ -8,6 +8,10 @@
 
 The featured Seoul-series opportunity is an inquiry, not an automatic booking. Dates, number of episodes, fee and any exclusivity must be agreed before a commitment is made.
 
+## Advisory
+
+Joachim advises early-stage startups and scale-ups in gaming, media, AI and frontier tech. Email joachim@noobwork.no with what you are building, your stage and where you want help.
+
 ## A useful first message
 Include your brand or product, who you want to reach, the format, campaign timing and a budget range if available. Explain why the product belongs in Joachim's content. Events, speaking and advisory work can use the same contact route.
 

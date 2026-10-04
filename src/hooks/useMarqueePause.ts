@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 /**
  * Pauses a CSS marquee animation while the element is offscreen by toggling an
  * `is-offscreen` class — NOT an inline style. An inline `animation-play-state`
- * would override the stylesheet `.social-marquee:hover` pause rule by
+ * would override a stylesheet `:hover` pause rule by
  * specificity and permanently defeat hover-to-pause.
  */
 export function useMarqueePause<T extends HTMLElement>() {

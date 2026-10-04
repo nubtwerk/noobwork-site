@@ -14,9 +14,12 @@ export default function Connect() {
             <p className="chapter-head__marker">Everywhere</p>
             <h2 className="chapter-head__title">Let&apos;s Connect.</h2>
             <p className="chapter-head__note">
-              Find me across the internet, or reach out directly. If you&apos;re
-              a young founder building something real, I&apos;m always happy to
-              connect. Brands —{" "}
+              Find me across the internet, or reach out directly. Founders at
+              early-stage startups and scale‑ups can{" "}
+              <a href="mailto:joachim@noobwork.no?subject=Advisory">
+                reach me about advisory
+              </a>
+              . Brands can{" "}
               <Link href={MEDIA_KIT_HREF} data-partnership-source="connect">
                 explore the media kit
               </Link>{" "}

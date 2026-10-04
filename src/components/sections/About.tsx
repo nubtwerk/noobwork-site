@@ -20,9 +20,9 @@ export default function About() {
         <div className="story-grid">
           <AnimatedSection delay={0.1} className="story-copy">
             <p className="story-lead">I&apos;m <span className="about-emphasis">Joachim Haraldsen</span>, a Norwegian creator and founder living in Seoul. Gaming brought me to YouTube. It grew into a career in content and company building.</p>
-            <p>I started Noobwork on YouTube in 2013. The channel grew to <span className="about-emphasis">{profileFacts.subscribers.long} subscribers</span>, with videos that became the foundation for everything that followed.</p>
-            <p>I later founded Omaken, which acquired Heroic and became <span className="about-emphasis">Heroic Group</span>. That chapter took me into esports, leadership and the work of building a company across borders. <a className="story-source-link" href="https://www.forbes.com/sites/mattgardner1/2022/11/11/truly-heroic-meet-the-inspirational-owner-of-norways-esports-powerhouse/" target="_blank" rel="noopener noreferrer">Read the Forbes profile from 2022 ↗</a></p>
-            <p>Today my videos follow training, travel, everyday life in Korea, and the things I&apos;m building along the way. I also work on health and fitness through Team Haraldsen and my product projects.</p>
+            <p>I started Noobwork on YouTube in 2013. The channel grew to <span className="about-emphasis">{profileFacts.subscribers.long} subscribers</span>.</p>
+            <p>I later founded Omaken, which acquired Heroic and became <span className="about-emphasis">Heroic Group</span>. That took me into esports, running a company and building teams across borders. <a className="story-source-link" href="https://www.forbes.com/sites/mattgardner1/2022/11/11/truly-heroic-meet-the-inspirational-owner-of-norways-esports-powerhouse/" target="_blank" rel="noopener noreferrer">Read the Forbes profile from 2022 ↗</a></p>
+            <p>Today my videos follow training, travel, everyday life in Korea, and the things I&apos;m building along the way.</p>
           </AnimatedSection>
           <div className="story-side">
             <AnimatedSection delay={0.18}>

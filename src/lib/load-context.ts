@@ -85,7 +85,7 @@ export async function buildContextIndex(): Promise<string> {
   // blurb later resolves from profile-facts instead of silently hardcoding one.
   return substituteTokens(
     [
-      "# Noobwork — Joachim Haraldsen",
+      "# Noobwork: Joachim Haraldsen",
       "",
       "> Norwegian creator, founder and operator based in Seoul. Joachim has",
       "> worked across content and esports; now creating from Seoul around training,",

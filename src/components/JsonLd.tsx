@@ -37,6 +37,7 @@ export default async function JsonLd({ includeVideos = true, includePerson = tru
       "Fitness & Training",
       "Nutrition",
       "Personal Development",
+      "Startup Advisory",
       "Content Creation",
       "Entrepreneurship",
       "Gaming",
