@@ -28,7 +28,7 @@ const STATUS_LABEL: Record<ResultStatus, string> = {
 };
 
 type Query = Record<string, string | string[] | undefined>;
-export default async function RunnerPage({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function RunnerPage({ searchParams }: { searchParams?: Promise<Query> }) {
   if (!isChallengeVisible()) notFound();
   const query = await searchParams ?? {};
   const token = typeof query.t === "string" ? query.t : "";

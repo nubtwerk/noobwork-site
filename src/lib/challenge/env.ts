@@ -1,3 +1,5 @@
+import { isProductionRuntime } from "@/lib/runtime-env";
+
 /**
  * The challenge shares the dedicated Season database with sponsor bidding and uses the
  * same settings (see docs/season-database-separation.md on the bidding branch).
@@ -38,7 +40,7 @@ export function seasonDatabaseConfig(): SeasonDatabaseConfig | null {
 
 /** Demo mode: no database, outside production. Seeded data, no emails, a fixed clock. */
 export function isChallengeDemo(): boolean {
-  return !hasChallengeDatabase() && process.env.VERCEL_ENV !== "production";
+  return !hasChallengeDatabase() && !isProductionRuntime();
 }
 
 /** The demo clock sits inside the first retest window so every flow can be tried on a preview. */

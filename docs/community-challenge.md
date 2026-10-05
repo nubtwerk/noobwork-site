@@ -27,7 +27,7 @@ Followers run Season 1 with Joachim: a 5 km baseline in January 2027, then a ret
 3. The challenge reads the same Vercel settings as bidding: `SEASON_SUPABASE_PROJECT_REF`, `SEASON_SUPABASE_URL`, `SEASON_SUPABASE_KEY`, `SEASON_DB_SECRET`, `SEASON_ADMIN_PASSWORD`, `SEASON_FROM_EMAIL` (see `docs/season-database-separation.md` on the bidding branch). Add `CHALLENGE_SECRET` (32+ random characters) for personal links.
 4. Set `enabled: true` in `src/data/challenge.ts` when `/season` goes public in mid-December.
 
-`CHALLENGE_SECRET` signs every personal link. Changing it breaks every runner's link (they can get a new one by entering their email again).
+`CHALLENGE_SECRET` must be an explicit, purpose-specific random secret of at least 32 characters for real data; email-provider and follower keys are never reused. `CHALLENGE_SECRET` signs every personal link. Changing it breaks every runner's link (they can get a new one by entering their email again).
 
 ## Each quarter (about 1 to 2 hours)
 

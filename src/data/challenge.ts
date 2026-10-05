@@ -1,3 +1,5 @@
+import { isProductionRuntime } from "@/lib/runtime-env";
+
 /**
  * Season 1 community challenge ("Climb with me"): followers run a 5 km at the
  * start of the season and again in each retest window, and the leaderboard on
@@ -74,7 +76,7 @@ export function windowIndex(id: ChallengeWindowId): number {
 
 /** Production shows the challenge only once `enabled` is set; previews and local builds always do. */
 export function isChallengeVisible(): boolean {
-  return challenge.enabled || process.env.VERCEL_ENV !== "production";
+  return challenge.enabled || !isProductionRuntime();
 }
 
 /** "1 to 14 April 2027" for a window, in Korea time. */

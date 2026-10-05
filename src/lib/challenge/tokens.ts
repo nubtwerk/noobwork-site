@@ -16,11 +16,9 @@ const PREVIEW_KEY = "challenge-preview-only";
 export type JoinClaims = { email: string; name: string; country: string; newsletter: boolean };
 
 function signingKey(): string | undefined {
-  const explicit = process.env.CHALLENGE_SECRET ?? process.env.SEASON_FOLLOW_SECRET;
-  if (explicit) return `challenge:${explicit}`;
-  const resend = process.env.RESEND_API_KEY;
-  if (resend) return `challenge:${resend}`;
-  // Demo data only (no database): previews and local runs work with no secrets set.
+  const explicit = process.env.CHALLENGE_SECRET?.trim();
+  if (explicit) return explicit.length >= 32 ? `challenge:${explicit}` : undefined;
+  // Public preview tokens are accepted only with synthetic data outside production.
   return isChallengeDemo() ? PREVIEW_KEY : undefined;
 }
 
