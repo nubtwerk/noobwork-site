@@ -29,6 +29,8 @@ function calls() {
 beforeEach(() => {
   __resetRateLimitStore();
   process.env.RESEND_API_KEY = "re_test_key";
+  process.env.RESEND_SEASON_SEGMENT_ID = "seg_123";
+  process.env.RESEND_SEASON_TOPIC_ID = "topic_season";
   vi.stubGlobal("fetch", vi.fn().mockImplementation(async () => ok()));
 });
 
@@ -36,6 +38,9 @@ afterEach(() => {
   vi.unstubAllGlobals();
   delete process.env.RESEND_API_KEY;
   delete process.env.RESEND_SEASON_SEGMENT_ID;
+  delete process.env.RESEND_SEASON_TOPIC_ID;
+  delete process.env.SEASON_FROM_EMAIL;
+  delete process.env.CONTACT_FROM_EMAIL;
   delete process.env.SEASON_FOLLOW_SECRET;
 });
 
@@ -73,6 +78,13 @@ describe("POST /api/season/follow", () => {
     const link = /http:\/\/localhost\/follow\/confirm\?t=(\S+)/.exec(sent.body.text);
     expect(link).not.toBeNull();
     expect(verifyFollowToken(decodeURIComponent(link![1]))).toBe("fan@example.com");
+  });
+
+  it.each(["", "   "])("falls back for blank Season sender %j", async (sender) => {
+    process.env.SEASON_FROM_EMAIL = sender;
+    process.env.CONTACT_FROM_EMAIL = "Noobwork <contact@example.com>";
+    expect((await follow(json({ email: "fan@example.com" }))).status).toBe(200);
+    expect(calls()[0].body.from).toBe("Noobwork <contact@example.com>");
   });
 
   it("rejects a bad email, a cross-site post and non-form content", async () => {
@@ -119,23 +131,100 @@ describe("POST /api/season/follow", () => {
 });
 
 describe("POST /api/season/follow/confirm", () => {
-  it("adds the confirmed email to the season segment", async () => {
-    process.env.RESEND_SEASON_SEGMENT_ID = "seg_123";
-    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
-    expect(res.headers.get("location")).toBe("http://localhost/season?follow=confirmed#follow");
-    expect(calls()).toEqual([{ url: "https://api.resend.com/contacts", method: "POST", body: { email: "fan@example.com", unsubscribed: false, segments: [{ id: "seg_123" }] } }]);
-  });
+  function existing(unsubscribed = false) {
+    return new Response(JSON.stringify({ id: "contact", unsubscribed }), { status: 200 });
+  }
+  function catalog(hasMore = false, otherDefault = "opt_out") {
+    return new Response(JSON.stringify({ has_more: hasMore, data: [
+      { id: "topic_season", default_subscription: "opt_out" },
+      { id: "topic_other", default_subscription: otherDefault },
+    ] }));
+  }
 
-  it("resubscribes an existing contact", async () => {
-    process.env.RESEND_SEASON_SEGMENT_ID = "seg_123";
-    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 409 }));
+  it("creates a new Season follower without inheriting other topic opt-ins", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 404 })).mockResolvedValueOnce(catalog());
     const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
     expect(res.headers.get("location")).toContain("follow=confirmed");
-    expect(calls().map((c) => `${c.method} ${c.url}`)).toEqual([
-      "POST https://api.resend.com/contacts",
-      "PATCH https://api.resend.com/contacts/fan%40example.com",
-      "POST https://api.resend.com/contacts/fan%40example.com/segments/seg_123",
+    expect(calls().at(-1)?.body).toEqual({ email: "fan@example.com", segments: [{ id: "seg_123" }], topics: [
+      { id: "topic_season", subscription: "opt_in" },
+    ] });
+    expect(calls().map(c => c.method)).toEqual(["GET", "GET", "POST"]);
+  });
+
+  it("updates only Season for an existing contact", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(existing());
+    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
+    expect(res.headers.get("location")).toContain("follow=confirmed");
+    expect(calls()).toEqual([
+      { url: "https://api.resend.com/contacts/fan%40example.com", method: "GET", body: undefined },
+      { url: "https://api.resend.com/contacts/fan%40example.com/segments/seg_123", method: "POST", body: undefined },
+      { url: "https://api.resend.com/contacts/fan%40example.com/topics", method: "PATCH", body: [{ id: "topic_season", subscription: "opt_in" }] },
     ]);
+  });
+
+  it("preserves a global unsubscribe without any writes or success claim", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(existing(true));
+    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
+    expect(res.headers.get("location")).toContain("follow=unsubscribed");
+    expect(calls().map(c => c.method)).toEqual(["GET"]);
+  });
+
+  it.each(["RESEND_SEASON_SEGMENT_ID", "RESEND_SEASON_TOPIC_ID"])("fails closed without %s", async (name) => {
+    delete process.env[name];
+    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
+    expect(res.headers.get("location")).toContain("follow=unavailable");
+    expect(fetch).not.toHaveBeenCalled();
+    expect((await follow(json({ email: "new@example.com" }))).status).toBe(503);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("does not opt in when segment linking fails", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(existing()).mockResolvedValueOnce(new Response("{}", { status: 500 }));
+    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
+    expect(res.headers.get("location")).toContain("follow=failed");
+    expect(calls().map(c => c.method)).toEqual(["GET", "POST"]);
+  });
+
+  it("reports a topic failure instead of successful confirmation", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(existing()).mockResolvedValueOnce(ok()).mockResolvedValueOnce(new Response("{}", { status: 500 }));
+    const res = await confirm(confirmPost(createFollowToken("fan@example.com")));
+    expect(res.headers.get("location")).toContain("follow=failed");
+    expect(calls().at(-1)?.body).toEqual([{ id: "topic_season", subscription: "opt_in" }]);
+  });
+
+  it("accepts already-linked segments without changing other preferences", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(existing()).mockResolvedValueOnce(new Response("{}", { status: 409 }));
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=confirmed");
+    expect(calls().at(-1)?.body).toEqual([{ id: "topic_season", subscription: "opt_in" }]);
+  });
+
+  it("rejects incomplete or malformed provider catalogs before creating a contact", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 404 })).mockResolvedValueOnce(catalog(true));
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=unavailable");
+    expect(calls().map(c => c.method)).toEqual(["GET", "GET"]);
+  });
+
+  it("refuses new contacts when unrelated topic defaults exceed Season consent", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 404 })).mockResolvedValueOnce(catalog(false, "opt_in"));
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=unavailable");
+    expect(calls().map(c => c.method)).toEqual(["GET", "GET"]);
+  });
+
+  it("rejects a malformed existing contact instead of assuming consent", async () => {
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=failed");
+    expect(calls().map(c => c.method)).toEqual(["GET"]);
+  });
+
+  it("does not treat a validation failure as an existing contact", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 404 })).mockResolvedValueOnce(catalog()).mockResolvedValueOnce(new Response("{}", { status: 422 }));
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=failed");
+    expect(calls().map(c => c.method)).toEqual(["GET", "GET", "POST"]);
+  });
+
+  it("rechecks a concurrent duplicate and preserves its global unsubscribe", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(new Response("{}", { status: 404 })).mockResolvedValueOnce(catalog()).mockResolvedValueOnce(new Response("{}", { status: 409 })).mockResolvedValueOnce(existing(true));
+    expect((await confirm(confirmPost(createFollowToken("fan@example.com")))).headers.get("location")).toContain("follow=unsubscribed");
+    expect(calls().map(c => c.method)).toEqual(["GET", "GET", "POST", "GET"]);
   });
 
   it("refuses a forged token", async () => {

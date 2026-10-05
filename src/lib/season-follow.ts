@@ -6,7 +6,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
  * 1. A visitor submits an email. We send a confirmation link carrying a signed,
  *    expiring token (the email plus issue time, HMAC-signed).
  * 2. The link opens /follow/confirm, where one button press verifies the token
- *    and adds the email to Resend Contacts (and the season segment, if set).
+ *    and opts the email into the configured Season segment and topic.
  *    The button step stops mail scanners that prefetch links from confirming.
  *
  * Nobody is added to the list until they confirm, and the list itself lives in
@@ -19,6 +19,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const followFeedback = {
   sent: "Check your inbox. Confirm with the link I just sent and you're on the list.",
   confirmed: "You're on the list. You'll get every retest as it lands.",
+  unsubscribed: "You previously unsubscribed from all emails. Your preference is unchanged; contact Noobwork to update it.",
   invalid: "That email doesn't look right. Check it and try again.",
   expired: "That confirmation link has expired or is broken. Sign up again for a fresh one.",
   limited: "Too many attempts. Try again later.",
@@ -83,10 +84,10 @@ function resendKey(): string {
   return key;
 }
 
-async function resend(path: string, method: string, body?: unknown): Promise<Response> {
+async function resend(path: string, method: string, body?: unknown, signal = AbortSignal.timeout(8_000)): Promise<Response> {
   return fetch(`https://api.resend.com${path}`, {
     method,
-    signal: AbortSignal.timeout(8_000),
+    signal,
     headers: { Authorization: `Bearer ${resendKey()}`, "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
@@ -94,9 +95,10 @@ async function resend(path: string, method: string, body?: unknown): Promise<Res
 
 export async function sendFollowConfirmation(email: string, siteOrigin: string): Promise<void> {
   if (isStub()) return;
+  seasonAudience();
   const token = createFollowToken(email);
   const link = `${siteOrigin}/follow/confirm?t=${encodeURIComponent(token)}`;
-  const from = process.env.SEASON_FROM_EMAIL ?? process.env.CONTACT_FROM_EMAIL ?? "Noobwork <onboarding@resend.dev>";
+  const from = process.env.SEASON_FROM_EMAIL?.trim() || (process.env.CONTACT_FROM_EMAIL ?? "Noobwork <onboarding@resend.dev>");
   const text = [
     "Confirm you want Season 1 updates from Noobwork:",
     "",
@@ -111,27 +113,57 @@ export async function sendFollowConfirmation(email: string, siteOrigin: string):
   if (!res.ok) throw new Error(`RESEND_FAILED:${res.status}`);
 }
 
-/** Add a confirmed follower. Re-confirming an existing contact resubscribes it. */
+function seasonAudience(): { segment: string; topic: string } {
+  const segment = process.env.RESEND_SEASON_SEGMENT_ID?.trim();
+  const topic = process.env.RESEND_SEASON_TOPIC_ID?.trim();
+  if (!segment || !topic) throw new Error("FOLLOW_NOT_CONFIGURED");
+  return { segment, topic };
+}
+
+/** Season consent never restores global eligibility or changes existing unrelated preferences. */
 export async function addFollower(email: string): Promise<void> {
   if (isStub()) return;
-  const segment = process.env.RESEND_SEASON_SEGMENT_ID;
+  const { segment, topic } = seasonAudience();
+  // One deadline covers the whole provider operation, within the route's limit.
+  const signal = AbortSignal.timeout(8_000);
+  const id = encodeURIComponent(email);
+  const path = `/contacts/${id}`;
+
+  async function existingContact(response: Response): Promise<void> {
+    if (!response.ok) throw new Error(`RESEND_FAILED:${response.status}`);
+    const contact = await response.json();
+    if (typeof contact.unsubscribed !== "boolean") throw new Error("RESEND_INVALID_CONTACT");
+    if (contact.unsubscribed) throw new Error("FOLLOW_GLOBAL_UNSUBSCRIBED");
+    // Link first: a failed segment write must not enable a topic subscription.
+    const linked = await resend(`${path}/segments/${encodeURIComponent(segment)}`, "POST", undefined, signal);
+    if (!linked.ok && linked.status !== 409) throw new Error(`RESEND_FAILED:${linked.status}`);
+    const updated = await resend(`${path}/topics`, "PATCH", [{ id: topic, subscription: "opt_in" }], signal);
+    if (!updated.ok) throw new Error(`RESEND_FAILED:${updated.status}`);
+  }
+
+  const existing = await resend(path, "GET", undefined, signal);
+  if (existing.status !== 404) return existingContact(existing);
+
+  // New contacts inherit topic defaults. Require unrelated topics to default
+  // to opt-out, and never submit unrelated preferences even during a create race.
+  const catalogResponse = await resend("/topics", "GET", undefined, signal);
+  if (!catalogResponse.ok) throw new Error(`RESEND_FAILED:${catalogResponse.status}`);
+  const catalog = await catalogResponse.json();
+  if (catalog.has_more !== false || !Array.isArray(catalog.data) ||
+      !catalog.data.every((entry: { id?: unknown }) => entry && typeof entry.id === "string" && entry.id.length > 0) ||
+      !catalog.data.some((entry: { id: string }) => entry.id === topic) ||
+      !catalog.data.every((entry: { id: string; default_subscription?: unknown }) =>
+        entry.id === topic || entry.default_subscription === "opt_out")) {
+    throw new Error("FOLLOW_NOT_CONFIGURED");
+  }
   const created = await resend("/contacts", "POST", {
     email,
-    unsubscribed: false,
-    ...(segment ? { segments: [{ id: segment }] } : {}),
-  });
+    segments: [{ id: segment }],
+    topics: [{ id: topic, subscription: "opt_in" }],
+  }, signal);
   if (created.ok) return;
-  // The contact already exists: they asked again and confirmed, so resubscribe
-  // and make sure they are in the season segment.
-  if (created.status === 409 || created.status === 422) {
-    const id = encodeURIComponent(email);
-    const updated = await resend(`/contacts/${id}`, "PATCH", { unsubscribed: false });
-    if (!updated.ok) throw new Error(`RESEND_FAILED:${updated.status}`);
-    if (segment) {
-      const linked = await resend(`/contacts/${id}/segments/${encodeURIComponent(segment)}`, "POST");
-      if (!linked.ok && linked.status !== 409) throw new Error(`RESEND_FAILED:${linked.status}`);
-    }
-    return;
-  }
+  // A concurrent confirmation can create it between GET and POST. Verify it;
+  // never interpret an arbitrary validation failure as consent to resubscribe.
+  if (created.status === 409) return existingContact(await resend(path, "GET", undefined, signal));
   throw new Error(`RESEND_FAILED:${created.status}`);
 }

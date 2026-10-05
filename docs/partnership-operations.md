@@ -46,5 +46,7 @@ Before each proposal, verify the relevant channel’s current 30/90-day analytic
 
 - `/season` has a "Follow along" signup. The homepage sign-off shows the same form once `season.isPublic` is true.
 - Double opt-in: the visitor gets a confirmation email and is only added after pressing "Confirm and follow" on `/follow/confirm`. The link expires after 7 days. No database: the link carries a signed token.
-- Confirmed followers are added to Resend Contacts, and to the segment in `RESEND_SEASON_SEGMENT_ID` when set. Export or email them from Resend (Broadcasts includes the unsubscribe link).
+- Configure both `RESEND_SEASON_SEGMENT_ID` and `RESEND_SEASON_TOPIC_ID`; signup is unavailable without them. Send Season Broadcasts to this segment **and** topic, never the entire Contacts list. Broadcasts includes the unsubscribe link.
+- Confirmation preserves existing global unsubscribes and all unrelated topic preferences. A globally unsubscribed contact gets a clear message and no contact writes. New contacts opt into Season only. Signup fails closed if the topic catalog is incomplete or any unrelated topic defaults to opt-in. Configure unrelated and future topics to default to opt-out before opening signup; this code never writes their preferences.
+- A provider failure never reports confirmation success. If topic opt-in fails after segment linking, retrying the confirmation safely completes the operation.
 - Confirmation emails go to visitors, so the sender (`SEASON_FROM_EMAIL`, falling back to `CONTACT_FROM_EMAIL`) must be on a domain verified in Resend. Resend's `onboarding@resend.dev` test sender can only email the account owner.

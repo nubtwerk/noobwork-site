@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     await addFollower(email);
     return done("confirmed");
   } catch (error) {
+    if (error instanceof Error && error.message === "FOLLOW_GLOBAL_UNSUBSCRIBED") return done("unsubscribed");
     if (error instanceof Error && error.message === "FOLLOW_NOT_CONFIGURED") return done("unavailable");
     console.error("season follow confirm failed", error instanceof Error ? error.message : "UnknownError");
     return done("failed");
