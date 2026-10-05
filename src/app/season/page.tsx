@@ -38,7 +38,7 @@ function formatUtcDay(isoDate: string): string {
 }
 
 type Query = Record<string, string | string[] | undefined>;
-export default async function Season({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function Season({ searchParams }: { searchParams?: Promise<Query> }) {
   const query = await searchParams ?? {};
   const chosen = findSeasonSpot(query.spot);
   const spot = chosen && chosen.status === "open" ? chosen : undefined;
