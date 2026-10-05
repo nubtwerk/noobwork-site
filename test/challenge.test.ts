@@ -1,7 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { challenge, formatWindowDates, isChallengeVisible, openChallengeWindow } from "@/data/challenge";
 import { assessSubmission, challengeStats, computeStandings, formatImprovement, publicBoard, windowWinners } from "@/lib/challenge/leaderboard";
-import { ChallengeConflict, createDemoStore, createSupabaseStore, type Participant, type RunResult } from "@/lib/challenge/store";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { seasonDatabaseConfig } from "@/lib/challenge/env";
+import { __resetChallengeStore, ChallengeConflict, createDemoStore, createSupabaseStore, getChallengeStore, type Participant, type RunResult } from "@/lib/challenge/store";
 import { createJoinToken, createRunnerToken, JOIN_TOKEN_TTL_MS, verifyJoinToken, verifyRunnerToken } from "@/lib/challenge/tokens";
 import { countryFlag, formatRunTime, normalizeCountry, parseDisplayName, parseProofUrl, parseRunTime } from "@/lib/challenge/validate";
 
@@ -95,8 +98,7 @@ describe("challenge tokens", () => {
 
   it("does not trust the preview key once a database is configured", () => {
     const previewToken = createRunnerToken("abc");
-    vi.stubEnv("SUPABASE_URL", "https://x.supabase.co");
-    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "service");
+    vi.stubEnv("SEASON_DB_SECRET", "s".repeat(40));
     vi.stubEnv("CHALLENGE_SECRET", "a-real-secret");
     expect(verifyRunnerToken(previewToken)).toBeUndefined();
   });
@@ -173,20 +175,84 @@ describe("challenge stores", () => {
     expect(participants.filter((p) => p.isHost)).toHaveLength(1);
   });
 
-  it("supabase store talks PostgREST with the service key and maps conflicts", async () => {
+  it("supabase store calls the secret-gated functions with the publishable key and maps conflicts", async () => {
     const calls: { url: string; init: RequestInit }[] = [];
     const fetchImpl = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
       calls.push({ url: String(url), init: init ?? {} });
-      if (calls.length === 1) return new Response(JSON.stringify([{ id: "11111111-1111-4111-8111-111111111111", email: "a@example.com", display_name: "Ada", country: "NO", newsletter: true, is_host: false, hidden: false, prize_eligible: false, created_at: "x" }]), { status: 201 });
-      return new Response('{"message":"duplicate key value violates unique constraint \\"challenge_participants_name_key\\""}', { status: 409 });
+      if (calls.length === 1) return new Response(JSON.stringify({ id: "11111111-1111-4111-8111-111111111111", email: "a@example.com", display_name: "Ada", country: "NO", newsletter: true, is_host: false, hidden: false, prize_eligible: false, created_at: "x" }), { status: 200 });
+      if (calls.length === 2) return new Response('{"message":"duplicate key value violates unique constraint \\"challenge_participants_name_key\\""}', { status: 409 });
+      if (calls.length === 3) return new Response('{"message":"duplicate key value violates unique constraint \\"challenge_participants_email_key\\""}', { status: 409 });
+      if (calls.length === 4) return new Response("null", { status: 200 });
+      return new Response('{"message":"forbidden"}', { status: 403 });
     }) as unknown as typeof fetch;
-    const store = createSupabaseStore("https://x.supabase.co/", "service-key", fetchImpl);
+    const store = createSupabaseStore("https://x.supabase.co/", "sb_publishable_key", "secret-value", fetchImpl);
     const p = await store.createParticipant({ email: "a@example.com", displayName: "Ada", country: "NO", newsletter: true });
     expect(p).toMatchObject({ displayName: "Ada", newsletter: true });
-    expect(calls[0].url).toBe("https://x.supabase.co/rest/v1/challenge_participants");
-    expect((calls[0].init.headers as Record<string, string>).Authorization).toBe("Bearer service-key");
-    expect(JSON.parse(String(calls[0].init.body))).toMatchObject({ display_name_key: "ada" });
+    expect(calls[0].url).toBe("https://x.supabase.co/rest/v1/rpc/challenge_participant_insert");
+    expect((calls[0].init.headers as Record<string, string>).Authorization).toBe("Bearer sb_publishable_key");
+    expect(JSON.parse(String(calls[0].init.body))).toMatchObject({ p_secret: "secret-value", p_row: { display_name_key: "ada" } });
     await expect(store.createParticipant({ email: "b@example.com", displayName: "ada", country: "NO", newsletter: false })).rejects.toMatchObject({ field: "name" });
+    await expect(store.createParticipant({ email: "a@example.com", displayName: "Bea", country: "NO", newsletter: false })).rejects.toMatchObject({ field: "email" });
+    expect(await store.findParticipantByEmail("nobody@example.com")).toBeUndefined();
+    await expect(store.listResults()).rejects.toThrow("SUPABASE_FAILED:403");
     expect(await store.getParticipant("not-a-uuid")).toBeUndefined();
+    expect(calls).toHaveLength(5);
+  });
+});
+
+describe("challenge database settings", () => {
+  const ref = "swrxucguhqlilcjedcda";
+  const valid = () => {
+    vi.stubEnv("SEASON_SUPABASE_PROJECT_REF", ref);
+    vi.stubEnv("SEASON_SUPABASE_URL", `https://${ref}.supabase.co`);
+    vi.stubEnv("SEASON_SUPABASE_KEY", "sb_publishable_abc");
+    vi.stubEnv("SEASON_DB_SECRET", "s".repeat(32));
+  };
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    __resetChallengeStore();
+  });
+
+  it("uses the shared Season project when every setting is valid", () => {
+    valid();
+    expect(seasonDatabaseConfig()).toEqual({ url: `https://${ref}.supabase.co`, key: "sb_publishable_abc", secret: "s".repeat(32) });
+    expect(getChallengeStore()?.kind).toBe("supabase");
+  });
+
+  it.each([
+    ["a short secret", "SEASON_DB_SECRET", "short"],
+    ["a service or secret key", "SEASON_SUPABASE_KEY", "sb_secret_abc"],
+    ["a URL for another project", "SEASON_SUPABASE_URL", "https://abcdefghijabcdefghij.supabase.co"],
+    ["the retired fitness project", "SEASON_SUPABASE_PROJECT_REF", "mudmzagbhjriswjdzzcq"],
+    ["a missing setting", "SEASON_SUPABASE_URL", ""],
+  ])("stays closed, with no demo fallback, on %s", (_label, name, value) => {
+    valid();
+    vi.stubEnv(name, value);
+    expect(seasonDatabaseConfig()).toBeNull();
+    expect(getChallengeStore()).toBeUndefined();
+  });
+});
+
+describe("challenge migration", () => {
+  const sql = readFileSync(join(process.cwd(), "supabase/migrations/20261005030000_season_challenge.sql"), "utf8");
+  const functions = [...sql.matchAll(/create or replace function (public\.\w+)\(([^)]*)\)[\s\S]*?end \$\$;/g)];
+
+  it("keeps the tables out of the API schema", () => {
+    expect(sql).not.toMatch(/create table[^(]*public\./i);
+    expect(sql).toMatch(/revoke all on season_private\.challenge_participants, season_private\.challenge_results from public, anon, authenticated/);
+  });
+
+  it("gates every public function on the server secret with a pinned search path", () => {
+    expect(functions.length).toBe(9);
+    for (const [body, name, args] of functions) {
+      expect(args.startsWith("p_secret text"), name).toBe(true);
+      expect(body, name).toContain("security definer set search_path = ''");
+      expect(body, name).toContain("perform season_private.check_secret(p_secret);");
+      expect(sql, name).toContain(`'${name}(`);
+    }
+  });
+
+  it("never touches the bidding tables", () => {
+    expect(sql).not.toMatch(/season_private\.bids|api_secrets/);
   });
 });

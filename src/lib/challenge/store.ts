@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { ChallengeWindowId } from "@/data/challenge";
 import type { ProofKind } from "./validate";
 import { displayNameKey } from "./validate";
-import { hasChallengeDatabase, isChallengeDemo } from "./env";
+import { hasChallengeDatabase, isChallengeDemo, seasonDatabaseConfig } from "./env";
 import { demoSeed } from "./demo-seed";
 
 export type Participant = {
@@ -160,94 +160,91 @@ const toResult = (r: ResultRow): RunResult => ({
   submittedAt: r.submitted_at,
 });
 
-export function createSupabaseStore(url: string, serviceKey: string, fetchImpl: typeof fetch = fetch): ChallengeStore {
-  const base = `${url.replace(/\/$/, "")}/rest/v1`;
+/**
+ * Supabase over PostgREST, on the dedicated Season project shared with bidding. The tables
+ * live in a schema the API does not expose; the only way in is the SECURITY DEFINER
+ * functions in supabase/migrations/20261005030000_season_challenge.sql, which check
+ * `secret` against the stored hash. The key is the publishable key, never a service key.
+ */
+export function createSupabaseStore(url: string, key: string, secret: string, fetchImpl: typeof fetch = fetch): ChallengeStore {
+  const base = `${url.replace(/\/$/, "")}/rest/v1/rpc`;
 
-  async function call<T>(path: string, init: RequestInit & { prefer?: string } = {}): Promise<T> {
-    const res = await fetchImpl(`${base}${path}`, {
-      ...init,
+  async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Promise<T> {
+    const res = await fetchImpl(`${base}/${fn}`, {
+      method: "POST",
+      cache: "no-store",
       signal: AbortSignal.timeout(8_000),
-      headers: {
-        apikey: serviceKey,
-        Authorization: `Bearer ${serviceKey}`,
-        "Content-Type": "application/json",
-        ...(init.prefer ? { Prefer: init.prefer } : {}),
-      },
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_secret: secret, ...args }),
     });
-    if (res.status === 409) {
-      const text = await res.text();
-      throw new ChallengeConflict(text.includes("name_key") ? "name" : "email");
-    }
-    if (!res.ok) throw new Error(`SUPABASE_FAILED:${res.status}`);
-    if (res.status === 204) return undefined as T;
     const text = await res.text();
-    return (text ? JSON.parse(text) : undefined) as T;
+    // A duplicate email or name is a unique violation, which PostgREST returns as 409.
+    if (res.status === 409 && text.includes("challenge_participants_name_key")) throw new ChallengeConflict("name");
+    if (res.status === 409 && text.includes("challenge_participants_email_key")) throw new ChallengeConflict("email");
+    if (!res.ok) throw new Error(`SUPABASE_FAILED:${res.status}`);
+    return (text ? JSON.parse(text) : null) as T;
   }
-  const q = encodeURIComponent;
+  const isUuid = (id: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
 
   return {
     kind: "supabase",
     async createParticipant(input) {
-      const rows = await call<ParticipantRow[]>("/challenge_participants", {
-        method: "POST",
-        prefer: "return=representation",
-        body: JSON.stringify({
+      const row = await rpc<ParticipantRow>("challenge_participant_insert", {
+        p_row: {
           email: input.email,
           display_name: input.displayName,
           display_name_key: displayNameKey(input.displayName),
           country: input.country,
           newsletter: input.newsletter,
-        }),
+        },
       });
-      return toParticipant(rows[0]);
+      return toParticipant(row);
     },
     async getParticipant(id) {
-      if (!/^[0-9a-f-]{36}$/i.test(id)) return undefined;
-      const rows = await call<ParticipantRow[]>(`/challenge_participants?id=eq.${q(id)}&limit=1`);
-      return rows[0] ? toParticipant(rows[0]) : undefined;
+      if (!isUuid(id)) return undefined;
+      const row = await rpc<ParticipantRow | null>("challenge_participant_find", { p_id: id, p_email: null });
+      return row ? toParticipant(row) : undefined;
     },
     async findParticipantByEmail(email) {
-      const rows = await call<ParticipantRow[]>(`/challenge_participants?email=eq.${q(email)}&limit=1`);
-      return rows[0] ? toParticipant(rows[0]) : undefined;
+      const row = await rpc<ParticipantRow | null>("challenge_participant_find", { p_id: null, p_email: email });
+      return row ? toParticipant(row) : undefined;
     },
     async isNameTaken(displayName) {
-      const rows = await call<{ id: string }[]>(`/challenge_participants?select=id&display_name_key=eq.${q(displayNameKey(displayName))}&limit=1`);
-      return rows.length > 0;
+      return rpc<boolean>("challenge_name_taken", { p_key: displayNameKey(displayName) });
     },
     async listParticipants() {
-      return (await call<ParticipantRow[]>("/challenge_participants?order=created_at.asc")).map(toParticipant);
+      return (await rpc<ParticipantRow[]>("challenge_participants_list")).map(toParticipant);
     },
     async listResults() {
-      return (await call<ResultRow[]>("/challenge_results?order=submitted_at.asc")).map(toResult);
+      return (await rpc<ResultRow[]>("challenge_results_list")).map(toResult);
     },
     async saveResult(input) {
-      const rows = await call<ResultRow[]>("/challenge_results?on_conflict=participant_id,window_id", {
-        method: "POST",
-        prefer: "return=representation,resolution=merge-duplicates",
-        body: JSON.stringify({
+      const row = await rpc<ResultRow>("challenge_result_save", {
+        p_row: {
           participant_id: input.participantId,
           window_id: input.windowId,
           time_seconds: input.timeSeconds,
           proof_url: input.proofUrl,
           proof_kind: input.proofKind,
           status: input.status,
-          submitted_at: new Date().toISOString(),
-        }),
+        },
       });
-      return toResult(rows[0]);
+      return toResult(row);
     },
     async setResultStatus(id, status) {
-      await call(`/challenge_results?id=eq.${q(id)}`, { method: "PATCH", body: JSON.stringify({ status }) });
+      if (!isUuid(id)) return;
+      await rpc("challenge_result_set_status", { p_id: id, p_status: status });
     },
     async updateParticipant(id, patch) {
-      const body: Record<string, boolean> = {};
-      if (patch.hidden !== undefined) body.hidden = patch.hidden;
-      if (patch.prizeEligible !== undefined) body.prize_eligible = patch.prizeEligible;
-      await call(`/challenge_participants?id=eq.${q(id)}`, { method: "PATCH", body: JSON.stringify(body) });
+      if (!isUuid(id)) return;
+      const p_patch: Record<string, boolean> = {};
+      if (patch.hidden !== undefined) p_patch.hidden = patch.hidden;
+      if (patch.prizeEligible !== undefined) p_patch.prize_eligible = patch.prizeEligible;
+      await rpc("challenge_participant_update", { p_id: id, p_patch });
     },
     async deleteParticipant(id) {
-      // Results go with the runner (on delete cascade).
-      await call(`/challenge_participants?id=eq.${q(id)}`, { method: "DELETE" });
+      if (!isUuid(id)) return;
+      await rpc("challenge_participant_delete", { p_id: id });
     },
   };
 }
@@ -259,7 +256,9 @@ const demoHolder = globalThis as typeof globalThis & { __challengeDemoStore?: Ch
 /** The configured store, or undefined in production without a database (the challenge then shows as not open). */
 export function getChallengeStore(): ChallengeStore | undefined {
   if (hasChallengeDatabase()) {
-    return createSupabaseStore(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+    // Incomplete or invalid settings keep the challenge closed rather than falling back to demo data.
+    const config = seasonDatabaseConfig();
+    return config ? createSupabaseStore(config.url, config.key, config.secret) : undefined;
   }
   if (isChallengeDemo()) return (demoHolder.__challengeDemoStore ??= createDemoStore());
   return undefined;
