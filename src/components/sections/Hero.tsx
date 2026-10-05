@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import ContourField from "@/components/ui/ContourField";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { profileFacts } from "@/data/profile-facts";
@@ -50,6 +51,7 @@ export default function Hero() {
         />
       </motion.div>
       <div className="poster-hero__wash" aria-hidden="true" />
+      <ContourField overlay />
       <div className="poster-hero__grain" aria-hidden="true" />
 
       <motion.div

@@ -5,6 +5,12 @@ import { MEDIA_KIT_HREF } from "@/lib/constants";
 import { profileFacts } from "@/data/profile-facts";
 
 describe("Hero", () => {
+  it("traces the contour overlay over the Seoul photo", () => {
+    const { container } = render(<Hero />);
+    expect(container.querySelector(".poster-hero__bg img")).toBeInTheDocument();
+    expect(container.querySelector("canvas.contour-field--overlay")).toHaveAttribute("aria-hidden", "true");
+  });
+
   it("renders the poster headline with an accessible label", () => {
     render(<Hero />);
     const heading = screen.getByRole("heading", { level: 1 });
