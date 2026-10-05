@@ -19,7 +19,7 @@ const REVIEW_TOP = 20;
 const RETESTS = challenge.windows.filter((w) => w.id !== "baseline");
 
 type Query = Record<string, string | string[] | undefined>;
-export default async function ChallengeAdmin({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function ChallengeAdmin({ searchParams }: { searchParams?: Promise<Query> }) {
   if (!isChallengeVisible()) notFound();
   const query = await searchParams ?? {};
   const jar = await cookies();

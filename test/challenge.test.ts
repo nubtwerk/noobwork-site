@@ -99,7 +99,7 @@ describe("challenge tokens", () => {
   it("does not trust the preview key once a database is configured", () => {
     const previewToken = createRunnerToken("abc");
     vi.stubEnv("SEASON_DB_SECRET", "s".repeat(40));
-    vi.stubEnv("CHALLENGE_SECRET", "a-real-secret");
+    vi.stubEnv("CHALLENGE_SECRET", "s".repeat(32));
     expect(verifyRunnerToken(previewToken)).toBeUndefined();
   });
 });

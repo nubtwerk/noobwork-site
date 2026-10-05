@@ -10,7 +10,7 @@ async function send(to: string, subject: string, text: string): Promise<void> {
   if (!challengeEmailsEnabled()) return;
   const key = process.env.RESEND_API_KEY;
   if (!key) throw new Error("CHALLENGE_NOT_CONFIGURED");
-  const from = process.env.SEASON_FROM_EMAIL ?? process.env.CONTACT_FROM_EMAIL ?? "Noobwork <onboarding@resend.dev>";
+  const from = process.env.SEASON_FROM_EMAIL?.trim() || (process.env.CONTACT_FROM_EMAIL ?? "Noobwork <onboarding@resend.dev>");
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     signal: AbortSignal.timeout(8_000),

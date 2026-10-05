@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 type Query = Record<string, string | string[] | undefined>;
-export default async function ConfirmChallenge({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function ConfirmChallenge({ searchParams }: { searchParams?: Promise<Query> }) {
   if (!isChallengeVisible()) notFound();
   const query = await searchParams ?? {};
   const token = typeof query.t === "string" ? query.t : undefined;

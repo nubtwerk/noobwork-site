@@ -33,7 +33,7 @@ function formatUtcDay(isoDate: string): string {
 }
 
 type Query = Record<string, string | string[] | undefined>;
-export default async function MediaKit({ searchParams }: { searchParams?: Promise<Query> } = {}) {
+export default async function MediaKit({ searchParams }: { searchParams?: Promise<Query> }) {
   const query = await searchParams ?? {};
   const offer = isPartnershipOffer(query.offer) ? query.offer : "";
   const feedback = typeof query.inquiry === "string" ? query.inquiry : undefined;
