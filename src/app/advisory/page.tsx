@@ -3,7 +3,7 @@ import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import AtmosphereBackdrop from "@/components/ui/AtmosphereBackdrop";
+import ContourField from "@/components/ui/ContourField";
 import RevealText from "@/components/ui/RevealText";
 import { profileFacts } from "@/data/profile-facts";
 import { ADVISORY_MAILTO } from "@/lib/constants";
@@ -52,8 +52,10 @@ export default function Advisory() {
     <div className="site-shell">
       <Nav />
       <main id="main-content" className="site-main media-kit">
-        <section className="site-section mk-hero">
-          <AtmosphereBackdrop imagePosition="center 42%" priority />
+        <section className="site-section mk-hero contour-hero">
+          <ContourField />
+          <div className="contour-hero__veil" aria-hidden="true" />
+          <div className="poster-hero__grain" aria-hidden="true" />
           <div className="shell-inner mk-hero__stage">
             <AnimatedSection>
               <div className="chapter-head chapter-head--ongreen mk-hero__head">
