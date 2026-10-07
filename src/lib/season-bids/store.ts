@@ -130,6 +130,6 @@ function demoBids(): Bid[] {
     bid("d2", "banner-1", 3_500, "Gaming hardware brand", "Gaming hardware and setups", false, "approved", 20),
     bid("d3", "banner-2", 3_250, "Seoul Strength Club", "Gyms and training", true, "approved", 30),
     bid("d4", "banner-1", 3_750, "Hydra Labs", "Energy and hydration", false, "pending", 2),
-    bid("d5", "retest-q1", 2_000, "Recovery brand", "Recovery and wellness", false, "approved", 12),
+    bid("d5", "retest-q1", 3_000, "Recovery brand", "Recovery and wellness", false, "approved", 12),
   ];
 }

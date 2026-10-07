@@ -44,8 +44,8 @@ describe("Season page", () => {
     const store = createMemoryStore();
     const base = { website: "x.com", contactName: "X", email: "x@x.com", tokenHash: null, createdAt: "2026-10-10T00:00:00Z", confirmedAt: "2026-10-10T00:00:00Z", decidedAt: null };
     store.bids.push(
-      { ...base, id: "1", spotId: "retest-q1", amount: 2250, brand: "Hidden Co", category: "Gyms and training", showName: false, status: "approved" },
-      { ...base, id: "2", spotId: "retest-q1", amount: 2500, brand: "Proud Co", category: "Other", showName: true, status: "approved" },
+      { ...base, id: "1", spotId: "retest-q1", amount: 3250, brand: "Hidden Co", category: "Gyms and training", showName: false, status: "approved" },
+      { ...base, id: "2", spotId: "retest-q1", amount: 3500, brand: "Proud Co", category: "Other", showName: true, status: "approved" },
       { ...base, id: "3", spotId: "retest-q1", amount: 9000, brand: "Pending Co", category: "Other", showName: true, status: "pending" },
     );
     __setBidStore(store);

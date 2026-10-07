@@ -125,7 +125,7 @@ export const seasonSpots: readonly SeasonSpot[] = [
     board: null,
     includes: ["Presents the first retest episode", "Logo on the thumbnail and the retest posts"],
     status: "open",
-    openingBid: 2_000,
+    openingBid: 3_000,
     bidUnit: "for the episode",
   },
 ];
