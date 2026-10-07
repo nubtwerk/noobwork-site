@@ -70,4 +70,16 @@ describe("season bids API", () => {
     expect(res.status).toBe(303);
     expect(res.headers.get("location")).toContain("result=invalid");
   });
+
+  it.each(["null", "https://evil.example"])("rejects confirmation from origin %s before reading the store", async (origin) => {
+    const list = vi.spyOn(store, "list");
+    const res = await CONFIRM(new Request("http://localhost/api/season/bids/confirm", {
+      method: "POST",
+      headers: { origin, "content-type": "application/x-www-form-urlencoded" },
+      body: "token=not-a-real-token-but-long-enough",
+    }));
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toContain("result=invalid");
+    expect(list).not.toHaveBeenCalled();
+  });
 });

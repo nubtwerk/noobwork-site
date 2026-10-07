@@ -7,8 +7,8 @@ import { findSeasonSpot } from "@/data/season";
 export const metadata: Metadata = {
   title: "Confirm your bid",
   robots: { index: false, follow: false },
-  // The token is in the URL; never pass it on to other sites.
-  referrer: "no-referrer",
+  // Keep token URLs off other sites while preserving Origin on the native POST.
+  referrer: "same-origin",
 };
 
 const RESULTS: Record<string, { title: string; copy: string }> = {
