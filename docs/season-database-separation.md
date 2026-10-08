@@ -31,6 +31,6 @@ The independent follower signup feature uses `SEASON_FOLLOW_SECRET` and `SEASON_
 
 Before deployment, verify empty application tables, security advisors, denied anonymous direct reads, missing/wrong-secret RPC denial, synthetic bid submission/confirmation/admin review, and public-board privacy. Verify the deployed endpoint and credentials belong to the new project.
 
-This patch is based on the bidding draft; it does not combine the independent follower branch. Rebuilding current production does not merge unmerged features. Review and approve the actual combined release before promoting it. Leave the retiring database active until replacement verification, consumer review, retention/export and restore validation are complete; permanent deletion needs final explicit confirmation. Database backups exclude Storage objects.
+Bidding ships together with the follower signup in one release. Rebuilding current production does not merge unmerged features. Review and approve the actual combined release before promoting it. Leave the retiring database active until replacement verification, consumer review, retention/export and restore validation are complete; permanent deletion needs final explicit confirmation. Database backups exclude Storage objects.
 
 Local checks cover configuration boundaries, sender selection and schema privileges. Hosted gateway/default privileges and the complete live flow still need provider verification.

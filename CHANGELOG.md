@@ -2,16 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.6.1.0] - 2026-10-05
-
-### Fixed
-- Season bidding requires an explicitly configured dedicated database and rejects the retiring fitness project. Production cannot accept bids into an ephemeral demo store.
-- Season bid emails use the configured Season sender, with the contact sender retained as fallback.
-- Media kit and Season pages satisfy Next.js page-props checks in production builds.
-
-### Changed
-- Dedicated bidding setup includes a clean schema bootstrap, restricted private-table privileges and secret-gated RPCs, with configuration and release instructions.
-
 ## [Unreleased]
 
 ### Added
@@ -32,6 +22,19 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - Team Haraldsen (paused) and DailyBase (parked) from the homepage, work list, metadata and AI context.
 - The scrolling brand strip under the hero. Its credentials already appear in the hero stats.
+
+## [0.6.1.0] - 2026-10-05
+
+### Added
+- Live sponsor bidding on the Season 1 board: spots with an opening bid take non-binding bids, bidders confirm a work email, and each bid shows on the board only after Joachim approves it at `/season/admin`.
+
+### Fixed
+- Season bidding requires an explicitly configured dedicated database and rejects the retiring fitness project. Production cannot accept bids into an ephemeral demo store.
+- Season bid emails use the configured Season sender, with the contact sender retained as fallback.
+- Media kit and Season pages satisfy Next.js page-props checks in production builds.
+
+### Changed
+- Dedicated bidding setup includes a clean schema bootstrap, restricted private-table privileges and secret-gated RPCs, with configuration and release instructions.
 
 ## [0.6.0.0] - 2026-09-10
 
