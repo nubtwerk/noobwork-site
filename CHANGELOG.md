@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1.0] - 2026-10-05
+
+### Fixed
+- Season bidding requires an explicitly configured dedicated database and rejects the retiring fitness project. Production cannot accept bids into an ephemeral demo store.
+- Season bid emails use the configured Season sender, with the contact sender retained as fallback.
+- Media kit and Season pages satisfy Next.js page-props checks in production builds.
+
+### Changed
+- Dedicated bidding setup includes a clean schema bootstrap, restricted private-table privileges and secret-gated RPCs, with configuration and release instructions.
+
 ## [Unreleased]
 
 ### Added
