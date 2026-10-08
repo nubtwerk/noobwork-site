@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/react";
+import SiteAnalytics from "@/components/ui/SiteAnalytics";
 import SkipToContent from "@/components/layout/SkipToContent";
 import MouseEffects from "@/components/ui/MouseEffects";
 import SmoothScroll from "@/components/ui/SmoothScroll";
@@ -63,7 +63,7 @@ export default function RootLayout({
         <ScrollProgress />
         <MouseEffects />
         {children}
-        <Analytics />
+        <SiteAnalytics />
         <PartnershipAnalytics />
       </body>
     </html>
