@@ -2,11 +2,11 @@
 
 import { Analytics, type BeforeSendEvent } from "@vercel/analytics/react";
 
-/** Confirmation links contain signed email data and must never enter analytics. */
+/** Confirmation links contain signed email data or bid tokens and must never enter analytics. */
 export function filterAnalyticsEvent(event: BeforeSendEvent): BeforeSendEvent | null {
   try {
     const url = new URL(event.url);
-    if (url.pathname === "/follow/confirm" || url.pathname === "/follow/confirm/" || url.searchParams.has("t")) {
+    if (/^\/(?:follow|season)\/confirm\/?$/.test(url.pathname) || url.searchParams.has("t") || url.searchParams.has("token")) {
       return null;
     }
     return event;

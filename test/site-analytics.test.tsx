@@ -13,7 +13,16 @@ describe("confirmation link analytics privacy", () => {
   it("passes a filter that excludes signed confirmation URLs", () => {
     render(<SiteAnalytics />);
     const filter = analytics.mock.calls[0][0].beforeSend;
-    for (const path of ["/follow/confirm?t=private-signed-email", "/follow/confirm/", "/season?t=private-signed-email"]) {
+    for (const path of [
+      "/follow/confirm?t=private-signed-email",
+      "/follow/confirm",
+      "/follow/confirm/",
+      "/season/confirm?token=private-bid-token",
+      "/season/confirm",
+      "/season/confirm/",
+      "/season?t=private-signed-email",
+      "/season?token=private-bid-token",
+    ]) {
       expect(filter({ type: "pageview", url: `https://www.noobwork.no${path}` })).toBeNull();
       expect(filter({ type: "event", url: `https://www.noobwork.no${path}` })).toBeNull();
     }
