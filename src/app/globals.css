@@ -2644,10 +2644,10 @@ body {
   [data-tilt], [data-magnetic] { transition: none; }
 }
 
-/* Season 1 sponsorship (/season): contour hero, elevation profile, banner board. */
+/* Season 1 sponsorship (/season): terrain hero, elevation profile, banner board. */
 .season-hero { min-height: min(92svh, 860px); display: grid; align-items: end; background: radial-gradient(110% 80% at 75% 25%, rgba(162, 123, 93, 0.22), transparent 60%), var(--color-primary); }
-.contour-field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; opacity: 0; transition: opacity 1.2s ease; }
-.contour-field[data-ready="true"] { opacity: 1; }
+.contour-field, .terrain-field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; opacity: 0; transition: opacity 1.2s ease; }
+.contour-field[data-ready="true"], .terrain-field[data-ready="true"] { opacity: 1; }
 .contour-field--overlay[data-ready="true"] { opacity: 0.9; }
 .contour-hero { min-height: min(80svh, 760px); display: grid; align-items: end; background: radial-gradient(110% 80% at 75% 25%, rgba(162, 123, 93, 0.22), transparent 60%), var(--color-primary); }
 .contour-field__readout { position: absolute; left: 0; top: 0; z-index: 1; pointer-events: none; display: grid; gap: 0.1rem; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-sand); white-space: nowrap; opacity: 0; transition: opacity 0.3s ease; }
@@ -2656,6 +2656,8 @@ body {
 .season-hero__veil, .contour-hero__veil { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(180deg, rgba(44, 57, 48, 0) 45%, rgba(44, 57, 48, 0.9) 100%); }
 .season-hero .mk-hero__title { font-size: clamp(3.4rem, 12vw, 10rem); line-height: 0.88; }
 .season-hero .mk-hero__head { max-width: 62rem; }
+/* Full sand marker: the terrain haze behind it is lighter than flat green. */
+.season-hero .chapter-head__marker { color: var(--color-sand); }
 .season-marquee { background: var(--color-foreground); padding-block: clamp(0.7rem, 1.6vh, 1.1rem); }
 
 .season-profile-wrap { padding: 0 0 clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--color-border); }
@@ -2722,7 +2724,7 @@ body {
   .season-profile__month { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .contour-field { transition: none; }
+  .contour-field, .terrain-field { transition: none; }
   .season-banner__safe, .season-slot__button { transition: none; }
   .season-slot__button:hover, .season-slot__button:focus-visible, .season-slot__button[aria-pressed="true"] { transform: none; }
 }
