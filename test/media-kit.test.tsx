@@ -6,7 +6,7 @@ import { workViewsObservedAt } from "@/data/partnerships";
 
 describe("MediaKit page", async () => {
   it("renders the cinematic hero heading", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     expect(
       screen.getByRole("heading", { level: 1, name: "Work with Noobwork" })
     ).toBeInTheDocument();
@@ -14,14 +14,14 @@ describe("MediaKit page", async () => {
   });
 
   it("renders media kit stats", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     mediaKitStats.forEach((stat) => {
       expect(screen.getByText(stat.label)).toBeInTheDocument();
     });
   });
 
   it("renders the partnership contact form", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     expect(screen.getByLabelText("Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
     expect(screen.getByLabelText(/Company \/ Brand/)).toBeInTheDocument();
@@ -31,14 +31,14 @@ describe("MediaKit page", async () => {
   });
 
   it("derives the evidence date from workViewsObservedAt", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     const stamp = document.querySelector(`time[datetime="${workViewsObservedAt}"]`);
     expect(stamp).toBeTruthy();
     expect(stamp).toHaveTextContent("10 September 2026");
   });
 
   it("renders the Studio recent-reach block with partner-safe placeholders", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     expect(screen.getByRole("heading", { name: "Studio window." })).toBeInTheDocument();
     expect(screen.getByText("Views · last 30 days")).toBeInTheDocument();
     expect(screen.getByText("Views · last 90 days")).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe("MediaKit page", async () => {
   });
 
   it("links back to the homepage", async () => {
-    render(await MediaKit());
+    render(await MediaKit({}));
     const back = screen.getByText("← Back to home").closest("a");
     expect(back).toHaveAttribute("href", "/");
   });

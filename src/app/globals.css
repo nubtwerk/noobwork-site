@@ -2726,3 +2726,102 @@ body {
   .season-banner__safe, .season-slot__button { transition: none; }
   .season-slot__button:hover, .season-slot__button:focus-visible, .season-slot__button[aria-pressed="true"] { transform: none; }
 }
+
+/* Follow the season: email signup (/season, homepage signoff) and /follow/confirm. */
+.follow-form { position: relative; display: grid; gap: 0.6rem; width: 100%; max-width: 34rem; margin-top: 0.4rem; }
+.follow-form__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(46, 29, 35, 0.72); }
+.follow-form__row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.follow-form__input { flex: 1 1 14rem; min-width: 0; min-height: 3rem; padding: 0.75rem 1.1rem; border: 1px solid rgba(162, 123, 93, 0.4); border-radius: var(--pill-radius); background: rgba(248, 248, 248, 0.92); color: var(--color-foreground); font: inherit; }
+.follow-form__input::placeholder { color: rgba(46, 29, 35, 0.6); opacity: 1; }
+.follow-form__input:focus-visible { outline: none; border-color: var(--color-beige); box-shadow: 0 0 0 3px rgba(162, 123, 93, 0.3); }
+.follow-form__submit { flex: 0 0 auto; }
+.follow-form__submit:disabled { opacity: 0.72; cursor: wait; transform: none; }
+.follow-form__note { margin: 0; font-size: 0.8rem; line-height: 1.6; color: rgba(46, 29, 35, 0.75); }
+.follow-form__error { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--color-accent-dark); }
+.follow-form--done { gap: 0.35rem; padding: 1.1rem 1.3rem; border-radius: 1.1rem; border: 1px solid rgba(44, 57, 48, 0.18); background: rgba(248, 248, 248, 0.72); }
+.follow-form__done-title { margin: 0; font-family: var(--font-family-display); text-transform: uppercase; font-size: 1.5rem; line-height: 1; color: var(--color-primary); }
+.follow-form--dark { justify-items: stretch; text-align: left; }
+.follow-form--dark .follow-form__label { color: rgba(236, 219, 191, 0.72); }
+.follow-form--dark .follow-form__note { color: rgba(236, 219, 191, 0.7); }
+.follow-form--dark .follow-form__error { color: var(--color-sand); }
+.follow-form--dark.follow-form--done { border-color: rgba(236, 219, 191, 0.22); background: rgba(236, 219, 191, 0.08); }
+.follow-form--dark .follow-form__done-title { color: var(--color-sand); }
+.season-follow .mk-content-intro { align-content: start; }
+.signoff__follow { display: grid; gap: 0.8rem; justify-items: center; width: 100%; margin-top: 0.8rem; }
+.follow-confirm { min-height: 80svh; display: grid; place-items: center; }
+.follow-confirm__inner { display: grid; gap: 1.1rem; justify-items: start; max-width: 36rem; }
+.follow-confirm .chapter-head__marker { color: var(--color-beige); }
+.follow-confirm__title { margin: 0; font-family: var(--font-family-display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.6rem, 9vw, 5.5rem); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-sand); }
+.follow-confirm__copy { margin: 0; color: rgba(236, 219, 191, 0.78); line-height: 1.7; }
+@media (prefers-reduced-motion: reduce) {
+  .follow-form__input { transition: none; }
+}
+
+/* Season sponsor bidding: live auction panel, bid dialog, confirm page and the private admin. */
+.season-slot--talks .season-slot__button { border-style: solid; border-color: rgba(236, 219, 191, 0.35); background: rgba(236, 219, 191, 0.1); }
+.season-slot__bid { display: block; margin-top: 0.15em; font-size: clamp(0.4rem, 0.8vw, 0.6rem); font-weight: 700; letter-spacing: 0.04em; color: var(--color-background); font-variant-numeric: tabular-nums; }
+.season-slot-card__status--talks { background: rgba(236, 219, 191, 0.24); color: var(--color-background); }
+.season-status--talks { color: var(--color-beige); }
+.season-bids { display: grid; gap: 0.85rem; min-width: 0; margin-top: 0.4rem; }
+.season-bids__head { display: grid; gap: 0.3rem; }
+.season-bids__amount { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; margin: 0; }
+.season-bids__kicker { flex-basis: 100%; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75; }
+.season-bids__figure { font-family: var(--font-family-display); font-size: clamp(2rem, 4vw, 2.6rem); line-height: 0.95; font-variant-numeric: tabular-nums; }
+.season-bids__currency { font-family: var(--font-family-body); font-weight: 600; font-size: 0.55em; vertical-align: 0.6em; margin-right: 0.08em; }
+.season-bids__unit { font-size: 0.85rem; font-weight: 600; opacity: 0.8; }
+.season-bids__meta { margin: 0; font-size: 0.85rem; line-height: 1.5; opacity: 0.85; }
+.season-bids__left { font-weight: 600; white-space: nowrap; }
+.season-bids__list { display: grid; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; border-top: 1px solid currentColor; border-color: rgba(162, 123, 93, 0.35); }
+.season-bids__list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid rgba(162, 123, 93, 0.25); }
+.season-bids__list li.is-top { font-weight: 700; }
+.season-bids__who { min-width: 0; overflow-wrap: anywhere; }
+.season-bids__bid { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.season-bids__more { justify-content: flex-start; opacity: 0.75; }
+.season-bids__cta { justify-self: start; }
+.season-bids--dark .season-bids__figure { color: var(--color-sand); }
+.season-bids--light .season-bids__figure { color: var(--color-primary); }
+.season-bids--light .season-bids__kicker, .season-bids--light .season-bids__meta { color: rgba(46, 29, 35, 0.8); opacity: 1; }
+
+.season-bid-dialog { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(40rem, calc(100vw - 2rem)); max-height: calc(100svh - 2rem); padding: 0; border: 0; border-radius: var(--panel-radius); background: var(--color-background); color: var(--color-foreground); box-shadow: 0 30px 80px rgba(46, 29, 35, 0.35); overflow: auto; overscroll-behavior: contain; }
+.season-bid-dialog::backdrop { background: rgba(46, 29, 35, 0.6); backdrop-filter: blur(3px); }
+.season-bid-dialog__inner { display: grid; gap: 1rem; padding: clamp(1.1rem, 4vw, 2rem); }
+.season-bid-dialog__head { position: relative; display: grid; gap: 0.4rem; padding-right: 3rem; }
+.season-bid-dialog__head .chapter-head__marker { margin: 0; }
+.season-bid-dialog__title { margin: 0; font-family: var(--font-family-display); font-weight: 400; text-transform: uppercase; font-size: clamp(1.8rem, 6vw, 2.6rem); line-height: 0.95; word-spacing: 0.18em; color: var(--color-primary); }
+.season-bid-dialog__close { position: absolute; top: -0.25rem; right: -0.25rem; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border: 1px solid rgba(162, 123, 93, 0.4); border-radius: 9999px; background: transparent; color: var(--color-foreground); font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.season-bid-dialog__close:hover, .season-bid-dialog__close:focus-visible { background: var(--color-sand); }
+.season-bid-dialog .contact-form { box-shadow: none; padding: 0; border: 0; background: transparent; }
+.season-bid-form__amount { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-family-display); font-size: 1.6rem; color: var(--color-primary); }
+.season-bid-form__amount .contact-form__input { font-family: var(--font-family-body); font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.season-bid-form__hint { margin: 0; font-size: 0.82rem; color: rgba(46, 29, 35, 0.75); }
+.contact-form__field .season-bid-form__hint { margin-top: 0.1rem; }
+.season-bid-form__check { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.92rem; line-height: 1.5; cursor: pointer; }
+.season-bid-form__check input { flex-shrink: 0; width: 1.25rem; height: 1.25rem; margin-top: 0.1rem; accent-color: var(--color-primary); }
+
+.season-confirm__inner { display: grid; justify-items: start; gap: 1.1rem; max-width: 40rem; padding-block: clamp(8rem, 18vh, 11rem) clamp(4rem, 10vh, 6rem); }
+.season-confirm__inner p { margin: 0; line-height: 1.65; }
+.season-confirm__note { font-size: 0.85rem; color: rgba(46, 29, 35, 0.75); }
+
+.season-admin { max-width: 60rem; margin: 0 auto; padding: clamp(1.5rem, 5vw, 3rem) var(--site-gutter) 4rem; color: var(--color-foreground); }
+.season-admin__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.season-admin__head .chapter-head__marker { flex-basis: 100%; margin: 0; }
+.season-admin__login { max-width: 24rem; }
+.season-admin__notice { padding: 0.8rem 1rem; border-radius: 0.75rem; background: var(--color-sand); }
+.season-admin__spot { padding: 1.5rem 0; border-top: 1px solid var(--color-border); }
+.season-admin__spot-title { margin: 0 0 0.25rem; font-family: var(--font-family-display); font-weight: 400; text-transform: uppercase; font-size: 1.6rem; }
+.season-admin__meta { margin: 0; font-size: 0.85rem; color: rgba(46, 29, 35, 0.75); overflow-wrap: anywhere; }
+.season-admin__bids { display: grid; gap: 0.75rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.season-admin__bid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: 1rem; border: 1px solid var(--color-border); background: var(--color-surface); }
+.season-admin__bid p { margin: 0; }
+.season-admin__bid--pending { border-color: var(--color-accent-dark); box-shadow: inset 4px 0 0 var(--color-accent-dark); }
+.season-admin__bid--winner { background: var(--color-sand); }
+.season-admin__bid--rejected, .season-admin__bid--unconfirmed { opacity: 0.6; }
+.season-admin__bid-main { display: grid; gap: 0.2rem; min-width: 0; flex: 1 1 18rem; }
+.season-admin__amount { font-family: var(--font-family-display); font-size: 1.6rem; color: var(--color-primary); }
+.season-admin__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.season-admin__btn { padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+@media (max-width: 1023px) {
+  .season-slot__bid { font-size: clamp(0.55rem, 1.4vw, 0.75rem); }
+}
+.mk-offer-copy .season-bids { max-width: 30rem; }
+.mk-numbered-item__desc.mk-offer-copy { min-width: 0; }

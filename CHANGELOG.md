@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Follow Season 1 by email: a double opt-in signup on `/season` (and the homepage once the season is public) that adds confirmed followers to Resend Contacts.
+- Brand link alerts: open `/season?ref=brand` and Joachim gets an email saying which brand opened the link, roughly where from and on what device.
 - Season 1 page is interactive: a live topographic contour hero, checkpoints on an elevation profile that draws as you scroll, and the sponsor board drawn as the real YouTube banner with selectable spots.
 - Advisory for early-stage startups and scale-ups in gaming, media, AI and frontier tech, on the homepage and in the AI context.
 - `/advisory` page: open to advisory, board and select operator roles, with background, focus areas and an email route. Linked from the nav, footer, About, Work and Connect.
@@ -20,6 +22,19 @@ All notable changes to this project will be documented in this file.
 ### Removed
 - Team Haraldsen (paused) and DailyBase (parked) from the homepage, work list, metadata and AI context.
 - The scrolling brand strip under the hero. Its credentials already appear in the hero stats.
+
+## [0.6.1.0] - 2026-10-05
+
+### Added
+- Live sponsor bidding on the Season 1 board: spots with an opening bid take non-binding bids, bidders confirm a work email, and each bid shows on the board only after Joachim approves it at `/season/admin`.
+
+### Fixed
+- Season bidding requires an explicitly configured dedicated database and rejects the retiring fitness project. Production cannot accept bids into an ephemeral demo store.
+- Season bid emails use the configured Season sender, with the contact sender retained as fallback.
+- Media kit and Season pages satisfy Next.js page-props checks in production builds.
+
+### Changed
+- Dedicated bidding setup includes a clean schema bootstrap, restricted private-table privileges and secret-gated RPCs, with configuration and release instructions.
 
 ## [0.6.0.0] - 2026-09-10
 
