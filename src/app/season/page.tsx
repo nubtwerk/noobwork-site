@@ -3,12 +3,12 @@ import Link from "next/link";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import ContourField from "@/components/ui/ContourField";
 import ContactForm from "@/components/ui/ContactForm";
 import FollowSeasonForm from "@/components/ui/FollowSeasonForm";
 import RevealText from "@/components/ui/RevealText";
 import SeasonBoard from "@/components/ui/SeasonBoard";
 import SeasonProfile from "@/components/ui/SeasonProfile";
+import TerrainField from "@/components/ui/TerrainField";
 import TypeMarquee from "@/components/ui/TypeMarquee";
 import ScrollToHash from "@/components/ui/ScrollToHash";
 import SeasonVisitBeacon from "@/components/ui/SeasonVisitBeacon";
@@ -80,7 +80,7 @@ export default async function Season({ searchParams }: { searchParams?: Promise<
       <SeasonVisitBeacon visitRef={visitRef} />
       <main id="main-content" className="site-main media-kit season">
         <section className="site-section mk-hero season-hero">
-          <ContourField />
+          <TerrainField />
           <div className="season-hero__veil" aria-hidden="true" />
           <div className="poster-hero__grain" aria-hidden="true" />
           <div className="shell-inner mk-hero__stage">

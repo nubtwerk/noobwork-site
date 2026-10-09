@@ -40,6 +40,13 @@ describe("Season page", () => {
     }
   });
 
+  it("draws the terrain hero, decorative to assistive tech", async () => {
+    const { container } = render(await page());
+    const canvas = container.querySelector("section.season-hero canvas.terrain-field");
+    expect(canvas).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector("canvas.contour-field")).toBeNull();
+  });
+
   it("shows approved bids by category unless the brand opted in, never pending ones", async () => {
     const store = createMemoryStore();
     const base = { website: "x.com", contactName: "X", email: "x@x.com", tokenHash: null, createdAt: "2026-10-10T00:00:00Z", confirmedAt: "2026-10-10T00:00:00Z", decidedAt: null };
