@@ -1,9 +1,11 @@
 import { expect, test } from "@playwright/test";
+import { unlockSeason } from "./season-unlock";
 
 for (const path of ["/follow/confirm?t=synthetic-follow-token", "/season/confirm?token=synthetic-bid-token"]) {
   test(`analytics excludes ${path.split("?")[0]} on direct load and client navigation`, async ({ page }) => {
     // Leave the SDK queue intact so the real app's registered beforeSend can be inspected.
     await page.route("**/_vercel/insights/script.js", (route) => route.fulfill({ contentType: "application/javascript", body: "" }));
+    if (path.startsWith("/season/")) await unlockSeason(page);
     await page.goto(path);
     const filtered = () => page.evaluate(() => {
       const queue = (window as unknown as { vaq?: [string, (event: { type: string; url: string }) => unknown][] }).vaq;

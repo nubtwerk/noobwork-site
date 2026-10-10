@@ -38,6 +38,8 @@ export default defineConfig({
     env: {
       ...process.env,
       CONTACT_EMAIL_MODE: "stub",
+      // Soft Season gate; matches .env.example. Unset fails closed in real deploys.
+      SEASON_PAGE_PASSWORD: process.env.SEASON_PAGE_PASSWORD || "Julia123",
       PORT: String(port),
     },
   },

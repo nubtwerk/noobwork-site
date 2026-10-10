@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { unlockSeason } from "./season-unlock";
 
 test("native bid confirmation preserves its same-origin security header", async ({ page }) => {
   let origin: string | undefined;
@@ -7,6 +8,7 @@ test("native bid confirmation preserves its same-origin security header", async 
     expect(route.request().method()).toBe("POST");
     await route.fulfill({ status: 303, headers: { location: "/season/confirm?result=confirmed&spot=banner-1" } });
   });
+  await unlockSeason(page);
   await page.goto("/season/confirm?token=browser-regression-token");
   const siteOrigin = new URL(page.url()).origin;
   await page.getByRole("button", { name: "Confirm my bid", exact: true }).click();
@@ -20,6 +22,7 @@ test("bid confirmation does not send its token URL to another site", async ({ pa
     referrer = route.request().headers().referer;
     await route.fulfill({ status: 200, contentType: "text/html", body: "External destination" });
   });
+  await unlockSeason(page);
   await page.goto("/season/confirm?token=browser-regression-token");
   await page.evaluate(() => {
     const link = document.createElement("a");
