@@ -63,10 +63,11 @@ describe("challenge windows", () => {
     expect(formatWindowDates(challenge.windows[1])).toBe("1 to 14 April 2027");
   });
 
-  it("stays out of production until enabled", () => {
-    expect(challenge.enabled).toBe(false);
+  it("shows in production once enabled", () => {
+    expect(challenge.enabled).toBe(true);
+    expect(challenge.rulesReviewed).toBe(true);
     vi.stubEnv("VERCEL_ENV", "production");
-    expect(isChallengeVisible()).toBe(false);
+    expect(isChallengeVisible()).toBe(true);
     vi.stubEnv("VERCEL_ENV", "preview");
     expect(isChallengeVisible()).toBe(true);
   });

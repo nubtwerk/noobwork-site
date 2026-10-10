@@ -33,6 +33,7 @@ Before each proposal, verify the relevant channel’s current 30/90-day analytic
 - Spot status lives in `src/data/season.ts`. Set `reserved` on a verbal yes and `sold` once signed and invoiced.
 - Add `sponsor` only when the agreement allows the brand to be named publicly. Never name an unsigned brand.
 - Keep `season.isPublic` false while spots are sold privately. Flip it at the public announcement, which adds the page to the sitemap and lets search engines index it.
+- While private, `/season` (and viewer child routes such as `/season/challenge/*`) use a soft page password via `SEASON_PAGE_PASSWORD` and an HttpOnly cookie from `/api/season/unlock`. Unset fails closed. Admin routes keep `SEASON_ADMIN_PASSWORD`.
 - Season inquiries arrive with the format "Season 1 sponsorship" and the chosen spot in the opening line of the message.
 - Spots with an `openingBid` can accept non-binding bids when bidding is enabled and the dedicated database is configured. Bidders confirm their email, then an admin reviews the bid; approval does not create a paid booking. Missing hosted configuration uses the inquiry path. See [database setup and release verification](./season-database-separation.md).
 

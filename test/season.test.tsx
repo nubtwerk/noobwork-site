@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import Season, { metadata } from "@/app/season/page";
+import Season, { metadata } from "@/app/season/(gated)/page";
 import sitemap from "@/app/sitemap";
 import { season, seasonSpots } from "@/data/season";
 import { parseContactPayload } from "@/lib/contact";
