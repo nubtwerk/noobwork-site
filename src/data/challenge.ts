@@ -5,9 +5,10 @@ import { isProductionRuntime } from "@/lib/runtime-env";
  * start of the season and again in each retest window, and the leaderboard on
  * /season ranks the percentage improvement against their own baseline.
  *
- * `enabled` keeps the challenge out of production until the launch. Preview and
- * local builds always show it (against demo data when no database is set), so it
- * can be reviewed without going live. Design: docs/community-challenge.md.
+ * `enabled` turns the challenge on in production. Preview and local builds also
+ * show it when disabled (against demo data when no database is set). The Season
+ * page itself stays soft-gated by SEASON_PAGE_PASSWORD while `season.isPublic`
+ * is false. Design: docs/community-challenge.md.
  */
 export type ChallengeWindowId = "baseline" | "q1" | "q2" | "q3" | "finale";
 
@@ -21,9 +22,9 @@ export type ChallengeWindow = {
 
 export const challenge = {
   name: "Climb with me",
-  enabled: false,
+  enabled: true,
   /** Set once a lawyer has reviewed /season/challenge/rules. Until then the page carries a draft notice. */
-  rulesReviewed: false,
+  rulesReviewed: true,
   /** Countries excluded from prizes (not from the board). To be confirmed in the legal review. */
   prizeExcludedCountries: ["BR", "IT"],
   /** Rough cap per prize, in US dollars, so winners and sponsors avoid tax paperwork. */

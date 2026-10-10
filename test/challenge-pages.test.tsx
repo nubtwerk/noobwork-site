@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import Season from "@/app/season/page";
-import RunnerPage, { metadata as runnerMeta } from "@/app/season/challenge/me/page";
-import { metadata as confirmMeta } from "@/app/season/challenge/confirm/page";
-import ChallengeRules from "@/app/season/challenge/rules/page";
+import Season from "@/app/season/(gated)/page";
+import RunnerPage, { metadata as runnerMeta } from "@/app/season/(gated)/challenge/me/page";
+import { metadata as confirmMeta } from "@/app/season/(gated)/challenge/confirm/page";
+import ChallengeRules from "@/app/season/(gated)/challenge/rules/page";
 import ChallengeAdmin, { metadata as adminMeta } from "@/app/season/admin/challenge/page";
 import ChallengeSection from "@/components/sections/ChallengeSection";
 import { challenge } from "@/data/challenge";
@@ -104,9 +104,9 @@ describe("runner page", () => {
 });
 
 describe("rules and admin", () => {
-  it("marks the rules as a draft until reviewed", () => {
+  it("drops the draft notice once rules are reviewed", () => {
     render(<ChallengeRules />);
-    expect(screen.getByRole("note")).toHaveTextContent("waiting for a legal review");
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
     expect(screen.getByText(/Residents of Brazil and Italy/)).toBeInTheDocument();
   });
 

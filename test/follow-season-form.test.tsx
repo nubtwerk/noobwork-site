@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import FollowSeasonForm from "@/components/ui/FollowSeasonForm";
 import SeasonVisitBeacon from "@/components/ui/SeasonVisitBeacon";
-import Season from "@/app/season/page";
+import Season from "@/app/season/(gated)/page";
 
 vi.mock("@vercel/analytics", () => ({ track: vi.fn() }));
 

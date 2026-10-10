@@ -7,13 +7,14 @@ import { adminSessionValue, createRunnerToken, verifyRunnerToken } from "@/lib/c
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
 describe("challenge production boundary", () => {
-  it("disables public demo tokens, clock and launch bypass outside Vercel", () => {
+  it("disables public demo tokens and clock outside Vercel", () => {
     const preview = createRunnerToken("synthetic");
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("VERCEL_ENV", "");
     vi.stubEnv("CHALLENGE_SECRET", "");
     expect(isChallengeDemo()).toBe(false);
-    expect(isChallengeVisible()).toBe(false);
+    // Challenge content is launch-enabled; the Season page soft-gate is separate.
+    expect(isChallengeVisible()).toBe(true);
     expect(challengeNow()).not.toBe(DEMO_NOW);
     expect(verifyRunnerToken(preview)).toBeUndefined();
     expect(adminSessionValue("preview")).toBeUndefined();

@@ -43,6 +43,7 @@ jobs:
         env:
           CI: true
           CONTACT_EMAIL_MODE: stub
+          SEASON_PAGE_PASSWORD: Julia123
   test:
     # Retain the existing required check name while checking both applications + E2E.
     if: always()

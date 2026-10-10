@@ -22,10 +22,10 @@ Followers run Season 1 with Joachim: a 5 km baseline in January 2027, then a ret
 
 ## Going live
 
-1. Legal review of `/season/challenge/rules`, then set `rulesReviewed: true` and confirm `prizeExcludedCountries`.
+1. Legal review of `/season/challenge/rules`, then set `rulesReviewed: true` and confirm `prizeExcludedCountries`. (Rules accepted; `rulesReviewed` is true.)
 2. The challenge shares the dedicated Season database (`noobwork-season`) with sponsor bidding, under the same lock-down: tables in the unexposed `season_private` schema, reached only through functions that check the server secret, publishable key only, no service role key. After the bidding bootstrap (`20261004104045_season_clean_database.sql`) is applied, apply `supabase/migrations/20261005030000_season_challenge.sql` to the same project. It refuses to run before the bootstrap, adds nothing to the `public` schema except its functions, and can be re-run. Never apply it to the fitness database.
-3. The challenge reads the same Vercel settings as bidding: `SEASON_SUPABASE_PROJECT_REF`, `SEASON_SUPABASE_URL`, `SEASON_SUPABASE_KEY`, `SEASON_DB_SECRET`, `SEASON_ADMIN_PASSWORD`, `SEASON_FROM_EMAIL` (see `docs/season-database-separation.md` on the bidding branch). Add `CHALLENGE_SECRET` (32+ random characters) for personal links.
-4. Set `enabled: true` in `src/data/challenge.ts` when `/season` goes public in mid-December.
+3. The challenge reads the same Vercel settings as bidding: `SEASON_SUPABASE_PROJECT_REF`, `SEASON_SUPABASE_URL`, `SEASON_SUPABASE_KEY`, `SEASON_DB_SECRET`, `SEASON_ADMIN_PASSWORD`, `SEASON_FROM_EMAIL` (see `docs/season-database-separation.md` on the bidding branch). Add `CHALLENGE_SECRET` (32+ random characters) for personal links. Set `SEASON_PAGE_PASSWORD` so the soft gate on `/season` (and viewer child routes) can unlock; unset fails closed. `/season/admin` keeps its own password.
+4. `enabled` is true so the challenge section shows when the Season page is unlocked. Keep `season.isPublic` false until the public announcement (no sitemap/nav).
 
 `CHALLENGE_SECRET` must be an explicit, purpose-specific random secret of at least 32 characters for real data; email-provider and follower keys are never reused. `CHALLENGE_SECRET` signs every personal link. Changing it breaks every runner's link (they can get a new one by entering their email again).
 
